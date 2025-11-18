@@ -10,7 +10,7 @@ Ich bin Mathematik-, Informatik- und Wirtschaftslehrer am Studienkolleg Leipzig,
 
 ## Ausbildung
 
-- **Bachelor in Mathematik** - RWTH Aachen
+- **Bachelor in Mathematik** - hhu Düsseldorf
 - **Data Science Master** (unvollständig) - RWTH Aachen
 
 ## Schwerpunkte
