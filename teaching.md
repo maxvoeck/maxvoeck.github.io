@@ -34,25 +34,25 @@ permalink: /teaching/
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #4CAF50, #2196F3);
+  background: linear-gradient(90deg, #6b7280, #374151);
 }
 
 .section-card.math::before {
-  background: linear-gradient(90deg, #9C27B0, #673AB7);
+  background: linear-gradient(90deg, #4b5563, #1f2937);
 }
 
 .section-card.econ::before {
-  background: linear-gradient(90deg, #FF9800, #FF5722);
+  background: linear-gradient(90deg, #6b7280, #4b5563);
 }
 
 .section-card.cs::before {
-  background: linear-gradient(90deg, #00BCD4, #009688);
+  background: linear-gradient(90deg, #9ca3af, #6b7280);
 }
 
 .icon-wrapper {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -61,15 +61,15 @@ permalink: /teaching/
 }
 
 .section-card.math .icon-wrapper {
-  background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
 }
 
 .section-card.econ .icon-wrapper {
-  background: linear-gradient(135deg, #FF9800 0%, #FF5722 100%);
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
 }
 
 .section-card.cs .icon-wrapper {
-  background: linear-gradient(135deg, #00BCD4 0%, #009688 100%);
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
 }
 
 .icon-wrapper svg {
@@ -109,7 +109,7 @@ permalink: /teaching/
 .btn {
   display: inline-block;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
   color: white;
   text-decoration: none;
   border-radius: 8px;
@@ -119,20 +119,20 @@ permalink: /teaching/
 }
 
 .section-card.math .btn {
-  background: linear-gradient(135deg, #9C27B0 0%, #673AB7 100%);
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
 }
 
 .section-card.econ .btn {
-  background: linear-gradient(135deg, #FF9800 0%, #FF5722 100%);
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
 }
 
 .section-card.cs .btn {
-  background: linear-gradient(135deg, #00BCD4 0%, #009688 100%);
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
 }
 
 .btn:hover {
   transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(75, 85, 99, 0.3);
 }
 
 .intro-text {
