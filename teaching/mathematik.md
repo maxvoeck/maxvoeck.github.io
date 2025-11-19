@@ -43,6 +43,12 @@ permalink: /teaching/mathematik/
   text-decoration: none;
   border-radius: 4px;
   font-size: 0.85rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-small:hover {
+  background: #005a9e;
+  transform: translateY(-1px);
 }
 
 .section-header {
