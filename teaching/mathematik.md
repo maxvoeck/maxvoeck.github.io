@@ -111,10 +111,10 @@ permalink: /teaching/mathematik/
 }
 </style>
 
-<div class="page-header">
-  <h1>Mathematik</h1>
-  <p>Materialien zur Prüfungsvorbereitung am Studienkolleg</p>
-</div>
+
+<p class="intro-text">
+ Materialien zur Prüfungsvorbereitung am Studienkolleg
+</p>
 
 <h2 class="section-header">Lineare Algebra</h2>
 <div class="materials-grid">
