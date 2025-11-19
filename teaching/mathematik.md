@@ -17,6 +17,7 @@ permalink: /teaching/mathematik/
   border-radius: 8px;
   padding: 1.5rem;
   transition: box-shadow 0.3s ease;
+  background: #fff;
 }
 
 .material-card:hover {
@@ -38,35 +39,82 @@ permalink: /teaching/mathematik/
 .btn-small {
   display: inline-block;
   padding: 0.4rem 0.8rem;
-  background: #007acc;
-  color: white;
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  color: white !important;
   text-decoration: none;
   border-radius: 4px;
   font-size: 0.85rem;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .btn-small:hover {
-  background: #005a9e;
+  background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
   transform: translateY(-1px);
+  color: black !important;
 }
 
 .section-header {
-  border-bottom: 2px solid #007acc;
+  border-bottom: 2px solid #374151;
   padding-bottom: 0.5rem;
   margin: 2rem 0 1rem 0;
+  color: #1f2937;
 }
 
 .coming-soon {
-  background: #f5f5f5;
+  background: #f8f9fa;
   padding: 1rem;
   border-radius: 4px;
   color: #666;
   font-style: italic;
+  border-left: 4px solid #374151;
+}
+
+.page-header {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  color: white;
+  padding: 2rem;
+  margin: -2rem -2rem 2rem -2rem;
+  border-radius: 0 0 12px 12px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: #374151;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #1f2937;
+}
+
+@media (max-width: 768px) {
+  .materials-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .page-header {
+    margin: -1rem -1rem 2rem -1rem;
+    padding: 1.5rem;
+  }
+  
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
 }
 </style>
 
-Materialien zur Mathematik für die Prüfungsvorbereitung am Studienkolleg.
+<div class="page-header">
+  <h1>Mathematik</h1>
+  <p>Materialien zur Prüfungsvorbereitung am Studienkolleg</p>
+</div>
 
 <h2 class="section-header">Lineare Algebra</h2>
 <div class="coming-soon">Materialien werden in Kürze hinzugefügt...</div>
@@ -95,4 +143,4 @@ Materialien zur Mathematik für die Prüfungsvorbereitung am Studienkolleg.
   </div>
 </div>
 
-<p style="margin-top: 3rem;"><a href="/teaching/">← Zurück zur Übersicht</a></p>
+<a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
