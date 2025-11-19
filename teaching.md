@@ -121,7 +121,7 @@ permalink: /teaching/
 .btn:hover {
   transform: translateX(4px);
   box-shadow: 0 4px 12px rgba(75, 85, 99, 0.3);
-  color: black;
+  color: black !important;
 }
 
 .section-card.math .btn {
