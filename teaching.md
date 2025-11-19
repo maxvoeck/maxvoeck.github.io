@@ -110,7 +110,7 @@ permalink: /teaching/
   display: inline-block;
   padding: 0.75rem 1.5rem;
   background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
-  color: white;
+  color: white !important;
   text-decoration: none;
   border-radius: 8px;
   font-weight: 500;
