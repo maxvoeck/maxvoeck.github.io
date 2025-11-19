@@ -118,6 +118,12 @@ permalink: /teaching/
   text-align: center;
 }
 
+.btn:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(75, 85, 99, 0.3);
+  color: black;
+}
+
 .section-card.math .btn {
   background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
 }
@@ -128,11 +134,6 @@ permalink: /teaching/
 
 .section-card.cs .btn {
   background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
-}
-
-.btn:hover {
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(75, 85, 99, 0.3);
 }
 
 .intro-text {
