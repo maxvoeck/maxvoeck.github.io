@@ -205,13 +205,11 @@ permalink: /teaching/mathematik/
     <p>Hauptsatz, bestimmte Integrale, Flächenberechnung zwischen Graphen</p>
     <a href="/assets/pdfs/Integral_2_3.pdf" class="btn-small">PDF öffnen</a>
   </div>
-</div>
-
-<div class="material-card">
+  
+  <div class="material-card">
     <h4>📕 Flächen & Rotationsvolumen</h4>
     <p>Flächenberechnung mit Integrationstechniken, Rotationskörper um x- und y-Achse, Volumen- und Massenberechnung</p>
     <a href="/assets/pdfs/Integral_2_4.pdf" class="btn-small">PDF öffnen</a>
   </div>
 </div>
-
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
