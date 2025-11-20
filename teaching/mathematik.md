@@ -119,18 +119,6 @@ permalink: /teaching/mathematik/
 <h2 class="section-header">Lineare Algebra</h2>
 <div class="materials-grid">
   <div class="material-card">
-    <h4>📘 Lineare Gleichungssysteme – Grundlagen</h4>
-    <p>Einführung in LGS, Matrixschreibweise, Gauß-Algorithmus, Lösbarkeitskriterien und praktische Anwendungen in Ingenieurwesen und Wirtschaft</p>
-    <a href="/assets/pdfs/LGS_2_1-5.pdf" class="btn-small">PDF öffnen</a>
-  </div>
-  
-  <div class="material-card">
-    <h4>📗 Lineare Gleichungssysteme – Parameterabhängigkeit</h4>
-    <p>Untersuchung von LGS mit Parametern, Determinantentest, Fallunterscheidungen und Lösbarkeitsanalyse für verschiedene Parameterwerte</p>
-    <a href="/assets/pdfs/LGS_2_2-2.pdf" class="btn-small">PDF öffnen</a>
-  </div>
-  
-  <div class="material-card">
     <h4>📙 Matrizen – Einführung und Rechenoperationen</h4>
     <p>Grundlagen der Matrizenrechnung: Addition, Multiplikation, Transponieren, spezielle Matrizen und Rechenregeln mit praktischen Beispielen</p>
     <a href="/assets/pdfs/Matrizen_2_1-5.pdf" class="btn-small">PDF öffnen</a>
@@ -147,10 +135,28 @@ permalink: /teaching/mathematik/
     <p>Umfangreiche Übungsaufgaben zu Matrizengleichungen, Rangbestimmung, Gauß-Elimination und Lösungsstrategien für verschiedene Matrixgrößen</p>
     <a href="/assets/pdfs/Matrizen_2_3-3.pdf" class="btn-small">PDF öffnen</a>
   </div>
+  
+  <div class="material-card">
+    <h4>📘 Lineare Gleichungssysteme – Grundlagen</h4>
+    <p>Einführung in LGS, Matrixschreibweise, Gauß-Algorithmus, Lösbarkeitskriterien und praktische Anwendungen in Ingenieurwesen und Wirtschaft</p>
+    <a href="/assets/pdfs/LGS_2_1-5.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+  
+  <div class="material-card">
+    <h4>📗 Lineare Gleichungssysteme – Parameterabhängigkeit</h4>
+    <p>Untersuchung von LGS mit Parametern, Determinantentest, Fallunterscheidungen und Lösbarkeitsanalyse für verschiedene Parameterwerte</p>
+    <a href="/assets/pdfs/LGS_2_2-2.pdf" class="btn-small">PDF öffnen</a>
+  </div>
 </div>
 
 <h2 class="section-header">Differentialrechnung</h2>
-<div class="coming-soon">Materialien werden in Kürze hinzugefügt...</div>
+<div class="materials-grid">
+  <div class="material-card">
+    <h4>📘 Extremwertaufgaben</h4>
+    <p>Systematisches Lösen von Optimierungsproblemen: Haupt- und Nebenbedingungen, Zielfunktionen, Kurvendiskussion mit Beispielen aus Technik und Wirtschaft</p>
+    <a href="/assets/pdfs/Extrem_2_1.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+</div>
 
 <h2 class="section-header">Integralrechnung</h2>
 <div class="materials-grid">
