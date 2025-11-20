@@ -6,12 +6,11 @@ permalink: /about/
 
 ## Hintergrund
 
-Ich bin Mathematik-, Informatik- und Wirtschaftslehrer am Studienkolleg Leipzig, wo ich internationale Studierende auf ihr Hochschulstudium vorbereite. Seit Januar 2025 arbeite ich zusätzlich an wirtschaftlichen Machbarkeitsanalysen, Datenanalyse und Digitalisierungsprojekten für die Schulverwaltung.
-
+Ich bin Mathematik-, Informatik- und Wirtschaftslehrer am Studienkolleg Leipzig, wo ich internationale Studierende auf ihr Hochschulstudium vorbereite. 
 ## Ausbildung
 
 - **Bachelor in Mathematik** - hhu Düsseldorf
-- **Data Science Master** (unvollständig) - RWTH Aachen
+- **Data Science Master**  - RWTH Aachen
 
 ## Schwerpunkte
 
@@ -29,4 +28,4 @@ Für Anfragen zu Projekten, Consulting oder Zusammenarbeit:
 
 - **E-Mail**: deine-email@example.com
 - **GitHub**: [dein-username](https://github.com/dein-username)
-- **LinkedIn**: [dein-profil](https://linkedin.com/in/dein-profil)
+
