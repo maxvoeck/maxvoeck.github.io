@@ -111,9 +111,7 @@ permalink: /teaching/mathematik/
 }
 </style>
 
-<div class="page-header">
-  <h1>Mathematik</h1>
-</div>
+
 
 <p class="intro-text">
  Materialien zur Prüfungsvorbereitung am Studienkolleg
