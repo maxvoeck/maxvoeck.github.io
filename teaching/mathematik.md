@@ -111,10 +111,40 @@ permalink: /teaching/mathematik/
 }
 </style>
 
+<div class="page-header">
+  <h1>Mathematik</h1>
+</div>
 
 <p class="intro-text">
  Materialien zur Prüfungsvorbereitung am Studienkolleg
 </p>
+
+<h2 class="section-header">Vektorrechnung und Analytische Geometrie</h2>
+<div class="materials-grid">
+  <div class="material-card">
+    <h4>📐 Vektorrechnung – Grundlagen</h4>
+    <p>Einführung in Vektoren, Koordinatensysteme, Skalare vs. vektorielle Größen, Betrag, Einheitsvektoren, Basisvektoren und Grundoperationen</p>
+    <a href="/assets/pdfs/Geo_2_1-2.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+  
+  <div class="material-card">
+    <h4>📏 Vektorprodukt und Spatprodukt</h4>
+    <p>Kreuzprodukt, geometrische Bedeutung, Flächenberechnung, Spatprodukt, Volumenberechnung und Anwendungen in der Raumgeometrie</p>
+    <a href="/assets/pdfs/Geo_2_2-2.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+  
+  <div class="material-card">
+    <h4>📊 Geraden und Ebenen im Raum</h4>
+    <p>Parametergleichungen von Geraden und Ebenen, Normalenvektor, Koordinatenform, Lagebeziehungen und Schnittwinkelberechnung</p>
+    <a href="/assets/pdfs/Geo_2_3.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+  
+  <div class="material-card">
+    <h4>📐 Lagebeziehungen und Abstände</h4>
+    <p>Ebene-Ebene-Lagen, Abstandsberechnungen zwischen Punkten, Geraden und Ebenen, Hessesche Normalenform und praktische Anwendungen</p>
+    <a href="/assets/pdfs/Geo_2_4.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+</div>
 
 <h2 class="section-header">Lineare Algebra</h2>
 <div class="materials-grid">
