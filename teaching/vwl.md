@@ -152,6 +152,12 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
     <p>Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Auswirkungen von Steuern und Subventionen, praktische Beispiele und Berechnungen</p>
     <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="btn-small">PDF öffnen</a>
   </div>
+
+  <div class="material-card">
+    <h4>💰 Konsumenten- und Produzentenrente</h4>
+    <p>Definition und Berechnung der Konsumenten- und Produzentenrente, ökonomische Wohlfahrt, Prohibitivpreis, graphische Darstellung, Beispielrechnungen am Smartwatch-Markt, Übungsaufgaben mit Lösungswegen</p>
+    <a href="/assets/pdfs/WS_VWL_6.pdf" class="btn-small">PDF öffnen</a>
+  </div>
 </div>
 
 <h2 class="section-header">Makroökonomie</h2>
