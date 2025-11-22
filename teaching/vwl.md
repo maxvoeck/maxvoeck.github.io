@@ -134,6 +134,24 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
     <p>Freie und wirtschaftliche Güter, inferiore und superiore Güter, Einkommenselastizität der Nachfrage, meritorische und demeritorische Güter, staatliche Markteingriffe</p>
     <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="btn-small">PDF öffnen</a>
   </div>
+  
+  <div class="material-card">
+    <h4>📈 Angebot und Angebotskurve</h4>
+    <p>Das Marktmodell, Gesetz des Angebots, Angebotsfunktion, aggregiertes Marktangebot, Verschiebung vs. Bewegung auf der Angebotskurve, Einflussfaktoren</p>
+    <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+  
+  <div class="material-card">
+    <h4>📉 Nachfragekurve und Nachfragefunktion</h4>
+    <p>Gesetz der Nachfrage, Nachfragefunktion, aggregierte Marktnachfrage, Verschiebung der Nachfragekurve, Einflussfaktoren wie Einkommen, Präferenzen und Preise verwandter Güter</p>
+    <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+  
+  <div class="material-card">
+    <h4>⚖️ Marktgleichgewicht und seine Dynamik</h4>
+    <p>Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Auswirkungen von Steuern und Subventionen, praktische Beispiele und Berechnungen</p>
+    <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="btn-small">PDF öffnen</a>
+  </div>
 </div>
 
 <h2 class="section-header">Makroökonomie</h2>
