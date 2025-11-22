@@ -160,6 +160,12 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
   </div>
 </div>
 
+
+<h2 class="section-header">Makroökonomie</h2>
+<div class="coming-soon">
+  <p>📚 Materialien werden in Kürze hinzugefügt...</p>
+</div>
+
 <h2 class="section-header">Klausuraufgaben</h2>
 <div class="materials-grid">
   <div class="material-card">
@@ -167,11 +173,6 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
     <p>Umfangreiche Sammlung von Übungsaufgaben zur Prüfungsvorbereitung: Bedürfnis und Nachfrage, Güterarten, Einkommenselastizität, Angebots- und Nachfragefunktionen, Marktgleichgewicht, Steuern und Subventionen, Konsumenten- und Produzentenrente </p>
     <a href="/assets/pdfs/VWL_Klausuren_Gesamt.pdf" class="btn-small">PDF öffnen</a>
   </div>
-</div>
-
-<h2 class="section-header">Makroökonomie</h2>
-<div class="coming-soon">
-  <p>📚 Materialien werden in Kürze hinzugefügt...</p>
 </div>
 
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
