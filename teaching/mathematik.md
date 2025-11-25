@@ -179,6 +179,14 @@ permalink: /teaching/mathematik/
 
 <h2 class="section-header">Differentialrechnung</h2>
 <div class="materials-grid">
+
+ <div class="material-card">
+    <h4>📐 Zahlenfolgen – Grundlagen</h4>
+    <p>Explizite und rekursive Bildungsvorschriften, Beschränktheit, Monotonie, arithmetische und geometrische Folgen mit Summenformeln</p>
+    <a href="/assets/pdfs/Folgen_2_1-2.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+
+
   <div class="material-card">
     <h4>📘 Extremwertaufgaben</h4>
     <p>Systematisches Lösen von Optimierungsproblemen: Haupt- und Nebenbedingungen, Zielfunktionen, Kurvendiskussion mit Beispielen aus Technik und Wirtschaft</p>
@@ -212,4 +220,6 @@ permalink: /teaching/mathematik/
     <a href="/assets/pdfs/Integral_2_4.pdf" class="btn-small">PDF öffnen</a>
   </div>
 </div>
+
+
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
