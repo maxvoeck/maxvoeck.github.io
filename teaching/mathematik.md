@@ -185,6 +185,12 @@ permalink: /teaching/mathematik/
     <p>Explizite und rekursive Bildungsvorschriften, Beschränktheit, Monotonie, arithmetische und geometrische Folgen mit Summenformeln</p>
     <a href="/assets/pdfs/Folgen_2_1-2.pdf" class="btn-small">PDF öffnen</a>
   </div>
+  
+  <div class="material-card">
+  <h4>📊 Grenzwerte von Zahlenfolgen</h4>
+  <p>Konvergenz und Divergenz, Nullfolgen, Grenzwertsätze, Eulersche Zahl e und Methoden zur Grenzwertbestimmung</p>
+  <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="btn-small">PDF öffnen</a>
+</div>
 
 
   <div class="material-card">
