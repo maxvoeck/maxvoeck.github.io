@@ -111,8 +111,6 @@ permalink: /teaching/mathematik/
 }
 </style>
 
-
-
 <p class="intro-text">
  Materialien zur Prüfungsvorbereitung am Studienkolleg
 </p>
@@ -179,8 +177,7 @@ permalink: /teaching/mathematik/
 
 <h2 class="section-header">Differentialrechnung</h2>
 <div class="materials-grid">
-
- <div class="material-card">
+  <div class="material-card">
     <h4>📐 Zahlenfolgen – Grundlagen</h4>
     <p>Explizite und rekursive Bildungsvorschriften, Beschränktheit, Monotonie, arithmetische und geometrische Folgen mit Summenformeln</p>
     <a href="/assets/pdfs/Folgen_2_1-2.pdf" class="btn-small">PDF öffnen</a>
@@ -225,6 +222,5 @@ permalink: /teaching/mathematik/
     <a href="/assets/pdfs/Integral_2_4.pdf" class="btn-small">PDF öffnen</a>
   </div>
 </div>
-
 
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
