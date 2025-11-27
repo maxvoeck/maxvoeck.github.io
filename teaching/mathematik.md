@@ -216,7 +216,11 @@ permalink: /teaching/mathematik/
     <a href="/assets/pdfs/Integral_2_3.pdf" class="btn-small">PDF öffnen</a>
   </div>
   
-
+  <div class="material-card">
+    <h4>📕 Flächenberechnung & Rotationsvolumen</h4>
+    <p>Flächenberechnung mit komplexeren Funktionen (Substitution, partielle Integration), Volumen von Rotationskörpern um x- und y-Achse, Masse von Rotationskörpern mit variabler Dichte, umfangreiche Übungsaufgaben</p>
+    <a href="/assets/pdfs/Integral_2_4-2.pdf" class="btn-small">PDF öffnen</a>
+  </div>
 </div>
 
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
