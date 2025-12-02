@@ -188,6 +188,12 @@ permalink: /teaching/mathematik/
     <p>Konvergenz und Divergenz, Nullfolgen, Grenzwertsätze, Eulersche Zahl e und Methoden zur Grenzwertbestimmung</p>
     <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="btn-small">PDF öffnen</a>
   </div>
+  
+ <div class="material-card">
+    <h4>🔍 Wie steil ist eine Funktion?</h4>
+    <p>Einführung in die Differentialrechnung: Steigung linearer und nicht-linearer Funktionen, Sekanten und Tangenten, Definition der Ableitung, Differenzierbarkeit und Tangentengleichungen</p>
+    <a href="/assets/pdfs/Funktion_2_1.pdf" class="btn-small">PDF öffnen</a>
+  </div>
 
   <div class="material-card">
     <h4>📘 Extremwertaufgaben</h4>
