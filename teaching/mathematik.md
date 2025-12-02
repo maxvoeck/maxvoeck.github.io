@@ -224,7 +224,7 @@ permalink: /teaching/mathematik/
   
   <div class="material-card">
     <h4>📕 Flächenberechnung & Rotationsvolumen</h4>
-    <p>Flächenberechnung mit komplexeren Funktionen (Substitution, partielle Integration), Volumen von Rotationskörpern um x- und y-Achse, Masse von Rotationskörpern mit variabler Dichte, umfangreiche Übungsaufgaben</p>
+    <p>Flächenberechnung mit komplexeren Funktionen, Volumen von Rotationskörpern um x- und y-Achse</p>
     <a href="/assets/pdfs/Intergal_2_4-2.pdf" class="btn-small">PDF öffnen</a>
   </div>
 </div>
