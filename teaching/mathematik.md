@@ -189,6 +189,14 @@ permalink: /teaching/mathematik/
     <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="btn-small">PDF öffnen</a>
   </div>
   
+  <div class="material-card">
+  <h4>📈 Grenzwerte von Funktionen – Verhalten im Unendlichen</h4>
+  <p>Einführung in Grenzwerte von Funktionen, Verhalten für x → ±∞,
+     Dominanzprinzip, waagerechte Asymptoten und typische Aufgabentypen</p>
+  <a href="/assets/pdfs/Funktion_2_2.pdf" class="btn-small">PDF öffnen</a>
+</div>
+
+  
  <div class="material-card">
     <h4>🔍 Wie steil ist eine Funktion?</h4>
     <p>Einführung in die Differentialrechnung: Steigung linearer und nicht-linearer Funktionen, Sekanten und Tangenten, Definition der Ableitung, Differenzierbarkeit und Tangentengleichungen</p>
