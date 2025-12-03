@@ -158,6 +158,14 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
     <p>Definition und Berechnung der Konsumenten- und Produzentenrente, ökonomische Wohlfahrt, Prohibitivpreis, graphische Darstellung, Beispielrechnungen am Smartwatch-Markt, Übungsaufgaben mit Lösungswegen</p>
     <a href="/assets/pdfs/WS_VWL_6.pdf" class="btn-small">PDF öffnen</a>
   </div>
+  
+  <div class="material-card">
+   <h4>🏛️ Marktformen: Monopol, Oligopol, Polypol</h4>
+   <p>Übersicht über Marktformen, Marktmacht, Marktstruktur, Vor- und Nachteile für Verbraucher, zahlreiche Beispiele und Übungsaufgaben zur Einordnung realer Märkte.</p>
+   <a href="/assets/pdfs/WS_VWL_7.pdf" class="btn-small">PDF öffnen</a>
+  </div>
+
+  
 </div>
 
 
