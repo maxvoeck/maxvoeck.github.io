@@ -196,6 +196,13 @@ permalink: /teaching/mathematik/
   <a href="/assets/pdfs/Funktion_2_2.pdf" class="btn-small">PDF öffnen</a>
 </div>
 
+<div class="material-card">
+  <h4>📈 Grenzwerte von Funktionen – Grenzwerte an einer Stelle</h4>
+  <p>Grenzwerte an festen Stellen, Unstetigkeitsarten, einseitige Grenzwerte, Polstellen, hebbare Lücken und Asymptoten. Mit vielen Beispielen und Übungen.</p>
+  <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="btn-small">PDF öffnen</a>
+</div>
+
+
   
  <div class="material-card">
     <h4>🔍 Wie steil ist eine Funktion?</h4>
