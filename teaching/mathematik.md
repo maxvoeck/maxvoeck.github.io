@@ -202,6 +202,13 @@ permalink: /teaching/mathematik/
   <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="btn-small">PDF öffnen</a>
 </div>
 
+<div class="material-card">
+  <h4>📈 Grenzwerte von Funktionen – Asymptoten & Polynomdivision</h4>
+  <p>Waagerechte, senkrechte und schräge Asymptoten, Polynomdivision zur Bestimmung des Funktionsverhaltens im Unendlichen, vollständige Funktionsanalyse.</p>
+  <a href="/assets/pdfs/Grenzwerte_2_3.pdf" class="btn-small">PDF öffnen</a>
+</div>
+
+
 
   
  <div class="material-card">
