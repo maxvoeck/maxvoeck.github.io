@@ -216,6 +216,17 @@ permalink: /teaching/mathematik/
     <p>Einführung in die Differentialrechnung: Steigung linearer und nicht-linearer Funktionen, Sekanten und Tangenten, Definition der Ableitung, Differenzierbarkeit und Tangentengleichungen</p>
     <a href="/assets/pdfs/Funktion_2_1.pdf" class="btn-small">PDF öffnen</a>
   </div>
+  
+  <div class="material-card">
+  <h4>🧮 Ableitungsregeln – Produkt-, Quotienten- und Kettenregel</h4>
+  <p>
+    Systematische Einführung in alle wichtigen Ableitungsregeln:
+    Potenz-, Summen-, Produkt-, Quotienten- und Kettenregel.
+    Mit vielen Beispielen, typischen Prüfungsaufgaben und Übungen.
+  </p>
+  <a href="/assets/pdfs/Funktion_2_4.pdf" class="btn-small">PDF öffnen</a>
+</div>
+
 
   <div class="material-card">
     <h4>📘 Extremwertaufgaben</h4>

@@ -164,9 +164,24 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
    <p>Übersicht über Marktformen, Marktmacht, Marktstruktur, Vor- und Nachteile für Verbraucher, zahlreiche Beispiele und Übungsaufgaben zur Einordnung realer Märkte.</p>
    <a href="/assets/pdfs/WS_VWL_7.pdf" class="btn-small">PDF öffnen</a>
   </div>
+  
+  
+  <div class="material-card">
+  <h4>🧭 Die Budgetgerade – Konsumentscheidungen des Haushalts</h4>
+  <p>
+    Mathematische Grundlagen der Konsumentscheidung:
+    Budgetrestriktion, Gleichung und graphische Darstellung der Budgetgerade,
+    Einkommens- und Preisänderungen, Opportunitätskosten sowie zahlreiche
+    Übungsaufgaben mit Lösungen.
+  </p>
+  <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="btn-small">PDF öffnen</a>
+</div>
+
 
   
 </div>
+
+
 
 
 <h2 class="section-header">Makroökonomie</h2>
