@@ -227,6 +227,12 @@ permalink: /teaching/mathematik/
   <a href="/assets/pdfs/Funktion_2_4.pdf" class="btn-small">PDF öffnen</a>
 </div>
 
+<div class="material-card">
+  <h4>🏥 Die Regel von de L'Hospital</h4>
+  <p>Systematische Methode zur Berechnung unbestimmter Ausdrücke: Typen 0/0, ∞/∞, ∞·0, ∞-∞, 0⁰, ∞⁰, 1∞. Mit Anwendungsbeispielen, Übungen und wichtigen Grenzwerten.</p>
+  <a href="/assets/pdfs/Hospital_2_1.pdf" class="btn-small">PDF öffnen</a>
+</div>
+
 
   <div class="material-card">
     <h4>📘 Extremwertaufgaben</h4>
@@ -244,7 +250,7 @@ permalink: /teaching/mathematik/
   </div>
   
   <div class="material-card">
-    <h4>📗 Integrationsmethoden</h4>
+    <h4>📗 Integrationsmethoden</h4> 
     <p>Substitution, partielle Integration, LIATE-Regel, Partialbruchzerlegung</p>
     <a href="/assets/pdfs/Integral_2_2.pdf" class="btn-small">PDF öffnen</a>
   </div>
