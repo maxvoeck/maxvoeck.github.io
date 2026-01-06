@@ -233,6 +233,11 @@ permalink: /teaching/mathematik/
   <a href="/assets/pdfs/Hospital_2_1.pdf" class="btn-small">PDF öffnen</a>
 </div>
 
+<div class="material-card">
+  <h4>📈 Extrempunkte</h4>
+  <p>Definition von Extremstellen, notwendige und hinreichende Bedingungen, zweite Ableitung, systematische Bestimmung von Hoch- und Tiefpunkten, Sattelpunkte erkennen</p>
+  <a href="/assets/pdfs/Extremwert_2_1.pdf" class="btn-small">PDF öffnen</a>
+</div>
 
   <div class="material-card">
     <h4>📘 Extremwertaufgaben</h4>
