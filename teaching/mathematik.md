@@ -239,6 +239,12 @@ permalink: /teaching/mathematik/
   <a href="/assets/pdfs/Extremwert_2_1.pdf" class="btn-small">PDF öffnen</a>
 </div>
 
+<div class="material-card">
+  <h4>🔄 Wendepunkte</h4>
+  <p>Definition von Wendepunkten, Krümmungswechsel, notwendige und hinreichende Bedingungen, dritte Ableitung, Sattelpunkte erkennen, Links-Rechts- und Rechts-Links-Wendepunkte</p>
+  <a href="/assets/pdfs/Wendepunkt_2_1.pdf" class="btn-small">PDF öffnen</a>
+</div>f
+
   <div class="material-card">
     <h4>📘 Extremwertaufgaben</h4>
     <p>Systematisches Lösen von Optimierungsproblemen: Haupt- und Nebenbedingungen, Zielfunktionen, Kurvendiskussion mit Beispielen aus Technik und Wirtschaft</p>
