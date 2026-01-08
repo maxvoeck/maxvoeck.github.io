@@ -313,6 +313,15 @@ permalink: /teaching/mathematik/
       <a href="/assets/quizzes/quiz_wendepunkte.html" class="btn-small btn-quiz">📝 Quiz starten</a>
     </div>
   </div>
+  
+  <div class="material-card">
+  <h4>📈 Kurvendiskussion</h4>
+  <p>Systematische Funktionsanalyse: Definitionsbereich, Symmetrie, Grenzwerte, Asymptoten, Nullstellen, Extrempunkte, Wendepunkte. Mit vollständigen Beispielen und Zeichenkonventionen</p>
+  <div class="button-group">
+    <a href="/assets/pdfs/Kurvendiskusion_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
+    <a href="/assets/quizzes/quiz_kurvendiskussion.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+  </div>
+</div>
 
   <div class="material-card">
     <h4>📘 Extremwertaufgaben</h4>
