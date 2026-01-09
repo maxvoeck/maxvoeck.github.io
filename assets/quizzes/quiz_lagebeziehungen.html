@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Lagebeziehungen & Abstände im R³</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: #f0f1f3;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            background: #e8eaf6;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.correct .option-letter {
+            background: #28a745;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option.incorrect .option-letter {
+            background: #dc3545;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #374151;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #e9ecef;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        /* Vektordarstellung mit Pfeil darüber */
+        .vector {
+            position: relative;
+            display: inline-block;
+            font-style: italic;
+        }
+        .vector::after {
+            content: '→';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -0.6em;
+            font-size: 0.8em;
+            font-style: normal;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .quiz-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>🔷 Lagebeziehungen & Abstände im Raum</h1>
+            <p>Ebenen, Geraden und Abstandsberechnungen im ℝ³</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-content">
+            <!-- Questions will be inserted here -->
+            <div id="questionsContainer"></div>
+
+            <!-- Results -->
+            <div class="results-container" id="resultsContainer">
+                <div class="result-message" id="resultMessage"></div>
+                <div class="score-circle">
+                    <div class="score-number" id="scoreNumber">0%</div>
+                    <div class="score-label">Erreicht</div>
+                </div>
+                <div class="result-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctCount">0</div>
+                        <div class="result-stat-label">Richtig</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="incorrectCount">0</div>
+                        <div class="result-stat-label">Falsch</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalCount">0</div>
+                        <div class="result-stat-label">Gesamt</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hilfsfunktion zur Formatierung von Vektoren
+        function formatMath(text) {
+            // Ersetze Vektorsymbole mit Pfeil darüber
+            return text
+                .replace(/([abc])⃗/g, '<span class="vector">$1</span>')
+                .replace(/([nuvxyz])⃗/g, '<span class="vector">$1</span>')
+                .replace(/([PF])⃗/g, '<span class="vector">$1</span>')
+                .replace(/AB⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>AB</span>')
+                .replace(/OA⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>OA</span>')
+                .replace(/OB⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>OB</span>')
+                .replace(/PF⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>PF</span>')
+                .replace(/0⃗/g, '<span class="vector">0</span>')
+                .replace(/ℝ³/g, 'ℝ<sup>3</sup>')
+                .replace(/ℝ²/g, 'ℝ<sup>2</sup>')
+                .replace(/E₁/g, 'E<sub>1</sub>')
+                .replace(/E₂/g, 'E<sub>2</sub>')
+                .replace(/g₁/g, 'g<sub>1</sub>')
+                .replace(/g₂/g, 'g<sub>2</sub>')
+                .replace(/n₁/g, 'n<sub>1</sub>')
+                .replace(/n₂/g, 'n<sub>2</sub>')
+                .replace(/n₃/g, 'n<sub>3</sub>')
+                .replace(/d₁/g, 'd<sub>1</sub>')
+                .replace(/d₂/g, 'd<sub>2</sub>')
+                .replace(/v₁/g, 'v<sub>1</sub>')
+                .replace(/v₂/g, 'v<sub>2</sub>')
+                .replace(/a₁/g, 'a<sub>1</sub>')
+                .replace(/a₂/g, 'a<sub>2</sub>')
+                .replace(/x₀/g, 'x<sub>0</sub>')
+                .replace(/y₀/g, 'y<sub>0</sub>')
+                .replace(/z₀/g, 'z<sub>0</sub>')
+                .replace(/x₁/g, 'x<sub>1</sub>')
+                .replace(/y₁/g, 'y<sub>1</sub>')
+                .replace(/z₁/g, 'z<sub>1</sub>')
+                .replace(/x₂/g, 'x<sub>2</sub>')
+                .replace(/y₂/g, 'y<sub>2</sub>')
+                .replace(/z₂/g, 'z<sub>2</sub>')
+                .replace(/P₁/g, 'P<sub>1</sub>')
+                .replace(/P₂/g, 'P<sub>2</sub>');
+        }
+
+        const quizData = [
+            {
+                question: "Wie viele mögliche Lagebeziehungen gibt es für zwei Ebenen im ℝ³?",
+                options: [
+                    "Zwei: schneidend oder parallel",
+                    "Drei: schneidend, parallel oder identisch",
+                    "Vier: schneidend, parallel, identisch oder windschief",
+                    "Fünf: schneidend, parallel, identisch, windschief oder orthogonal"
+                ],
+                correct: 1,
+                explanation: "Zwei Ebenen im ℝ³ können sich in einer Geraden schneiden, echt parallel zueinander sein oder identisch sein. Windschief gibt es nur bei Geraden!"
+            },
+            {
+                question: "Wie erkennt man, dass zwei Ebenen parallel sind?",
+                options: [
+                    "Die Normalenvektoren sind orthogonal",
+                    "Die Normalenvektoren sind parallel, aber d₁ ≠ d₂",
+                    "Die rechten Seiten sind gleich",
+                    "Das Gleichungssystem hat unendlich viele Lösungen"
+                ],
+                correct: 1,
+                explanation: "Zwei Ebenen sind parallel, wenn ihre Normalenvektoren parallel sind (n⃗₂ = k·n⃗₁), aber die rechten Seiten nicht im gleichen Verhältnis stehen (d₂ ≠ k·d₁)."
+            },
+            {
+                question: "Was bedeutet es, wenn das Gleichungssystem zweier Ebenengleichungen eine eindimensionale Lösungsmenge hat?",
+                options: [
+                    "Die Ebenen sind parallel",
+                    "Die Ebenen sind identisch",
+                    "Die Ebenen schneiden sich in einer Geraden",
+                    "Die Ebenen sind orthogonal"
+                ],
+                correct: 2,
+                explanation: "Eine eindimensionale Lösungsmenge (eine freie Variable) bedeutet, dass die Lösung eine Gerade ist. Die Ebenen schneiden sich also in einer Schnittgeraden."
+            },
+            {
+                question: "Wie berechnet man den Schnittwinkel φ zweier Ebenen E₁ und E₂?",
+                options: [
+                    "sin φ = |n⃗₁ · n⃗₂| / (|n⃗₁| · |n⃗₂|)",
+                    "cos φ = |n⃗₁ · n⃗₂| / (|n⃗₁| · |n⃗₂|)",
+                    "tan φ = |n⃗₁ · n⃗₂| / (|n⃗₁| · |n⃗₂|)",
+                    "φ = arcsin(|n⃗₁ × n⃗₂|)"
+                ],
+                correct: 1,
+                explanation: "Der Schnittwinkel zweier Ebenen entspricht dem Winkel zwischen ihren Normalenvektoren: cos φ = |n⃗₁ · n⃗₂| / (|n⃗₁| · |n⃗₂|). Der Betrag sorgt für den spitzen Winkel."
+            },
+            {
+                question: "Wann sind zwei Ebenen orthogonal (senkrecht)?",
+                options: [
+                    "Wenn n⃗₁ · n⃗₂ = 0",
+                    "Wenn n⃗₁ × n⃗₂ = 0⃗",
+                    "Wenn |n⃗₁| = |n⃗₂|",
+                    "Wenn d₁ = d₂"
+                ],
+                correct: 0,
+                explanation: "Zwei Ebenen sind orthogonal, wenn ihre Normalenvektoren senkrecht aufeinander stehen, also wenn n⃗₁ · n⃗₂ = 0."
+            },
+            {
+                question: "Wie viele grundlegende Abstandsfälle gibt es in der analytischen Geometrie des ℝ³?",
+                options: [
+                    "Fünf",
+                    "Sechs",
+                    "Sieben",
+                    "Acht"
+                ],
+                correct: 2,
+                explanation: "Es gibt sieben grundlegende Abstandsfälle: Punkt–Punkt, Punkt–Gerade, Punkt–Ebene, Gerade–Gerade (parallel), Gerade–Gerade (windschief), Gerade–Ebene (parallel), Ebene–Ebene (parallel)."
+            },
+            {
+                question: "Wie berechnet man den Abstand zweier Punkte P₁(x₁, y₁, z₁) und P₂(x₂, y₂, z₂)?",
+                options: [
+                    "d = (x₂ - x₁) + (y₂ - y₁) + (z₂ - z₁)",
+                    "d = √[(x₂ - x₁)² + (y₂ - y₁)² + (z₂ - z₁)²]",
+                    "d = |x₂ - x₁| + |y₂ - y₁| + |z₂ - z₁|",
+                    "d = √[(x₂ + x₁)² + (y₂ + y₁)² + (z₂ + z₁)²]"
+                ],
+                correct: 1,
+                explanation: "Der Abstand zweier Punkte ist die Länge des Verbindungsvektors: d = √[(x₂ - x₁)² + (y₂ - y₁)² + (z₂ - z₁)²]."
+            },
+            {
+                question: "Was ist die Hessesche Normalenform?",
+                options: [
+                    "Eine Formel zur Berechnung des Normalenvektors",
+                    "Eine Formel zur Berechnung des Punkt–Ebene-Abstands",
+                    "Eine Formel zur Berechnung der Schnittgeraden",
+                    "Eine Formel zur Berechnung des Kreuzprodukts"
+                ],
+                correct: 1,
+                explanation: "Die Hessesche Normalenform ist die wichtigste Formel zur Abstandsberechnung: d(P, E) = |n₁x₀ + n₂y₀ + n₃z₀ - d| / √(n₁² + n₂² + n₃²)."
+            },
+            {
+                question: "Wie lautet die Hessesche Abstandsformel für Punkt P(x₀, y₀, z₀) und Ebene n₁x + n₂y + n₃z = d?",
+                options: [
+                    "d(P, E) = (n₁x₀ + n₂y₀ + n₃z₀ - d) / (n₁ + n₂ + n₃)",
+                    "d(P, E) = |n₁x₀ + n₂y₀ + n₃z₀ - d| / √(n₁² + n₂² + n₃²)",
+                    "d(P, E) = √[(n₁x₀)² + (n₂y₀)² + (n₃z₀)²] - d",
+                    "d(P, E) = |n₁x₀ + n₂y₀ + n₃z₀| + d"
+                ],
+                correct: 1,
+                explanation: "Die Hessesche Formel: d(P, E) = |n₁x₀ + n₂y₀ + n₃z₀ - d| / √(n₁² + n₂² + n₃²). Der Zähler ist die Ebenengleichung mit P eingesetzt, der Nenner die Länge des Normalenvektors."
+            },
+            {
+                question: "Wie berechnet man den Abstand eines Punktes P von einer Geraden g?",
+                options: [
+                    "Man berechnet den Schnittpunkt von P mit g",
+                    "Man findet den Lotfußpunkt F auf g und berechnet |PF⃗|",
+                    "Man multipliziert P mit dem Richtungsvektor von g",
+                    "Man dividiert P durch den Stützvektor von g"
+                ],
+                correct: 1,
+                explanation: "Man sucht den Lotfußpunkt F auf g (mit Orthogonalitätsbedingung (F⃗ - P⃗) · v⃗ = 0) und berechnet dann die Länge |PF⃗|."
+            },
+            {
+                question: "Was sind windschiefe Geraden?",
+                options: [
+                    "Geraden, die sich unter 90° schneiden",
+                    "Geraden, die parallel sind",
+                    "Geraden, die sich nicht schneiden und nicht parallel sind",
+                    "Geraden, die in der gleichen Ebene liegen"
+                ],
+                correct: 2,
+                explanation: "Windschiefe Geraden schneiden sich nicht und sind nicht parallel – sie liegen in verschiedenen 'Stockwerken' des Raums. Diese Lagebeziehung gibt es nur im ℝ³!"
+            },
+            {
+                question: "Wie berechnet man den Abstand windschiefer Geraden g₁: x⃗ = a⃗₁ + r·v⃗₁ und g₂: x⃗ = a⃗₂ + s·v⃗₂?",
+                options: [
+                    "d = |(a⃗₂ - a⃗₁) · (v⃗₁ × v⃗₂)| / |v⃗₁ × v⃗₂|",
+                    "d = |(a⃗₂ - a⃗₁) · (v⃗₁ + v⃗₂)| / |v⃗₁ + v⃗₂|",
+                    "d = |a⃗₂ - a⃗₁| / |v⃗₁ - v⃗₂|",
+                    "d = |(v⃗₁ × v⃗₂)| / |a⃗₂ - a⃗₁|"
+                ],
+                correct: 0,
+                explanation: "Für windschiefe Geraden: Normalenvektor n⃗ = v⃗₁ × v⃗₂ berechnen, dann d = |(a⃗₂ - a⃗₁) · n⃗| / |n⃗|."
+            },
+            {
+                question: "Wie berechnet man den Abstand paralleler Geraden g₁ und g₂?",
+                options: [
+                    "Man wählt einen Punkt P auf g₁ und berechnet d(P, g₂)",
+                    "Man berechnet den Schnittpunkt und dann dessen Abstand",
+                    "Man multipliziert die Richtungsvektoren",
+                    "Man subtrahiert die Stützvektoren und berechnet deren Länge"
+                ],
+                correct: 0,
+                explanation: "Bei parallelen Geraden wählt man einen beliebigen Punkt P auf g₁ und berechnet dessen Abstand zu g₂. Dies führt den Fall auf Punkt–Gerade zurück."
+            },
+            {
+                question: "Wie berechnet man den Abstand einer parallelen Geraden g von einer Ebene E?",
+                options: [
+                    "Man löst das Gleichungssystem von g und E",
+                    "Man wählt einen Punkt P auf g und berechnet d(P, E)",
+                    "Man berechnet das Kreuzprodukt der Richtungsvektoren",
+                    "Man multipliziert den Normalenvektor mit dem Richtungsvektor"
+                ],
+                correct: 1,
+                explanation: "Bei einer zu E parallelen Geraden g wählt man einen Punkt P auf g und berechnet d(P, E) mit der Hesseschen Formel."
+            },
+            {
+                question: "Wie berechnet man den Abstand zweier paralleler Ebenen E₁ und E₂?",
+                options: [
+                    "Man subtrahiert die rechten Seiten: |d₂ - d₁|",
+                    "Man wählt einen Punkt P auf E₁ und berechnet d(P, E₂)",
+                    "Man berechnet das Kreuzprodukt der Normalenvektoren",
+                    "Man dividiert die Normalenvektoren durch die rechten Seiten"
+                ],
+                correct: 1,
+                explanation: "Bei parallelen Ebenen wählt man einen beliebigen Punkt P auf E₁ (z.B. durch Setzen von y = z = 0) und berechnet dessen Abstand zu E₂ mit der Hesseschen Formel."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        function initQuiz() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                if (index === 0) questionDiv.classList.add('active');
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Frage ${index + 1} von ${quizData.length}</div>
+                    <div class="question-text">${formatMath(q.question)}</div>
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption(${index}, ${i})">
+                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                <div class="option-text">${formatMath(opt)}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${index === 0 ? 'style="visibility: hidden;"' : ''}>
+                            ← Zurück
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                            ${index === quizData.length - 1 ? 'Auswertung anzeigen' : 'Weiter →'}
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+
+            updateProgress();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (answers[questionIndex] !== undefined) return;
+
+            const optionsContainer = document.getElementById(`options-${questionIndex}`);
+            const options = optionsContainer.querySelectorAll('.option');
+            const correct = quizData[questionIndex].correct;
+            
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
+            
+            options.forEach(opt => opt.classList.add('disabled'));
+            
+            answers[questionIndex] = optionIndex;
+            if (optionIndex === correct) score++;
+            
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            feedback.classList.add('show');
+            feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            feedback.querySelector('.feedback-title').textContent = 
+                optionIndex === correct ? '✓ Richtig!' : '✗ Leider falsch';
+            feedback.querySelector('.feedback-text').innerHTML = formatMath(quizData[questionIndex].explanation);
+            
+            document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion++;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion--;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('questionsContainer').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+            
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('scoreNumber').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = quizData.length - score;
+            document.getElementById('totalCount').textContent = quizData.length;
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = '🎉 Hervorragend! Du beherrschst Lagebeziehungen und Abstände perfekt!';
+            } else if (percentage >= 70) {
+                message = '👍 Sehr gut! Du hast die wichtigsten Konzepte verstanden!';
+            } else if (percentage >= 50) {
+                message = '📚 Gut gemacht! Mit etwas Übung wirst du noch besser!';
+            } else {
+                message = '💪 Weiter üben! Wiederhole die Hessesche Normalenform und Lagekriterien!';
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('questionsContainer').style.display = 'block';
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
