@@ -379,10 +379,10 @@
                     "Eine Funktion mit mehreren Variablen"
                 ],
                 correct: 1,
-                explanation: "Ein Vektor ist eine gerichtete Größe, die durch Betrag (Länge) und Richtung charakterisiert wird. Im Gegensatz zu Skalaren, die nur einen Zahlenwert haben, beschreiben Vektoren sowohl 'wie viel' als auch 'wohin'."
+                explanation: "Ein Vektor ist eine gerichtete Größe, die durch Betrag (Länge) und Richtung charakterisiert wird. Im Gegensatz zu Skalaren beschreiben Vektoren sowohl 'wie viel' als auch 'wohin'."
             },
             {
-                question: "Wie berechnet man den Betrag eines Vektors \\(\\vec{v} = \\begin{pmatrix} 3 \\\\ 4 \\end{pmatrix}\\)?",
+                question: "Wie berechnet man den Betrag eines Vektors v⃗ = (3, 4)?",
                 options: [
                     "|v| = 3 + 4 = 7",
                     "|v| = √(3 + 4) = √7",
@@ -428,16 +428,16 @@
             {
                 question: "Was sind die Standardbasisvektoren im ℝ³?",
                 options: [
-                    "i⃗ = (1,0,0), j⃗ = (0,1,0), k⃗ = (0,0,1)",
-                    "i⃗ = (1,1,0), j⃗ = (0,1,1), k⃗ = (1,0,1)",
-                    "i⃗ = (1,1,1), j⃗ = (2,2,2), k⃗ = (3,3,3)",
-                    "i⃗ = (0,0,0), j⃗ = (1,1,1), k⃗ = (2,2,2)"
+                    "e⃗ₓ = (1,0,0), e⃗ᵧ = (0,1,0), e⃗ᵤ = (0,0,1)",
+                    "e⃗ₓ = (1,1,0), e⃗ᵧ = (0,1,1), e⃗ᵤ = (1,0,1)",
+                    "e⃗ₓ = (1,1,1), e⃗ᵧ = (2,2,2), e⃗ᵤ = (3,3,3)",
+                    "e⃗ₓ = (0,0,0), e⃗ᵧ = (1,1,1), e⃗ᵤ = (2,2,2)"
                 ],
                 correct: 0,
-                explanation: "Die Standardbasisvektoren im ℝ³ sind i⃗ = (1,0,0), j⃗ = (0,1,0) und k⃗ = (0,0,1). Sie zeigen entlang der x-, y- und z-Achse und haben alle Betrag 1."
+                explanation: "Die Standardbasisvektoren im ℝ³ sind e⃗ₓ = (1,0,0), e⃗ᵧ = (0,1,0) und e⃗ᵤ = (0,0,1). Sie zeigen entlang der x-, y- und z-Achse und haben alle Betrag 1."
             },
             {
-                question: "Gegeben sind \\(\\vec{a} = \\begin{pmatrix} 2 \\\\ 3 \\end{pmatrix}\\) und \\(\\vec{b} = \\begin{pmatrix} 1 \\\\ -1 \\end{pmatrix}\\). Was ist \\(\\vec{a} + \\vec{b}\\)?",
+                question: "Gegeben sind a⃗ = (2, 3) und b⃗ = (1, -1). Was ist a⃗ + b⃗?",
                 options: [
                     "(3, 2)",
                     "(2, 4)",
@@ -448,15 +448,15 @@
                 explanation: "Vektoren werden komponentenweise addiert: a⃗ + b⃗ = (2+1, 3+(-1)) = (3, 2)."
             },
             {
-                question: "Was ist die geometrische Bedeutung der Vektorsubtraktion \\(\\vec{a} - \\vec{b}\\)?",
+                question: "Was ist die geometrische Bedeutung der Vektorsubtraktion OA⃗ - OB⃗?",
                 options: [
-                    "Der Mittelpunkt zwischen a⃗ und b⃗",
-                    "Der Vektor von der Spitze von b⃗ zur Spitze von a⃗",
+                    "Der Mittelpunkt zwischen A und B",
+                    "Der Vektor von B nach A (also BA⃗)",
                     "Die Summe der Beträge",
-                    "Der Vektor parallel zu a⃗"
+                    "Der Vektor parallel zu OA⃗"
                 ],
                 correct: 1,
-                explanation: "Die Differenz a⃗ - b⃗ ist geometrisch der Vektor, der von der Spitze von b⃗ zur Spitze von a⃗ zeigt (wenn beide im gleichen Punkt beginnen)."
+                explanation: "Die Differenz OA⃗ - OB⃗ = BA⃗ ist geometrisch der Vektor, der vom Punkt B zum Punkt A zeigt. Allgemein gilt: OA⃗ - OB⃗ = BA⃗."
             },
             {
                 question: "Ein Vektor wird mit einem Skalar λ = -2 multipliziert. Was passiert?",
@@ -470,7 +470,7 @@
                 explanation: "Bei Multiplikation mit einem negativen Skalar wird der Betrag mit |λ| multipliziert (hier verdoppelt) und die Richtung umgekehrt (wegen des negativen Vorzeichens)."
             },
             {
-                question: "Welche Bedingung muss erfüllt sein, damit zwei Vektoren \\(\\vec{a}\\) und \\(\\vec{b}\\) parallel sind?",
+                question: "Welche Bedingung muss erfüllt sein, damit zwei Vektoren a⃗ und b⃗ parallel sind?",
                 options: [
                     "a⃗ · b⃗ = 0",
                     "Es gibt ein λ ∈ ℝ mit a⃗ = λ · b⃗",
@@ -479,6 +479,61 @@
                 ],
                 correct: 1,
                 explanation: "Zwei Vektoren sind parallel (oder kollinear), wenn einer ein Vielfaches des anderen ist, d.h. wenn es ein λ ∈ ℝ gibt mit a⃗ = λ · b⃗. Für λ < 0 sind sie antiparallel."
+            },
+            {
+                question: "Was ist der Nullvektor?",
+                options: [
+                    "Ein Vektor mit Betrag 1",
+                    "Ein Vektor mit Betrag 0 und keiner definierten Richtung",
+                    "Ein Vektor entlang der x-Achse",
+                    "Ein Vektor mit allen Komponenten gleich 1"
+                ],
+                correct: 1,
+                explanation: "Der Nullvektor 0⃗ hat den Betrag |0⃗| = 0 und keine definierte Richtung. Er ist der einzige Vektor ohne Richtung und entspricht keiner Bewegung, keiner Kraft, keiner Verschiebung."
+            },
+            {
+                question: "Gegeben sind a⃗ = (2, 1, 0) und b⃗ = (1, -2, 0). Berechne a⃗ · b⃗.",
+                options: [
+                    "0",
+                    "4",
+                    "-2",
+                    "2"
+                ],
+                correct: 0,
+                explanation: "a⃗ · b⃗ = 2·1 + 1·(-2) + 0·0 = 2 - 2 + 0 = 0. Die Vektoren sind orthogonal!"
+            },
+            {
+                question: "Was ergibt der Gegenvektor zu a⃗ = (2, -1, 3)?",
+                options: [
+                    "(-2, 1, -3)",
+                    "(2, 1, 3)",
+                    "(-2, -1, -3)",
+                    "(1/2, -1, 1/3)"
+                ],
+                correct: 0,
+                explanation: "Der Gegenvektor -a⃗ hat alle Komponenten mit umgekehrtem Vorzeichen: -a⃗ = (-2, 1, -3). Es gilt: a⃗ + (-a⃗) = 0⃗."
+            },
+            {
+                question: "Wie lautet die Formel zur Winkelberechnung zwischen zwei Vektoren?",
+                options: [
+                    "cos φ = a⃗ · b⃗",
+                    "cos φ = (a⃗ · b⃗) / (|a⃗| · |b⃗|)",
+                    "sin φ = (a⃗ · b⃗) / (|a⃗| · |b⃗|)",
+                    "φ = a⃗ · b⃗"
+                ],
+                correct: 1,
+                explanation: "Der Winkel zwischen zwei Vektoren wird über cos φ = (a⃗ · b⃗) / (|a⃗| · |b⃗|) berechnet. Dann: φ = arccos[(a⃗ · b⃗) / (|a⃗| · |b⃗|)]."
+            },
+            {
+                question: "Ein Auto fährt mit v⃗ = (60, 80, 0) km/h. Wie schnell ist das Auto insgesamt?",
+                options: [
+                    "140 km/h",
+                    "100 km/h",
+                    "√140 km/h",
+                    "70 km/h"
+                ],
+                correct: 1,
+                explanation: "Die Gesamtgeschwindigkeit ist der Betrag: |v⃗| = √(60² + 80²) = √(3600 + 6400) = √10000 = 100 km/h."
             }
         ];
 
