@@ -185,8 +185,12 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
 
 
 <h2 class="section-header">Makroökonomie</h2>
-<div class="coming-soon">
-  <p>📚 Materialien werden in Kürze hinzugefügt...</p>
+<div class="materials-grid">
+  <div class="material-card">
+    <h4>📊 Volkswirtschaftliche Gesamtrechnung (VGR)</h4>
+    <p>Systematische Erfassung wirtschaftlicher Aktivitäten: Definition und Ziele der VGR, Bruttoinlandsprodukt (BIP), drei Berechnungsmethoden (Entstehung, Verwendung, Verteilung), Inlandsprinzip vs. Inländerprinzip, Vermeidung von Doppelzählung, praktische Beispiele und Übungsaufgaben</p>
+    <a href="/assets/pdfs/VWL_11.pdf" class="btn-small">PDF öffnen</a>
+  </div>
 </div>
 
 <h2 class="section-header">Klausuraufgaben</h2>
