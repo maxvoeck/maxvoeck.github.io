@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Geraden & Ebenen im R³</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .quiz-header p { opacity: 0.9; font-size: 1rem; }
+
+        .progress-bar { background: #e0e0e0; height: 8px; position: relative; }
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-content { padding: 2rem; }
+
+        .question-container { display: none; }
+        .question-container.active { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .options { display: flex; flex-direction: column; gap: 1rem; }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: #f0f1f3;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .option.selected { background: #e8eaf6; border-color: #667eea; }
+
+        .option.correct { background: #d4edda; border-color: #28a745; }
+        .option.correct .option-letter { background: #28a745; }
+
+        .option.incorrect { background: #f8d7da; border-color: #dc3545; }
+        .option.incorrect .option-letter { background: #dc3545; }
+
+        .option.disabled { cursor: not-allowed; opacity: 0.7; }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show { display: block; animation: fadeIn 0.5s ease; }
+
+        .feedback.correct {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .feedback-title { font-weight: 600; margin-bottom: 0.5rem; }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #374151;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover:not(:disabled) { background: #e9ecef; }
+
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .results-container { display: none; text-align: center; padding: 2rem; }
+        .results-container.show { display: block; animation: fadeIn 0.5s ease; }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .score-number { font-size: 3rem; font-weight: 700; }
+        .score-label { font-size: 1rem; opacity: 0.9; }
+
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .result-stat { text-align: center; }
+        .result-stat-number { font-size: 2rem; font-weight: 700; color: #667eea; }
+        .result-stat-label { font-size: 0.9rem; color: #666; margin-top: 0.3rem; }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .quiz-header h1 { font-size: 1.4rem; }
+            .question-text { font-size: 1.1rem; }
+            .controls { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>📌 Geraden & Ebenen im Raum</h1>
+            <p>Parameterform, Koordinatenform, Normalenvektor & Lagebeziehungen</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-content">
+            <div id="questionsContainer"></div>
+
+            <div class="results-container" id="resultsContainer">
+                <div class="result-message" id="resultMessage"></div>
+                <div class="score-circle">
+                    <div class="score-number" id="scoreNumber">0%</div>
+                    <div class="score-label">Erreicht</div>
+                </div>
+                <div class="result-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctCount">0</div>
+                        <div class="result-stat-label">Richtig</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="incorrectCount">0</div>
+                        <div class="result-stat-label">Falsch</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalCount">0</div>
+                        <div class="result-stat-label">Gesamt</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Wie lautet die Parameterform einer Geraden g im ℝ³?",
+                options: [
+                    "ax + by + cz = d",
+                    "⃗x = ⃗a + t · ⃗v, t ∈ ℝ",
+                    "⃗x = s · ⃗u + t · ⃗v, s,t ∈ ℝ",
+                    "cos α = (⃗u · ⃗v) / (|⃗u||⃗v|)"
+                ],
+                correct: 1,
+                explanation: "Eine Gerade in ℝ³ wird durch Stützvektor ⃗a (Punkt auf der Geraden) und Richtungsvektor ⃗v beschrieben: ⃗x = ⃗a + t·⃗v."
+            },
+            {
+                question: "Welche Bedeutung hat der Stützvektor ⃗a in ⃗x = ⃗a + t·⃗v?",
+                options: [
+                    "Er ist immer ein Einheitsvektor",
+                    "Er beschreibt die Richtung der Geraden",
+                    "Er ist der Ortsvektor eines festen Punktes auf der Geraden",
+                    "Er ist der Normalenvektor der Geraden"
+                ],
+                correct: 2,
+                explanation: "Der Stützvektor ⃗a ist der Ortsvektor eines festen Punktes A auf der Geraden. Von dort aus geht man in Richtung ⃗v weiter."
+            },
+            {
+                question: "Wie berechnet man den Richtungsvektor ⃗v einer Geraden durch zwei Punkte A und B?",
+                options: [
+                    "⃗v = ⃗a + ⃗b",
+                    "⃗v = ⃗a − ⃗b",
+                    "⃗v = ⃗b − ⃗a",
+                    "⃗v = |⃗b − ⃗a|"
+                ],
+                correct: 2,
+                explanation: "Der Richtungsvektor ist der Verbindungsvektor von A nach B: ⃗v = ⃗b − ⃗a (Merksatz: Spitze minus Schaft)."
+            },
+            {
+                question: "A(1|2|3) und B(4|0|7): Wie lautet ⃗v = →AB?",
+                options: [
+                    "(3|−2|4)",
+                    "(−3|2|−4)",
+                    "(5|2|10)",
+                    "(4|0|7)"
+                ],
+                correct: 0,
+                explanation: "→AB = B − A = (4−1, 0−2, 7−3) = (3, −2, 4)."
+            },
+            {
+                question: "Welche Aussage ist richtig: Eine Ebene ist …",
+                options: [
+                    "eindimensional und braucht 1 Parameter",
+                    "zweidimensional und braucht 2 Parameter",
+                    "dreidimensional und braucht 3 Parameter",
+                    "nur durch eine Zahl d bestimmt"
+                ],
+                correct: 1,
+                explanation: "Eine Ebene ist zweidimensional. In Parameterform benötigt man daher zwei unabhängige Parameter s und t."
+            },
+            {
+                question: "Wie lautet die Parameterform einer Ebene E im ℝ³?",
+                options: [
+                    "⃗x = ⃗a + s·⃗u + t·⃗v, s,t ∈ ℝ",
+                    "⃗x = ⃗a + t·⃗v, t ∈ ℝ",
+                    "n1x + n2y = d",
+                    "⃗x · ⃗x = d"
+                ],
+                correct: 0,
+                explanation: "Eine Ebene wird durch einen Stützvektor ⃗a und zwei Spannvektoren ⃗u, ⃗v beschrieben: ⃗x = ⃗a + s·⃗u + t·⃗v."
+            },
+            {
+                question: "Welche Bedingung müssen die Spannvektoren ⃗u und ⃗v einer Ebene erfüllen?",
+                options: [
+                    "Sie müssen parallel sein",
+                    "Sie dürfen nicht parallel sein (linear unabhängig)",
+                    "Sie müssen Einheitsvektoren sein",
+                    "Sie müssen orthogonal sein"
+                ],
+                correct: 1,
+                explanation: "Damit eine Ebene aufgespannt wird, müssen ⃗u und ⃗v unterschiedliche Richtungen liefern, also nicht parallel (linear unabhängig) sein."
+            },
+            {
+                question: "Wie erhält man einen Normalenvektor ⃗n einer Ebene aus zwei Spannvektoren ⃗u und ⃗v?",
+                options: [
+                    "⃗n = ⃗u + ⃗v",
+                    "⃗n = ⃗u · ⃗v",
+                    "⃗n = ⃗u × ⃗v",
+                    "⃗n = ⃗u − ⃗v"
+                ],
+                correct: 2,
+                explanation: "Ein Normalenvektor steht senkrecht auf der Ebene und kann mit dem Kreuzprodukt berechnet werden: ⃗n = ⃗u × ⃗v."
+            },
+            {
+                question: "Wie lautet die Koordinatenform einer Ebene mit Normalenvektor ⃗n=(n1,n2,n3)?",
+                options: [
+                    "⃗x = ⃗a + t·⃗v",
+                    "n1x + n2y + n3z = d",
+                    "x² + y² + z² = d",
+                    "cos α = |⃗u·⃗v|/(|⃗u||⃗v|)"
+                ],
+                correct: 1,
+                explanation: "Die Koordinatenform (parameterfreie Form) lautet: n1x + n2y + n3z = d, wobei d = ⃗n · ⃗a für einen Punkt A der Ebene."
+            },
+            {
+                question: "Wie berechnet man d in der Ebenengleichung ⃗n · ⃗x = d, wenn ein Punkt A mit Ortsvektor ⃗a auf der Ebene liegt?",
+                options: [
+                    "d = ⃗n × ⃗a",
+                    "d = ⃗n · ⃗a",
+                    "d = |⃗n| · |⃗a|",
+                    "d = ⃗a · ⃗a"
+                ],
+                correct: 1,
+                explanation: "Man setzt den Punkt A in die Ebenengleichung ein: d = ⃗n · ⃗a."
+            },
+            {
+                question: "Kriterium für Gerade g: ⃗x=⃗a+t·⃗v und Ebene E: ⃗n·⃗x=d — wann schneidet g die Ebene E?",
+                options: [
+                    "Wenn ⃗n · ⃗v = 0",
+                    "Wenn ⃗n · ⃗v ≠ 0",
+                    "Wenn ⃗v = ⃗0",
+                    "Wenn d = 0"
+                ],
+                correct: 1,
+                explanation: "Ist ⃗n·⃗v ≠ 0, dann ist die Gerade nicht parallel zur Ebene und es gibt genau einen Schnittpunkt (Durchstoßpunkt)."
+            },
+            {
+                question: "Wann liegt eine Gerade g vollständig in der Ebene E?",
+                options: [
+                    "Wenn ⃗n·⃗v = 0 und d − ⃗n·⃗a = 0",
+                    "Wenn ⃗n·⃗v ≠ 0",
+                    "Wenn d − ⃗n·⃗a ≠ 0",
+                    "Wenn |⃗v| = 1"
+                ],
+                correct: 0,
+                explanation: "Für „Gerade in Ebene“ gilt: parallel zur Ebene (⟂ zur Normale) UND ein Punkt der Geraden erfüllt die Ebenengleichung: ⃗n·⃗v=0 und d−⃗n·⃗a=0."
+            },
+            {
+                question: "Welche Lagebeziehung gibt es nur im ℝ³ (nicht in ℝ²)?",
+                options: [
+                    "parallel",
+                    "identisch",
+                    "windschief",
+                    "schneidend"
+                ],
+                correct: 2,
+                explanation: "Windschiefe Geraden schneiden sich nicht und sind nicht parallel – das ist nur im Raum ℝ³ möglich."
+            },
+            {
+                question: "Wie lautet die Formel für den Parameter t des Durchstoßpunkts (Gerade–Ebene)?",
+                options: [
+                    "t = (d − ⃗n·⃗a) / (⃗n·⃗v)",
+                    "t = (⃗n·⃗v) / (d − ⃗n·⃗a)",
+                    "t = (d + ⃗n·⃗a) / (⃗n×⃗v)",
+                    "t = (⃗a·⃗v) / (⃗n·⃗n)"
+                ],
+                correct: 0,
+                explanation: "Setzt man die Gerade in die Ebenengleichung ein, erhält man: t = (d − ⃗n·⃗a)/(⃗n·⃗v), sofern ⃗n·⃗v ≠ 0."
+            },
+            {
+                question: "Welche Formel nutzt man für den Schnittwinkel α zwischen einer Geraden (Richtungsvektor ⃗v) und einer Ebene (Normalenvektor ⃗n)?",
+                options: [
+                    "cos α = |⃗v·⃗n|/(|⃗v||⃗n|)",
+                    "sin α = |⃗v·⃗n|/(|⃗v||⃗n|)",
+                    "sin α = |⃗v×⃗n|",
+                    "cos α = |⃗v×⃗n|"
+                ],
+                correct: 1,
+                explanation: "Für Gerade–Ebene verwendet man den SINUS: sin α = |⃗v·⃗n|/(|⃗v||⃗n|). (Gerade–Gerade nutzt typischerweise cos.)"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        function initQuiz() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                if (index === 0) questionDiv.classList.add('active');
+
+                questionDiv.innerHTML = `
+                    <div class="question-number">Frage ${index + 1} von ${quizData.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption(${index}, ${i})">
+                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                <div class="option-text">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${index === 0 ? 'style="visibility: hidden;"' : ''}>
+                            ← Zurück
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                            ${index === quizData.length - 1 ? 'Auswertung anzeigen' : 'Weiter →'}
+                        </button>
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+
+            updateProgress();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (answers[questionIndex] !== undefined) return;
+
+            const optionsContainer = document.getElementById(`options-${questionIndex}`);
+            const options = optionsContainer.querySelectorAll('.option');
+            const correct = quizData[questionIndex].correct;
+
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
+
+            options.forEach(opt => opt.classList.add('disabled'));
+
+            answers[questionIndex] = optionIndex;
+            if (optionIndex === correct) score++;
+
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            feedback.classList.add('show');
+            feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            feedback.querySelector('.feedback-title').textContent =
+                optionIndex === correct ? '✓ Richtig!' : '✗ Leider falsch';
+            feedback.querySelector('.feedback-text').textContent = quizData[questionIndex].explanation;
+
+            document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion++;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion--;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('questionsContainer').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('scoreNumber').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = quizData.length - score;
+            document.getElementById('totalCount').textContent = quizData.length;
+
+            let message = '';
+            if (percentage >= 90) {
+                message = '🎉 Hervorragend! Du bist sehr sicher bei Geraden & Ebenen im ℝ³!';
+            } else if (percentage >= 70) {
+                message = '👍 Sehr gut! Du hast die wichtigsten Methoden verstanden!';
+            } else if (percentage >= 50) {
+                message = '📚 Solide Basis! Mit etwas Übung klappt’s noch besser!';
+            } else {
+                message = '💪 Dranbleiben! Wiederhole Parameter-/Koordinatenform & Lagekriterien!';
+            }
+
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('questionsContainer').style.display = 'block';
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
