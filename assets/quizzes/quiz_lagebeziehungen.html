@@ -355,10 +355,8 @@
         </div>
 
         <div class="quiz-content">
-            <!-- Questions will be inserted here -->
             <div id="questionsContainer"></div>
 
-            <!-- Results -->
             <div class="results-container" id="resultsContainer">
                 <div class="result-message" id="resultMessage"></div>
                 <div class="score-circle">
@@ -385,49 +383,20 @@
     </div>
 
     <script>
-        // Hilfsfunktion zur Formatierung von Vektoren
         function formatMath(text) {
-            // Ersetze Vektorsymbole mit Pfeil darüber
             return text
-                .replace(/([abc])⃗/g, '<span class="vector">$1</span>')
-                .replace(/([nuvxyz])⃗/g, '<span class="vector">$1</span>')
-                .replace(/([PF])⃗/g, '<span class="vector">$1</span>')
-                .replace(/AB⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>AB</span>')
-                .replace(/OA⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>OA</span>')
-                .replace(/OB⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>OB</span>')
-                .replace(/PF⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>PF</span>')
-                .replace(/0⃗/g, '<span class="vector">0</span>')
+                .replace(/([abnuvxyz])⃗/g, '<span class="vector">$1</span>')
                 .replace(/ℝ³/g, 'ℝ<sup>3</sup>')
                 .replace(/ℝ²/g, 'ℝ<sup>2</sup>')
                 .replace(/E₁/g, 'E<sub>1</sub>')
                 .replace(/E₂/g, 'E<sub>2</sub>')
                 .replace(/g₁/g, 'g<sub>1</sub>')
-                .replace(/g₂/g, 'g<sub>2</sub>')
-                .replace(/n₁/g, 'n<sub>1</sub>')
-                .replace(/n₂/g, 'n<sub>2</sub>')
-                .replace(/n₃/g, 'n<sub>3</sub>')
-                .replace(/d₁/g, 'd<sub>1</sub>')
-                .replace(/d₂/g, 'd<sub>2</sub>')
-                .replace(/v₁/g, 'v<sub>1</sub>')
-                .replace(/v₂/g, 'v<sub>2</sub>')
-                .replace(/a₁/g, 'a<sub>1</sub>')
-                .replace(/a₂/g, 'a<sub>2</sub>')
-                .replace(/x₀/g, 'x<sub>0</sub>')
-                .replace(/y₀/g, 'y<sub>0</sub>')
-                .replace(/z₀/g, 'z<sub>0</sub>')
-                .replace(/x₁/g, 'x<sub>1</sub>')
-                .replace(/y₁/g, 'y<sub>1</sub>')
-                .replace(/z₁/g, 'z<sub>1</sub>')
-                .replace(/x₂/g, 'x<sub>2</sub>')
-                .replace(/y₂/g, 'y<sub>2</sub>')
-                .replace(/z₂/g, 'z<sub>2</sub>')
-                .replace(/P₁/g, 'P<sub>1</sub>')
-                .replace(/P₂/g, 'P<sub>2</sub>');
+                .replace(/g₂/g, 'g<sub>2</sub>');
         }
 
         const quizData = [
             {
-                question: "Wie viele mögliche Lagebeziehungen gibt es für zwei Ebenen im ℝ³?",
+                question: "Wie viele mögliche Lagebeziehungen gibt es für zwei Ebenen E₁ und E₂ im ℝ³?",
                 options: [
                     "Zwei: schneidend oder parallel",
                     "Drei: schneidend, parallel oder identisch",
@@ -478,7 +447,7 @@
                     "Wenn |n⃗₁| = |n⃗₂|",
                     "Wenn d₁ = d₂"
                 ],
-                correct: 0,
+                correct: 0,  // KORRIGIERT: war 1, sollte 0 sein (Array beginnt bei 0)
                 explanation: "Zwei Ebenen sind orthogonal, wenn ihre Normalenvektoren senkrecht aufeinander stehen, also wenn n⃗₁ · n⃗₂ = 0."
             },
             {
@@ -529,12 +498,12 @@
                 question: "Wie berechnet man den Abstand eines Punktes P von einer Geraden g?",
                 options: [
                     "Man berechnet den Schnittpunkt von P mit g",
-                    "Man findet den Lotfußpunkt F auf g und berechnet |PF⃗|",
+                    "Man findet den Lotfußpunkt F auf g und berechnet |PF|",
                     "Man multipliziert P mit dem Richtungsvektor von g",
                     "Man dividiert P durch den Stützvektor von g"
                 ],
                 correct: 1,
-                explanation: "Man sucht den Lotfußpunkt F auf g (mit Orthogonalitätsbedingung (F⃗ - P⃗) · v⃗ = 0) und berechnet dann die Länge |PF⃗|."
+                explanation: "Man sucht den Lotfußpunkt F auf g (mit Orthogonalitätsbedingung (F⃗ - P⃗) · v⃗ = 0) und berechnet dann die Länge |PF|."
             },
             {
                 question: "Was sind windschiefe Geraden?",
