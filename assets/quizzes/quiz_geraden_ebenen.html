@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: Geraden & Ebenen im R³</title>
+    <title>Quiz: Vektorprodukt & Spatprodukt</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
@@ -33,10 +37,22 @@
             text-align: center;
         }
 
-        .quiz-header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-        .quiz-header p { opacity: 0.9; font-size: 1rem; }
+        .quiz-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
 
-        .progress-bar { background: #e0e0e0; height: 8px; position: relative; }
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            position: relative;
+        }
+
         .progress-fill {
             background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
             height: 100%;
@@ -44,14 +60,28 @@
             transition: width 0.3s ease;
         }
 
-        .quiz-content { padding: 2rem; }
+        .quiz-content {
+            padding: 2rem;
+        }
 
-        .question-container { display: none; }
-        .question-container.active { display: block; animation: fadeIn 0.5s ease; }
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .question-number {
@@ -69,7 +99,11 @@
             line-height: 1.5;
         }
 
-        .options { display: flex; flex-direction: column; gap: 1rem; }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
 
         .option {
             background: #f8f9fa;
@@ -102,15 +136,33 @@
             flex-shrink: 0;
         }
 
-        .option.selected { background: #e8eaf6; border-color: #667eea; }
+        .option.selected {
+            background: #e8eaf6;
+            border-color: #667eea;
+        }
 
-        .option.correct { background: #d4edda; border-color: #28a745; }
-        .option.correct .option-letter { background: #28a745; }
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
 
-        .option.incorrect { background: #f8d7da; border-color: #dc3545; }
-        .option.incorrect .option-letter { background: #dc3545; }
+        .option.correct .option-letter {
+            background: #28a745;
+        }
 
-        .option.disabled { cursor: not-allowed; opacity: 0.7; }
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option.incorrect .option-letter {
+            background: #dc3545;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
 
         .feedback {
             margin-top: 1.5rem;
@@ -119,7 +171,10 @@
             display: none;
         }
 
-        .feedback.show { display: block; animation: fadeIn 0.5s ease; }
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
 
         .feedback.correct {
             background: #d4edda;
@@ -133,7 +188,10 @@
             color: #721c24;
         }
 
-        .feedback-title { font-weight: 600; margin-bottom: 0.5rem; }
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
 
         .controls {
             margin-top: 2rem;
@@ -152,7 +210,10 @@
             transition: all 0.3s ease;
         }
 
-        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
 
         .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
@@ -165,12 +226,25 @@
             border: 2px solid #e0e0e0;
         }
 
-        .btn-secondary:hover:not(:disabled) { background: #e9ecef; }
+        .btn-secondary:hover:not(:disabled) {
+            background: #e9ecef;
+        }
 
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
 
-        .results-container { display: none; text-align: center; padding: 2rem; }
-        .results-container.show { display: block; animation: fadeIn 0.5s ease; }
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
 
         .score-circle {
             width: 200px;
@@ -186,8 +260,15 @@
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
-        .score-number { font-size: 3rem; font-weight: 700; }
-        .score-label { font-size: 1rem; opacity: 0.9; }
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
 
         .result-message {
             font-size: 1.5rem;
@@ -207,24 +288,66 @@
             gap: 1rem;
         }
 
-        .result-stat { text-align: center; }
-        .result-stat-number { font-size: 2rem; font-weight: 700; color: #667eea; }
-        .result-stat-label { font-size: 0.9rem; color: #666; margin-top: 0.3rem; }
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        /* Vektordarstellung mit Pfeil darüber */
+        .vector {
+            position: relative;
+            display: inline-block;
+            font-style: italic;
+        }
+        .vector::after {
+            content: '→';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -0.6em;
+            font-size: 0.8em;
+            font-style: normal;
+        }
 
         @media (max-width: 768px) {
-            body { padding: 10px; }
-            .quiz-header h1 { font-size: 1.4rem; }
-            .question-text { font-size: 1.1rem; }
-            .controls { flex-direction: column; }
-            .btn { width: 100%; }
+            body {
+                padding: 10px;
+            }
+
+            .quiz-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="quiz-container">
         <div class="quiz-header">
-            <h1>📌 Geraden & Ebenen im Raum</h1>
-            <p>Parameterform, Koordinatenform, Normalenvektor & Lagebeziehungen</p>
+            <h1>📐 Vektorprodukt & Spatprodukt</h1>
+            <p>Teste dein Wissen über Kreuzprodukt und geometrische Anwendungen</p>
         </div>
 
         <div class="progress-bar">
@@ -232,8 +355,10 @@
         </div>
 
         <div class="quiz-content">
+            <!-- Questions will be inserted here -->
             <div id="questionsContainer"></div>
 
+            <!-- Results -->
             <div class="results-container" id="resultsContainer">
                 <div class="result-message" id="resultMessage"></div>
                 <div class="score-circle">
@@ -260,171 +385,184 @@
     </div>
 
     <script>
+        // Hilfsfunktion zur Formatierung von Vektoren
+        function formatMath(text) {
+            // Ersetze Vektorsymbole mit Pfeil darüber
+            return text
+                .replace(/([abc])⃗/g, '<span class="vector">$1</span>')
+                .replace(/AB⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>AB</span>')
+                .replace(/OA⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>OA</span>')
+                .replace(/OB⃗/g, '<span style="position:relative;"><span style="position:absolute;top:-0.6em;left:50%;transform:translateX(-50%);font-size:0.8em;">→</span>OB</span>')
+                .replace(/0⃗/g, '<span class="vector">0</span>')
+                .replace(/ℝ³/g, 'ℝ<sup>3</sup>')
+                .replace(/ℝ²/g, 'ℝ<sup>2</sup>');
+        }
+
         const quizData = [
             {
-                question: "Wie lautet die Parameterform einer Geraden g im ℝ³?",
+                question: "Was ist das Grundprinzip des Vektorprodukts?",
                 options: [
-                    "ax + by + cz = d",
-                    "⃗x = ⃗a + t · ⃗v, t ∈ ℝ",
-                    "⃗x = s · ⃗u + t · ⃗v, s,t ∈ ℝ",
-                    "cos α = (⃗u · ⃗v) / (|⃗u||⃗v|)"
+                    "Vektor × Vektor = Skalar",
+                    "Vektor × Vektor = Vektor",
+                    "Skalar × Vektor = Vektor",
+                    "Vektor × Skalar = Skalar"
                 ],
                 correct: 1,
-                explanation: "Eine Gerade in ℝ³ wird durch Stützvektor ⃗a (Punkt auf der Geraden) und Richtungsvektor ⃗v beschrieben: ⃗x = ⃗a + t·⃗v."
+                explanation: "Das Vektorprodukt (Kreuzprodukt) multipliziert zwei Vektoren und liefert einen neuen Vektor. Im Gegensatz zum Skalarprodukt, das eine Zahl liefert, ist das Ergebnis des Vektorprodukts wieder ein Vektor."
             },
             {
-                question: "Welche Bedeutung hat der Stützvektor ⃗a in ⃗x = ⃗a + t·⃗v?",
+                question: "In welchem Raum ist das Vektorprodukt definiert?",
                 options: [
-                    "Er ist immer ein Einheitsvektor",
-                    "Er beschreibt die Richtung der Geraden",
-                    "Er ist der Ortsvektor eines festen Punktes auf der Geraden",
-                    "Er ist der Normalenvektor der Geraden"
+                    "In allen Vektorräumen",
+                    "Nur im ℝ²",
+                    "Nur im ℝ³",
+                    "In ℝ² und ℝ³"
                 ],
                 correct: 2,
-                explanation: "Der Stützvektor ⃗a ist der Ortsvektor eines festen Punktes A auf der Geraden. Von dort aus geht man in Richtung ⃗v weiter."
+                explanation: "Das Vektorprodukt ist eine besondere Operation, die nur im dreidimensionalen Raum ℝ³ definiert ist. In anderen Dimensionen existiert diese Operation nicht in dieser Form."
             },
             {
-                question: "Wie berechnet man den Richtungsvektor ⃗v einer Geraden durch zwei Punkte A und B?",
+                question: "Welche geometrische Eigenschaft hat das Vektorprodukt a⃗ × b⃗?",
                 options: [
-                    "⃗v = ⃗a + ⃗b",
-                    "⃗v = ⃗a − ⃗b",
-                    "⃗v = ⃗b − ⃗a",
-                    "⃗v = |⃗b − ⃗a|"
+                    "Es ist parallel zu a⃗",
+                    "Es ist parallel zu b⃗",
+                    "Es steht senkrecht auf beiden Vektoren a⃗ und b⃗",
+                    "Es liegt zwischen a⃗ und b⃗"
                 ],
                 correct: 2,
-                explanation: "Der Richtungsvektor ist der Verbindungsvektor von A nach B: ⃗v = ⃗b − ⃗a (Merksatz: Spitze minus Schaft)."
+                explanation: "Das Vektorprodukt a⃗ × b⃗ steht immer senkrecht (orthogonal) auf beiden Ausgangsvektoren. Diese Orthogonalität ist eine fundamentale Eigenschaft des Kreuzprodukts."
             },
             {
-                question: "A(1|2|3) und B(4|0|7): Wie lautet ⃗v = →AB?",
+                question: "Was bedeutet es, wenn a⃗ × b⃗ = 0⃗?",
                 options: [
-                    "(3|−2|4)",
-                    "(−3|2|−4)",
-                    "(5|2|10)",
-                    "(4|0|7)"
-                ],
-                correct: 0,
-                explanation: "→AB = B − A = (4−1, 0−2, 7−3) = (3, −2, 4)."
-            },
-            {
-                question: "Welche Aussage ist richtig: Eine Ebene ist …",
-                options: [
-                    "eindimensional und braucht 1 Parameter",
-                    "zweidimensional und braucht 2 Parameter",
-                    "dreidimensional und braucht 3 Parameter",
-                    "nur durch eine Zahl d bestimmt"
+                    "Die Vektoren sind orthogonal",
+                    "Die Vektoren sind parallel oder einer ist der Nullvektor",
+                    "Die Vektoren haben gleiche Länge",
+                    "Die Vektoren sind Einheitsvektoren"
                 ],
                 correct: 1,
-                explanation: "Eine Ebene ist zweidimensional. In Parameterform benötigt man daher zwei unabhängige Parameter s und t."
+                explanation: "Wenn das Vektorprodukt den Nullvektor ergibt, sind die beiden Vektoren parallel (kollinear) oder mindestens einer der Vektoren ist der Nullvektor. Dies ist das Parallelitätskriterium."
             },
             {
-                question: "Wie lautet die Parameterform einer Ebene E im ℝ³?",
+                question: "Ist das Vektorprodukt kommutativ?",
                 options: [
-                    "⃗x = ⃗a + s·⃗u + t·⃗v, s,t ∈ ℝ",
-                    "⃗x = ⃗a + t·⃗v, t ∈ ℝ",
-                    "n1x + n2y = d",
-                    "⃗x · ⃗x = d"
-                ],
-                correct: 0,
-                explanation: "Eine Ebene wird durch einen Stützvektor ⃗a und zwei Spannvektoren ⃗u, ⃗v beschrieben: ⃗x = ⃗a + s·⃗u + t·⃗v."
-            },
-            {
-                question: "Welche Bedingung müssen die Spannvektoren ⃗u und ⃗v einer Ebene erfüllen?",
-                options: [
-                    "Sie müssen parallel sein",
-                    "Sie dürfen nicht parallel sein (linear unabhängig)",
-                    "Sie müssen Einheitsvektoren sein",
-                    "Sie müssen orthogonal sein"
+                    "Ja, a⃗ × b⃗ = b⃗ × a⃗",
+                    "Nein, a⃗ × b⃗ = -(b⃗ × a⃗)",
+                    "Nur für orthogonale Vektoren",
+                    "Nur für parallele Vektoren"
                 ],
                 correct: 1,
-                explanation: "Damit eine Ebene aufgespannt wird, müssen ⃗u und ⃗v unterschiedliche Richtungen liefern, also nicht parallel (linear unabhängig) sein."
+                explanation: "Das Vektorprodukt ist NICHT kommutativ! Bei Vertauschung der Faktoren ändert sich das Vorzeichen: a⃗ × b⃗ = -(b⃗ × a⃗). Dies ändert die Richtung des Ergebnisvektors."
             },
             {
-                question: "Wie erhält man einen Normalenvektor ⃗n einer Ebene aus zwei Spannvektoren ⃗u und ⃗v?",
+                question: "Was berechnet man mit |a⃗ × b⃗|?",
                 options: [
-                    "⃗n = ⃗u + ⃗v",
-                    "⃗n = ⃗u · ⃗v",
-                    "⃗n = ⃗u × ⃗v",
-                    "⃗n = ⃗u − ⃗v"
+                    "Den Winkel zwischen den Vektoren",
+                    "Die Summe der Beträge",
+                    "Den Flächeninhalt des aufgespannten Parallelogramms",
+                    "Das Volumen des Spats"
                 ],
                 correct: 2,
-                explanation: "Ein Normalenvektor steht senkrecht auf der Ebene und kann mit dem Kreuzprodukt berechnet werden: ⃗n = ⃗u × ⃗v."
+                explanation: "Der Betrag |a⃗ × b⃗| entspricht dem Flächeninhalt des Parallelogramms, das von den Vektoren a⃗ und b⃗ aufgespannt wird. Dies ist eine fundamentale geometrische Bedeutung."
             },
             {
-                question: "Wie lautet die Koordinatenform einer Ebene mit Normalenvektor ⃗n=(n1,n2,n3)?",
+                question: "Wie berechnet man den Flächeninhalt eines Dreiecks mit Vektoren a⃗ und b⃗?",
                 options: [
-                    "⃗x = ⃗a + t·⃗v",
-                    "n1x + n2y + n3z = d",
-                    "x² + y² + z² = d",
-                    "cos α = |⃗u·⃗v|/(|⃗u||⃗v|)"
+                    "A = |a⃗ × b⃗|",
+                    "A = (1/2)|a⃗ × b⃗|",
+                    "A = 2|a⃗ × b⃗|",
+                    "A = |a⃗| · |b⃗|"
                 ],
                 correct: 1,
-                explanation: "Die Koordinatenform (parameterfreie Form) lautet: n1x + n2y + n3z = d, wobei d = ⃗n · ⃗a für einen Punkt A der Ebene."
+                explanation: "Ein Dreieck hat den halben Flächeninhalt des entsprechenden Parallelogramms. Daher: A_Dreieck = (1/2)|a⃗ × b⃗|."
             },
             {
-                question: "Wie berechnet man d in der Ebenengleichung ⃗n · ⃗x = d, wenn ein Punkt A mit Ortsvektor ⃗a auf der Ebene liegt?",
+                question: "Was ist das Spatprodukt [a⃗, b⃗, c⃗]?",
                 options: [
-                    "d = ⃗n × ⃗a",
-                    "d = ⃗n · ⃗a",
-                    "d = |⃗n| · |⃗a|",
-                    "d = ⃗a · ⃗a"
+                    "a⃗ × (b⃗ × c⃗)",
+                    "a⃗ · (b⃗ × c⃗)",
+                    "(a⃗ × b⃗) × c⃗",
+                    "(a⃗ · b⃗) · c⃗"
                 ],
                 correct: 1,
-                explanation: "Man setzt den Punkt A in die Ebenengleichung ein: d = ⃗n · ⃗a."
+                explanation: "Das Spatprodukt (gemischtes Produkt) ist definiert als [a⃗, b⃗, c⃗] = a⃗ · (b⃗ × c⃗). Es kombiniert Vektor- und Skalarprodukt und liefert eine Zahl."
             },
             {
-                question: "Kriterium für Gerade g: ⃗x=⃗a+t·⃗v und Ebene E: ⃗n·⃗x=d — wann schneidet g die Ebene E?",
+                question: "Was ist das Ergebnis des Spatprodukts?",
                 options: [
-                    "Wenn ⃗n · ⃗v = 0",
-                    "Wenn ⃗n · ⃗v ≠ 0",
-                    "Wenn ⃗v = ⃗0",
-                    "Wenn d = 0"
+                    "Ein Vektor",
+                    "Eine Zahl (Skalar)",
+                    "Eine Matrix",
+                    "Ein Punkt"
                 ],
                 correct: 1,
-                explanation: "Ist ⃗n·⃗v ≠ 0, dann ist die Gerade nicht parallel zur Ebene und es gibt genau einen Schnittpunkt (Durchstoßpunkt)."
+                explanation: "Das Spatprodukt [a⃗, b⃗, c⃗] = a⃗ · (b⃗ × c⃗) ist eine Zahl (Skalar). Man berechnet erst das Kreuzprodukt (gibt einen Vektor) und dann das Skalarprodukt (gibt eine Zahl)."
             },
             {
-                question: "Wann liegt eine Gerade g vollständig in der Ebene E?",
+                question: "Was bedeutet es, wenn [a⃗, b⃗, c⃗] = 0?",
                 options: [
-                    "Wenn ⃗n·⃗v = 0 und d − ⃗n·⃗a = 0",
-                    "Wenn ⃗n·⃗v ≠ 0",
-                    "Wenn d − ⃗n·⃗a ≠ 0",
-                    "Wenn |⃗v| = 1"
+                    "Die Vektoren sind alle parallel",
+                    "Die Vektoren sind komplanar (liegen in einer Ebene)",
+                    "Die Vektoren sind orthogonal",
+                    "Die Vektoren haben gleiche Länge"
                 ],
-                correct: 0,
-                explanation: "Für „Gerade in Ebene“ gilt: parallel zur Ebene (⟂ zur Normale) UND ein Punkt der Geraden erfüllt die Ebenengleichung: ⃗n·⃗v=0 und d−⃗n·⃗a=0."
+                correct: 1,
+                explanation: "Wenn das Spatprodukt null ist, sind die drei Vektoren komplanar, d.h. sie liegen alle in einer gemeinsamen Ebene. Dies ist das Komplanaritätskriterium."
             },
             {
-                question: "Welche Lagebeziehung gibt es nur im ℝ³ (nicht in ℝ²)?",
+                question: "Wie berechnet man das Volumen eines Spats (Parallelepipeds)?",
                 options: [
-                    "parallel",
-                    "identisch",
-                    "windschief",
-                    "schneidend"
+                    "V = [a⃗, b⃗, c⃗]",
+                    "V = |[a⃗, b⃗, c⃗]|",
+                    "V = (1/2)|[a⃗, b⃗, c⃗]|",
+                    "V = (1/3)|[a⃗, b⃗, c⃗]|"
+                ],
+                correct: 1,
+                explanation: "Das Volumen eines Spats (vierseitiges schiefes Prisma) beträgt V = |[a⃗, b⃗, c⃗]|. Man nimmt den Betrag, da das Volumen positiv sein muss."
+            },
+            {
+                question: "Wie lautet die Volumenformel für eine vierseitige Pyramide?",
+                options: [
+                    "V = |[a⃗, b⃗, c⃗]|",
+                    "V = (1/2)|[a⃗, b⃗, c⃗]|",
+                    "V = (1/3)|[a⃗, b⃗, c⃗]|",
+                    "V = (1/6)|[a⃗, b⃗, c⃗]|"
                 ],
                 correct: 2,
-                explanation: "Windschiefe Geraden schneiden sich nicht und sind nicht parallel – das ist nur im Raum ℝ³ möglich."
+                explanation: "Eine vierseitige Pyramide hat ein Drittel des Volumens des entsprechenden Spats: V = (1/3)|[a⃗, b⃗, c⃗]|. Dies ist die allgemeine Pyramidenformel V = (1/3) · Grundfläche · Höhe."
             },
             {
-                question: "Wie lautet die Formel für den Parameter t des Durchstoßpunkts (Gerade–Ebene)?",
+                question: "Wie berechnet man das Volumen eines Tetraeders (dreiseitige Pyramide)?",
                 options: [
-                    "t = (d − ⃗n·⃗a) / (⃗n·⃗v)",
-                    "t = (⃗n·⃗v) / (d − ⃗n·⃗a)",
-                    "t = (d + ⃗n·⃗a) / (⃗n×⃗v)",
-                    "t = (⃗a·⃗v) / (⃗n·⃗n)"
+                    "V = |[a⃗, b⃗, c⃗]|",
+                    "V = (1/2)|[a⃗, b⃗, c⃗]|",
+                    "V = (1/3)|[a⃗, b⃗, c⃗]|",
+                    "V = (1/6)|[a⃗, b⃗, c⃗]|"
                 ],
-                correct: 0,
-                explanation: "Setzt man die Gerade in die Ebenengleichung ein, erhält man: t = (d − ⃗n·⃗a)/(⃗n·⃗v), sofern ⃗n·⃗v ≠ 0."
+                correct: 3,
+                explanation: "Ein Tetraeder (dreiseitige Pyramide) kombiniert die Faktoren 1/2 (für die dreieckige Grundfläche) und 1/3 (für die Pyramide): V = (1/6)|[a⃗, b⃗, c⃗]|."
             },
             {
-                question: "Welche Formel nutzt man für den Schnittwinkel α zwischen einer Geraden (Richtungsvektor ⃗v) und einer Ebene (Normalenvektor ⃗n)?",
+                question: "Welche Eigenschaft gilt für die zyklische Vertauschung beim Spatprodukt?",
                 options: [
-                    "cos α = |⃗v·⃗n|/(|⃗v||⃗n|)",
-                    "sin α = |⃗v·⃗n|/(|⃗v||⃗n|)",
-                    "sin α = |⃗v×⃗n|",
-                    "cos α = |⃗v×⃗n|"
+                    "[a⃗, b⃗, c⃗] ≠ [b⃗, c⃗, a⃗]",
+                    "[a⃗, b⃗, c⃗] = [b⃗, c⃗, a⃗] = [c⃗, a⃗, b⃗]",
+                    "[a⃗, b⃗, c⃗] = -[b⃗, c⃗, a⃗]",
+                    "[a⃗, b⃗, c⃗] = 0"
                 ],
                 correct: 1,
-                explanation: "Für Gerade–Ebene verwendet man den SINUS: sin α = |⃗v·⃗n|/(|⃗v||⃗n|). (Gerade–Gerade nutzt typischerweise cos.)"
+                explanation: "Bei zyklischer Vertauschung bleibt das Spatprodukt gleich: [a⃗, b⃗, c⃗] = [b⃗, c⃗, a⃗] = [c⃗, a⃗, b⃗]. Nur bei nicht-zyklischer Vertauschung ändert sich das Vorzeichen."
+            },
+            {
+                question: "Wie berechnet man den Verbindungsvektor von Punkt A nach Punkt B?",
+                options: [
+                    "AB⃗ = OA⃗ + OB⃗",
+                    "AB⃗ = OA⃗ - OB⃗",
+                    "AB⃗ = OB⃗ - OA⃗",
+                    "AB⃗ = |OB⃗ - OA⃗|"
+                ],
+                correct: 2,
+                explanation: "Der Verbindungsvektor von A nach B wird berechnet mit: AB⃗ = OB⃗ - OA⃗. Merksatz: 'Spitze minus Schaft' - der Vektor zeigt vom ersten zum zweiten Punkt."
             }
         ];
 
@@ -440,15 +578,15 @@
                 const questionDiv = document.createElement('div');
                 questionDiv.className = 'question-container';
                 if (index === 0) questionDiv.classList.add('active');
-
+                
                 questionDiv.innerHTML = `
                     <div class="question-number">Frage ${index + 1} von ${quizData.length}</div>
-                    <div class="question-text">${q.question}</div>
+                    <div class="question-text">${formatMath(q.question)}</div>
                     <div class="options" id="options-${index}">
                         ${q.options.map((opt, i) => `
                             <div class="option" onclick="selectOption(${index}, ${i})">
                                 <div class="option-letter">${String.fromCharCode(65 + i)}</div>
-                                <div class="option-text">${opt}</div>
+                                <div class="option-text">${formatMath(opt)}</div>
                             </div>
                         `).join('')}
                     </div>
@@ -465,7 +603,7 @@
                         </button>
                     </div>
                 `;
-
+                
                 container.appendChild(questionDiv);
             });
 
@@ -478,23 +616,23 @@
             const optionsContainer = document.getElementById(`options-${questionIndex}`);
             const options = optionsContainer.querySelectorAll('.option');
             const correct = quizData[questionIndex].correct;
-
+            
             options[optionIndex].classList.add('selected');
             options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
             options[correct].classList.add('correct');
-
+            
             options.forEach(opt => opt.classList.add('disabled'));
-
+            
             answers[questionIndex] = optionIndex;
             if (optionIndex === correct) score++;
-
+            
             const feedback = document.getElementById(`feedback-${questionIndex}`);
             feedback.classList.add('show');
             feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
-            feedback.querySelector('.feedback-title').textContent =
+            feedback.querySelector('.feedback-title').textContent = 
                 optionIndex === correct ? '✓ Richtig!' : '✗ Leider falsch';
-            feedback.querySelector('.feedback-text').textContent = quizData[questionIndex].explanation;
-
+            feedback.querySelector('.feedback-text').innerHTML = formatMath(quizData[questionIndex].explanation);
+            
             document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
         }
 
@@ -527,24 +665,24 @@
             document.getElementById('questionsContainer').style.display = 'none';
             const resultsContainer = document.getElementById('resultsContainer');
             resultsContainer.classList.add('show');
-
+            
             const percentage = Math.round((score / quizData.length) * 100);
             document.getElementById('scoreNumber').textContent = percentage + '%';
             document.getElementById('correctCount').textContent = score;
             document.getElementById('incorrectCount').textContent = quizData.length - score;
             document.getElementById('totalCount').textContent = quizData.length;
-
+            
             let message = '';
             if (percentage >= 90) {
-                message = '🎉 Hervorragend! Du bist sehr sicher bei Geraden & Ebenen im ℝ³!';
+                message = '🎉 Hervorragend! Du beherrschst Vektorprodukt und Spatprodukt perfekt!';
             } else if (percentage >= 70) {
-                message = '👍 Sehr gut! Du hast die wichtigsten Methoden verstanden!';
+                message = '👍 Sehr gut! Du hast die wichtigsten Konzepte verstanden!';
             } else if (percentage >= 50) {
-                message = '📚 Solide Basis! Mit etwas Übung klappt’s noch besser!';
+                message = '📚 Gut gemacht! Mit etwas Übung wirst du noch besser!';
             } else {
-                message = '💪 Dranbleiben! Wiederhole Parameter-/Koordinatenform & Lagekriterien!';
+                message = '💪 Weiter üben! Schau dir die Materialien nochmal an!';
             }
-
+            
             document.getElementById('resultMessage').textContent = message;
         }
 
