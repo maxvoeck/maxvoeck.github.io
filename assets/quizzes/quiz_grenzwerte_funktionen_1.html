@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Grenzwerte von Funktionen im Unendlichen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .math-formula {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            margin: 0.5rem 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: #f0f1f3;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            background: #e8eaf6;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.correct .option-letter {
+            background: #28a745;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option.incorrect .option-letter {
+            background: #dc3545;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #374151;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #e9ecef;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .quiz-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>📈 Grenzwerte von Funktionen</h1>
+            <p>Verhalten im Unendlichen</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-content">
+            <div id="questionsContainer"></div>
+
+            <div class="results-container" id="resultsContainer">
+                <div class="result-message" id="resultMessage"></div>
+                <div class="score-circle">
+                    <div class="score-number" id="scoreNumber">0%</div>
+                    <div class="score-label">Erreicht</div>
+                </div>
+                <div class="result-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctCount">0</div>
+                        <div class="result-stat-label">Richtig</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="incorrectCount">0</div>
+                        <div class="result-stat-label">Falsch</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalCount">0</div>
+                        <div class="result-stat-label">Gesamt</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Was beschreibt der Grenzwert lim<sub>x→∞</sub> f(x) = g?",
+                options: [
+                    "Das Verhalten der Funktion für x-Werte nahe 0",
+                    "Die Funktionswerte nähern sich g an, wenn x immer größer wird",
+                    "Die Funktion hat bei x = g eine Nullstelle",
+                    "Die Ableitung der Funktion bei x = g"
+                ],
+                correct: 1,
+                explanation: "Der Grenzwert lim<sub>x→∞</sub> f(x) = g bedeutet, dass sich die Funktionswerte immer mehr dem Wert g annähern, wenn x gegen unendlich strebt (immer größer wird)."
+            },
+            {
+                question: "Bei gebrochenrationalen Funktionen mit Zählergrad n und Nennergrad m: Was gilt, wenn n < m?",
+                options: [
+                    "lim<sub>x→∞</sub> f(x) = 0",
+                    "lim<sub>x→∞</sub> f(x) = a<sub>n</sub>/b<sub>m</sub>",
+                    "lim<sub>x→∞</sub> f(x) = ±∞",
+                    "Der Grenzwert existiert nicht"
+                ],
+                correct: 0,
+                explanation: "Wenn der Zählergrad kleiner ist als der Nennergrad (n < m), wächst der Nenner viel schneller als der Zähler. Daher strebt der Bruch gegen 0."
+            },
+            {
+                question: "Berechne: lim<sub>x→∞</sub> (3x² + 5x - 7)/(2x² - 4x + 1)",
+                options: [
+                    "0",
+                    "3/2",
+                    "3",
+                    "∞"
+                ],
+                correct: 1,
+                explanation: "Zählergrad n = 2, Nennergrad m = 2 → n = m. Bei gleichem Grad ist der Grenzwert das Verhältnis der führenden Koeffizienten: 3/2."
+            },
+            {
+                question: "Was ist eine waagerechte Asymptote?",
+                options: [
+                    "Eine senkrechte Gerade, die der Graph nicht schneiden kann",
+                    "Eine horizontale Gerade y = g, der sich der Graph für x→±∞ annähert",
+                    "Der höchste oder tiefste Punkt einer Funktion",
+                    "Eine Gerade durch den Ursprung"
+                ],
+                correct: 1,
+                explanation: "Eine waagerechte Asymptote ist eine horizontale Gerade y = g, der sich der Funktionsgraph für sehr große oder sehr kleine x-Werte annähert."
+            },
+            {
+                question: "Berechne: lim<sub>x→∞</sub> (4x + 2)/(x³ - 5x)",
+                options: [
+                    "4",
+                    "∞",
+                    "0",
+                    "4/1"
+                ],
+                correct: 2,
+                explanation: "Zählergrad n = 1, Nennergrad m = 3 → n < m. Der Nenner wächst viel schneller als der Zähler, daher ist der Grenzwert 0."
+            },
+            {
+                question: "Welche Aussage über waagerechte Asymptoten ist FALSCH?",
+                options: [
+                    "Eine Funktion kann maximal zwei verschiedene waagerechte Asymptoten haben",
+                    "Der Graph kann die waagerechte Asymptote nie schneiden",
+                    "Bei rationalen Funktionen mit n > m existiert keine waagerechte Asymptote",
+                    "Waagerechte Asymptoten ergeben sich aus Grenzwerten für x→±∞"
+                ],
+                correct: 1,
+                explanation: "FALSCH ist: Der Graph kann die waagerechte Asymptote durchaus schneiden oder kreuzen - anders als bei senkrechten Asymptoten!"
+            },
+            {
+                question: "Berechne: lim<sub>x→∞</sub> (x³ + 2x)/(x - 1)",
+                options: [
+                    "0",
+                    "1",
+                    "3",
+                    "+∞"
+                ],
+                correct: 3,
+                explanation: "Zählergrad n = 3, Nennergrad m = 1 → n > m. Der Zähler wächst viel schneller als der Nenner, die Funktion divergiert gegen +∞."
+            },
+            {
+                question: "Welche Methode nutzt man zur Berechnung von Grenzwerten rationaler Funktionen?",
+                options: [
+                    "Ableitungsregeln",
+                    "Dominanzbetrachtung der höchsten Potenzen",
+                    "Integration",
+                    "Pythagoras"
+                ],
+                correct: 1,
+                explanation: "Man verwendet die Dominanzbetrachtung: Die höchsten Potenzen in Zähler und Nenner bestimmen das Verhalten im Unendlichen. Niedrigere Potenzen werden unwichtig."
+            },
+            {
+                question: "Berechne: lim<sub>x→∞</sub> (5x³ + 2x)/(x³ - 1)",
+                options: [
+                    "0",
+                    "5",
+                    "∞",
+                    "5/1 = 5"
+                ],
+                correct: 1,
+                explanation: "Zählergrad n = 3, Nennergrad m = 3 → n = m. Der Grenzwert ist das Verhältnis der Koeffizienten: 5/1 = 5."
+            },
+            {
+                question: "Wie berechnet man lim<sub>x→-∞</sub> f(x)?",
+                options: [
+                    "Genau wie lim<sub>x→∞</sub> f(x)",
+                    "Man berechnet lim<sub>x→∞</sub> f(-x)",
+                    "Man multipliziert lim<sub>x→∞</sub> f(x) mit -1",
+                    "Das ist nicht möglich"
+                ],
+                correct: 1,
+                explanation: "Für negative Unendlichkeit gilt die Regel: lim<sub>x→-∞</sub> f(x) = lim<sub>x→∞</sub> f(-x). Man ersetzt x durch -x und untersucht den Grenzwert für x→+∞."
+            },
+            {
+                question: "Was bedeutet es, wenn eine Funktion \"bestimmt divergent\" ist?",
+                options: [
+                    "Der Grenzwert ist 0",
+                    "Der Grenzwert ist eine konkrete Zahl",
+                    "Der Grenzwert ist +∞ oder -∞",
+                    "Der Grenzwert existiert nicht"
+                ],
+                correct: 2,
+                explanation: "Bestimmt divergent bedeutet, dass die Funktion gegen +∞ oder -∞ strebt. Dies passiert bei rationalen Funktionen, wenn der Zählergrad größer als der Nennergrad ist."
+            },
+            {
+                question: "Für f(x) = (7x⁴ - 3x²)/(2x⁴ + 5x): Was ist die waagerechte Asymptote?",
+                options: [
+                    "y = 0",
+                    "y = 7/2",
+                    "y = 7",
+                    "Keine vorhanden"
+                ],
+                correct: 1,
+                explanation: "n = 4, m = 4 → Gleicher Grad. Die waagerechte Asymptote ist y = 7/2 (Verhältnis der führenden Koeffizienten)."
+            },
+            {
+                question: "Berechne: lim<sub>x→∞</sub> (3x + 7)/(x² + 1)",
+                options: [
+                    "3",
+                    "7",
+                    "0",
+                    "∞"
+                ],
+                correct: 2,
+                explanation: "n = 1, m = 2 → n < m. Der Nenner wächst schneller, daher ist der Grenzwert 0."
+            },
+            {
+                question: "Was ist der erste Schritt beim Ausklammern zur Grenzwertberechnung?",
+                options: [
+                    "Den Nenner zu 0 setzen",
+                    "Die höchste Potenz in Zähler und Nenner ausklammern",
+                    "Die Funktion ableiten",
+                    "Nullstellen bestimmen"
+                ],
+                correct: 1,
+                explanation: "Beim Ausklammern beginnt man damit, die höchste Potenz sowohl im Zähler als auch im Nenner auszuklammern. Dann kürzt man und lässt x gegen unendlich gehen."
+            },
+            {
+                question: "Welche Funktion hat KEINE waagerechte Asymptote?",
+                options: [
+                    "f(x) = (2x² + 1)/(x² - 3)",
+                    "f(x) = (x + 5)/(x² + 1)",
+                    "f(x) = (x³ + 2)/(x² - 1)",
+                    "f(x) = (4x + 7)/(2x + 3)"
+                ],
+                correct: 2,
+                explanation: "f(x) = (x³ + 2)/(x² - 1) hat keine waagerechte Asymptote, da n = 3 > m = 2. Die Funktion divergiert gegen ±∞."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        function initQuiz() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                if (index === 0) questionDiv.classList.add('active');
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Frage ${index + 1} von ${quizData.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption(${index}, ${i})">
+                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                <div class="option-text">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${index === 0 ? 'style="visibility: hidden;"' : ''}>
+                            ← Zurück
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                            ${index === quizData.length - 1 ? 'Auswertung anzeigen' : 'Weiter →'}
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+
+            updateProgress();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (answers[questionIndex] !== undefined) return;
+
+            const optionsContainer = document.getElementById(`options-${questionIndex}`);
+            const options = optionsContainer.querySelectorAll('.option');
+            const correct = quizData[questionIndex].correct;
+            
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
+            
+            options.forEach(opt => opt.classList.add('disabled'));
+            
+            answers[questionIndex] = optionIndex;
+            if (optionIndex === correct) score++;
+            
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            feedback.classList.add('show');
+            feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            feedback.querySelector('.feedback-title').textContent = 
+                optionIndex === correct ? '✓ Richtig!' : '✗ Leider falsch';
+            feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
+            
+            document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion++;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion--;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('questionsContainer').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+            
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('scoreNumber').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = quizData.length - score;
+            document.getElementById('totalCount').textContent = quizData.length;
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = '🎉 Hervorragend! Du beherrschst Grenzwerte perfekt!';
+            } else if (percentage >= 70) {
+                message = '👍 Sehr gut! Du hast die Dominanzbetrachtung verstanden!';
+            } else if (percentage >= 50) {
+                message = '📚 Gut gemacht! Mit etwas Übung wirst du noch besser!';
+            } else {
+                message = '💪 Weiter üben! Wiederhole die drei Fälle: n<m, n=m, n>m!';
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('questionsContainer').style.display = 'block';
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
