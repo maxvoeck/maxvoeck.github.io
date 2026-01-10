@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: Grenzwerte von Zahlenfolgen</title>
+    <title>Quiz: Grenzwerte an einer Stelle</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg,  #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
             display: flex;
@@ -31,7 +31,7 @@
         }
 
         .quiz-header {
-            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
             color: white;
             padding: 2rem;
             text-align: center;
@@ -54,7 +54,7 @@
         }
 
         .progress-fill {
-            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
             height: 100%;
             width: 0%;
             transition: width 0.3s ease;
@@ -85,7 +85,7 @@
         }
 
         .question-number {
-            color: #4facfe;
+            color: #667eea;
             font-weight: 600;
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
@@ -97,6 +97,17 @@
             color: #1f2937;
             margin-bottom: 1.5rem;
             line-height: 1.5;
+        }
+
+        .math-formula {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.1em;
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            display: inline-block;
         }
 
         .options {
@@ -119,12 +130,12 @@
 
         .option:hover {
             background: #f0f1f3;
-            border-color: #4facfe;
+            border-color: #667eea;
             transform: translateX(5px);
         }
 
         .option-letter {
-            background: #4facfe;
+            background: #667eea;
             color: white;
             width: 32px;
             height: 32px;
@@ -137,8 +148,8 @@
         }
 
         .option.selected {
-            background: #e8f4fc;
-            border-color: #4facfe;
+            background: #e8eaf6;
+            border-color: #667eea;
         }
 
         .option.correct {
@@ -211,13 +222,13 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
 
         .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
         .btn-secondary {
@@ -250,14 +261,14 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 2rem auto;
             color: white;
-            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.4);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
         .score-number {
@@ -295,7 +306,7 @@
         .result-stat-number {
             font-size: 2rem;
             font-weight: 700;
-            color: #4facfe;
+            color: #667eea;
         }
 
         .result-stat-label {
@@ -330,8 +341,8 @@
 <body>
     <div class="quiz-container">
         <div class="quiz-header">
-            <h1>📈 Grenzwerte von Zahlenfolgen</h1>
-            <p>Konvergenz, Divergenz, Nullfolgen & mehr</p>
+            <h1>📍 Grenzwerte an einer Stelle</h1>
+            <p>Lücken, Polstellen und Sprungstellen</p>
         </div>
 
         <div class="progress-bar">
@@ -369,169 +380,169 @@
     <script>
         const quizData = [
             {
-                question: "Was beschreibt der Grenzwert einer Zahlenfolge?",
+                question: "Was bedeutet lim<sub>x→a</sub> f(x) = g?",
                 options: [
-                    "Den größten Wert der Folge",
-                    "Eine Zahl, der sich die Folgenglieder für große n annähern",
-                    "Die Summe aller Folgenglieder",
-                    "Den Durchschnitt der ersten 10 Glieder"
+                    "Die Funktion hat bei x = a den Wert g",
+                    "f(x) nähert sich g an, wenn x gegen a geht",
+                    "Die Ableitung der Funktion bei a ist g",
+                    "Die Funktion ist bei x = a nicht definiert"
                 ],
                 correct: 1,
-                explanation: "Der Grenzwert ist eine reelle Zahl g, sodass die Folgenglieder aₙ für n → ∞ beliebig nahe an g herankommen."
+                explanation: "lim<sub>x→a</sub> f(x) = g bedeutet: Die Funktionswerte nähern sich g an, wenn sich x dem Wert a nähert – unabhängig davon, ob f(a) definiert ist oder nicht."
             },
             {
-                question: "Wie lautet limₙ→∞ (1/n)?",
+                question: "Wann existiert der Grenzwert lim<sub>x→a</sub> f(x)?",
                 options: [
-                    "1",
-                    "∞",
+                    "Immer, wenn f(a) definiert ist",
+                    "Nur wenn die Funktion bei a stetig ist",
+                    "Nur wenn lim<sub>x→a⁻</sub> f(x) = lim<sub>x→a⁺</sub> f(x)",
+                    "Nur wenn f(a) = 0"
+                ],
+                correct: 2,
+                explanation: "Der Grenzwert existiert nur, wenn die einseitigen Grenzwerte von links (a⁻) und von rechts (a⁺) übereinstimmen und zum gleichen Wert führen."
+            },
+            {
+                question: "Was ist eine hebbare Lücke?",
+                options: [
+                    "Eine Stelle, wo die Funktion gegen ±∞ geht",
+                    "Eine Stelle, wo f(a) nicht definiert ist, aber der Grenzwert existiert",
+                    "Eine Stelle, wo die Funktion springt",
+                    "Eine Stelle mit senkrechter Asymptote"
+                ],
+                correct: 1,
+                explanation: "Eine hebbare Lücke liegt vor, wenn f(a) nicht definiert ist, ABER der Grenzwert existiert. Man könnte die Funktion an dieser Stelle ergänzen, um sie stetig zu machen."
+            },
+            {
+                question: "Berechne: lim<sub>x→3</sub> (x² - 9)/(x - 3)",
+                options: [
                     "0",
-                    "-1"
+                    "3",
+                    "6",
+                    "Der Grenzwert existiert nicht"
                 ],
                 correct: 2,
-                explanation: "Die Folge (1/n) ist eine klassische Nullfolge – ihr Grenzwert ist 0."
+                explanation: "Faktorisiere: (x² - 9)/(x - 3) = (x-3)(x+3)/(x-3) = x+3 für x≠3. Dann: lim<sub>x→3</sub> (x+3) = 6. Dies ist eine hebbare Lücke."
             },
             {
-                question: "Welche Folge ist konvergent?",
+                question: "Was ist eine Polstelle?",
                 options: [
-                    "(n²)",
-                    "((-1)ⁿ)",
-                    "(1/n)",
-                    "(2ⁿ)"
-                ],
-                correct: 2,
-                explanation: "Nur (1/n) hat einen endlichen Grenzwert (0). Die anderen divergieren: (n²) und (2ⁿ) bestimmt gegen ∞, ((-1)ⁿ) unbestimmt."
-            },
-            {
-                question: "Was bedeutet es, wenn eine Folge divergiert?",
-                options: [
-                    "Sie hat keinen Grenzwert in ℝ",
-                    "Sie hat den Grenzwert 0",
-                    "Sie ist monoton wachsend",
-                    "Sie besteht nur aus ganzen Zahlen"
-                ],
-                correct: 0,
-                explanation: "Divergenz bedeutet: kein Grenzwert als reelle Zahl existiert – entweder bestimmt (∞/−∞) oder unbestimmt (wie bei ((-1)ⁿ))."
-            },
-            {
-                question: "Welche Folge ist eine Nullfolge?",
-                options: [
-                    "(n)",
-                    "(1/√n)",
-                    "(2)",
-                    "((-1)ⁿ / n⁰)"
+                    "Eine Stelle, wo f(a) = 0",
+                    "Eine Stelle, wo die Funktion gegen ±∞ geht",
+                    "Eine Stelle, wo die Funktion stetig ist",
+                    "Eine Stelle, wo die Ableitung 0 ist"
                 ],
                 correct: 1,
-                explanation: "1/√n → 0 für n → ∞. Auch 1/n, 1/n² etc. sind Nullfolgen. Konstante Folgen ≠ 0 sind nicht konvergent gegen 0."
+                explanation: "Eine Polstelle liegt vor, wenn die Funktion an der Stelle x = a gegen +∞ oder -∞ geht. Die Gerade x = a ist dann eine senkrechte Asymptote."
             },
             {
-                question: "Bestimmen Sie: limₙ→∞ (2n + 1)/n",
+                question: "Wie erkennt man bei f(x) = Z(x)/N(x) eine Polstelle bei x = a?",
                 options: [
+                    "Wenn Z(a) = 0 und N(a) = 0",
+                    "Wenn Z(a) ≠ 0 und N(a) = 0",
+                    "Wenn Z(a) = 0 und N(a) ≠ 0",
+                    "Wenn Z(a) = N(a)"
+                ],
+                correct: 1,
+                explanation: "Eine Polstelle liegt vor, wenn der Nenner N(a) = 0 ist, aber der Zähler Z(a) ≠ 0. Falls beide 0 sind, liegt eine hebbare Lücke vor."
+            },
+            {
+                question: "Für f(x) = 1/(x-3): Was passiert bei x = 3?",
+                options: [
+                    "Hebbare Lücke",
+                    "Polstelle mit lim<sub>x→3⁻</sub> = -∞ und lim<sub>x→3⁺</sub> = +∞",
+                    "Sprungstelle",
+                    "Die Funktion ist dort stetig"
+                ],
+                correct: 1,
+                explanation: "Bei x = 3 liegt eine Polstelle vor. Von links (x < 3) ist x-3 negativ und klein → f(x) → -∞. Von rechts (x > 3) ist x-3 positiv und klein → f(x) → +∞."
+            },
+            {
+                question: "Was ist eine Sprungstelle?",
+                options: [
+                    "Eine Stelle mit hebbarer Lücke",
+                    "Eine Stelle, wo lim<sub>x→a⁻</sub> f(x) ≠ lim<sub>x→a⁺</sub> f(x)",
+                    "Eine Stelle mit Polstelle",
+                    "Eine Stelle, wo f'(a) nicht existiert"
+                ],
+                correct: 1,
+                explanation: "Eine Sprungstelle liegt vor, wenn die einseitigen Grenzwerte von links und rechts verschieden sind. Die Funktion 'springt' an dieser Stelle."
+            },
+            {
+                question: "Berechne: lim<sub>x→5</sub> (x² - 25)/(x - 5)",
+                options: [
+                    "0",
+                    "5",
+                    "10",
+                    "25"
+                ],
+                correct: 2,
+                explanation: "Faktorisiere: (x² - 25)/(x - 5) = (x-5)(x+5)/(x-5) = x+5 für x≠5. Dann: lim<sub>x→5</sub> (x+5) = 10."
+            },
+            {
+                question: "Was bedeutet der unbestimmte Ausdruck 0/0?",
+                options: [
+                    "Der Grenzwert ist 0",
+                    "Der Grenzwert ist 1",
+                    "Man muss die Funktion algebraisch umformen",
+                    "Der Grenzwert existiert nicht"
+                ],
+                correct: 2,
+                explanation: "Der Ausdruck 0/0 ist unbestimmt. Man muss die Funktion algebraisch umformen (z.B. faktorisieren und kürzen), um den tatsächlichen Grenzwert zu bestimmen."
+            },
+            {
+                question: "Berechne: lim<sub>x→2</sub> (x³ - 8)/(x - 2)",
+                options: [
+                    "4",
+                    "8",
+                    "12",
+                    "16"
+                ],
+                correct: 2,
+                explanation: "Nutze die 3. binomische Formel: x³ - 8 = (x-2)(x²+2x+4). Also: (x³-8)/(x-2) = x²+2x+4 für x≠2. Einsetzen: 4+4+4 = 12."
+            },
+            {
+                question: "Für f(x) = (x²-4)/(x²-5x+6): Wo liegen Polstellen?",
+                options: [
+                    "Bei x = 2 und x = 3",
+                    "Bei x = -2 und x = 2",
+                    "Nur bei x = 3",
+                    "Keine Polstellen"
+                ],
+                correct: 2,
+                explanation: "Faktorisiere: Zähler = (x-2)(x+2), Nenner = (x-2)(x-3). Bei x = 2: hebbare Lücke (beide 0). Bei x = 3: Polstelle (nur Nenner 0)."
+            },
+            {
+                question: "Was ist die Methode beim Erweitern mit Wurzeln?",
+                options: [
+                    "Mit der Wurzel selbst multiplizieren",
+                    "Mit dem konjugierten Ausdruck multiplizieren",
+                    "Die Wurzel quadrieren",
+                    "Die Wurzel ableiten"
+                ],
+                correct: 1,
+                explanation: "Bei Wurzeln erweitert man mit dem konjugierten Ausdruck (z.B. √x - 2 mit √x + 2), um die 3. binomische Formel anzuwenden und die Wurzel zu eliminieren."
+            },
+            {
+                question: "Berechne: lim<sub>x→0</sub> (x² + 3x)/x",
+                options: [
+                    "0",
                     "1",
-                    "2",
                     "3",
                     "∞"
                 ],
-                correct: 1,
-                explanation: "(2n + 1)/n = 2 + 1/n → 2 + 0 = 2."
+                correct: 2,
+                explanation: "Klammere x aus: (x² + 3x)/x = x(x + 3)/x = x + 3 für x≠0. Dann: lim<sub>x→0</sub> (x+3) = 3."
             },
             {
-                question: "Für welche Werte von q konvergiert die geometrische Folge (qⁿ)?",
+                question: "Bei welcher Funktion liegt eine Sprungstelle bei x = 1 vor?",
                 options: [
-                    "|q| < 1",
-                    "|q| > 1",
-                    "q = −1",
-                    "q ≥ 1"
-                ],
-                correct: 0,
-                explanation: "Nur für |q| < 1 gilt lim qⁿ = 0. Für q = 1 ist der Grenzwert 1; sonst divergiert die Folge."
-            },
-            {
-                question: "Was ist limₙ→∞ (1 + 1/n)ⁿ?",
-                options: [
-                    "1",
-                    "2",
-                    "e ≈ 2,718",
-                    "∞"
+                    "f(x) = (x²-1)/(x-1)",
+                    "f(x) = 1/(x-1)",
+                    "f(x) = { x für x<1; x+2 für x≥1 }",
+                    "f(x) = x²"
                 ],
                 correct: 2,
-                explanation: "Dies ist die Definition der Eulerschen Zahl e – ein fundamentaler Grenzwert der Analysis."
-            },
-            {
-                question: "Welche Methode nutzt man typischerweise zur Berechnung von lim (5n² + 3)/(2n² − 1)?",
-                options: [
-                    "Einsetzen von n = 1",
-                    "Ableiten nach n",
-                    "Ausklammern der höchsten Potenz",
-                    "Addition aller Glieder"
-                ],
-                correct: 2,
-                explanation: "Man klammert n² aus: (5 + 3/n²)/(2 − 1/n²) → 5/2."
-            },
-            {
-                question: "Ist die Folge aₙ = n · sin(1/n) konvergent?",
-                options: [
-                    "Nein, sie divergiert bestimmt",
-                    "Ja, mit Grenzwert 0",
-                    "Ja, mit Grenzwert 1",
-                    "Nein, sie oszilliert unbestimmt"
-                ],
-                correct: 2,
-                explanation: "Da sin(x) ≈ x für kleine x, gilt sin(1/n) ≈ 1/n ⇒ aₙ ≈ n·(1/n) = 1 → Grenzwert 1."
-            },
-            {
-                question: "Was ist limₙ→∞ (1 − 2/n)ⁿ?",
-                options: [
-                    "e²",
-                    "e⁻²",
-                    "0",
-                    "1"
-                ],
-                correct: 1,
-                explanation: "Allgemein: lim (1 + c/n)ⁿ = eᶜ. Hier ist c = −2 ⇒ e⁻²."
-            },
-            {
-                question: "Welche Aussage ist falsch?",
-                options: [
-                    "Jede konvergente Folge ist beschränkt",
-                    "Nullfolgen konvergieren gegen 0",
-                    "Wenn aₙ → a, dann gilt auch aₙ₊₁ → a",
-                    "Jede beschränkte Folge ist konvergent"
-                ],
-                correct: 3,
-                explanation: "Gegenbeispiel: ((-1)ⁿ) ist beschränkt, aber nicht konvergent. Also ist die letzte Aussage falsch."
-            },
-            {
-                question: "Was ist limₙ→∞ √[n]{n}?",
-                options: [
-                    "0",
-                    "1",
-                    "e",
-                    "∞"
-                ],
-                correct: 1,
-                explanation: "Ein wichtiger Standard-Grenzwert: die n-te Wurzel aus n konvergiert gegen 1."
-            },
-            {
-                question: "Welche Folge divergiert unbestimmt?",
-                options: [
-                    "(n³)",
-                    "(−n)",
-                    "((−1)ⁿ)",
-                    "(2ⁿ)"
-                ],
-                correct: 2,
-                explanation: "((−1)ⁿ) springt zwischen 1 und −1 – kein Grenzwert, nicht einmal ±∞ ⇒ unbestimmte Divergenz."
-            },
-            {
-                question: "Wie berechnet man limₙ→∞ (n + 2)/n ?",
-                options: [
-                    "0",
-                    "1",
-                    "2",
-                    "∞"
-                ],
-                correct: 1,
-                explanation: "(n + 2)/n = 1 + 2/n → 1 + 0 = 1."
+                explanation: "Die stückweise definierte Funktion hat bei x = 1 eine Sprungstelle: lim<sub>x→1⁻</sub> = 1, aber lim<sub>x→1⁺</sub> = 3. Die Grenzwerte sind verschieden."
             }
         ];
 
@@ -600,7 +611,7 @@
             feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
             feedback.querySelector('.feedback-title').textContent = 
                 optionIndex === correct ? '✓ Richtig!' : '✗ Leider falsch';
-            feedback.querySelector('.feedback-text').textContent = quizData[questionIndex].explanation;
+            feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
             
             document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
         }
@@ -643,13 +654,13 @@
             
             let message = '';
             if (percentage >= 90) {
-                message = '🎉 Hervorragend! Du beherrschst Grenzwerte perfekt!';
+                message = '🎉 Hervorragend! Du beherrschst Lücken, Polstellen und Sprünge perfekt!';
             } else if (percentage >= 70) {
-                message = '👍 Sehr gut! Du hast die Konzepte verstanden!';
+                message = '👍 Sehr gut! Du verstehst die drei Unstetigkeitsarten!';
             } else if (percentage >= 50) {
-                message = '📚 Gut! Wiederhole noch einige Standard-Grenzwerte.';
+                message = '📚 Gut gemacht! Mit etwas Übung wirst du noch besser!';
             } else {
-                message = '💪 Übe weiter! Achte auf Nullfolgen und die Eulersche Zahl.';
+                message = '💪 Weiter üben! Wiederhole Faktorisieren und die drei Arten von Unstetigkeiten!';
             }
             
             document.getElementById('resultMessage').textContent = message;
