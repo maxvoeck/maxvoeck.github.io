@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Extremwertaufgaben</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .math-formula {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.2em;
+            margin: 0.5rem 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: #f0f1f3;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            background: #e8eaf6;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.correct .option-letter {
+            background: #28a745;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option.incorrect .option-letter {
+            background: #dc3545;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #374151;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #e9ecef;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .quiz-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>📊 Extremwertaufgaben</h1>
+            <p>Optimierungsprobleme verstehen und lösen</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-content">
+            <div id="questionsContainer"></div>
+
+            <div class="results-container" id="resultsContainer">
+                <div class="result-message" id="resultMessage"></div>
+                <div class="score-circle">
+                    <div class="score-number" id="scoreNumber">0%</div>
+                    <div class="score-label">Erreicht</div>
+                </div>
+                <div class="result-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctCount">0</div>
+                        <div class="result-stat-label">Richtig</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="incorrectCount">0</div>
+                        <div class="result-stat-label">Falsch</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalCount">0</div>
+                        <div class="result-stat-label">Gesamt</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Was ist das Ziel einer Extremwertaufgabe?",
+                options: [
+                    "Eine Funktion ableiten",
+                    "Den größten oder kleinsten Wert einer Größe finden",
+                    "Eine Gleichung lösen",
+                    "Eine Funktion integrieren"
+                ],
+                correct: 1,
+                explanation: "Bei Extremwertaufgaben geht es darum, den größten (Maximum) oder kleinsten (Minimum) Wert einer Größe zu finden – also um Optimierung."
+            },
+            {
+                question: "Welches ist der erste Schritt beim Lösen einer Extremwertaufgabe?",
+                options: [
+                    "Die Ableitung bilden",
+                    "Die Nebenbedingung aufstellen",
+                    "Die Hauptbedingung aufstellen",
+                    "Die zweite Ableitung bilden"
+                ],
+                correct: 2,
+                explanation: "Der erste Schritt ist die Hauptbedingung: Man stellt die Formel für die zu optimierende Größe auf (z.B. Volumen, Fläche, Kosten)."
+            },
+            {
+                question: "Wozu dient die Nebenbedingung?",
+                options: [
+                    "Um die Ableitung zu vereinfachen",
+                    "Um die Anzahl der Variablen zu reduzieren",
+                    "Um das Maximum zu finden",
+                    "Um die zweite Ableitung zu bilden"
+                ],
+                correct: 1,
+                explanation: "Die Nebenbedingung beschreibt feste Bedingungen im Problem und wird verwendet, um eine Variable durch andere auszudrücken und so die Anzahl der Variablen zu reduzieren."
+            },
+            {
+                question: "Was ist die Zielfunktion?",
+                options: [
+                    "Die erste Ableitung",
+                    "Die Funktion mit nur einer Variable nach Einsetzen der Nebenbedingung",
+                    "Die Nebenbedingung selbst",
+                    "Die zweite Ableitung"
+                ],
+                correct: 1,
+                explanation: "Die Zielfunktion entsteht, wenn man die Nebenbedingung in die Hauptbedingung einsetzt. Sie hat nur noch eine Variable und wird dann optimiert."
+            },
+            {
+                question: "Was ist die notwendige Bedingung für ein Extremum?",
+                options: [
+                    "f(x) = 0",
+                    "f'(x) = 0",
+                    "f''(x) = 0",
+                    "f'(x) > 0"
+                ],
+                correct: 1,
+                explanation: "Die notwendige Bedingung für ein Extremum ist f'(x) = 0. An dieser Stelle hat die Funktion eine waagrechte Tangente."
+            },
+            {
+                question: "Wie erkennt man mit der zweiten Ableitung ein Maximum?",
+                options: [
+                    "f''(x) = 0",
+                    "f''(x) > 0",
+                    "f''(x) < 0",
+                    "f''(x) = 1"
+                ],
+                correct: 2,
+                explanation: "Wenn f''(x) < 0 (negativ), liegt ein Maximum vor. Die Funktion ist nach unten gekrümmt (konkav)."
+            },
+            {
+                question: "Wie erkennt man mit der zweiten Ableitung ein Minimum?",
+                options: [
+                    "f''(x) < 0",
+                    "f''(x) = 0",
+                    "f''(x) > 0",
+                    "f''(x) = -1"
+                ],
+                correct: 2,
+                explanation: "Wenn f''(x) > 0 (positiv), liegt ein Minimum vor. Die Funktion ist nach oben gekrümmt (konvex)."
+            },
+            {
+                question: "Ein Quader mit quadratischer Grundfläche (Seitenlänge x) und Höhe h soll maximales Volumen haben. Wie lautet die Hauptbedingung?",
+                options: [
+                    "V = x + h",
+                    "V = x² + h",
+                    "V = x² · h",
+                    "V = x · h²"
+                ],
+                correct: 2,
+                explanation: "Das Volumen eines Quaders ist V = Grundfläche · Höhe = x² · h (bei quadratischer Grundfläche mit Seitenlänge x)."
+            },
+            {
+                question: "Bei der Dose mit minimalem Materialverbrauch und Volumen 1000 cm³: Was wird minimiert?",
+                options: [
+                    "Das Volumen",
+                    "Der Radius",
+                    "Die Oberfläche",
+                    "Die Höhe"
+                ],
+                correct: 2,
+                explanation: "Materialverbrauch entspricht der Oberfläche der Dose. Diese soll bei festem Volumen minimiert werden."
+            },
+            {
+                question: "Warum muss man oft Randwerte überprüfen?",
+                options: [
+                    "Weil die erste Ableitung dort immer null ist",
+                    "Weil das Extremum auch am Rand des Definitionsbereichs liegen kann",
+                    "Weil die zweite Ableitung dort nicht existiert",
+                    "Weil man die Nebenbedingung prüfen muss"
+                ],
+                correct: 1,
+                explanation: "Das absolute Extremum kann auch an den Grenzen des Definitionsbereichs liegen, nicht nur an den Stellen, wo f'(x) = 0 ist."
+            },
+            {
+                question: "Bei der optimalen Dose (V = 1000 cm³, minimale Oberfläche): Welche Beziehung gilt zwischen Höhe h und Radius r?",
+                options: [
+                    "h = r",
+                    "h = 2r",
+                    "h = 3r",
+                    "h = r²"
+                ],
+                correct: 1,
+                explanation: "Bei der optimalen Dose gilt h = 2r, d.h. die Höhe entspricht dem Durchmesser. Die Dose ist also genau so hoch wie breit."
+            },
+            {
+                question: "Was bedeutet 'Definitionsbereich' bei Extremwertaufgaben?",
+                options: [
+                    "Die Menge aller möglichen Ableitungen",
+                    "Die Menge der physikalisch sinnvollen Werte für die Variable",
+                    "Die Menge aller Extremstellen",
+                    "Die Menge aller Nebenbedingungen"
+                ],
+                correct: 1,
+                explanation: "Der Definitionsbereich gibt an, welche Werte die Variable annehmen kann – z.B. nur positive Werte für Längen oder Einschränkungen durch die Aufgabenstellung."
+            },
+            {
+                question: "Bei einem Rechteck mit Flächeninhalt 100 cm² und minimalem Umfang: Was ist das Ergebnis?",
+                options: [
+                    "Ein schmales Rechteck",
+                    "Ein Quadrat mit Seitenlänge 10 cm",
+                    "Ein Rechteck mit Seitenverhältnis 2:1",
+                    "Ein sehr langes Rechteck"
+                ],
+                correct: 1,
+                explanation: "Bei festem Flächeninhalt hat das Quadrat den kleinsten Umfang. Mit A = 100 cm² ergibt sich x = 10 cm für alle Seiten."
+            },
+            {
+                question: "Beim maximalen Rechteck unter der Parabel f(x) = -x² + 4: Welche Symmetrie nutzt man aus?",
+                options: [
+                    "Keine Symmetrie",
+                    "Die Parabel ist symmetrisch zur y-Achse",
+                    "Die Parabel ist symmetrisch zur x-Achse",
+                    "Die Parabel ist punktsymmetrisch"
+                ],
+                correct: 1,
+                explanation: "Die Parabel ist achsensymmetrisch zur y-Achse. Daher liegt das optimale Rechteck symmetrisch, was die Lösung vereinfacht."
+            },
+            {
+                question: "Welche typische Fehlerquelle gibt es bei Extremwertaufgaben?",
+                options: [
+                    "Die Ableitung ist zu kompliziert",
+                    "Man vergisst, die Definitionsmenge und Randwerte zu überprüfen",
+                    "Die Nebenbedingung enthält immer Fehler",
+                    "Die zweite Ableitung existiert nicht"
+                ],
+                correct: 1,
+                explanation: "Ein häufiger Fehler ist, dass man nur die kritischen Stellen (f'(x) = 0) betrachtet, aber vergisst, die Randwerte des Definitionsbereichs zu überprüfen."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        function initQuiz() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                if (index === 0) questionDiv.classList.add('active');
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Frage ${index + 1} von ${quizData.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption(${index}, ${i})">
+                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                <div class="option-text">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${index === 0 ? 'style="visibility: hidden;"' : ''}>
+                            ← Zurück
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                            ${index === quizData.length - 1 ? 'Auswertung anzeigen' : 'Weiter →'}
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+
+            updateProgress();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (answers[questionIndex] !== undefined) return;
+
+            const optionsContainer = document.getElementById(`options-${questionIndex}`);
+            const options = optionsContainer.querySelectorAll('.option');
+            const correct = quizData[questionIndex].correct;
+            
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
+            
+            options.forEach(opt => opt.classList.add('disabled'));
+            
+            answers[questionIndex] = optionIndex;
+            if (optionIndex === correct) score++;
+            
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            feedback.classList.add('show');
+            feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            feedback.querySelector('.feedback-title').textContent = 
+                optionIndex === correct ? '✓ Richtig!' : '✗ Leider falsch';
+            feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
+            
+            document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion++;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion--;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('questionsContainer').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+            
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('scoreNumber').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = quizData.length - score;
+            document.getElementById('totalCount').textContent = quizData.length;
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = '🎉 Hervorragend! Du beherrschst Extremwertaufgaben perfekt!';
+            } else if (percentage >= 70) {
+                message = '👍 Sehr gut! Du verstehst die Grundlagen von Extremwertaufgaben!';
+            } else if (percentage >= 50) {
+                message = '📚 Gut gemacht! Übe besonders die 4-Schritte-Methode!';
+            } else {
+                message = '💪 Weiter üben! Konzentriere dich auf Haupt- und Nebenbedingung!';
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('questionsContainer').style.display = 'block';
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
