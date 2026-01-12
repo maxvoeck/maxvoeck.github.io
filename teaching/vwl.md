@@ -229,7 +229,7 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
   </div>
   
   <div class="material-card">
-    <h4>Nachfragekurve und Nachfragefunktion</h4>
+    <h4>Nachfrage und Nachfragekurve</h4>
     <p>Gesetz der Nachfrage, Nachfragefunktion, aggregierte Marktnachfrage, Verschiebung der Nachfragekurve, Einflussfaktoren wie Einkommen, Präferenzen und Preise verwandter Güter</p>
     <div class="button-group">
       <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="btn-small">PDF öffnen</a>
@@ -238,7 +238,7 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
   </div>
   
   <div class="material-card">
-    <h4>Marktgleichgewicht und seine Dynamik</h4>
+    <h4>Marktgleichgewicht</h4>
     <p>Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Auswirkungen von Steuern und Subventionen, praktische Beispiele und Berechnungen</p>
     <div class="button-group">
       <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="btn-small">PDF öffnen</a>
@@ -282,7 +282,7 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
 <h2 class="section-header">Makroökonomie</h2>
 <div class="materials-grid">
   <div class="material-card">
-    <h4>Volkswirtschaftliche Gesamtrechnung (VGR)</h4>
+    <h4>Volkswirtschaftliche Gesamtrechnung</h4>
     <p>Systematische Erfassung wirtschaftlicher Aktivitäten: Definition und Ziele der VGR, Bruttoinlandsprodukt (BIP), drei Berechnungsmethoden (Entstehung, Verwendung, Verteilung), Inlandsprinzip vs. Inländerprinzip, Vermeidung von Doppelzählung, praktische Beispiele und Übungsaufgaben</p>
     <div class="button-group">
       <a href="/assets/pdfs/VWL_11.pdf" class="btn-small">PDF öffnen</a>
