@@ -235,7 +235,7 @@ permalink: /teaching/mathematik/
 
   <div class="material-card">
     <h4>📊 Grenzwerte von Zahlenfolgen</h4>
-    <p>Konvergenz und Divergenz, Nullfolgen, Grenzwertsätze, Eulersche Zahl e und Methoden zur Grenzwertbestimmung</p>
+    <p>Konvergenz und Divergenz, Nullfolgen, Grenzwertsätze, Eulersche Zahl e und Methoden zur Grenzwertbestimmung.           </p>
     <div class="button-group">
       <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
       <a href="/assets/quizzes/quiz_grenzwerte_folgen.html" class="btn-small btn-quiz">📝 Quiz starten</a>

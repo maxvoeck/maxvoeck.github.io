@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Hauptsatz und Flächenberechnung</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            color: #2d3748;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: #edf2f7;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            background: #48bb78;
+            border-color: #48bb78;
+            color: white;
+        }
+
+        .option.incorrect {
+            background: #f56565;
+            border-color: #f56565;
+            color: white;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .option-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .option.selected .option-letter {
+            background: white;
+            color: #667eea;
+        }
+
+        .option.correct .option-letter {
+            background: white;
+            color: #48bb78;
+        }
+
+        .option.incorrect .option-letter {
+            background: white;
+            color: #f56565;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #edf2f7;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .explanation-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .explanation-text {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #cbd5e0;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results {
+            text-align: center;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .score-text {
+            color: white;
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .result-message {
+            font-size: 1.5em;
+            color: #2d3748;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .result-details {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .result-details p {
+            color: #4a5568;
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .quiz-card {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 1.1em;
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+
+            .score-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .score-text {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Hauptsatz und Flächenberechnung</h1>
+            <p>Teste dein Wissen über den Hauptsatz der Integralrechnung und Flächenberechnungen</p>
+        </div>
+
+        <div class="quiz-card" id="quizCard">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <div id="questionContainer">
+                <div class="question-number" id="questionNumber"></div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+                <div class="explanation" id="explanation">
+                    <div class="explanation-title">Erklärung:</div>
+                    <div class="explanation-text" id="explanationText"></div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>← Zurück</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Weiter →</button>
+            </div>
+        </div>
+
+        <div class="quiz-card results" id="results">
+            <h2 class="result-message" id="resultMessage"></h2>
+            <div class="score-circle">
+                <div class="score-text" id="scoreText"></div>
+            </div>
+            <div class="result-details">
+                <p><strong>Richtige Antworten:</strong> <span id="correctCount"></span></p>
+                <p><strong>Falsche Antworten:</strong> <span id="incorrectCount"></span></p>
+                <p><strong>Gesamtpunktzahl:</strong> <span id="totalScore"></span></p>
+            </div>
+            <button class="btn btn-primary" onclick="restartQuiz()">Quiz neu starten</button>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Was besagt der Hauptsatz der Differential- und Integralrechnung?",
+                options: [
+                    "Das Integral einer Funktion ist gleich ihrer Ableitung",
+                    "Wenn F eine Stammfunktion von f ist, dann gilt: ∫ₐᵇ f(x)dx = F(b) - F(a)",
+                    "Die Ableitung eines Integrals ist immer null",
+                    "Das Integral ist die Umkehrfunktion der Ableitung"
+                ],
+                correct: 1,
+                explanation: "Der Hauptsatz verbindet das unbestimmte Integral (Stammfunktion) mit dem bestimmten Integral (Flächeninhalt). Wenn F'(x) = f(x), dann gilt: ∫ₐᵇ f(x)dx = [F(x)]ₐᵇ = F(b) - F(a)."
+            },
+            {
+                question: "Was bedeutet die Schreibweise [F(x)]ₐᵇ?",
+                options: [
+                    "F(a) + F(b)",
+                    "F(a) - F(b)",
+                    "F(b) - F(a)",
+                    "F(b) · F(a)"
+                ],
+                correct: 2,
+                explanation: "Die Schreibweise [F(x)]ₐᵇ bedeutet: Obere Grenze b einsetzen F(b), untere Grenze a einsetzen F(a), dann die Differenz bilden: F(b) - F(a)."
+            },
+            {
+                question: "Welche Rolle spielt die Integrationskonstante C beim bestimmten Integral?",
+                options: [
+                    "Sie muss immer berücksichtigt werden",
+                    "Sie verdoppelt das Ergebnis",
+                    "Sie spielt keine Rolle, da F(b) + C - (F(a) + C) = F(b) - F(a)",
+                    "Sie wird zur oberen Grenze addiert"
+                ],
+                correct: 2,
+                explanation: "Die Konstante C kürzt sich beim bestimmten Integral heraus: F(b) + C - (F(a) + C) = F(b) - F(a). Deshalb spielt sie beim Hauptsatz keine Rolle."
+            },
+            {
+                question: "Welche Aussage zur Flächenberechnung (Grundtyp 1) ist korrekt?",
+                options: [
+                    "Die Funktion kann beliebig positiv oder negativ sein",
+                    "Die Formel lautet A = ∫ₐᵇ f(x)dx nur wenn f(x) ≥ 0 für alle x ∈ [a,b]",
+                    "Die Integrationsgrenzen müssen immer 0 und 1 sein",
+                    "Die Fläche ist immer negativ"
+                ],
+                correct: 1,
+                explanation: "Grundtyp 1 setzt voraus, dass f(x) ≥ 0 im gesamten Intervall [a,b]. Nur dann entspricht das Integral direkt dem Flächeninhalt. Bei f(x) < 0 muss der Betrag genommen werden."
+            },
+            {
+                question: "Was muss man tun, wenn die Funktion f(x) im Intervall [a,b] unterhalb der x-Achse liegt?",
+                options: [
+                    "Das Integral normal berechnen",
+                    "Den Betrag des Integrals nehmen: A = |∫ₐᵇ f(x)dx|",
+                    "Die Grenzen vertauschen",
+                    "Mit -1 multiplizieren"
+                ],
+                correct: 1,
+                explanation: "Wenn f(x) < 0, liefert das Integral einen negativen Wert. Da Flächeninhalte positiv sind, muss der Betrag genommen werden: A = |∫ₐᵇ f(x)dx|."
+            },
+            {
+                question: "Welche Strategie wird bei Grundtyp 2 (Fläche ohne gegebene Grenzen) verwendet?",
+                options: [
+                    "Grenzen 0 und 1 wählen",
+                    "Nullstellen bestimmen, Vorzeichen prüfen, Teilflächen berechnen und addieren",
+                    "Nur die größte Fläche berechnen",
+                    "Das Integral ohne Grenzen berechnen"
+                ],
+                correct: 1,
+                explanation: "Bei Grundtyp 2 bestimmt man zuerst die Nullstellen f(x) = 0 als Integrationsgrenzen, prüft wo f(x) > 0 und wo f(x) < 0, berechnet die Beträge der Teilintegrale und addiert sie zur Gesamtfläche."
+            },
+            {
+                question: "Wie berechnet man die Fläche zwischen zwei Funktionen f(x) und g(x) im Intervall [a,b]?",
+                options: [
+                    "A = ∫ₐᵇ f(x)dx + ∫ₐᵇ g(x)dx",
+                    "A = ∫ₐᵇ |f(x) - g(x)|dx wenn unklar welche Funktion oben liegt",
+                    "A = ∫ₐᵇ [f(x) - g(x)]dx wobei f(x) die obere Funktion ist",
+                    "A = ∫ₐᵇ f(x) · g(x)dx"
+                ],
+                correct: 2,
+                explanation: "Die Fläche zwischen zwei Funktionen berechnet sich als A = ∫ₐᵇ [f(x) - g(x)]dx, wobei f(x) die obere und g(x) die untere Funktion sein muss. Merksatz: Obere Funktion minus untere Funktion!"
+            },
+            {
+                question: "Was ist der erste Schritt bei Grundtyp 4 (zwei Funktionen ohne gegebene Grenzen)?",
+                options: [
+                    "Die Fläche direkt berechnen",
+                    "Schnittpunkte bestimmen durch Lösen von f(x) = g(x)",
+                    "Die Funktionen ableiten",
+                    "Beide Funktionen integrieren"
+                ],
+                correct: 1,
+                explanation: "Bei Grundtyp 4 bestimmt man zuerst die Schnittpunkte durch f(x) = g(x). Diese liefern die Integrationsgrenzen. Dann prüft man mit einem Testpunkt, welche Funktion oben liegt."
+            },
+            {
+                question: "Berechnen Sie: ∫₁ᵉ (1/x)dx",
+                options: [
+                    "0",
+                    "1",
+                    "e",
+                    "ln(e)"
+                ],
+                correct: 1,
+                explanation: "Die Stammfunktion von 1/x ist ln(x). Mit dem Hauptsatz: [ln(x)]₁ᵉ = ln(e) - ln(1) = 1 - 0 = 1."
+            },
+            {
+                question: "Welche Rechenregel für bestimmte Integrale ist korrekt?",
+                options: [
+                    "∫ₐᵇ f(x)dx = ∫ᵇₐ f(x)dx",
+                    "∫ₐᵇ f(x)dx = -∫ᵇₐ f(x)dx (Vertauschung der Grenzen)",
+                    "∫ₐᵇ [f(x) + g(x)]dx = ∫ₐᵇ f(x)dx · ∫ₐᵇ g(x)dx",
+                    "∫ₐᵇ f(x)dx + ∫ᵇᶜ f(x)dx = 0"
+                ],
+                correct: 1,
+                explanation: "Die Vertauschung der Integrationsgrenzen ändert das Vorzeichen: ∫ₐᵇ f(x)dx = -∫ᵇₐ f(x)dx. Dies folgt direkt aus F(b) - F(a) = -(F(a) - F(b))."
+            },
+            {
+                question: "Was beschreibt die Intervalladditivität?",
+                options: [
+                    "∫ₐᵇ f(x)dx = ∫ₐᶜ f(x)dx + ∫ᶜᵇ f(x)dx für a < c < b",
+                    "∫ₐᵇ f(x)dx = ∫ₐᵇ f(x)dx + ∫ₐᵇ f(x)dx",
+                    "Das Integral über die Summe zweier Intervalle ist null",
+                    "Integrale können nicht addiert werden"
+                ],
+                correct: 0,
+                explanation: "Die Intervalladditivität besagt: Ein Integral über [a,b] kann in Teilintegrale zerlegt werden: ∫ₐᵇ f(x)dx = ∫ₐᶜ f(x)dx + ∫ᶜᵇ f(x)dx für beliebiges c mit a < c < b."
+            },
+            {
+                question: "Für die Berechnung der Fläche zwischen f(x) = x² und g(x) = x im Intervall [0,1]: Welche Funktion liegt oben?",
+                options: [
+                    "f(x) = x²",
+                    "g(x) = x",
+                    "Beide liegen gleich hoch",
+                    "Es wechselt im Intervall"
+                ],
+                correct: 1,
+                explanation: "Für x ∈ [0,1] gilt x² ≤ x (z.B. 0,5² = 0,25 < 0,5). Daher liegt g(x) = x oberhalb von f(x) = x². Die Fläche ist A = ∫₀¹ [x - x²]dx = 1/6."
+            },
+            {
+                question: "Wie findet man die Integrationsgrenzen bei f(x) = x² - 4 (Grundtyp 2)?",
+                options: [
+                    "Durch Ableiten von f(x)",
+                    "Durch Lösen der Gleichung f(x) = 0, also x² - 4 = 0",
+                    "Die Grenzen sind immer -1 und 1",
+                    "Durch Integrieren von f(x)"
+                ],
+                correct: 1,
+                explanation: "Die Nullstellen der Funktion liefern die natürlichen Grenzen der Fläche zwischen Funktion und x-Achse. Aus x² - 4 = 0 folgt x₁ = -2 und x₂ = 2."
+            },
+            {
+                question: "Was macht man, wenn zwei Funktionen das Intervall in mehrere Bereiche unterteilen, wo mal die eine, mal die andere oben liegt?",
+                options: [
+                    "Nur die größte Fläche berechnen",
+                    "Den Durchschnitt bilden",
+                    "Für jeden Teilbereich separat die Differenz (obere minus untere) berechnen und alle Teilflächen addieren",
+                    "Das Integral ignorieren"
+                ],
+                correct: 2,
+                explanation: "Man unterteilt an den Schnittpunkten, bestimmt für jeden Teilbereich welche Funktion oben liegt, berechnet die Teilflächen als |∫(oben - unten)dx| und addiert sie zur Gesamtfläche."
+            },
+            {
+                question: "Welche der folgenden Aussagen über bestimmte Integrale ist FALSCH?",
+                options: [
+                    "Das bestimmte Integral hat immer einen konkreten Zahlenwert",
+                    "Die Integrationskonstante C beeinflusst das Ergebnis",
+                    "Das Integral verbindet Stammfunktion und Flächeninhalt",
+                    "∫ₐᵇ [c·f(x)]dx = c·∫ₐᵇ f(x)dx (Linearität)"
+                ],
+                correct: 1,
+                explanation: "Die Integrationskonstante C kürzt sich beim bestimmten Integral heraus und beeinflusst das Ergebnis NICHT. Alle anderen Aussagen sind korrekt."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        function initQuiz() {
+            showQuestion();
+            updateProgress();
+        }
+
+        function showQuestion() {
+            const question = quizData[currentQuestion];
+            
+            document.getElementById('questionNumber').textContent = `Frage ${currentQuestion + 1} von ${quizData.length}`;
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.onclick = () => selectOption(index);
+                
+                const letter = String.fromCharCode(65 + index);
+                optionDiv.innerHTML = `
+                    <div class="option-letter">${letter}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                
+                if (answers[currentQuestion] !== undefined) {
+                    optionDiv.classList.add('disabled');
+                    if (index === answers[currentQuestion]) {
+                        optionDiv.classList.add(index === question.correct ? 'correct' : 'incorrect');
+                    }
+                    if (index === question.correct) {
+                        optionDiv.classList.add('correct');
+                    }
+                }
+                
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            const explanation = document.getElementById('explanation');
+            if (answers[currentQuestion] !== undefined) {
+                document.getElementById('explanationText').textContent = question.explanation;
+                explanation.classList.add('show');
+            } else {
+                explanation.classList.remove('show');
+            }
+            
+            updateButtons();
+            updateProgress();
+        }
+
+        function selectOption(index) {
+            if (answers[currentQuestion] !== undefined) return;
+            
+            answers[currentQuestion] = index;
+            const question = quizData[currentQuestion];
+            
+            if (index === question.correct) {
+                score++;
+            }
+            
+            showQuestion();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+            }
+        }
+
+        function updateButtons() {
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = answers[currentQuestion] === undefined;
+            
+            if (currentQuestion === quizData.length - 1 && answers[currentQuestion] !== undefined) {
+                document.getElementById('nextBtn').textContent = 'Ergebnis anzeigen';
+            } else {
+                document.getElementById('nextBtn').textContent = 'Weiter →';
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('quizCard').style.display = 'none';
+            document.getElementById('results').classList.add('show');
+            
+            const percentage = Math.round((score / quizData.length) * 100);
+            document.getElementById('scoreText').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score + ' von ' + quizData.length;
+            document.getElementById('incorrectCount').textContent = (quizData.length - score) + ' von ' + quizData.length;
+            document.getElementById('totalScore').textContent = score + ' / ' + quizData.length + ' Punkten';
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = 'Hervorragend! Sie beherrschen den Hauptsatz und die Flächenberechnung perfekt!';
+            } else if (percentage >= 70) {
+                message = 'Sehr gut! Sie haben die Konzepte gut verstanden!';
+            } else if (percentage >= 50) {
+                message = 'Gut gemacht! Wiederholen Sie noch einmal die Grundtypen der Flächenberechnung.';
+            } else {
+                message = 'Weiter üben! Wiederholen Sie den Hauptsatz und die vier Grundtypen.';
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            
+            document.getElementById('results').classList.remove('show');
+            document.getElementById('quizCard').style.display = 'block';
+            
+            initQuiz();
+        }
+
+        // Quiz beim Laden initialisieren
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
