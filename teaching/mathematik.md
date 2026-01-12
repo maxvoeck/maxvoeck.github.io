@@ -16,15 +16,67 @@ permalink: /teaching/mathematik/
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 1.5rem;
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   background: #fff;
   display: flex;
   flex-direction: column;
   min-height: 240px;
+  border-left: 4px solid #e0e0e0;
+  position: relative;
+  overflow: hidden;
+}
+
+.material-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  transition: all 0.3s ease;
+  opacity: 0;
 }
 
 .material-card:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.material-card:hover::before {
+  opacity: 1;
+}
+
+/* Category colors */
+.category-vektor .material-card {
+  border-left-color: #3b82f6;
+}
+
+.category-vektor .material-card::before {
+  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.category-algebra .material-card {
+  border-left-color: #10b981;
+}
+
+.category-algebra .material-card::before {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+}
+
+.category-differential .material-card {
+  border-left-color: #8b5cf6;
+}
+
+.category-differential .material-card::before {
+  background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.category-integral .material-card {
+  border-left-color: #f59e0b;
+}
+
+.category-integral .material-card::before {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
 }
 
 .material-card h4 {
@@ -32,6 +84,11 @@ permalink: /teaching/mathematik/
   color: #333;
   font-size: 1.1rem;
   flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.material-card:hover h4 {
+  transform: translateX(4px);
 }
 
 .material-card p {
@@ -152,7 +209,7 @@ permalink: /teaching/mathematik/
 </p>
 
 <h2 class="section-header">Vektorrechnung und Analytische Geometrie</h2>
-<div class="materials-grid">
+<div class="materials-grid category-vektor">
   <div class="material-card">
     <h4>📐 Vektorrechnung – Grundlagen</h4>
     <p>Einführung in Vektoren, Koordinatensysteme, Skalare vs. vektorielle Größen, Betrag, Einheitsvektoren, Basisvektoren und Grundoperationen</p>
@@ -191,7 +248,7 @@ permalink: /teaching/mathematik/
 </div>
 
 <h2 class="section-header">Lineare Algebra</h2>
-<div class="materials-grid">
+<div class="materials-grid category-algebra">
   <div class="material-card">
     <h4>📙 Matrizen – Einführung und Rechenoperationen</h4>
     <p>Grundlagen der Matrizenrechnung: Addition, Multiplikation, Transponieren, spezielle Matrizen und Rechenregeln mit praktischen Beispielen</p>
@@ -237,7 +294,7 @@ permalink: /teaching/mathematik/
 </div>
 
 <h2 class="section-header">Differentialrechnung</h2>
-<div class="materials-grid">
+<div class="materials-grid category-differential">
   <div class="material-card">
     <h4>📐 Zahlenfolgen – Grundlagen</h4>
     <p>Explizite und rekursive Bildungsvorschriften, Beschränktheit, Monotonie, arithmetische und geometrische Folgen mit Summenformeln</p>
@@ -348,7 +405,7 @@ permalink: /teaching/mathematik/
 </div>
 
 <h2 class="section-header">Integralrechnung</h2>
-<div class="materials-grid">
+<div class="materials-grid category-integral">
   <div class="material-card">
     <h4>📘 Einführung</h4>
     <p>Stammfunktionen, Grundintegrale, Faktor- und Summenregel, bestimmtes Integral</p>
