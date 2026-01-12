@@ -8,122 +8,114 @@ permalink: /teaching/mathematik/
 .materials-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
+  gap: 2rem;
+  margin: 2.5rem 0;
 }
 
 .material-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
+  border: none;
+  border-radius: 0;
+  padding: 2rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   background: #fff;
   display: flex;
   flex-direction: column;
   min-height: 240px;
-  border-left: 4px solid #e0e0e0;
   position: relative;
-  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-.material-card::before {
+.material-card::after {
   content: '';
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
-  width: 4px;
-  height: 100%;
-  transition: all 0.3s ease;
-  opacity: 0;
+  width: 0;
+  height: 1px;
+  background: #1a1a1a;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .material-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-  transform: translateY(-4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
 }
 
-.material-card:hover::before {
-  opacity: 1;
+.material-card:hover::after {
+  width: 100%;
 }
 
-/* Category colors */
-.category-vektor .material-card {
-  border-left-color: #3b82f6;
+/* Remove category colors for minimalist approach */
+.category-vektor .material-card::after {
+  background: #1a1a1a;
 }
 
-.category-vektor .material-card::before {
-  background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+.category-algebra .material-card::after {
+  background: #1a1a1a;
 }
 
-.category-algebra .material-card {
-  border-left-color: #10b981;
+.category-differential .material-card::after {
+  background: #1a1a1a;
 }
 
-.category-algebra .material-card::before {
-  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
-}
-
-.category-differential .material-card {
-  border-left-color: #8b5cf6;
-}
-
-.category-differential .material-card::before {
-  background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
-}
-
-.category-integral .material-card {
-  border-left-color: #f59e0b;
-}
-
-.category-integral .material-card::before {
-  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+.category-integral .material-card::after {
+  background: #1a1a1a;
 }
 
 .material-card h4 {
   margin-top: 0;
-  color: #333;
-  font-size: 1.1rem;
+  color: #1a1a1a;
+  font-size: 1rem;
+  font-weight: 500;
   flex-shrink: 0;
-  transition: transform 0.3s ease;
+  letter-spacing: 0.02em;
+  transition: opacity 0.3s ease;
 }
 
 .material-card:hover h4 {
-  transform: translateX(4px);
+  opacity: 0.7;
 }
 
 .material-card p {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   color: #666;
-  margin: 0.5rem 0 1rem 0;
+  margin: 1rem 0 1.5rem 0;
   flex-grow: 1;
+  line-height: 1.7;
+  font-weight: 300;
 }
 
 .btn-small {
   display: inline-block;
-  padding: 0.4rem 0.8rem;
-  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
-  color: white !important;
+  padding: 0.5rem 1.2rem;
+  background: transparent;
+  color: #1a1a1a !important;
   text-decoration: none;
-  border-radius: 4px;
-  font-size: 0.85rem;
+  border: 1px solid #1a1a1a;
+  border-radius: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
   transition: all 0.3s ease;
   margin-top: 0.5rem;
 }
 
 .btn-small:hover {
-  background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
-  transform: translateY(-1px);
-  color: black !important;
+  background: #1a1a1a;
+  color: white !important;
 }
 
 .btn-quiz {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: transparent;
+  border: 1px solid #666;
+  color: #666 !important;
   margin-left: 0.5rem;
 }
 
 .btn-quiz:hover {
-  background: linear-gradient(135deg, #7c8ff5 0%, #8a5cb8 100%);
-  transform: translateY(-1px);
+  background: #666;
+  color: white !important;
+  border-color: #666;
 }
 
 .button-group {
@@ -135,10 +127,14 @@ permalink: /teaching/mathematik/
 }
 
 .section-header {
-  border-bottom: 2px solid #374151;
+  border-bottom: 1px solid #1a1a1a;
   padding-bottom: 0.5rem;
-  margin: 2rem 0 1rem 0;
-  color: #1f2937;
+  margin: 3rem 0 2rem 0;
+  color: #1a1a1a;
+  font-weight: 400;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .coming-soon {
