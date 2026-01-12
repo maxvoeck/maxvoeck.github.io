@@ -5,6 +5,10 @@ permalink: /teaching/mathematik/
 ---
 
 <style>
+body {
+  background: #f5f5f4;
+}
+
 .materials-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -17,7 +21,7 @@ permalink: /teaching/mathematik/
   border-radius: 8px;
   padding: 2rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: #fff;
+  background: #fafaf9;
   display: flex;
   flex-direction: column;
   min-height: 240px;
@@ -209,38 +213,38 @@ permalink: /teaching/mathematik/
 <h2 class="section-header">Vektorrechnung und Analytische Geometrie</h2>
 <div class="materials-grid category-vektor">
   <div class="material-card">
-    <h4>→ Vektorrechnung – Grundlagen</h4>
+    <h4>Vektorrechnung – Grundlagen</h4>
     <p>Einführung in Vektoren, Koordinatensysteme, Skalare vs. vektorielle Größen, Betrag, Einheitsvektoren, Basisvektoren und Grundoperationen</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Geo_2_1-2.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_vektorrechnung_grundlagen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Geo_2_1-2.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_vektorrechnung_grundlagen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>× Vektorprodukt und Spatprodukt</h4>
+    <h4>Vektorprodukt und Spatprodukt</h4>
     <p>Kreuzprodukt, geometrische Bedeutung, Flächenberechnung, Spatprodukt, Volumenberechnung und Anwendungen in der Raumgeometrie</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Geo_2_2-2.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_vektorprodukt.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Geo_2_2-2.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_vektorprodukt.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>∥ Geraden und Ebenen im Raum</h4>
+    <h4>Geraden und Ebenen im Raum</h4>
     <p>Parametergleichungen von Geraden und Ebenen, Normalenvektor, Koordinatenform, Lagebeziehungen und Schnittwinkelberechnung</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Geo_2_3.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_geraden_ebenen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Geo_2_3.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_geraden_ebenen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>⊥ Lagebeziehungen und Abstände</h4>
+    <h4>Lagebeziehungen und Abstände</h4>
     <p>Ebene-Ebene-Lagen, Abstandsberechnungen zwischen Punkten, Geraden und Ebenen, Hessesche Normalenform und praktische Anwendungen</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Geo_2_4.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_lagebeziehungen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Geo_2_4.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_lagebeziehungen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
 </div>
@@ -248,45 +252,45 @@ permalink: /teaching/mathematik/
 <h2 class="section-header">Lineare Algebra</h2>
 <div class="materials-grid category-algebra">
   <div class="material-card">
-    <h4>□ Matrizen – Einführung und Rechenoperationen</h4>
+    <h4>Matrizen – Einführung und Rechenoperationen</h4>
     <p>Grundlagen der Matrizenrechnung: Addition, Multiplikation, Transponieren, spezielle Matrizen und Rechenregeln mit praktischen Beispielen</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Matrizen_2_1-5.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_matrizen_grundlagen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Matrizen_2_1-5.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_matrizen_grundlagen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>| | Determinanten – Grundlagen und Rechenregeln</h4>
+    <h4>Determinanten – Grundlagen und Rechenregeln</h4>
     <p>Determinantenberechnung, Laplace-Entwicklung, Sarrus-Regel, reguläre/singuläre Matrizen, geometrische Bedeutung und Inverse Matrizen</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Matrizen_2_2-2.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_determinanten.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Matrizen_2_2-2.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_determinanten.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>≡ Matrizengleichungen – Übungsaufgaben</h4>
+    <h4>Matrizengleichungen – Übungsaufgaben</h4>
     <p>Umfangreiche Übungsaufgaben zu Matrizengleichungen, Rangbestimmung, Gauß-Elimination und Lösungsstrategien für verschiedene Matrixgrößen</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Matrizen_2_3-3.pdf" class="btn-small">📄 PDF öffnen</a>
+      <a href="/assets/pdfs/Matrizen_2_3-3.pdf" class="btn-small">PDF öffnen</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>∑ Lineare Gleichungssysteme – Grundlagen</h4>
+    <h4>Lineare Gleichungssysteme – Grundlagen</h4>
     <p>Einführung in LGS, Matrixschreibweise, Gauß-Algorithmus, Lösbarkeitskriterien und praktische Anwendungen in Ingenieurwesen und Wirtschaft</p>
     <div class="button-group">
-      <a href="/assets/pdfs/LGS_2_1-5.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_lgs_grundlagen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/LGS_2_1-5.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_lgs_grundlagen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>λ Lineare Gleichungssysteme – Parameterabhängigkeit</h4>
+    <h4>Lineare Gleichungssysteme – Parameterabhängigkeit</h4>
     <p>Untersuchung von LGS mit Parametern, Determinantentest, Fallunterscheidungen und Lösbarkeitsanalyse für verschiedene Parameterwerte</p>
     <div class="button-group">
-      <a href="/assets/pdfs/LGS_2_2-2.pdf" class="btn-small">📄 PDF öffnen</a>
+      <a href="/assets/pdfs/LGS_2_2-2.pdf" class="btn-small">PDF öffnen</a>
     </div>
   </div>
 </div>
@@ -294,110 +298,110 @@ permalink: /teaching/mathematik/
 <h2 class="section-header">Differentialrechnung</h2>
 <div class="materials-grid category-differential">
   <div class="material-card">
-    <h4>∞ Zahlenfolgen – Grundlagen</h4>
+    <h4>Zahlenfolgen – Grundlagen</h4>
     <p>Explizite und rekursive Bildungsvorschriften, Beschränktheit, Monotonie, arithmetische und geometrische Folgen mit Summenformeln</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Folgen_2_1-2.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_zahlenfolgen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Folgen_2_1-2.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_zahlenfolgen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
 
   <div class="material-card">
-    <h4>lim Grenzwerte von Zahlenfolgen</h4>
+    <h4>Grenzwerte von Zahlenfolgen</h4>
     <p>Konvergenz und Divergenz, Nullfolgen, Grenzwertsätze, Eulersche Zahl e und Methoden zur Grenzwertbestimmung.           </p>
     <div class="button-group">
-      <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_grenzwerte_folgen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_grenzwerte_folgen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>→∞ Grenzwerte von Funktionen – Verhalten im Unendlichen</h4>
+    <h4>Grenzwerte von Funktionen – Verhalten im Unendlichen</h4>
     <p>Einführung in Grenzwerte von Funktionen, Verhalten für x → ±∞, Dominanzprinzip, waagerechte Asymptoten und typische Aufgabentypen</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Funktion_2_2.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_grenzwerte_funktionen_1.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Funktion_2_2.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_grenzwerte_funktionen_1.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
 
   <div class="material-card">
-    <h4>lim Grenzwerte von Funktionen – Grenzwerte an einer Stelle</h4>
+    <h4>Grenzwerte von Funktionen – Grenzwerte an einer Stelle</h4>
     <p>Grenzwerte an festen Stellen, Unstetigkeitsarten, einseitige Grenzwerte, Polstellen, hebbare Lücken und Asymptoten. Mit vielen Beispielen und Übungen.</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_grenzwerte_funktionen_2.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_grenzwerte_funktionen_2.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
 
   <div class="material-card">
-    <h4>⌞ Grenzwerte von Funktionen – Asymptoten & Polynomdivision</h4>
+    <h4>Grenzwerte von Funktionen – Asymptoten & Polynomdivision</h4>
     <p>Waagerechte, senkrechte und schräge Asymptoten, Polynomdivision zur Bestimmung des Funktionsverhaltens im Unendlichen, vollständige Funktionsanalyse.</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Grenzwerte_2_3.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_asymptoten.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Grenzwerte_2_3.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_asymptoten.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>/ Wie steil ist eine Funktion?</h4>
+    <h4>Wie steil ist eine Funktion?</h4>
     <p>Einführung in die Differentialrechnung: Steigung linearer und nicht-linearer Funktionen, Sekanten und Tangenten, Definition der Ableitung, Differenzierbarkeit und Tangentengleichungen</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Funktion_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_ableitung_grundlagen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Funktion_2_1.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_ableitung_grundlagen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>d/dx Ableitungsregeln – Produkt-, Quotienten- und Kettenregel</h4>
+    <h4>Ableitungsregeln – Produkt-, Quotienten- und Kettenregel</h4>
     <p>Systematische Einführung in alle wichtigen Ableitungsregeln: Potenz-, Summen-, Produkt-, Quotienten- und Kettenregel. Mit vielen Beispielen, typischen Prüfungsaufgaben und Übungen.</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Funktion_2_4.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_ableitungsregeln.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Funktion_2_4.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_ableitungsregeln.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
 
   <div class="material-card">
-    <h4>0/0 Die Regel von de L'Hospital</h4>
+    <h4>Die Regel von de L'Hospital</h4>
     <p>Systematische Methode zur Berechnung unbestimmter Ausdrücke: Typen 0/0, ∞/∞, ∞·0, ∞-∞, 0⁰, ∞⁰, 1∞. Mit Anwendungsbeispielen, Übungen und wichtigen Grenzwerten.</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Hospital_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_hospital.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Hospital_2_1.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_hospital.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
 
   <div class="material-card">
-    <h4>∧ Extrempunkte</h4>
+    <h4>Extrempunkte</h4>
     <p>Definition von Extremstellen, notwendige und hinreichende Bedingungen, zweite Ableitung, systematische Bestimmung von Hoch- und Tiefpunkten, Sattelpunkte erkennen</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Extremwert_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_extrempunkte.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Extremwert_2_1.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_extrempunkte.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
 
   <div class="material-card">
-    <h4>∼ Wendepunkte</h4>
+    <h4>Wendepunkte</h4>
     <p>Definition von Wendepunkten, Krümmungswechsel, notwendige und hinreichende Bedingungen, dritte Ableitung, Sattelpunkte erkennen, Links-Rechts- und Rechts-Links-Wendepunkte</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Wendepunkt_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_wendepunkte.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Wendepunkt_2_1.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_wendepunkte.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-  <h4>ƒ Kurvendiskussion</h4>
+  <h4>Kurvendiskussion</h4>
   <p>Systematische Funktionsanalyse: Definitionsbereich, Symmetrie, Grenzwerte, Asymptoten, Nullstellen, Extrempunkte, Wendepunkte. Mit vollständigen Beispielen und Zeichenkonventionen</p>
   <div class="button-group">
-    <a href="/assets/pdfs/Kurvendiskusion_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
-    <a href="/assets/quizzes/quiz_kurvendiskussion.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+    <a href="/assets/pdfs/Kurvendiskusion_2_1.pdf" class="btn-small">PDF öffnen</a>
+    <a href="/assets/quizzes/quiz_kurvendiskussion.html" class="btn-small btn-quiz">Quiz starten</a>
   </div>
 </div>
 
   <div class="material-card">
-    <h4>max Extremwertaufgaben</h4>
+    <h4>Extremwertaufgaben</h4>
     <p>Systematisches Lösen von Optimierungsproblemen: Haupt- und Nebenbedingungen, Zielfunktionen, Kurvendiskussion mit Beispielen aus Technik und Wirtschaft</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Extrem_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_extremwertaufgaben.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Extrem_2_1.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_extremwertaufgaben.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
 </div>
@@ -405,38 +409,38 @@ permalink: /teaching/mathematik/
 <h2 class="section-header">Integralrechnung</h2>
 <div class="materials-grid category-integral">
   <div class="material-card">
-    <h4>∫ Einführung</h4>
+    <h4>Einführung</h4>
     <p>Stammfunktionen, Grundintegrale, Faktor- und Summenregel, bestimmtes Integral</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Integral_2_1.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_integral_einfuehrung.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Integral_2_1.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_integral_einfuehrung.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>∫ Integrationsmethoden</h4> 
+    <h4>Integrationsmethoden</h4> 
     <p>Substitution, partielle Integration, LIATE-Regel, Partialbruchzerlegung</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Integral_2_2.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_integrationsmethoden.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Integral_2_2.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_integrationsmethoden.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>∫ Hauptsatz & Flächen</h4>
+    <h4>Hauptsatz & Flächen</h4>
     <p>Hauptsatz, bestimmte Integrale, Flächenberechnung zwischen Graphen</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Integral_2_3.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_hauptsatz_flaechen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Integral_2_3.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_hauptsatz_flaechen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>∫ Flächenberechnung & Rotationsvolumen</h4>
+    <h4>Flächenberechnung & Rotationsvolumen</h4>
     <p>Flächenberechnung mit komplexeren Funktionen, Volumen von Rotationskörpern um x- und y-Achse</p>
     <div class="button-group">
-      <a href="/assets/pdfs/Intergal_2_4-2.pdf" class="btn-small">📄 PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_rotationsvolumen.html" class="btn-small btn-quiz">📝 Quiz starten</a>
+      <a href="/assets/pdfs/Intergal_2_4-2.pdf" class="btn-small">PDF öffnen</a>
+      <a href="/assets/quizzes/quiz_rotationsvolumen.html" class="btn-small btn-quiz">Quiz starten</a>
     </div>
   </div>
 </div>
