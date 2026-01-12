@@ -18,6 +18,9 @@ permalink: /teaching/mathematik/
   padding: 1.5rem;
   transition: box-shadow 0.3s ease;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
 }
 
 .material-card:hover {
@@ -28,12 +31,14 @@ permalink: /teaching/mathematik/
   margin-top: 0;
   color: #333;
   font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 .material-card p {
   font-size: 0.9rem;
   color: #666;
   margin: 0.5rem 0 1rem 0;
+  flex-grow: 1;
 }
 
 .btn-small {
@@ -68,7 +73,8 @@ permalink: /teaching/mathematik/
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
 }
 
 .section-header {
@@ -133,6 +139,10 @@ permalink: /teaching/mathematik/
   
   .btn-small {
     margin-left: 0 !important;
+  }
+  
+  .material-card {
+    min-height: auto;
   }
 }
 </style>
@@ -203,7 +213,9 @@ permalink: /teaching/mathematik/
   <div class="material-card">
     <h4>📒 Matrizengleichungen – Übungsaufgaben</h4>
     <p>Umfangreiche Übungsaufgaben zu Matrizengleichungen, Rangbestimmung, Gauß-Elimination und Lösungsstrategien für verschiedene Matrixgrößen</p>
-    <a href="/assets/pdfs/Matrizen_2_3-3.pdf" class="btn-small">📄 PDF öffnen</a>
+    <div class="button-group">
+      <a href="/assets/pdfs/Matrizen_2_3-3.pdf" class="btn-small">📄 PDF öffnen</a>
+    </div>
   </div>
   
   <div class="material-card">
@@ -218,7 +230,9 @@ permalink: /teaching/mathematik/
   <div class="material-card">
     <h4>📗 Lineare Gleichungssysteme – Parameterabhängigkeit</h4>
     <p>Untersuchung von LGS mit Parametern, Determinantentest, Fallunterscheidungen und Lösbarkeitsanalyse für verschiedene Parameterwerte</p>
-    <a href="/assets/pdfs/LGS_2_2-2.pdf" class="btn-small">📄 PDF öffnen</a>
+    <div class="button-group">
+      <a href="/assets/pdfs/LGS_2_2-2.pdf" class="btn-small">📄 PDF öffnen</a>
+    </div>
   </div>
 </div>
 
