@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: Nachfragekurve und Nachfragefunktion</title>
+    <title>Quiz: Marktgleichgewicht & Marktungleichgewichte</title>
     <style>
         * {
             margin: 0;
@@ -330,7 +330,7 @@
 <body>
     <div class="quiz-container">
         <div class="quiz-header">
-            <h1>📉 Nachfragekurve & Nachfragefunktion</h1>
+            <h1>⚖️ Marktgleichgewicht & Ungleichgewichte</h1>
             <p>Grundlagen der Volkswirtschaftslehre</p>
         </div>
 
@@ -369,106 +369,62 @@
     <script>
         const quizData = [
             {
-                question: "Was beschreibt die Nachfrage?",
+                question: "Was ist das Marktgleichgewicht?",
                 options: [
-                    "Die Menge eines Gutes, die Käufer bereit sind zu kaufen",
-                    "Die Produktionskapazität eines Unternehmens",
-                    "Den Gewinn des Anbieters",
-                    "Die Steuerlast auf ein Gut"
+                    "Der Punkt, an dem alle Käufer reich werden",
+                    "Der Zustand, in dem Angebot und Nachfrage übereinstimmen",
+                    "Der höchste mögliche Preis auf dem Markt",
+                    "Der Durchschnitt aller Preise"
                 ],
-                correct: 0,
-                explanation: "Nachfrage beschreibt die Menge eines Gutes, die Käufer bei einem bestimmten Preis zu kaufen bereit sind."
+                correct: 1,
+                explanation: "Im Marktgleichgewicht sind angebotene und nachgefragte Menge gleich – es gibt weder Überschuss noch Knappheit."
             },
             {
-                question: "Welche Aussage trifft auf das Gesetz der Nachfrage zu?",
+                question: "Welche Aussage zur Angebotskurve ist korrekt?",
                 options: [
-                    "Je höher der Preis, desto höher die Nachfrage",
-                    "Preis und Nachfragemenge sind unabhängig",
-                    "Je höher der Preis, desto geringer die nachgefragte Menge",
-                    "Die Nachfrage steigt immer mit dem Einkommen"
+                    "Sie verläuft typischerweise fallend",
+                    "Sie zeigt, wie viel Konsumenten kaufen wollen",
+                    "Sie verläuft typischerweise steigend",
+                    "Sie ist unabhängig vom Preis"
                 ],
                 correct: 2,
-                explanation: "Das Gesetz der Nachfrage besagt: Bei steigendem Preis sinkt die nachgefragte Menge (ceteris paribus)."
+                explanation: "Die Angebotskurve verläuft steigend: Je höher der Preis, desto mehr wollen Anbieter anbieten."
             },
             {
-                question: "Wie verläuft eine typische Nachfragekurve im Preis-Mengen-Diagramm?",
+                question: "Ein Angebotsüberhang entsteht, wenn…",
                 options: [
-                    "Waagerecht",
-                    "Senkrecht",
-                    "Mit positiver Steigung",
-                    "Mit negativer Steigung"
-                ],
-                correct: 4 - 1, // Index 3
-                explanation: "Die Nachfragekurve hat eine negative Steigung, da Preis und nachgefragte Menge invers zusammenhängen."
-            },
-            {
-                question: "Was stellt der y-Achsenabschnitt t in einer linearen Nachfragefunktion f(x) = −(Δp/Δx)·x + t dar?",
-                options: [
-                    "Die maximale Nachfragemenge",
-                    "Den Prohibitivpreis (Preis bei Nachfrage = 0)",
-                    "Die Grenzkosten",
-                    "Den Gleichgewichtspreis"
+                    "Der Preis unter dem Gleichgewicht liegt",
+                    "Der Preis über dem Gleichgewicht liegt",
+                    "Nachfrage und Angebot gleich sind",
+                    "Alle Güter sofort verkauft werden"
                 ],
                 correct: 1,
-                explanation: "Der y-Achsenabschnitt t ist der höchste Preis, bei dem noch eine positive Nachfrage existiert – also der Prohibitivpreis."
+                explanation: "Bei einem Preis über dem Gleichgewicht wird mehr angeboten als nachgefragt → Angebotsüberhang."
             },
             {
-                question: "Gegeben ist die Nachfragefunktion f(x) = −½x + 10. Welcher Preis gilt bei einer Nachfrage von 8 Einheiten?",
+                question: "Gegeben: Qd = 100 − 2P, Qs = 20 + 3P. Wie hoch ist der Gleichgewichtspreis?",
                 options: [
-                    "4 Euro",
-                    "5 Euro",
-                    "6 Euro",
-                    "8 Euro"
+                    "12 Euro",
+                    "16 Euro",
+                    "20 Euro",
+                    "24 Euro"
+                ],
+                correct: 1,
+                explanation: "Gleichsetzen: 100 − 2P = 20 + 3P → 80 = 5P → P = 16 Euro."
+            },
+            {
+                question: "Welche Folge hat ein Nachfrageüberhang?",
+                options: [
+                    "Preise sinken",
+                    "Unverkaufte Lagerbestände",
+                    "Preisdruck nach oben",
+                    "Anbieter reduzieren Produktion"
                 ],
                 correct: 2,
-                explanation: "Einsetzen: f(8) = −0,5·8 + 10 = −4 + 10 = 6 Euro."
+                explanation: "Bei zu niedrigem Preis übersteigt die Nachfrage das Angebot → Käufer konkurrieren → Preise steigen."
             },
             {
-                question: "Wie wird die aggregierte Marktnachfrage ermittelt?",
-                options: [
-                    "Durch Addition der Preise aller Konsumenten",
-                    "Durch horizontale Addition der individuellen Nachfragen",
-                    "Durch Mittelung der Nachfragefunktionen",
-                    "Durch vertikale Addition der Nachfragekurven"
-                ],
-                correct: 1,
-                explanation: "Die aggregierte Nachfrage entsteht durch horizontale Addition – also Summierung der Mengen bei gegebenem Preis."
-            },
-            {
-                question: "Konsument A hat p = 10 − 0,5x, Konsument B: p = 8 − 0,4x. Wie hoch ist die aggregierte Nachfrage bei p = 6?",
-                options: [
-                    "10 Einheiten",
-                    "12 Einheiten",
-                    "13 Einheiten",
-                    "15 Einheiten"
-                ],
-                correct: 2,
-                explanation: "xA = (10−6)/0,5 = 8; xB = (8−6)/0,4 = 5 → Gesamt = 13."
-            },
-            {
-                question: "Was passiert, wenn der Marktpreis den Prohibitivpreis eines Konsumenten übersteigt?",
-                options: [
-                    "Seine Nachfrage verdoppelt sich",
-                    "Seine Nachfrage ist null",
-                    "Er kauft trotzdem eine Einheit",
-                    "Er wird zum Anbieter"
-                ],
-                correct: 1,
-                explanation: "Liegt der Preis über dem Prohibitivpreis, ist die individuelle Nachfrage gleich null."
-            },
-            {
-                question: "Wann verschiebt sich die gesamte Nachfragekurve (nicht nur entlang)?",
-                options: [
-                    "Bei einer Preisänderung des Gutes selbst",
-                    "Bei Änderung externer Faktoren wie Einkommen oder Präferenzen",
-                    "Wenn die Produktionskosten steigen",
-                    "Nur bei staatlichen Eingriffen"
-                ],
-                correct: 1,
-                explanation: "Eine Verschiebung der Kurve erfolgt nur durch externe Faktoren – nicht durch Preisänderungen des betrachteten Gutes."
-            },
-            {
-                question: "Steigendes Einkommen verschiebt die Nachfragekurve für normale Güter…",
+                question: "Eine staatliche Subvention verschiebt die Angebotskurve…",
                 options: [
                     "nach links",
                     "nach rechts",
@@ -476,62 +432,106 @@
                     "nur bei Luxusgütern"
                 ],
                 correct: 1,
-                explanation: "Bei normalen Gütern führt höheres Einkommen zu höherer Nachfrage → Verschiebung nach rechts."
+                explanation: "Subventionen senken Produktionskosten → Anbieter bieten bei jedem Preis mehr an → Kurve verschiebt sich nach rechts."
             },
             {
-                question: "Der Preis für Kaffee (Substitut) steigt stark. Was passiert mit der Nachfrage nach Tee?",
+                question: "Eine Ökosteuer auf Benzin verschiebt die Angebotskurve…",
                 options: [
-                    "Sie sinkt",
-                    "Sie bleibt gleich",
-                    "Sie steigt",
-                    "Sie wird unelastisch"
-                ],
-                correct: 2,
-                explanation: "Tee wird als Ersatz attraktiver → Nachfragekurve für Tee verschiebt sich nach rechts."
-            },
-            {
-                question: "Welcher Faktor verschiebt die Nachfragekurve NICHT?",
-                options: [
-                    "Veränderung der Bevölkerungsgröße",
-                    "Preisänderung des betrachteten Gutes",
-                    "Änderung der Präferenzen",
-                    "Erwartung zukünftiger Preisanstiege"
+                    "nach rechts",
+                    "nach links",
+                    "parallel zur Nachfragekurve",
+                    "gar nicht"
                 ],
                 correct: 1,
-                explanation: "Eine Preisänderung des Gutes selbst führt nur zu einer Bewegung entlang der Kurve, nicht zu einer Verschiebung."
+                explanation: "Steuern erhöhen Kosten → Anbieter bieten weniger an → Angebotskurve verschiebt sich nach links."
             },
             {
-                question: "Welche Aussage zur aggregierten Nachfrage ist korrekt?",
+                question: "Im Gleichgewicht gilt:",
                 options: [
-                    "Sie ist die Summe aller Preise",
-                    "Sie berücksichtigt nur den Durchschnittskonsumenten",
-                    "Sie entsteht durch horizontale Addition der Einzelnachfragen",
-                    "Sie ist unabhängig von der Anzahl der Konsumenten"
+                    "Qd > Qs",
+                    "Qd < Qs",
+                    "Qd = Qs",
+                    "P = 0"
                 ],
                 correct: 2,
-                explanation: "Aggregierte Nachfrage = Summe der individuellen Mengen bei gegebenem Preis → horizontale Addition."
+                explanation: "Definition des Gleichgewichts: Nachgefragte Menge = Angebotsmenge."
             },
             {
-                question: "In der Nachfragefunktion p = 3000 − 2q: Was ist der Prohibitivpreis?",
+                question: "Welcher Effekt erklärt das fallende Verhalten der Nachfragekurve?",
                 options: [
-                    "0 Euro",
-                    "1500 Euro",
-                    "3000 Euro",
-                    "6000 Euro"
+                    "Gewinnmaximierung",
+                    "Substitutions- und Einkommenseffekt",
+                    "Angebotselastizität",
+                    "Produktionsfunktion"
                 ],
-                correct: 2,
-                explanation: "Prohibitivpreis = Preis bei q = 0 → p = 3000 − 2·0 = 3000 Euro."
+                correct: 1,
+                explanation: "Höhere Preise verringern Kaufkraft (Einkommenseffekt) und führen zu Alternativen (Substitutionseffekt)."
             },
             {
-                question: "Durch eine Werbekampagne steigt die Zahlungsbereitschaft um 50 Euro. Wie ändert sich p = 800 − 4q?",
+                question: "Bei einem Mindestpreis über dem Gleichgewicht entsteht…",
                 options: [
-                    "p = 750 − 4q",
-                    "p = 800 − 4(q + 50)",
-                    "p = 850 − 4q",
-                    "p = 800 − 3.5q"
+                    "ein Nachfrageüberhang",
+                    "ein Angebotsüberhang",
+                    "perfekte Allokation",
+                    "keine Wirkung"
                 ],
-                correct: 2,
-                explanation: "Höhere Zahlungsbereitschaft → Kurve verschiebt sich parallel nach oben: neuer Achsenabschnitt = 800 + 50 = 850."
+                correct: 1,
+                explanation: "Mindestpreis > Gleichgewichtspreis → Angebot > Nachfrage → Angebotsüberhang."
+            },
+            {
+                question: "Welche Aussage zur Effizienz im Gleichgewicht ist richtig?",
+                options: [
+                    "Es entstehen stets hohe Lagerkosten",
+                    "Die gesamtwirtschaftliche Wohlfahrt ist maximiert",
+                    "Nur Anbieter profitieren",
+                    "Konsumentenrente ist null"
+                ],
+                correct: 1,
+                explanation: "Im Gleichgewicht ist die Summe aus Konsumenten- und Produzentenrente maximal → Pareto-Effizienz."
+            },
+            {
+                question: "Wenn sich die Nachfrage nach Fahrrädern erhöht und gleichzeitig die Produktionskosten steigen, was passiert sicher?",
+                options: [
+                    "Preis sinkt, Menge steigt",
+                    "Preis steigt, Menge sinkt",
+                    "Menge bleibt gleich",
+                    "Preis steigt, Menge unsicher"
+                ],
+                correct: 3,
+                explanation: "Nachfrage↑ → Preis↑, Menge↑; Angebot↓ → Preis↑, Menge↓. Der Preis steigt sicher, die Mengenwirkung hängt von Stärke ab."
+            },
+            {
+                question: "Welche Aussage beschreibt den Anpassungsprozess bei einem Angebotsüberhang?",
+                options: [
+                    "Käufer bieten höhere Preise",
+                    "Anbieter senken Preise, um Lager abzubauen",
+                    "Der Staat kauft die Überschüsse",
+                    "Die Nachfragekurve verschiebt sich nach links"
+                ],
+                correct: 1,
+                explanation: "Unverkaufte Ware → Preissenkung → Nachfrage steigt, Angebot sinkt → Rückkehr zum Gleichgewicht."
+            },
+            {
+                question: "In der inversen Nachfragefunktion P = 500 − 3Q: Was ist P bei Q = 100?",
+                options: [
+                    "100 Euro",
+                    "200 Euro",
+                    "300 Euro",
+                    "400 Euro"
+                ],
+                correct: 1,
+                explanation: "P = 500 − 3·100 = 500 − 300 = 200 Euro."
+            },
+            {
+                question: "Warum kann sich das Wohnungsmarkt-Gleichgewicht in Großstädten verzögert einstellen?",
+                options: [
+                    "Weil Mieter zu viel verdienen",
+                    "Weil das Angebot kurzfristig starr ist (Bau dauert lange)",
+                    "Weil die Nachfragekurve waagerecht verläuft",
+                    "Weil es keine Substitutionsgüter gibt"
+                ],
+                correct: 1,
+                explanation: "Wohnungsbau benötigt Zeit → Angebot reagiert träge → anhaltender Nachfrageüberhang und steigende Mieten."
             }
         ];
 
@@ -643,13 +643,13 @@
             
             let message = '';
             if (percentage >= 90) {
-                message = '🎉 Hervorragend! Du beherrschst Nachfrage perfekt!';
+                message = '🎉 Perfekt! Du meisterst Marktgleichgewichte souverän!';
             } else if (percentage >= 70) {
-                message = '👍 Sehr gut! Du verstehst die Kernkonzepte!';
+                message = '👍 Sehr gut! Du verstehst die Dynamik von Angebot und Nachfrage!';
             } else if (percentage >= 50) {
-                message = '📚 Gut! Wiederhole noch einmal die Verschiebungsfaktoren.';
+                message = '📚 Gut! Wiederhole noch einmal Steuern und Überhänge.';
             } else {
-                message = '💪 Übe weiter! Achte auf Unterschiede zwischen Bewegung und Verschiebung!';
+                message = '💪 Übe weiter! Achte auf Unterschiede zwischen Überhang und Gleichgewicht!';
             }
             
             document.getElementById('resultMessage').textContent = message;
