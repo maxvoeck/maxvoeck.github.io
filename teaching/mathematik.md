@@ -342,34 +342,7 @@ h2.section-header:nth-of-type(4)::after {
   border-color: #e63946;
 }
 
-/* Bauhaus geometric decorations */
-.materials-grid::before {
-  content: '';
-  position: fixed;
-  bottom: 40px;
-  left: 40px;
-  width: 100px;
-  height: 100px;
-  border: 4px solid #457b9d;
-  border-radius: 50%;
-  opacity: 0.15;
-  pointer-events: none;
-  z-index: -1;
-}
 
-.materials-grid.category-algebra::after {
-  content: '';
-  position: fixed;
-  top: 200px;
-  right: 60px;
-  width: 80px;
-  height: 80px;
-  background: #f4d03f;
-  opacity: 0.1;
-  pointer-events: none;
-  z-index: -1;
-  transform: rotate(45deg);
-}
 
 @media (max-width: 768px) {
   .materials-grid {
