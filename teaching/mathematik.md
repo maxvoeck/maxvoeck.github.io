@@ -5,24 +5,26 @@ permalink: /teaching/mathematik/
 ---
 
 <style>
-/* Warme, moderne Lernumgebung mit Erdtönen */
+/* Japandi Design - Japanisch-Skandinavische Fusion */
 
 body {
-  background: linear-gradient(to bottom, #f9f7f4 0%, #fefdfb 100%);
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  line-height: 1.65;
+  background: #f7f5f2;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+  line-height: 1.7;
+  color: #3d3d3d;
 }
 
 .intro-text {
-  font-size: 1.05rem;
-  color: #5d5349;
+  font-size: 0.95rem;
+  color: #6b6b6b;
   font-weight: 400;
-  margin-bottom: 3rem;
-  padding: 1.75rem 2rem;
-  background: linear-gradient(135deg, #ffffff 0%, #faf8f5 100%);
-  border-radius: 20px;
-  border-left: 5px solid #c8956e;
-  box-shadow: 0 4px 20px rgba(139, 102, 74, 0.08);
+  margin-bottom: 3.5rem;
+  padding: 2rem 2.5rem;
+  background: #ffffff;
+  border-radius: 2px;
+  border-left: 3px solid #8b9e9f;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  letter-spacing: 0.02em;
 }
 
 .materials-grid {
@@ -34,65 +36,64 @@ body {
 
 .material-card {
   background: #ffffff;
-  border: none;
-  border-radius: 20px;
+  border: 1px solid #e8e5e0;
+  border-radius: 2px;
   padding: 0;
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   flex-direction: column;
-  min-height: 300px;
+  min-height: 320px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(93, 83, 73, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
-/* Warme Erdtöne für Kategorien */
+/* Dezente, natürliche Farbpalette */
 .category-vektor .material-card {
-  background: linear-gradient(to bottom, #ffffff 0%, #fff9f5 100%);
+  border-top: 2px solid #b8a89a;
 }
 
 .category-algebra .material-card {
-  background: linear-gradient(to bottom, #ffffff 0%, #fffbf2 100%);
+  border-top: 2px solid #c9b896;
 }
 
 .category-differential .material-card {
-  background: linear-gradient(to bottom, #ffffff 0%, #f5f9f7 100%);
+  border-top: 2px solid #8b9e9f;
 }
 
 .category-integral .material-card {
-  background: linear-gradient(to bottom, #ffffff 0%, #faf7f2 100%);
+  border-top: 2px solid #a49b8e;
 }
 
-/* Organische Akzente */
+/* Minimalistischer Akzent */
 .material-card::before {
   content: '';
   position: absolute;
-  top: -20px;
-  right: -20px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  opacity: 0.06;
-  transition: all 0.35s ease;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 60px;
+  opacity: 0.15;
+  transition: all 0.4s ease;
 }
 
 .category-vektor .material-card::before {
-  background: radial-gradient(circle, #d4836f 0%, transparent 70%);
+  background: linear-gradient(to bottom, #b8a89a, transparent);
 }
 
 .category-algebra .material-card::before {
-  background: radial-gradient(circle, #e6b36a 0%, transparent 70%);
+  background: linear-gradient(to bottom, #c9b896, transparent);
 }
 
 .category-differential .material-card::before {
-  background: radial-gradient(circle, #7ba68d 0%, transparent 70%);
+  background: linear-gradient(to bottom, #8b9e9f, transparent);
 }
 
 .category-integral .material-card::before {
-  background: radial-gradient(circle, #c8956e 0%, transparent 70%);
+  background: linear-gradient(to bottom, #a49b8e, transparent);
 }
 
-/* Cover-Effekt beim Hover */
+/* Dezenter Cover-Effekt */
 .material-card::after {
   content: '';
   position: absolute;
@@ -100,60 +101,119 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 20px;
+  border-radius: 2px;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.4s ease;
   z-index: 0;
 }
 
 .category-vektor .material-card::after {
-  background: linear-gradient(135deg, rgba(212, 131, 111, 0.08) 0%, rgba(230, 166, 144, 0.05) 100%);
+  background: linear-gradient(180deg, rgba(184, 168, 154, 0.04) 0%, rgba(184, 168, 154, 0.02) 100%);
 }
 
 .category-algebra .material-card::after {
-  background: linear-gradient(135deg, rgba(230, 179, 106, 0.08) 0%, rgba(240, 200, 134, 0.05) 100%);
+  background: linear-gradient(180deg, rgba(201, 184, 150, 0.04) 0%, rgba(201, 184, 150, 0.02) 100%);
 }
 
 .category-differential .material-card::after {
-  background: linear-gradient(135deg, rgba(123, 166, 141, 0.08) 0%, rgba(155, 186, 167, 0.05) 100%);
+  background: linear-gradient(180deg, rgba(139, 158, 159, 0.04) 0%, rgba(139, 158, 159, 0.02) 100%);
 }
 
 .category-integral .material-card::after {
-  background: linear-gradient(135deg, rgba(200, 149, 110, 0.08) 0%, rgba(217, 171, 136, 0.05) 100%);
+  background: linear-gradient(180deg, rgba(164, 155, 142, 0.04) 0%, rgba(164, 155, 142, 0.02) 100%);
+}
+
+.material-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  border-color: #d5d0ca;
 }
 
 .material-card:hover::after {
   opacity: 1;
 }
 
-.material-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(93, 83, 73, 0.15);
+.material-card:hover::before {
+  height: 100%;
+  width: 3px;
+  opacity: 0.4;
 }
 
-.material-card:hover::before {
-  opacity: 0.12;
-  transform: scale(1.3);
+/* Zusätzlicher Hover-Effekt - sanftes Glow */
+.material-card:hover .card-header {
+  border-bottom-color: transparent;
+}
+
+.material-card:hover .card-header::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.card-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.category-vektor .card-header::after {
+  background: linear-gradient(90deg, #b8a89a 0%, transparent 100%);
+}
+
+.category-algebra .card-header::after {
+  background: linear-gradient(90deg, #c9b896 0%, transparent 100%);
+}
+
+.category-differential .card-header::after {
+  background: linear-gradient(90deg, #8b9e9f 0%, transparent 100%);
+}
+
+.category-integral .card-header::after {
+  background: linear-gradient(90deg, #a49b8e 0%, transparent 100%);
 }
 
 .card-header {
-  padding: 2rem 1.75rem 1rem 1.75rem;
+  padding: 2rem 2rem 1.25rem 2rem;
   position: relative;
   z-index: 2;
+  border-bottom: 1px solid #f5f3f0;
 }
 
 .material-card h4 {
   margin: 0;
-  color: #3a342e;
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
+  color: #3d3d3d;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  transition: color 0.3s ease;
+}
+
+.category-vektor .material-card:hover h4 {
+  color: #b8a89a;
+}
+
+.category-algebra .material-card:hover h4 {
+  color: #c9b896;
+}
+
+.category-differential .material-card:hover h4 {
+  color: #8b9e9f;
+}
+
+.category-integral .material-card:hover h4 {
+  color: #a49b8e;
 }
 
 .card-content {
-  padding: 0 1.75rem 1.75rem 1.75rem;
+  padding: 1.5rem 2rem 2rem 2rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -162,18 +222,19 @@ body {
 }
 
 .material-card p {
-  font-size: 0.93rem;
-  color: #5d5349;
-  margin: 0 0 1.75rem 0;
+  font-size: 0.88rem;
+  color: #6b6b6b;
+  margin: 0 0 2rem 0;
   flex-grow: 1;
-  line-height: 1.7;
+  line-height: 1.8;
   font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .button-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  gap: 1rem;
   margin-top: auto;
 }
 
@@ -181,15 +242,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 1.25rem;
-  background: #faf8f5;
-  color: #5d5349 !important;
+  padding: 0.9rem 1rem;
+  background: #fafaf9;
+  color: #5a5a5a !important;
   text-decoration: none;
-  border: 2px solid rgba(200, 149, 110, 0.2);
-  border-radius: 14px;
-  font-size: 0.9rem;
+  border: 1px solid #e8e5e0;
+  border-radius: 1px;
+  font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -206,26 +268,26 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* Warme Hover-Farben passend zu Kategorien */
+/* Dezente Hover-Farben */
 .category-vektor .btn-small:first-child::before {
-  background: linear-gradient(135deg, #d4836f 0%, #e6a690 100%);
+  background: linear-gradient(180deg, #b8a89a 0%, #cbbfb3 100%);
 }
 
 .category-algebra .btn-small:first-child::before {
-  background: linear-gradient(135deg, #e6b36a 0%, #f0c886 100%);
+  background: linear-gradient(180deg, #c9b896 0%, #d9ccad 100%);
 }
 
 .category-differential .btn-small:first-child::before {
-  background: linear-gradient(135deg, #7ba68d 0%, #9bbaa7 100%);
+  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
 }
 
 .category-integral .btn-small:first-child::before {
-  background: linear-gradient(135deg, #c8956e 0%, #d9ab88 100%);
+  background: linear-gradient(180deg, #a49b8e 0%, #b8afa4 100%);
 }
 
 .btn-small:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(93, 83, 73, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
   border-color: transparent;
   color: #ffffff !important;
 }
@@ -234,125 +296,135 @@ body {
   opacity: 1;
 }
 
+.btn-small:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.btn-small::after {
+  content: '→';
+  position: absolute;
+  right: 1rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  z-index: 3;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.btn-quiz:hover::after {
+  content: '✓';
+}
+
 .btn-small span {
   position: relative;
   z-index: 2;
-  transition: color 0.3s ease;
 }
 
 .btn-quiz {
   background: #ffffff;
-  border-color: rgba(200, 149, 110, 0.15);
+  border-color: #e0ddd8;
 }
 
 .btn-quiz::before {
-  background: linear-gradient(135deg, #5d5349 0%, #756b61 100%);
+  background: linear-gradient(180deg, #6b6b6b 0%, #8a8a8a 100%);
 }
 
 .section-header {
   position: relative;
-  padding: 0.75rem 0 0.75rem 1.5rem;
-  margin: 4rem 0 2rem 0;
-  color: #3a342e;
-  font-weight: 600;
-  font-size: 1.4rem;
-  letter-spacing: -0.02em;
+  padding: 0.5rem 0 0.5rem 1rem;
+  margin: 4.5rem 0 2rem 0;
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
   display: inline-block;
-  border-left: 5px solid;
-  border-radius: 0 8px 8px 0;
+  border-left: 2px solid;
 }
 
-.section-header::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  border-radius: 8px 0 0 8px;
-}
-
-/* Farbcodierung der Section-Header mit Erdtönen */
+/* Natürliche Farbcodierung */
 h2.section-header:nth-of-type(1) {
-  border-left-color: #d4836f;
-  color: #d4836f;
+  border-left-color: #b8a89a;
+  color: #7d7169;
 }
 
 h2.section-header:nth-of-type(2) {
-  border-left-color: #e6b36a;
-  color: #e6b36a;
+  border-left-color: #c9b896;
+  color: #8d7f5e;
 }
 
 h2.section-header:nth-of-type(3) {
-  border-left-color: #7ba68d;
-  color: #7ba68d;
+  border-left-color: #8b9e9f;
+  color: #5d6f70;
 }
 
 h2.section-header:nth-of-type(4) {
-  border-left-color: #c8956e;
-  color: #c8956e;
+  border-left-color: #a49b8e;
+  color: #706960;
 }
 
 .page-header {
-  background: linear-gradient(135deg, #faf8f5 0%, #ffffff 100%);
-  color: #3a342e;
+  background: #ffffff;
+  color: #3d3d3d;
   padding: 3.5rem 2.5rem;
-  margin: -2rem -2rem 3.5rem -2rem;
+  margin: -2rem -2rem 4rem -2rem;
   position: relative;
   overflow: hidden;
-  border-radius: 0 0 32px 32px;
-  box-shadow: 0 4px 24px rgba(93, 83, 73, 0.08);
+  border-bottom: 1px solid #e8e5e0;
 }
 
-/* Organische dekorative Elemente */
+/* Zen-inspirierte Dekoration */
 .page-header::before {
   content: '';
   position: absolute;
-  top: -60px;
-  right: -40px;
+  top: 50%;
+  right: 60px;
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, rgba(200, 149, 110, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(139, 158, 159, 0.06) 0%, transparent 60%);
   border-radius: 50%;
+  transform: translateY(-50%);
 }
 
 .page-header::after {
   content: '';
   position: absolute;
-  bottom: -80px;
+  top: 50%;
   right: 180px;
-  width: 240px;
-  height: 240px;
-  background: radial-gradient(circle, rgba(123, 166, 141, 0.12) 0%, transparent 70%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(184, 168, 154, 0.04) 0%, transparent 60%);
   border-radius: 50%;
+  transform: translateY(-50%);
 }
 
 .page-header h1 {
   margin: 0;
-  font-size: 2.75rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   position: relative;
   z-index: 1;
-  color: #3a342e;
+  color: #3d3d3d;
 }
 
 .back-link {
   display: inline-block;
-  margin-top: 3.5rem;
-  padding: 1rem 2.5rem;
+  margin-top: 4rem;
+  padding: 0.9rem 2.5rem;
   background: #ffffff;
-  color: #5d5349 !important;
+  color: #5a5a5a !important;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.95rem;
-  letter-spacing: 0.01em;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   transition: all 0.3s ease;
-  border: 2px solid rgba(200, 149, 110, 0.2);
-  border-radius: 16px;
+  border: 1px solid #e8e5e0;
+  border-radius: 1px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(93, 83, 73, 0.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .back-link::before {
@@ -362,21 +434,36 @@ h2.section-header:nth-of-type(4) {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #c8956e 0%, #d9ab88 100%);
+  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: -1;
 }
 
 .back-link:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 24px rgba(93, 83, 73, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
   border-color: transparent;
   color: #ffffff !important;
 }
 
 .back-link:hover::before {
   opacity: 1;
+}
+
+/* Wabi-Sabi Textur-Effekt */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(184, 168, 154, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(139, 158, 159, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 @media (max-width: 768px) {
@@ -388,11 +475,10 @@ h2.section-header:nth-of-type(4) {
   .page-header {
     margin: -1rem -1rem 2.5rem -1rem;
     padding: 2.5rem 1.75rem;
-    border-radius: 0 0 24px 24px;
   }
   
   .page-header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
   
   .page-header::before,
@@ -405,12 +491,20 @@ h2.section-header:nth-of-type(4) {
   }
   
   .section-header {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
   
   .intro-text {
-    font-size: 0.95rem;
-    padding: 1.5rem;
+    font-size: 0.9rem;
+    padding: 1.5rem 1.75rem;
+  }
+  
+  .card-header {
+    padding: 1.75rem 1.5rem 1rem 1.5rem;
+  }
+  
+  .card-content {
+    padding: 1.25rem 1.5rem 1.75rem 1.5rem;
   }
 }
 </style>
