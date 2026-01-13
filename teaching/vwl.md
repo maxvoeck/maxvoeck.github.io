@@ -5,8 +5,22 @@ permalink: /teaching/vwl/
 ---
 
 <style>
+/* Radical Bauhaus design with primary colors and geometric emphasis */
+
 body {
-  background: #f5f5f4;
+  background: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+}
+
+.intro-text {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #000000;
+  font-weight: 300;
+  margin-bottom: 3rem;
+  border-left: 4px solid #000000;
+  padding-left: 1rem;
 }
 
 .materials-grid {
@@ -17,152 +31,311 @@ body {
 }
 
 .material-card {
-  border: none;
-  border-radius: 8px;
-  padding: 2rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  background: #fafaf9;
+  background: #ffffff;
+  border: 3px solid #000000;
+  padding: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  min-height: 240px;
+  min-height: 300px;
   position: relative;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
 }
 
-.material-card::after {
+/* Bold primary color accents per category - Bauhaus style */
+.category-mikro .material-card {
+  border-top: 8px solid #e63946; /* Red for Mikroökonomie */
+}
+
+.category-makro .material-card {
+  border-top: 8px solid #457b9d; /* Blue for Makroökonomie */
+}
+
+.category-klausur .material-card {
+  border-top: 8px solid #000000; /* Black for Klausuraufgaben */
+}
+
+.material-card::before {
   content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: #1a1a1a;
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  transition: transform 0.3s ease;
+}
+
+.category-mikro .material-card::before {
+  background: #e63946;
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+}
+
+.category-makro .material-card::before {
+  background: #457b9d;
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
+}
+
+.category-klausur .material-card::before {
+  background: #000000;
+  clip-path: polygon(100% 0, 100% 100%, 0 0);
 }
 
 .material-card:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.material-card:hover::after {
-  width: 100%;
+.material-card:hover::before {
+  transform: scale(1.2);
+}
+
+.card-header {
+  background: #000000;
+  color: #ffffff;
+  padding: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .material-card h4 {
-  margin-top: 0;
-  color: #1a1a1a;
+  margin: 0;
+  color: #ffffff;
   font-size: 1rem;
   font-weight: 500;
-  flex-shrink: 0;
-  letter-spacing: 0.02em;
-  transition: opacity 0.3s ease;
-}
-
-.material-card:hover h4 {
-  opacity: 0.7;
-}
-
-.material-card p {
-  font-size: 0.875rem;
-  color: #666;
-  margin: 1rem 0 1.5rem 0;
-  flex-grow: 1;
-  line-height: 1.7;
-  font-weight: 300;
-}
-
-.btn-small {
-  display: inline-block;
-  padding: 0.5rem 1.2rem;
-  background: transparent;
-  color: #1a1a1a !important;
-  text-decoration: none;
-  border: 1px solid #1a1a1a;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 400;
   letter-spacing: 0.05em;
-  transition: all 0.3s ease;
-  margin-top: 0.5rem;
-}
-
-.btn-small:hover {
-  background: #1a1a1a;
-  color: white !important;
-}
-
-.btn-quiz {
-  background: transparent;
-  border: 1px solid #666;
-  color: #666 !important;
-  margin-left: 0.5rem;
-}
-
-.btn-quiz:hover {
-  background: #666;
-  color: white !important;
-  border-color: #666;
-}
-
-.button-group {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: nowrap;
-  margin-top: auto;
-  padding-top: 0.5rem;
-}
-
-.section-header {
-  border-bottom: 1px solid #1a1a1a;
-  padding-bottom: 0.5rem;
-  margin: 3rem 0 2rem 0;
-  color: #1a1a1a;
-  font-weight: 400;
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
+  line-height: 1.4;
   text-transform: uppercase;
 }
 
-.coming-soon {
-  background: #f8f9fa;
+.card-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.material-card p {
+  font-size: 0.9rem;
+  color: #000000;
+  margin: 0 0 1.5rem 0;
+  flex-grow: 1;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: auto;
+}
+
+.btn-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
-  border-radius: 4px;
-  color: #666;
-  font-style: italic;
-  border-left: 4px solid #374151;
+  background: #ffffff;
+  color: #000000 !important;
+  text-decoration: none;
+  border: 2px solid #000000;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-small::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  transition: left 0.3s ease;
+}
+
+/* Color the PDF button with category color */
+.category-mikro .btn-small:first-child::before {
+  background: #e63946;
+}
+
+.category-makro .btn-small:first-child::before {
+  background: #457b9d;
+}
+
+.category-klausur .btn-small:first-child::before {
+  background: #000000;
+}
+
+.btn-small:hover::before {
+  left: 0;
+}
+
+.btn-small:hover {
+  color: #ffffff !important;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-small span {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-quiz {
+  background: #f5f5f5;
+  border-left: none;
+}
+
+.btn-quiz::before {
+  background: #000000;
+}
+
+.section-header {
+  position: relative;
+  padding: 1rem 1.5rem;
+  margin: 4rem 0 2rem 0;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: #000000;
+  display: inline-block;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
+  padding-right: 2.5rem;
+}
+
+/* Add geometric shapes to section headers */
+.section-header::after {
+  content: '';
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: 3px solid #000000;
+}
+
+.materials-grid.category-mikro + h2.section-header::after,
+h2.section-header:nth-of-type(1)::after {
+  background: #e63946;
+  border-radius: 50%;
+}
+
+.materials-grid.category-makro + h2.section-header::after,
+h2.section-header:nth-of-type(2)::after {
+  background: #457b9d;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  border-radius: 0;
+}
+
+.materials-grid.category-klausur + h2.section-header::after,
+h2.section-header:nth-of-type(3)::after {
+  background: #000000;
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  border-radius: 0;
 }
 
 .page-header {
-  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+  background: #000000;
   color: white;
-  padding: 2rem;
-  margin: -2rem -2rem 2rem -2rem;
-  border-radius: 0 0 12px 12px;
+  padding: 3rem 2rem;
+  margin: -2rem -2rem 3rem -2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Geometric background elements */
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  background: #e63946;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: 20px;
+  right: 120px;
+  width: 60px;
+  height: 60px;
+  background: #457b9d;
+  opacity: 0.8;
 }
 
 .page-header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
 }
 
 .back-link {
   display: inline-block;
-  margin-top: 2rem;
-  color: #374151;
+  margin-top: 3rem;
+  padding: 1rem 2.5rem;
+  background: #000000;
+  color: #ffffff !important;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: 3px solid #000000;
+  position: relative;
+  overflow: hidden;
+}
+
+.back-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #e63946;
+  transition: left 0.3s ease;
+  z-index: -1;
+}
+
+.back-link:hover::before {
+  left: 0;
 }
 
 .back-link:hover {
-  color: #1f2937;
+  border-color: #e63946;
 }
 
-.intro-text {
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 2rem;
+/* Bauhaus geometric decorations */
+.materials-grid::before {
+  content: '';
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  width: 100px;
+  height: 100px;
+  border: 4px solid #457b9d;
+  border-radius: 50%;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: -1;
 }
 
 @media (max-width: 768px) {
@@ -172,25 +345,31 @@ body {
   
   .page-header {
     margin: -1rem -1rem 2rem -1rem;
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
   }
   
   .page-header h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
   
-  .button-group {
-    flex-wrap: wrap;
-  }
-  
-  .btn-small {
-    margin-left: 0 !important;
-    flex: 1;
-    min-width: calc(50% - 0.25rem);
+  .page-header::before,
+  .page-header::after {
+    display: none;
   }
   
   .material-card {
     min-height: auto;
+  }
+  
+  .section-header {
+    font-size: 0.9rem;
+    clip-path: none;
+    display: block;
+    padding-right: 1.5rem;
+  }
+  
+  .section-header::after {
+    display: none;
   }
 }
 </style>
@@ -200,104 +379,139 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
 </p>
 
 <h2 class="section-header">Mikroökonomie</h2>
-<div class="materials-grid">
+<div class="materials-grid category-mikro">
   <div class="material-card">
-    <h4>Bedürfnis, Bedarf und Nachfrage</h4>
-    <p>Grundkonzepte der Wirtschaft: Definition und Unterscheidung von Bedürfnis, Bedarf und Nachfrage, Bedürfnisarten, Maslows Bedürfnispyramide mit praktischen Beispielen</p>
-    <div class="button-group">
-      <a href="/assets/pdfs/WS_VWL_1-3.pdf" class="btn-small">PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html" class="btn-small btn-quiz">Quiz starten</a>
+    <div class="card-header">
+      <h4>Bedürfnis, Bedarf und Nachfrage</h4>
+    </div>
+    <div class="card-content">
+      <p>Grundkonzepte der Wirtschaft: Definition und Unterscheidung von Bedürfnis, Bedarf und Nachfrage, Bedürfnisarten, Maslows Bedürfnispyramide mit praktischen Beispielen</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/WS_VWL_1-3.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>Güterarten in der Wirtschaft</h4>
-    <p>Freie und wirtschaftliche Güter, inferiore und superiore Güter, Einkommenselastizität der Nachfrage, meritorische und demeritorische Güter, staatliche Markteingriffe</p>
-    <div class="button-group">
-      <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="btn-small">PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_gueterarten.html" class="btn-small btn-quiz">Quiz starten</a>
+    <div class="card-header">
+      <h4>Güterarten in der Wirtschaft</h4>
+    </div>
+    <div class="card-content">
+      <p>Freie und wirtschaftliche Güter, inferiore und superiore Güter, Einkommenselastizität der Nachfrage, meritorische und demeritorische Güter, staatliche Markteingriffe</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_gueterarten.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>Angebot und Angebotskurve</h4>
-    <p>Das Marktmodell, Gesetz des Angebots, Angebotsfunktion, aggregiertes Marktangebot, Verschiebung vs. Bewegung auf der Angebotskurve, Einflussfaktoren</p>
-    <div class="button-group">
-      <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="btn-small">PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_angebot.html" class="btn-small btn-quiz">Quiz starten</a>
+    <div class="card-header">
+      <h4>Angebot und Angebotskurve</h4>
+    </div>
+    <div class="card-content">
+      <p>Das Marktmodell, Gesetz des Angebots, Angebotsfunktion, aggregiertes Marktangebot, Verschiebung vs. Bewegung auf der Angebotskurve, Einflussfaktoren</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_angebot.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>Nachfrage und Nachfragekurve</h4>
-    <p>Gesetz der Nachfrage, Nachfragefunktion, aggregierte Marktnachfrage, Verschiebung der Nachfragekurve, Einflussfaktoren wie Einkommen, Präferenzen und Preise verwandter Güter</p>
-    <div class="button-group">
-      <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="btn-small">PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_nachfrage.html" class="btn-small btn-quiz">Quiz starten</a>
+    <div class="card-header">
+      <h4>Nachfrage und Nachfragekurve</h4>
+    </div>
+    <div class="card-content">
+      <p>Gesetz der Nachfrage, Nachfragefunktion, aggregierte Marktnachfrage, Verschiebung der Nachfragekurve, Einflussfaktoren wie Einkommen, Präferenzen und Preise verwandter Güter</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_nachfrage.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
     </div>
   </div>
   
   <div class="material-card">
-    <h4>Marktgleichgewicht</h4>
-    <p>Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Auswirkungen von Steuern und Subventionen, praktische Beispiele und Berechnungen</p>
-    <div class="button-group">
-      <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="btn-small">PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_marktgleichgewicht.html" class="btn-small btn-quiz">Quiz starten</a>
+    <div class="card-header">
+      <h4>Marktgleichgewicht</h4>
+    </div>
+    <div class="card-content">
+      <p>Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Auswirkungen von Steuern und Subventionen, praktische Beispiele und Berechnungen</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_marktgleichgewicht.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
     </div>
   </div>
 
   <div class="material-card">
-    <h4>Konsumenten- und Produzentenrente</h4>
-    <p>Definition und Berechnung der Konsumenten- und Produzentenrente, ökonomische Wohlfahrt, Prohibitivpreis, graphische Darstellung, Beispielrechnungen am Smartwatch-Markt, Übungsaufgaben mit Lösungswegen</p>
-    <div class="button-group">
-      <a href="/assets/pdfs/WS_VWL_6.pdf" class="btn-small">PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_renten.html" class="btn-small btn-quiz">Quiz starten</a>
+    <div class="card-header">
+      <h4>Konsumenten- und Produzentenrente</h4>
+    </div>
+    <div class="card-content">
+      <p>Definition und Berechnung der Konsumenten- und Produzentenrente, ökonomische Wohlfahrt, Prohibitivpreis, graphische Darstellung, Beispielrechnungen am Smartwatch-Markt, Übungsaufgaben mit Lösungswegen</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/WS_VWL_6.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_renten.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
     </div>
   </div>
   
   <div class="material-card">
-   <h4>Marktformen: Monopol, Oligopol, Polypol</h4>
-   <p>Übersicht über Marktformen, Marktmacht, Marktstruktur, Vor- und Nachteile für Verbraucher, zahlreiche Beispiele und Übungsaufgaben zur Einordnung realer Märkte.</p>
-   <div class="button-group">
-     <a href="/assets/pdfs/WS_VWL_7.pdf" class="btn-small">PDF öffnen</a>
-     <a href="/assets/quizzes/quiz_marktformen.html" class="btn-small btn-quiz">Quiz starten</a>
-   </div>
+    <div class="card-header">
+      <h4>Marktformen: Monopol, Oligopol, Polypol</h4>
+    </div>
+    <div class="card-content">
+      <p>Übersicht über Marktformen, Marktmacht, Marktstruktur, Vor- und Nachteile für Verbraucher, zahlreiche Beispiele und Übungsaufgaben zur Einordnung realer Märkte</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/WS_VWL_7.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_marktformen.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
+    </div>
   </div>
   
   <div class="material-card">
-  <h4>Die Budgetgerade – Konsumentscheidungen des Haushalts</h4>
-  <p>
-    Mathematische Grundlagen der Konsumentscheidung:
-    Budgetrestriktion, Gleichung und graphische Darstellung der Budgetgerade,
-    Einkommens- und Preisänderungen, Opportunitätskosten sowie zahlreiche
-    Übungsaufgaben mit Lösungen.
-  </p>
-  <div class="button-group">
-    <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="btn-small">PDF öffnen</a>
-    <a href="/assets/quizzes/quiz_budgetgerade.html" class="btn-small btn-quiz">Quiz starten</a>
+    <div class="card-header">
+      <h4>Die Budgetgerade – Konsumentscheidungen des Haushalts</h4>
+    </div>
+    <div class="card-content">
+      <p>Mathematische Grundlagen der Konsumentscheidung: Budgetrestriktion, Gleichung und graphische Darstellung der Budgetgerade, Einkommens- und Preisänderungen, Opportunitätskosten sowie zahlreiche Übungsaufgaben mit Lösungen</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_budgetgerade.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
+    </div>
   </div>
-</div>
 </div>
 
 <h2 class="section-header">Makroökonomie</h2>
-<div class="materials-grid">
+<div class="materials-grid category-makro">
   <div class="material-card">
-    <h4>Volkswirtschaftliche Gesamtrechnung</h4>
-    <p>Systematische Erfassung wirtschaftlicher Aktivitäten: Definition und Ziele der VGR, Bruttoinlandsprodukt (BIP), drei Berechnungsmethoden (Entstehung, Verwendung, Verteilung), Inlandsprinzip vs. Inländerprinzip, Vermeidung von Doppelzählung, praktische Beispiele und Übungsaufgaben</p>
-    <div class="button-group">
-      <a href="/assets/pdfs/VWL_11.pdf" class="btn-small">PDF öffnen</a>
-      <a href="/assets/quizzes/quiz_vgr.html" class="btn-small btn-quiz">Quiz starten</a>
+    <div class="card-header">
+      <h4>Volkswirtschaftliche Gesamtrechnung</h4>
+    </div>
+    <div class="card-content">
+      <p>Systematische Erfassung wirtschaftlicher Aktivitäten: Definition und Ziele der VGR, Bruttoinlandsprodukt (BIP), drei Berechnungsmethoden (Entstehung, Verwendung, Verteilung), Inlandsprinzip vs. Inländerprinzip, Vermeidung von Doppelzählung, praktische Beispiele und Übungsaufgaben</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/VWL_11.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_vgr.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
     </div>
   </div>
 </div>
 
 <h2 class="section-header">Klausuraufgaben</h2>
-<div class="materials-grid">
+<div class="materials-grid category-klausur">
   <div class="material-card">
-    <h4>Klausuraufgaben Mikroökonomie</h4>
-    <p>Umfangreiche Sammlung von Übungsaufgaben zur Prüfungsvorbereitung: Bedürfnis und Nachfrage, Güterarten, Einkommenselastizität, Angebots- und Nachfragefunktionen, Marktgleichgewicht, Steuern und Subventionen, Konsumenten- und Produzentenrente </p>
-    <div class="button-group">
-      <a href="/assets/pdfs/VWL_Klausuren_Gesamt.pdf" class="btn-small">PDF öffnen</a>
+    <div class="card-header">
+      <h4>Klausuraufgaben Mikroökonomie</h4>
+    </div>
+    <div class="card-content">
+      <p>Umfangreiche Sammlung von Übungsaufgaben zur Prüfungsvorbereitung: Bedürfnis und Nachfrage, Güterarten, Einkommenselastizität, Angebots- und Nachfragefunktionen, Marktgleichgewicht, Steuern und Subventionen, Konsumenten- und Produzentenrente</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/VWL_Klausuren_Gesamt.pdf" class="btn-small"><span>PDF</span></a>
+      </div>
     </div>
   </div>
 </div>
