@@ -530,8 +530,3 @@ body::before {
     </div>
   </div>
 </div>
-
-<div class="footer-note">
-  Diese Materialien sind für Bildungszwecke erstellt und können frei verwendet werden.<br>
-  Bei Fragen oder Anregungen stehe ich gerne zur Verfügung.
-</div>
