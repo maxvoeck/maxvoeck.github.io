@@ -5,22 +5,26 @@ permalink: /teaching/vwl/
 ---
 
 <style>
-/* Radical Bauhaus design with primary colors and geometric emphasis */
+/* Japandi Design - Japanisch-Skandinavische Fusion */
 
 body {
-  background: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  background: #f7f5f2;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+  line-height: 1.7;
+  color: #3d3d3d;
 }
 
 .intro-text {
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #000000;
-  font-weight: 300;
-  margin-bottom: 3rem;
-  border-left: 4px solid #000000;
-  padding-left: 1rem;
+  font-size: 0.95rem;
+  color: #6b6b6b;
+  font-weight: 400;
+  margin-bottom: 3.5rem;
+  padding: 2rem 2.5rem;
+  background: #ffffff;
+  border-radius: 2px;
+  border-left: 3px solid #8b9e9f;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  letter-spacing: 0.02em;
 }
 
 .materials-grid {
@@ -32,102 +36,185 @@ body {
 
 .material-card {
   background: #ffffff;
-  border: 3px solid #000000;
+  border: 1px solid #e8e5e0;
+  border-radius: 2px;
   padding: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   flex-direction: column;
-  min-height: 300px;
+  min-height: 320px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
-/* Bold primary color accents per category - Bauhaus style */
+/* Dezente, natürliche Farbpalette */
 .category-mikro .material-card {
-  border-top: 8px solid #e63946; /* Red for Mikroökonomie */
+  border-top: 2px solid #c9a690;
 }
 
 .category-makro .material-card {
-  border-top: 8px solid #457b9d; /* Blue for Makroökonomie */
+  border-top: 2px solid #8b9e9f;
 }
 
 .category-klausur .material-card {
-  border-top: 8px solid #000000; /* Black for Klausuraufgaben */
+  border-top: 2px solid #a49b8e;
 }
 
+/* Minimalistischer Akzent */
 .material-card::before {
   content: '';
   position: absolute;
   top: 0;
   right: 0;
-  width: 60px;
+  width: 1px;
   height: 60px;
-  transition: transform 0.3s ease;
+  opacity: 0.15;
+  transition: all 0.4s ease;
 }
 
 .category-mikro .material-card::before {
-  background: #e63946;
-  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  background: linear-gradient(to bottom, #c9a690, transparent);
 }
 
 .category-makro .material-card::before {
-  background: #457b9d;
-  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  background: linear-gradient(to bottom, #8b9e9f, transparent);
 }
 
 .category-klausur .material-card::before {
-  background: #000000;
-  clip-path: polygon(100% 0, 100% 100%, 0 0);
+  background: linear-gradient(to bottom, #a49b8e, transparent);
+}
+
+/* Dezenter Cover-Effekt */
+.material-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.category-mikro .material-card::after {
+  background: linear-gradient(180deg, rgba(201, 166, 144, 0.04) 0%, rgba(201, 166, 144, 0.02) 100%);
+}
+
+.category-makro .material-card::after {
+  background: linear-gradient(180deg, rgba(139, 158, 159, 0.04) 0%, rgba(139, 158, 159, 0.02) 100%);
+}
+
+.category-klausur .material-card::after {
+  background: linear-gradient(180deg, rgba(164, 155, 142, 0.04) 0%, rgba(164, 155, 142, 0.02) 100%);
 }
 
 .material-card:hover {
   transform: translateY(-4px);
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  border-color: #d5d0ca;
+}
+
+.material-card:hover::after {
+  opacity: 1;
 }
 
 .material-card:hover::before {
-  transform: scale(1.2);
+  height: 100%;
+  width: 3px;
+  opacity: 0.4;
+}
+
+/* Zusätzlicher Hover-Effekt - sanftes Glow */
+.material-card:hover .card-header {
+  border-bottom-color: transparent;
+}
+
+.material-card:hover .card-header::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.card-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.category-mikro .card-header::after {
+  background: linear-gradient(90deg, #c9a690 0%, transparent 100%);
+}
+
+.category-makro .card-header::after {
+  background: linear-gradient(90deg, #8b9e9f 0%, transparent 100%);
+}
+
+.category-klausur .card-header::after {
+  background: linear-gradient(90deg, #a49b8e 0%, transparent 100%);
 }
 
 .card-header {
-  background: #000000;
-  color: #ffffff;
-  padding: 1.5rem;
+  padding: 2rem 2rem 1.25rem 2rem;
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  border-bottom: 1px solid #f5f3f0;
 }
 
 .material-card h4 {
   margin: 0;
-  color: #ffffff;
-  font-size: 1rem;
+  color: #3d3d3d;
+  font-size: 1.05rem;
   font-weight: 500;
-  letter-spacing: 0.05em;
-  line-height: 1.4;
-  text-transform: uppercase;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  transition: color 0.3s ease;
+}
+
+.category-mikro .material-card:hover h4 {
+  color: #c9a690;
+}
+
+.category-makro .material-card:hover h4 {
+  color: #8b9e9f;
+}
+
+.category-klausur .material-card:hover h4 {
+  color: #a49b8e;
 }
 
 .card-content {
-  padding: 1.5rem;
+  padding: 1.5rem 2rem 2rem 2rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
+  position: relative;
+  z-index: 2;
 }
 
 .material-card p {
-  font-size: 0.9rem;
-  color: #000000;
-  margin: 0 0 1.5rem 0;
+  font-size: 0.88rem;
+  color: #6b6b6b;
+  margin: 0 0 2rem 0;
   flex-grow: 1;
-  line-height: 1.6;
-  font-weight: 300;
+  line-height: 1.8;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 .button-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
+  gap: 1rem;
   margin-top: auto;
 }
 
@@ -135,16 +222,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
-  background: #ffffff;
-  color: #000000 !important;
+  padding: 0.9rem 1rem;
+  background: #fafaf9;
+  color: #5a5a5a !important;
   text-decoration: none;
-  border: 2px solid #000000;
-  font-size: 0.75rem;
+  border: 1px solid #e8e5e0;
+  border-radius: 1px;
+  font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
@@ -153,33 +241,56 @@ body {
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 100%;
   height: 100%;
-  transition: left 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* Color the PDF button with category color */
+/* Dezente Hover-Farben */
 .category-mikro .btn-small:first-child::before {
-  background: #e63946;
+  background: linear-gradient(180deg, #c9a690 0%, #dbc0af 100%);
 }
 
 .category-makro .btn-small:first-child::before {
-  background: #457b9d;
+  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
 }
 
 .category-klausur .btn-small:first-child::before {
-  background: #000000;
-}
-
-.btn-small:hover::before {
-  left: 0;
+  background: linear-gradient(180deg, #a49b8e 0%, #b8afa4 100%);
 }
 
 .btn-small:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  border-color: transparent;
   color: #ffffff !important;
-  position: relative;
-  z-index: 1;
+}
+
+.btn-small:hover::before {
+  opacity: 1;
+}
+
+.btn-small:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.btn-small::after {
+  content: '→';
+  position: absolute;
+  right: 1rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  z-index: 3;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.btn-quiz:hover::after {
+  content: '✓';
 }
 
 .btn-small span {
@@ -188,152 +299,140 @@ body {
 }
 
 .btn-quiz {
-  background: #f5f5f5;
-  border-left: none;
+  background: #ffffff;
+  border-color: #e0ddd8;
 }
 
 .btn-quiz::before {
-  background: #000000;
+  background: linear-gradient(180deg, #6b6b6b 0%, #8a8a8a 100%);
 }
 
 .section-header {
   position: relative;
-  padding: 1rem 1.5rem;
-  margin: 4rem 0 2rem 0;
-  color: #ffffff;
+  padding: 0.5rem 0 0.5rem 1rem;
+  margin: 4.5rem 0 2rem 0;
   font-weight: 500;
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  background: #000000;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
   display: inline-block;
-  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 50%, calc(100% - 20px) 100%, 0 100%);
-  padding-right: 2.5rem;
+  border-left: 2px solid;
 }
 
-/* Add geometric shapes to section headers */
-.section-header::after {
-  content: '';
-  position: absolute;
-  right: -40px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 30px;
-  border: 3px solid #000000;
+/* Natürliche Farbcodierung */
+h2.section-header:nth-of-type(1) {
+  border-left-color: #c9a690;
+  color: #8d7a6a;
 }
 
-.materials-grid.category-mikro + h2.section-header::after,
-h2.section-header:nth-of-type(1)::after {
-  background: #e63946;
-  border-radius: 50%;
+h2.section-header:nth-of-type(2) {
+  border-left-color: #8b9e9f;
+  color: #5d6f70;
 }
 
-.materials-grid.category-makro + h2.section-header::after,
-h2.section-header:nth-of-type(2)::after {
-  background: #457b9d;
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  border-radius: 0;
-}
-
-.materials-grid.category-klausur + h2.section-header::after,
-h2.section-header:nth-of-type(3)::after {
-  background: #000000;
-  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-  border-radius: 0;
+h2.section-header:nth-of-type(3) {
+  border-left-color: #a49b8e;
+  color: #706960;
 }
 
 .page-header {
-  background: #000000;
-  color: white;
-  padding: 3rem 2rem;
-  margin: -2rem -2rem 3rem -2rem;
+  background: #ffffff;
+  color: #3d3d3d;
+  padding: 3.5rem 2.5rem;
+  margin: -2rem -2rem 4rem -2rem;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid #e8e5e0;
 }
 
-/* Geometric background elements */
+/* Zen-inspirierte Dekoration */
 .page-header::before {
   content: '';
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 80px;
-  height: 80px;
-  background: #e63946;
+  top: 50%;
+  right: 60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(139, 158, 159, 0.06) 0%, transparent 60%);
   border-radius: 50%;
-  opacity: 0.8;
+  transform: translateY(-50%);
 }
 
 .page-header::after {
   content: '';
   position: absolute;
-  bottom: 20px;
-  right: 120px;
-  width: 60px;
-  height: 60px;
-  background: #457b9d;
-  opacity: 0.8;
+  top: 50%;
+  right: 180px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(201, 166, 144, 0.04) 0%, transparent 60%);
+  border-radius: 50%;
+  transform: translateY(-50%);
 }
 
 .page-header h1 {
   margin: 0;
-  font-size: 2.5rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   position: relative;
   z-index: 1;
+  color: #3d3d3d;
 }
 
 .back-link {
   display: inline-block;
-  margin-top: 3rem;
-  padding: 1rem 2.5rem;
-  background: #000000;
-  color: #ffffff !important;
+  margin-top: 4rem;
+  padding: 0.9rem 2.5rem;
+  background: #ffffff;
+  color: #5a5a5a !important;
   text-decoration: none;
   font-weight: 500;
   font-size: 0.85rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   transition: all 0.3s ease;
-  border: 3px solid #000000;
+  border: 1px solid #e8e5e0;
+  border-radius: 1px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .back-link::before {
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 100%;
   height: 100%;
-  background: #e63946;
-  transition: left 0.3s ease;
+  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
   z-index: -1;
 }
 
-.back-link:hover::before {
-  left: 0;
-}
-
 .back-link:hover {
-  border-color: #e63946;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+  color: #ffffff !important;
 }
 
-/* Bauhaus geometric decorations */
-.materials-grid::before {
+.back-link:hover::before {
+  opacity: 1;
+}
+
+/* Wabi-Sabi Textur-Effekt */
+body::before {
   content: '';
   position: fixed;
-  bottom: 40px;
-  left: 40px;
-  width: 100px;
-  height: 100px;
-  border: 4px solid #457b9d;
-  border-radius: 50%;
-  opacity: 0.15;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(201, 166, 144, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(139, 158, 159, 0.02) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
 }
@@ -341,11 +440,12 @@ h2.section-header:nth-of-type(3)::after {
 @media (max-width: 768px) {
   .materials-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
   
   .page-header {
-    margin: -1rem -1rem 2rem -1rem;
-    padding: 2rem 1.5rem;
+    margin: -1rem -1rem 2.5rem -1rem;
+    padding: 2.5rem 1.75rem;
   }
   
   .page-header h1 {
@@ -362,20 +462,26 @@ h2.section-header:nth-of-type(3)::after {
   }
   
   .section-header {
-    font-size: 0.9rem;
-    clip-path: none;
-    display: block;
-    padding-right: 1.5rem;
+    font-size: 1.1rem;
   }
   
-  .section-header::after {
-    display: none;
+  .intro-text {
+    font-size: 0.9rem;
+    padding: 1.5rem 1.75rem;
+  }
+  
+  .card-header {
+    padding: 1.75rem 1.5rem 1rem 1.5rem;
+  }
+  
+  .card-content {
+    padding: 1.25rem 1.5rem 1.75rem 1.5rem;
   }
 }
 </style>
 
 <p class="intro-text">
-Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
+  Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
 </p>
 
 <h2 class="section-header">Mikroökonomie</h2>
@@ -444,7 +550,7 @@ Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
       </div>
     </div>
   </div>
-
+  
   <div class="material-card">
     <div class="card-header">
       <h4>Konsumenten- und Produzentenrente</h4>
