@@ -321,7 +321,7 @@ body::before {
 </style>
 
 <div class="home">
-  <h1>Max Vöcklinghaus</h1>
+  <h1></h1>
   <p class="intro">
     Mathematik, Wirtschaft & Datenanalyse
   </p>
