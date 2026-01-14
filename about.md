@@ -374,7 +374,7 @@ body::before {
       <ul class="focus-list">
         <li><strong>Mathematik & Data Science:</strong> Von Analysis und linearer Algebra bis zu praktischer Datenanalyse</li>
         <li><strong>Wirtschaftswissenschaften:</strong> Volkswirtschaftslehre, Marktanalysen, kritische Wirtschaftstheorie</li>
-        <li><strong>Digitalisierung:</strong> Consulting, Smart City Projekte, digitale Infrastruktur</li>
+        <li><strong>Didaktik & Bildung:</strong> Entwicklung interaktiver Lernmaterialien und digitaler Bildungsressourcen</li>
       </ul>
     </div>
   </div>
