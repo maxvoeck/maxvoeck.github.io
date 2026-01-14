@@ -344,8 +344,7 @@ body::before {
 
 <div class="intro-section">
   <p>
-    Ich bin Mathematik-, Informatik- und Wirtschaftslehrer am Studienkolleg Leipzig, 
-    wo ich internationale Studierende auf ihr Hochschulstudium vorbereite.
+    Ich bin Maximilian Vöcklinghaus, Dozent am Studienkolleg der Rahn Education in Leipzig. Dort begleite ich internationale Studierende auf ihrem Weg ins deutsche Hochschulstudium und unterrichte Mathematik, Informatik und Volkswirtschaftslehre.
   </p>
 </div>
 
