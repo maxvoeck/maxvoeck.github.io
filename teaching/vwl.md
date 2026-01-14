@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Volkswirtschaftslehre
+title: 
 permalink: /teaching/vwl/
 ---
 

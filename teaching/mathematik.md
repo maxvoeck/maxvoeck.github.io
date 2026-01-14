@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Mathematik
+title: 
 permalink: /teaching/mathematik/
 ---
 

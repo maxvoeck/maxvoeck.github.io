@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Informatik
+title: 
 permalink: /teaching/informatik/
 ---
 
