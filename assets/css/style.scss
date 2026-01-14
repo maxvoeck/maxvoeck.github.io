@@ -61,31 +61,46 @@ body {
   position: relative;
 }
 
-/* Zen-inspiriertes Dekorelement links */
-.header-container::before {
-  content: '';
+/* Zen-inspirierter Button links im Header */
+.zen-button {
   position: absolute;
   left: 2.5rem;
   top: 50%;
   transform: translateY(-50%);
   width: 40px;
   height: 40px;
-  border: 1px solid #e8e5e0;
+  border: 1.5px solid #a49b8e;
   border-radius: 50%;
-  opacity: 0.4;
+  background: transparent;
+  opacity: 0.6;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.header-container::after {
+.zen-button::before {
   content: '';
-  position: absolute;
-  left: 3.25rem;
-  top: 50%;
-  transform: translateY(-50%);
   width: 12px;
   height: 12px;
   background: #8b9e9f;
   border-radius: 50%;
-  opacity: 0.15;
+  opacity: 0.3;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.zen-button:hover {
+  opacity: 1;
+  border-color: #8b9e9f;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.zen-button:hover::before {
+  opacity: 0.7;
+  background: #8b9e9f;
+  transform: scale(1.3);
 }
 
 .main-nav ul {
@@ -188,17 +203,45 @@ body {
   position: relative;
 }
 
-/* Zen-Kreis-Element im Footer */
-.footer-container::before {
-  content: '';
+/* Zen-Kreis-Button im Footer */
+.zen-button-footer {
   position: absolute;
   right: 2.5rem;
   bottom: 2.5rem;
   width: 60px;
   height: 60px;
-  border: 1px solid #e8e5e0;
+  border: 1.5px solid #a49b8e;
   border-radius: 50%;
-  opacity: 0.3;
+  background: transparent;
+  opacity: 0.5;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.zen-button-footer::before {
+  content: '';
+  width: 18px;
+  height: 18px;
+  background: #8b9e9f;
+  border-radius: 50%;
+  opacity: 0.25;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.zen-button-footer:hover {
+  opacity: 1;
+  border-color: #8b9e9f;
+  transform: scale(1.1) rotate(90deg);
+}
+
+.zen-button-footer:hover::before {
+  opacity: 0.6;
+  background: #8b9e9f;
+  transform: scale(1.4);
 }
 
 .footer-section h3 {
@@ -273,9 +316,15 @@ body {
     justify-content: center;
   }
 
-  .header-container::before,
-  .header-container::after {
-    display: none;
+  .zen-button {
+    left: 1.5rem;
+    width: 36px;
+    height: 36px;
+  }
+
+  .zen-button::before {
+    width: 10px;
+    height: 10px;
   }
 
   .main-nav ul {
@@ -295,11 +344,16 @@ body {
     padding: 2.5rem 1.5rem 2rem 1.5rem;
   }
 
-  .footer-container::before {
-    width: 40px;
-    height: 40px;
+  .zen-button-footer {
+    width: 50px;
+    height: 50px;
     right: 1.5rem;
     bottom: 1.5rem;
+  }
+
+  .zen-button-footer::before {
+    width: 15px;
+    height: 15px;
   }
 
   .footer-bottom {
@@ -308,6 +362,10 @@ body {
 }
 
 @media (max-width: 480px) {
+  .zen-button {
+    display: none;
+  }
+
   .main-nav ul {
     flex-direction: column;
     gap: 0;
@@ -321,6 +379,16 @@ body {
 
   .main-nav li:last-child a {
     border-bottom: none;
+  }
+
+  .zen-button-footer {
+    width: 45px;
+    height: 45px;
+  }
+
+  .zen-button-footer::before {
+    width: 13px;
+    height: 13px;
   }
 }
 
