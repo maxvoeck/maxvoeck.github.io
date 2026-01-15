@@ -605,6 +605,19 @@ body::before {
       </div>
     </div>
   </div>
+  
+  <div class="material-card">
+    <div class="card-header">
+      <h4>VGR II: Nominales vs. reales BIP</h4>
+    </div>
+    <div class="card-content">
+      <p>Unterschied zwischen nominalem und realem BIP, BIP-Deflator als Inflationsmaß, BIP pro Kopf und Kaufkraftbereinigung (PPP), Grenzen des BIP als Wohlstandsindikator, alternative Wohlstandsindikatoren (HDI, World Happiness Report, Gini-Koeffizient), umfangreiche Übungsaufgaben mit Lösungen</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/VWL_12.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_vgr2.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <h2 class="section-header">Klausuraufgaben</h2>
