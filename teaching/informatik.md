@@ -447,42 +447,21 @@ body::before {
 </p>
 
 <h2 class="section-header">Programmierung</h2>
-<div class="post-list category-programmierung">
-{% assign prog = site.teaching | where: "category", "programmierung" %}
-{% for material in prog %}
-  <article class="post-item">
-    <h3><a href="{{ material.url | relative_url }}">{{ material.title }}</a></h3>
-    <p>{{ material.excerpt }}</p>
-    {% if material.pdf %}
-    <a href="{{ material.pdf }}" class="btn">PDF herunterladen</a>
-    {% endif %}
-  </article>
-{% endfor %}
-{% if prog.size == 0 %}
-  <article class="post-item">
-    <p><em>Materialien werden in Kürze hinzugefügt...</em></p>
-  </article>
-{% endif %}
+<div class="materials-grid category-programmierung">
+  <div class="material-card">
+    <div class="card-header">
+      <h4>Python Grundlagen – print() und input()</h4>
+    </div>
+    <div class="card-content">
+      <p>Einführung in Python: Die print()-Funktion zur Ausgabe von Text und Zahlen, Parameter sep und end, input() für Benutzereingaben, Datentypen (str, int, float) und Umwandlung mit int() und float(). Praktische Übungen zu Altersrechner, BMI und Einkaufslisten</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/Info_1.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/v.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
+    </div>
+  </div>
 </div>
 
-<h2 class="section-header">Algorithmen und Datenstrukturen</h2>
-<div class="post-list category-algorithmen">
-{% assign algo = site.teaching | where: "category", "algorithmen" %}
-{% for material in algo %}
-  <article class="post-item">
-    <h3><a href="{{ material.url | relative_url }}">{{ material.title }}</a></h3>
-    <p>{{ material.excerpt }}</p>
-    {% if material.pdf %}
-    <a href="{{ material.pdf }}" class="btn">PDF herunterladen</a>
-    {% endif %}
-  </article>
-{% endfor %}
-{% if algo.size == 0 %}
-  <article class="post-item">
-    <p><em>Materialien werden in Kürze hinzugefügt...</em></p>
-  </article>
-{% endif %}
-</div>
 
 <div class="back-link-container">
   <a href="/teaching/">← Zurück zur Übersicht</a>
