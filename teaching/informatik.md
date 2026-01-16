@@ -454,7 +454,7 @@ body::before {
   Materialien zur Informatik für die Prüfungsvorbereitung am Studienkolleg
 </p>
 
-<h2 class="section-header">Programmierung</h2>
+<h2 class="section-header">Python</h2>
 <div class="materials-grid category-programmierung">
   <div class="material-card">
     <div class="card-header">
