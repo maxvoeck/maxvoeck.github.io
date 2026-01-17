@@ -16,12 +16,16 @@
             background-color: #f5f3f0;
             color: #2d2d2d;
             line-height: 1.6;
+            min-height: 100vh;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            width: 100%;
             background-color: #ffffff;
             padding: 40px;
             border-radius: 2px;
@@ -103,6 +107,9 @@
             cursor: pointer;
             transition: all 0.2s ease;
             font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .option:hover {
@@ -110,9 +117,28 @@
             border-color: #d0ccc4;
         }
 
+        .option-letter {
+            background-color: #e8e5e0;
+            color: #5a5a5a;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 400;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
         .option.selected {
             background-color: #e8e5e0;
             border-color: #8b7d6b;
+        }
+
+        .option.selected .option-letter {
+            background-color: #8b7d6b;
+            color: #ffffff;
         }
 
         .option.correct {
@@ -120,9 +146,19 @@
             border-color: #6b8b6b;
         }
 
+        .option.correct .option-letter {
+            background-color: #6b8b6b;
+            color: #ffffff;
+        }
+
         .option.incorrect {
             background-color: #e5d4d4;
             border-color: #8b6b6b;
+        }
+
+        .option.incorrect .option-letter {
+            background-color: #8b6b6b;
+            color: #ffffff;
         }
 
         .feedback {
@@ -190,8 +226,9 @@
 
         .result-text {
             font-size: 18px;
-            color: #5a5a5a;
+            color: #2d2d2d;
             margin-bottom: 30px;
+            font-weight: 400;
         }
 
         .hidden {
@@ -432,7 +469,8 @@
                 const selectedClass = isSelected ? 'selected' : '';
                 html += `
                     <div class="option ${selectedClass}" onclick="selectOption(${index})">
-                        ${option}
+                        <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                        <div class="option-text">${option}</div>
                     </div>
                 `;
             });
@@ -466,11 +504,11 @@
             
             if (selectedIndex === q.correct) {
                 feedback.className = 'feedback show correct';
-                feedback.textContent = '✓ Richtig! ' + q.explanation;
+                feedback.textContent = '✓ Richtig ' + q.explanation;
                 options[selectedIndex].classList.add('correct');
             } else {
                 feedback.className = 'feedback show incorrect';
-                feedback.textContent = '✗ Leider falsch. ' + q.explanation;
+                feedback.textContent = '✗ Leider falsch ' + q.explanation;
                 options[selectedIndex].classList.add('incorrect');
                 options[q.correct].classList.add('correct');
             }
@@ -527,13 +565,13 @@
             
             let resultText = '';
             if (percentage >= 90) {
-                resultText = 'Ausgezeichnet! Sie beherrschen die Python-Grundlagen sehr gut.';
+                resultText = 'Ausgezeichnet. Sie beherrschen die Python-Grundlagen sehr gut.';
             } else if (percentage >= 70) {
-                resultText = 'Gut gemacht! Sie haben ein solides Verständnis der Grundlagen.';
+                resultText = 'Gut gemacht. Sie haben ein solides Verständnis der Grundlagen.';
             } else if (percentage >= 50) {
-                resultText = 'Nicht schlecht! Mit etwas Übung werden Sie noch besser.';
+                resultText = 'Nicht schlecht. Mit etwas Übung werden Sie noch besser.';
             } else {
-                resultText = 'Weiter üben! Die Grundlagen brauchen noch etwas Wiederholung.';
+                resultText = 'Weiter üben. Die Grundlagen brauchen noch etwas Wiederholung.';
             }
             
             document.getElementById('resultText').textContent = resultText;
