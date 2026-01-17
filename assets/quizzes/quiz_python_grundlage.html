@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Grundlagen Quiz - print() und input()</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f3f0;
+            color: #2d2d2d;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #5a5a5a;
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .subtitle {
+            color: #8b7d6b;
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background-color: #e8e5e0;
+            margin-bottom: 30px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: #8b7d6b;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            color: #8b7d6b;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .question-text {
+            font-size: 18px;
+            color: #2d2d2d;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .code-block {
+            background-color: #f9f8f6;
+            border-left: 3px solid #8b7d6b;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #2d2d2d;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            background-color: #fafaf8;
+            border: 1px solid #e8e5e0;
+            padding: 15px 20px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }
+
+        .option:hover {
+            background-color: #f5f3f0;
+            border-color: #d0ccc4;
+        }
+
+        .option.selected {
+            background-color: #e8e5e0;
+            border-color: #8b7d6b;
+        }
+
+        .option.correct {
+            background-color: #d4e5d4;
+            border-color: #6b8b6b;
+        }
+
+        .option.incorrect {
+            background-color: #e5d4d4;
+            border-color: #8b6b6b;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 2px;
+            font-size: 15px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background-color: #d4e5d4;
+            color: #2d4a2d;
+        }
+
+        .feedback.incorrect {
+            background-color: #e5d4d4;
+            color: #4a2d2d;
+        }
+
+        .button {
+            background-color: #8b7d6b;
+            color: #ffffff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 20px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .button:hover {
+            background-color: #6b5d4b;
+        }
+
+        .button:disabled {
+            background-color: #d0ccc4;
+            cursor: not-allowed;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .result-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .score {
+            font-size: 48px;
+            color: #8b7d6b;
+            margin: 20px 0;
+            font-weight: 300;
+        }
+
+        .result-text {
+            font-size: 18px;
+            color: #5a5a5a;
+            margin-bottom: 30px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Python Grundlagen Quiz</h1>
+        <p class="subtitle">print() und input()</p>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div id="quizContainer"></div>
+        
+        <div class="navigation">
+            <button class="button" id="prevBtn" onclick="previousQuestion()">Zurück</button>
+            <button class="button" id="nextBtn" onclick="nextQuestion()">Weiter</button>
+        </div>
+
+        <div id="resultContainer" class="result-container hidden">
+            <h2>Quiz abgeschlossen</h2>
+            <div class="score" id="finalScore"></div>
+            <p class="result-text" id="resultText"></p>
+            <button class="button" onclick="restartQuiz()">Quiz wiederholen</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Was ist der Fehler in diesem Code?",
+                code: "print(Hallo Welt)",
+                options: [
+                    "Es fehlen die Anführungszeichen um den Text",
+                    "Es fehlt ein Semikolon am Ende",
+                    "print muss großgeschrieben werden",
+                    "Der Code ist korrekt"
+                ],
+                correct: 0,
+                explanation: "Text muss immer in Anführungszeichen stehen, sonst denkt Python, es handelt sich um Variablennamen."
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: 'print("Python", "ist", "toll", sep="-")',
+                options: [
+                    "Python ist toll",
+                    "Python-ist-toll",
+                    "Python - ist - toll",
+                    "PythonistToll"
+                ],
+                correct: 1,
+                explanation: "Der sep-Parameter definiert das Trennzeichen zwischen den Werten. Hier wird '-' verwendet."
+            },
+            {
+                question: "Welchen Datentyp hat die Variable x?",
+                code: 'x = input("Alter: ")',
+                options: [
+                    "int",
+                    "float",
+                    "str",
+                    "bool"
+                ],
+                correct: 2,
+                explanation: "input() gibt IMMER einen String (str) zurück, auch wenn man eine Zahl eingibt."
+            },
+            {
+                question: "Was ist der Fehler in diesem Code?",
+                code: 'alter = input("Alter: ")\nprint("In 2 Jahren:", alter + 2)',
+                options: [
+                    "input() muss mit int() umschlossen werden",
+                    "Man kann keine 2 addieren",
+                    "print() ist falsch geschrieben",
+                    "Es fehlt ein Semikolon"
+                ],
+                correct: 0,
+                explanation: "Man kann Text (str) nicht mit einer Zahl addieren. Die Eingabe muss direkt eingelesen werden: alter = int(input('Alter: '))"
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: 'print("15", "03", "2025", sep=".")',
+                options: [
+                    "15 03 2025",
+                    "15.03.2025",
+                    "15-03-2025",
+                    "150320255"
+                ],
+                correct: 1,
+                explanation: "sep='.' fügt einen Punkt als Trennzeichen zwischen die Werte ein."
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: 'print("Hallo", end="-"\nprint("Welt")',
+                options: [
+                    "Die schließende Klammer fehlt in Zeile 1",
+                    "end ist kein gültiger Parameter",
+                    "Es sollte sep statt end sein",
+                    "Welt muss ohne Anführungszeichen sein"
+                ],
+                correct: 0,
+                explanation: "Nach end='-' fehlt die schließende Klammer. Es muss print('Hallo', end='-') sein."
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: 'print("A", "B", end="!")\nprint("C")',
+                options: [
+                    "A B\nC",
+                    "ABC!",
+                    "A B!C",
+                    "A B C!"
+                ],
+                correct: 2,
+                explanation: "end='!' ersetzt den Zeilenumbruch durch '!', daher wird 'C' direkt danach ausgegeben."
+            },
+            {
+                question: "Welcher Code ist korrekt, um eine Dezimalzahl einzulesen?",
+                code: null,
+                options: [
+                    'groesse = input("Größe: ")',
+                    'groesse = int(input("Größe: "))',
+                    'groesse = float(input("Größe: "))',
+                    'groesse = str(input("Größe: "))'
+                ],
+                correct: 2,
+                explanation: "float() wandelt die Eingabe in eine Dezimalzahl um, ideal für Größen, Preise, etc."
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: 'preis = 19,99\nprint(preis)',
+                options: [
+                    "Komma muss durch Punkt ersetzt werden",
+                    "preis muss in Anführungszeichen",
+                    "print ist falsch geschrieben",
+                    "Der Code ist korrekt"
+                ],
+                correct: 0,
+                explanation: "In Python verwendet man den Punkt (.) für Dezimalzahlen, nicht das Komma."
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: 'print("Python")\nprint("Code")',
+                options: [
+                    "PythonCode",
+                    "Python Code",
+                    "Python (neue Zeile) Code",
+                    "Python, Code"
+                ],
+                correct: 2,
+                explanation: "Jeder print()-Befehl endet standardmäßig mit einem Zeilenumbruch (\\n). Die Ausgabe erscheint in zwei Zeilen."
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: 'x = 5\ny = "10"\nresult = x + y',
+                options: [
+                    "y muss mit int() umgewandelt werden",
+                    "x muss mit str() umgewandelt werden",
+                    "Beide Varianten A und B sind möglich",
+                    "Der Code ist korrekt"
+                ],
+                correct: 2,
+                explanation: "Man kann int und str nicht direkt addieren. Entweder y zu int umwandeln oder x zu str."
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: 'print("Eins", "Zwei", "Drei", sep="/")',
+                options: [
+                    "Eins Zwei Drei",
+                    "Eins/Zwei/Drei",
+                    "Eins-Zwei-Drei",
+                    "EinsZweiDrei"
+                ],
+                correct: 1,
+                explanation: "sep='/' fügt einen Schrägstrich als Trennzeichen ein."
+            },
+            {
+                question: "Welcher Code berechnet den BMI korrekt?",
+                code: null,
+                options: [
+                    'bmi = gewicht / groesse * groesse',
+                    'bmi = gewicht / (groesse * groesse)',
+                    'bmi = (gewicht / groesse) * groesse',
+                    'bmi = gewicht * groesse / groesse'
+                ],
+                correct: 1,
+                explanation: "BMI = Gewicht / (Größe²). Die Klammern sind wichtig für die richtige Berechnung."
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: 'name = input("Name: ")\nprint(name',
+                options: [
+                    "Die schließende Klammer bei print fehlt",
+                    "name muss in Anführungszeichen",
+                    "input braucht keine Klammern",
+                    "Der Code ist korrekt"
+                ],
+                correct: 0,
+                explanation: "Die print()-Funktion braucht eine schließende Klammer: print(name)"
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: 'x = "5"\ny = "3"\nprint(x + y)',
+                options: [
+                    "8",
+                    "53",
+                    "5 + 3",
+                    "Error"
+                ],
+                correct: 1,
+                explanation: "Bei Strings bedeutet + Verkettung, nicht Addition. '5' + '3' ergibt '53'."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = new Array(questions.length).fill(null);
+
+        function displayQuestion() {
+            const container = document.getElementById('quizContainer');
+            const q = questions[currentQuestion];
+            
+            let html = `
+                <div class="question-container">
+                    <p class="question-number">Frage ${currentQuestion + 1} von ${questions.length}</p>
+                    <p class="question-text">${q.question}</p>
+            `;
+            
+            if (q.code) {
+                html += `<div class="code-block">${q.code}</div>`;
+            }
+            
+            html += '<div class="options">';
+            
+            q.options.forEach((option, index) => {
+                const isSelected = answers[currentQuestion] === index;
+                const selectedClass = isSelected ? 'selected' : '';
+                html += `
+                    <div class="option ${selectedClass}" onclick="selectOption(${index})">
+                        ${option}
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            html += '<div class="feedback" id="feedback"></div>';
+            html += '</div>';
+            
+            container.innerHTML = html;
+            updateProgress();
+            updateButtons();
+        }
+
+        function selectOption(index) {
+            answers[currentQuestion] = index;
+            const options = document.querySelectorAll('.option');
+            options.forEach((opt, i) => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+                if (i === index) {
+                    opt.classList.add('selected');
+                }
+            });
+            
+            showFeedback(index);
+        }
+
+        function showFeedback(selectedIndex) {
+            const q = questions[currentQuestion];
+            const feedback = document.getElementById('feedback');
+            const options = document.querySelectorAll('.option');
+            
+            if (selectedIndex === q.correct) {
+                feedback.className = 'feedback show correct';
+                feedback.textContent = '✓ Richtig! ' + q.explanation;
+                options[selectedIndex].classList.add('correct');
+            } else {
+                feedback.className = 'feedback show incorrect';
+                feedback.textContent = '✗ Leider falsch. ' + q.explanation;
+                options[selectedIndex].classList.add('incorrect');
+                options[q.correct].classList.add('correct');
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentQuestion === 0;
+            
+            if (currentQuestion === questions.length - 1) {
+                nextBtn.textContent = 'Ergebnis anzeigen';
+            } else {
+                nextBtn.textContent = 'Weiter';
+            }
+        }
+
+        function showResults() {
+            score = 0;
+            answers.forEach((answer, index) => {
+                if (answer === questions[index].correct) {
+                    score++;
+                }
+            });
+            
+            document.getElementById('quizContainer').classList.add('hidden');
+            document.querySelector('.navigation').classList.add('hidden');
+            document.getElementById('resultContainer').classList.remove('hidden');
+            
+            const percentage = (score / questions.length * 100).toFixed(0);
+            document.getElementById('finalScore').textContent = `${score} / ${questions.length}`;
+            
+            let resultText = '';
+            if (percentage >= 90) {
+                resultText = 'Ausgezeichnet! Sie beherrschen die Python-Grundlagen sehr gut.';
+            } else if (percentage >= 70) {
+                resultText = 'Gut gemacht! Sie haben ein solides Verständnis der Grundlagen.';
+            } else if (percentage >= 50) {
+                resultText = 'Nicht schlecht! Mit etwas Übung werden Sie noch besser.';
+            } else {
+                resultText = 'Weiter üben! Die Grundlagen brauchen noch etwas Wiederholung.';
+            }
+            
+            document.getElementById('resultText').textContent = resultText;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = new Array(questions.length).fill(null);
+            
+            document.getElementById('quizContainer').classList.remove('hidden');
+            document.querySelector('.navigation').classList.remove('hidden');
+            document.getElementById('resultContainer').classList.add('hidden');
+            
+            displayQuestion();
+        }
+
+        // Initialize quiz
+        displayQuestion();
+    </script>
+</body>
+</html>

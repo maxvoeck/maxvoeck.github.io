@@ -467,7 +467,7 @@ body::before {
       </p>
       <div class="button-group">
         <a href="/assets/pdfs/Info_1.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/v.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+        <a href="/assets/quizzes/quiz_python_grundlage.html" class="btn-small btn-quiz"><span>Quiz</span></a>
       </div>
     </div>
   </div>
