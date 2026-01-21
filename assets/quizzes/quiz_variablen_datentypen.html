@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Quiz - Variablen und Datentypen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #2d2d2d;
+            overflow-x: auto;
+            white-space: pre;
+            border-radius: 4px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: #f0f1f3;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            background: #e8eaf6;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.correct .option-letter {
+            background: #28a745;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option.incorrect .option-letter {
+            background: #dc3545;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #374151;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #e9ecef;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .quiz-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>💻 Python Variablen Quiz</h1>
+            <p>Variablen und Datentypen</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-content">
+            <div id="questionsContainer"></div>
+
+            <div class="results-container" id="resultsContainer">
+                <div class="result-message" id="resultMessage"></div>
+                <div class="score-circle">
+                    <div class="score-number" id="scoreNumber">0%</div>
+                    <div class="score-label">Erreicht</div>
+                </div>
+                <div class="result-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctCount">0</div>
+                        <div class="result-stat-label">Richtig</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="incorrectCount">0</div>
+                        <div class="result-stat-label">Falsch</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalCount">0</div>
+                        <div class="result-stat-label">Gesamt</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Was ist der Fehler in diesem Code?",
+                code: "name = Anna",
+                options: [
+                    "name muss großgeschrieben werden",
+                    "Es fehlen die Anführungszeichen um Anna",
+                    "Es fehlt ein Semikolon",
+                    "Der Code ist korrekt"
+                ],
+                correct: 1,
+                explanation: "Text muss in Anführungszeichen stehen: name = 'Anna'. Ohne Anführungszeichen sucht Python nach einer Variable namens Anna."
+            },
+            {
+                question: "Welcher Variablenname ist NICHT erlaubt?",
+                code: null,
+                options: [
+                    "user_age",
+                    "1name",
+                    "_temp",
+                    "name1"
+                ],
+                correct: 1,
+                explanation: "Variablennamen dürfen nicht mit einer Zahl beginnen. Erlaubt sind: Buchstaben, Zahlen (nicht am Anfang), Unterstriche."
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: "x, y = 10, 20\nprint(type(x))",
+                options: [
+                    "10",
+                    "x",
+                    "&lt;class 'int'&gt;",
+                    "&lt;class 'str'&gt;"
+                ],
+                correct: 2,
+                explanation: "type() gibt den Datentyp zurück. 10 ist eine Ganzzahl (integer), daher <class 'int'>."
+            },
+            {
+                question: "Was ist das Ergebnis?",
+                code: "a = 5\nb = 15\na, b = b, a\nprint(a)",
+                options: [
+                    "5",
+                    "15",
+                    "20",
+                    "Error"
+                ],
+                correct: 1,
+                explanation: "a, b = b, a tauscht die Werte. Nach dem Tausch hat a den Wert 15 und b den Wert 5."
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: "pi = 3,14\nprint(pi)",
+                options: [
+                    "pi ist ein reserviertes Wort",
+                    "Komma muss durch Punkt ersetzt werden",
+                    "Es fehlen Anführungszeichen",
+                    "Der Code ist korrekt"
+                ],
+                correct: 1,
+                explanation: "Python verwendet den Punkt (.) als Dezimaltrennzeichen, nicht das Komma: pi = 3.14"
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: "print(10 // 3)",
+                options: [
+                    "3.333333",
+                    "3",
+                    "4",
+                    "3.0"
+                ],
+                correct: 1,
+                explanation: "// ist die Ganzzahldivision. Sie teilt und rundet ab: 10 // 3 = 3"
+            },
+            {
+                question: "Was ist das Ergebnis?",
+                code: "print(10 % 3)",
+                options: [
+                    "3",
+                    "1",
+                    "0",
+                    "10"
+                ],
+                correct: 1,
+                explanation: "% ist der Modulo-Operator (Rest bei Division). 10 geteilt durch 3 ist 3 Rest 1."
+            },
+            {
+                question: "Was ist das Ergebnis?",
+                code: "print(2 ** 10)",
+                options: [
+                    "20",
+                    "12",
+                    "1024",
+                    "100"
+                ],
+                correct: 2,
+                explanation: "** ist die Potenz. 2 ** 10 bedeutet 2¹⁰ = 1024"
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: "print(round(3.7))",
+                options: [
+                    "3",
+                    "3.0",
+                    "4",
+                    "3.7"
+                ],
+                correct: 2,
+                explanation: "round() rundet kaufmännisch. 3.7 wird auf 4 aufgerundet."
+            },
+            {
+                question: "Was ist das Ergebnis?",
+                code: "import math\nprint(round(math.pi, 2))",
+                options: [
+                    "3.14",
+                    "3.1",
+                    "3.141",
+                    "3"
+                ],
+                correct: 0,
+                explanation: "round(math.pi, 2) rundet Pi auf 2 Nachkommastellen: 3.14"
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: "radius == 5\numfang = 2 * 3.14 * radius",
+                options: [
+                    "== muss durch = ersetzt werden",
+                    "radius muss in Anführungszeichen",
+                    "3.14 ist falsch",
+                    "Der Code ist korrekt"
+                ],
+                correct: 0,
+                explanation: "== ist ein Vergleich, = ist eine Zuweisung. Richtig: radius = 5"
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: "x = 10\ny = 20\nprint(x == y)",
+                options: [
+                    "True",
+                    "False",
+                    "10",
+                    "Error"
+                ],
+                correct: 1,
+                explanation: "== vergleicht die Werte. 10 ist nicht gleich 20, also False."
+            },
+            {
+                question: "Was ist das Ergebnis?",
+                code: "print(int(3.9))",
+                options: [
+                    "3",
+                    "4",
+                    "3.9",
+                    "Error"
+                ],
+                correct: 0,
+                explanation: "int() schneidet die Nachkommastellen ab (rundet nicht!). 3.9 wird zu 3."
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: 'alter = input("Alter: ")\nprint(alter + 2)',
+                options: [
+                    "input() gibt einen String zurück, muss mit int() umgewandelt werden",
+                    "print() braucht keine Klammern",
+                    "+ ist für Strings nicht erlaubt",
+                    "Der Code ist korrekt"
+                ],
+                correct: 0,
+                explanation: "input() gibt immer einen String zurück. Richtig: alter = int(input('Alter: '))"
+            },
+            {
+                question: "Was ist das Ergebnis?",
+                code: 'x = "5"\ny = "3"\nprint(x + y)',
+                options: [
+                    "8",
+                    "53",
+                    "5 3",
+                    "Error"
+                ],
+                correct: 1,
+                explanation: "Bei Strings bedeutet + Verkettung. '5' + '3' = '53'"
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: "print(type(3.14))",
+                options: [
+                    "&lt;class 'int'&gt;",
+                    "&lt;class 'float'&gt;",
+                    "&lt;class 'str'&gt;",
+                    "&lt;class 'double'&gt;"
+                ],
+                correct: 1,
+                explanation: "3.14 ist eine Dezimalzahl (Fließkommazahl), daher <class 'float'>."
+            },
+            {
+                question: "Was ist das Ergebnis dieser Kreisberechnung?",
+                code: "import math\nradius = 7\nflaeche = math.pi * radius ** 2\nprint(round(flaeche, 2))",
+                options: [
+                    "43.98",
+                    "153.94",
+                    "21.99",
+                    "49.00"
+                ],
+                correct: 1,
+                explanation: "Fläche = π × r². Mit r=7: π × 49 ≈ 153.94"
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: "gewicht = 80\ngroesse = 1.80\nbmi = gewicht / groesse * groesse",
+                options: [
+                    "groesse muss in Klammern: (groesse * groesse)",
+                    "/ muss ** sein",
+                    "gewicht muss float sein",
+                    "Der Code ist korrekt"
+                ],
+                correct: 0,
+                explanation: "Punkt-vor-Strich: gewicht / groesse * groesse = (80/1.8) * 1.8 = 80. Richtig: gewicht / (groesse * groesse)"
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: "x = 10\ny = 3\nprint(x != y)",
+                options: [
+                    "True",
+                    "False",
+                    "7",
+                    "Error"
+                ],
+                correct: 0,
+                explanation: "!= bedeutet 'ungleich'. 10 ist ungleich 3, also True."
+            },
+            {
+                question: "Was ist das Ergebnis?",
+                code: 'celsius = 20\nfahrenheit = celsius * 1.8 + 32\nprint(fahrenheit)',
+                options: [
+                    "52",
+                    "68",
+                    "36",
+                    "100"
+                ],
+                correct: 1,
+                explanation: "20°C × 1.8 + 32 = 36 + 32 = 68°F"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        function initQuiz() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                if (index === 0) questionDiv.classList.add('active');
+                
+                let codeBlock = q.code ? `<div class="code-block">${q.code}</div>` : '';
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Frage ${index + 1} von ${questions.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    ${codeBlock}
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption(${index}, ${i})">
+                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                <div class="option-text">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${index === 0 ? 'style="visibility: hidden;"' : ''}>
+                            ← Zurück
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                            ${index === questions.length - 1 ? 'Auswertung anzeigen' : 'Weiter →'}
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+
+            updateProgress();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (answers[questionIndex] !== undefined) return;
+
+            const optionsContainer = document.getElementById(`options-${questionIndex}`);
+            const options = optionsContainer.querySelectorAll('.option');
+            const correct = questions[questionIndex].correct;
+            
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
+            
+            options.forEach(opt => opt.classList.add('disabled'));
+            
+            answers[questionIndex] = optionIndex;
+            if (optionIndex === correct) score++;
+            
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            feedback.classList.add('show');
+            feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            feedback.querySelector('.feedback-title').textContent = 
+                optionIndex === correct ? '✓ Richtig!' : '✗ Leider falsch';
+            feedback.querySelector('.feedback-text').textContent = questions[questionIndex].explanation;
+            
+            document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion++;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion--;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('questionsContainer').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('scoreNumber').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = questions.length - score;
+            document.getElementById('totalCount').textContent = questions.length;
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = '🎉 Perfekt! Du beherrschst Variablen und Datentypen souverän!';
+            } else if (percentage >= 70) {
+                message = '👍 Sehr gut! Du verstehst die Python-Grundlagen richtig gut!';
+            } else if (percentage >= 50) {
+                message = '📚 Gut! Wiederhole noch einmal Typkonvertierung und Operatoren.';
+            } else {
+                message = '💪 Übe weiter! Achte besonders auf Datentypen und Rechenoperationen!';
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('questionsContainer').style.display = 'block';
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
