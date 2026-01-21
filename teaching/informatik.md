@@ -471,6 +471,23 @@ body::before {
       </div>
     </div>
   </div>
+
+  <div class="material-card">
+    <div class="card-header">
+      <h4>Variablen und Datentypen</h4>
+    </div>
+    <div class="card-content">
+      <p>
+        Vertiefung in Python-Grundlagen: Variablen erstellen und verwenden, Datentypen unterscheiden (str, int, float, bool), 
+        Rechenoperationen und Operatoren, Typkonvertierung mit int(), float() und str(), sowie Namenskonventionen. 
+        Praktische Übungen zu Kreisberechnungen, Temperaturumrechnung und BMI-Rechner
+      </p>
+      <div class="button-group">
+        <a href="/assets/pdfs/Info_2.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_variablen_datentypen.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
+    </div>
+  </div>
 </div>
 
 
