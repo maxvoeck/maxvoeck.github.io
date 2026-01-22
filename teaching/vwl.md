@@ -5,7 +5,7 @@ permalink: /teaching/vwl/
 ---
 
 <style>
-/* Japandi Design - Japanisch-Skandinavische Fusion */
+/* Japandi Design mit Apple-Style Rounded Corners */
 
 body {
   background: #f7f5f2;
@@ -21,7 +21,7 @@ body {
   margin-bottom: 3.5rem;
   padding: 2rem 2.5rem;
   background: #ffffff;
-  border-radius: 2px;
+  border-radius: 18px;
   border-left: 3px solid #8b9e9f;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   letter-spacing: 0.02em;
@@ -37,7 +37,7 @@ body {
 .material-card {
   background: #ffffff;
   border: 1px solid #e8e5e0;
-  border-radius: 2px;
+  border-radius: 20px;
   padding: 0;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
@@ -49,15 +49,19 @@ body {
 }
 
 /* Dezente, natürliche Farbpalette */
-.category-mikro .material-card {
-  border-top: 2px solid #c9a690;
+.category-vektor .material-card {
+  border-top: 2px solid #b8a89a;
 }
 
-.category-makro .material-card {
+.category-algebra .material-card {
+  border-top: 2px solid #c9b896;
+}
+
+.category-differential .material-card {
   border-top: 2px solid #8b9e9f;
 }
 
-.category-klausur .material-card {
+.category-integral .material-card {
   border-top: 2px solid #a49b8e;
 }
 
@@ -73,15 +77,19 @@ body {
   transition: all 0.4s ease;
 }
 
-.category-mikro .material-card::before {
-  background: linear-gradient(to bottom, #c9a690, transparent);
+.category-vektor .material-card::before {
+  background: linear-gradient(to bottom, #b8a89a, transparent);
 }
 
-.category-makro .material-card::before {
+.category-algebra .material-card::before {
+  background: linear-gradient(to bottom, #c9b896, transparent);
+}
+
+.category-differential .material-card::before {
   background: linear-gradient(to bottom, #8b9e9f, transparent);
 }
 
-.category-klausur .material-card::before {
+.category-integral .material-card::before {
   background: linear-gradient(to bottom, #a49b8e, transparent);
 }
 
@@ -93,22 +101,26 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 2px;
+  border-radius: 20px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
   z-index: 0;
 }
 
-.category-mikro .material-card::after {
-  background: linear-gradient(180deg, rgba(201, 166, 144, 0.04) 0%, rgba(201, 166, 144, 0.02) 100%);
+.category-vektor .material-card::after {
+  background: linear-gradient(180deg, rgba(184, 168, 154, 0.04) 0%, rgba(184, 168, 154, 0.02) 100%);
 }
 
-.category-makro .material-card::after {
+.category-algebra .material-card::after {
+  background: linear-gradient(180deg, rgba(201, 184, 150, 0.04) 0%, rgba(201, 184, 150, 0.02) 100%);
+}
+
+.category-differential .material-card::after {
   background: linear-gradient(180deg, rgba(139, 158, 159, 0.04) 0%, rgba(139, 158, 159, 0.02) 100%);
 }
 
-.category-klausur .material-card::after {
+.category-integral .material-card::after {
   background: linear-gradient(180deg, rgba(164, 155, 142, 0.04) 0%, rgba(164, 155, 142, 0.02) 100%);
 }
 
@@ -151,15 +163,19 @@ body {
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.category-mikro .card-header::after {
-  background: linear-gradient(90deg, #c9a690 0%, transparent 100%);
+.category-vektor .card-header::after {
+  background: linear-gradient(90deg, #b8a89a 0%, transparent 100%);
 }
 
-.category-makro .card-header::after {
+.category-algebra .card-header::after {
+  background: linear-gradient(90deg, #c9b896 0%, transparent 100%);
+}
+
+.category-differential .card-header::after {
   background: linear-gradient(90deg, #8b9e9f 0%, transparent 100%);
 }
 
-.category-klausur .card-header::after {
+.category-integral .card-header::after {
   background: linear-gradient(90deg, #a49b8e 0%, transparent 100%);
 }
 
@@ -180,15 +196,19 @@ body {
   transition: color 0.3s ease;
 }
 
-.category-mikro .material-card:hover h4 {
-  color: #c9a690;
+.category-vektor .material-card:hover h4 {
+  color: #b8a89a;
 }
 
-.category-makro .material-card:hover h4 {
+.category-algebra .material-card:hover h4 {
+  color: #c9b896;
+}
+
+.category-differential .material-card:hover h4 {
   color: #8b9e9f;
 }
 
-.category-klausur .material-card:hover h4 {
+.category-integral .material-card:hover h4 {
   color: #a49b8e;
 }
 
@@ -227,7 +247,7 @@ body {
   color: #5a5a5a !important;
   text-decoration: none;
   border: 1px solid #e8e5e0;
-  border-radius: 1px;
+  border-radius: 12px;
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.05em;
@@ -249,15 +269,19 @@ body {
 }
 
 /* Dezente Hover-Farben */
-.category-mikro .btn-small:first-child::before {
-  background: linear-gradient(180deg, #c9a690 0%, #dbc0af 100%);
+.category-vektor .btn-small:first-child::before {
+  background: linear-gradient(180deg, #b8a89a 0%, #cbbfb3 100%);
 }
 
-.category-makro .btn-small:first-child::before {
+.category-algebra .btn-small:first-child::before {
+  background: linear-gradient(180deg, #c9b896 0%, #d9ccad 100%);
+}
+
+.category-differential .btn-small:first-child::before {
   background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
 }
 
-.category-klausur .btn-small:first-child::before {
+.category-integral .btn-small:first-child::before {
   background: linear-gradient(180deg, #a49b8e 0%, #b8afa4 100%);
 }
 
@@ -316,20 +340,26 @@ body {
   letter-spacing: 0.02em;
   display: inline-block;
   border-left: 2px solid;
+  border-radius: 0 16px 16px 0;
 }
 
 /* Natürliche Farbcodierung */
 h2.section-header:nth-of-type(1) {
-  border-left-color: #c9a690;
-  color: #8d7a6a;
+  border-left-color: #b8a89a;
+  color: #7d7169;
 }
 
 h2.section-header:nth-of-type(2) {
+  border-left-color: #c9b896;
+  color: #8d7f5e;
+}
+
+h2.section-header:nth-of-type(3) {
   border-left-color: #8b9e9f;
   color: #5d6f70;
 }
 
-h2.section-header:nth-of-type(3) {
+h2.section-header:nth-of-type(4) {
   border-left-color: #a49b8e;
   color: #706960;
 }
@@ -342,6 +372,7 @@ h2.section-header:nth-of-type(3) {
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid #e8e5e0;
+  border-radius: 0 0 32px 32px;
 }
 
 /* Zen-inspirierte Dekoration */
@@ -364,7 +395,7 @@ h2.section-header:nth-of-type(3) {
   right: 180px;
   width: 120px;
   height: 120px;
-  background: radial-gradient(circle, rgba(201, 166, 144, 0.04) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(184, 168, 154, 0.04) 0%, transparent 60%);
   border-radius: 50%;
   transform: translateY(-50%);
 }
@@ -392,7 +423,7 @@ h2.section-header:nth-of-type(3) {
   text-transform: uppercase;
   transition: all 0.3s ease;
   border: 1px solid #e8e5e0;
-  border-radius: 1px;
+  border-radius: 14px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
@@ -431,7 +462,7 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 20% 30%, rgba(201, 166, 144, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 20% 30%, rgba(184, 168, 154, 0.02) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, rgba(139, 158, 159, 0.02) 0%, transparent 50%);
   pointer-events: none;
   z-index: -1;
@@ -446,6 +477,7 @@ body::before {
   .page-header {
     margin: -1rem -1rem 2.5rem -1rem;
     padding: 2.5rem 1.75rem;
+    border-radius: 0 0 24px 24px;
   }
   
   .page-header h1 {
@@ -459,15 +491,22 @@ body::before {
   
   .material-card {
     min-height: auto;
+    border-radius: 16px;
+  }
+  
+  .material-card::after {
+    border-radius: 16px;
   }
   
   .section-header {
     font-size: 1.1rem;
+    border-radius: 0 12px 12px 0;
   }
   
   .intro-text {
     font-size: 0.9rem;
     padding: 1.5rem 1.75rem;
+    border-radius: 16px;
   }
   
   .card-header {
@@ -476,6 +515,14 @@ body::before {
   
   .card-content {
     padding: 1.25rem 1.5rem 1.75rem 1.5rem;
+  }
+  
+  .btn-small {
+    border-radius: 10px;
+  }
+  
+  .back-link {
+    border-radius: 12px;
   }
 }
 </style>
