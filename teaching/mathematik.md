@@ -8,10 +8,12 @@ permalink: /teaching/mathematik/
 /* Japandi Design mit Apple-Style Rounded Corners */
 
 body {
-  background: #f7f5f2;
+  background: linear-gradient(135deg, #f7f5f2 0%, #f0ede8 25%, #e8e5e0 50%, #f0ede8 75%, #f7f5f2 100%);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
   line-height: 1.7;
   color: #3d3d3d;
+  min-height: 100vh;
+  background-attachment: fixed;
 }
 
 .intro-text {
@@ -462,10 +464,12 @@ body::before {
   width: 100%;
   height: 100%;
   background-image: 
-    radial-gradient(circle at 20% 30%, rgba(184, 168, 154, 0.02) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(139, 158, 159, 0.02) 0%, transparent 50%);
+    radial-gradient(circle at 15% 25%, rgba(184, 168, 154, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(139, 158, 159, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(201, 184, 150, 0.02) 0%, transparent 60%);
   pointer-events: none;
   z-index: -1;
+  opacity: 0.8;
 }
 
 @media (max-width: 768px) {
