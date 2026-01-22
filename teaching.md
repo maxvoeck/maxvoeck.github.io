@@ -5,7 +5,7 @@ permalink: /teaching/
 ---
 
 <style>
-/* Japandi Design - Japanisch-Skandinavische Fusion */
+/* Japandi Design mit Apple-Style Rounded Corners */
 
 body {
   background: #f7f5f2;
@@ -21,7 +21,7 @@ body {
   margin-bottom: 3.5rem;
   padding: 2rem 2.5rem;
   background: #ffffff;
-  border-radius: 2px;
+  border-radius: 18px;
   border-left: 3px solid #8b9e9f;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   letter-spacing: 0.02em;
@@ -38,7 +38,7 @@ body {
 .section-card {
   background: #ffffff;
   border: 1px solid #e8e5e0;
-  border-radius: 2px;
+  border-radius: 20px;
   padding: 0;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
@@ -93,7 +93,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 2px;
+  border-radius: 20px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
@@ -142,7 +142,7 @@ body {
   height: 48px;
   background: transparent;
   border: 1px solid #e8e5e0;
-  border-radius: 4px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -268,7 +268,7 @@ body {
   color: #5a5a5a !important;
   text-decoration: none;
   border: 1px solid #e8e5e0;
-  border-radius: 1px;
+  border-radius: 12px;
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.05em;
@@ -344,6 +344,7 @@ body {
   position: relative;
   overflow: hidden;
   border-bottom: 1px solid #e8e5e0;
+  border-radius: 0 0 32px 32px;
 }
 
 /* Zen-inspirierte Dekoration */
@@ -417,6 +418,7 @@ body::before {
   .page-header {
     margin: -1rem -1rem 2.5rem -1rem;
     padding: 2.5rem 1.75rem;
+    border-radius: 0 0 24px 24px;
   }
 
   .page-header h1 {
@@ -432,6 +434,7 @@ body::before {
     font-size: 0.9rem;
     padding: 1.5rem 1.75rem;
     margin-bottom: 2.5rem;
+    border-radius: 16px;
   }
 
   .card-header {
@@ -445,6 +448,7 @@ body::before {
   .icon-wrapper {
     width: 40px;
     height: 40px;
+    border-radius: 10px;
   }
 
   .icon-wrapper svg {
@@ -454,6 +458,18 @@ body::before {
 
   .section-card h2 {
     font-size: 1.05rem;
+  }
+  
+  .section-card {
+    border-radius: 16px;
+  }
+  
+  .section-card::after {
+    border-radius: 16px;
+  }
+  
+  .btn {
+    border-radius: 10px;
   }
 }
 </style>
