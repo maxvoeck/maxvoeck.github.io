@@ -5,107 +5,194 @@ permalink: /teaching/mathematik/
 ---
 
 <style>
-/* Apple Design - Modern Rounded Aesthetics */
+/* Japandi Design mit Apple-Style Rounded Corners */
 
 body {
-  background: #f5f5f7;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
-  line-height: 1.6;
-  color: #1d1d1f;
+  background: #f7f5f2;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+  line-height: 1.7;
+  color: #3d3d3d;
 }
 
 .intro-text {
-  font-size: 1rem;
-  color: #6e6e73;
+  font-size: 0.95rem;
+  color: #6b6b6b;
   font-weight: 400;
   margin-bottom: 3.5rem;
   padding: 2rem 2.5rem;
   background: #ffffff;
   border-radius: 18px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
-  letter-spacing: -0.01em;
+  border-left: 3px solid #8b9e9f;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  letter-spacing: 0.02em;
 }
 
 .materials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
   margin: 2.5rem 0;
 }
 
 .material-card {
   background: #ffffff;
+  border: 1px solid #e8e5e0;
   border-radius: 20px;
   padding: 0;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   flex-direction: column;
   min-height: 320px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
-/* Moderne Farbakzente */
+/* Dezente, natürliche Farbpalette */
 .category-vektor .material-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fdfcfb 100%);
-  border: 1px solid rgba(184, 168, 154, 0.15);
+  border-top: 2px solid #b8a89a;
 }
 
 .category-algebra .material-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fefdf9 100%);
-  border: 1px solid rgba(201, 184, 150, 0.15);
+  border-top: 2px solid #c9b896;
 }
 
 .category-differential .material-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fbfcfd 100%);
-  border: 1px solid rgba(139, 158, 159, 0.15);
+  border-top: 2px solid #8b9e9f;
 }
 
 .category-integral .material-card {
-  background: linear-gradient(135deg, #ffffff 0%, #fcfcfb 100%);
-  border: 1px solid rgba(164, 155, 142, 0.15);
+  border-top: 2px solid #a49b8e;
 }
 
-/* Apple-Style Hover */
+/* Minimalistischer Akzent */
+.material-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 60px;
+  opacity: 0.15;
+  transition: all 0.4s ease;
+}
+
+.category-vektor .material-card::before {
+  background: linear-gradient(to bottom, #b8a89a, transparent);
+}
+
+.category-algebra .material-card::before {
+  background: linear-gradient(to bottom, #c9b896, transparent);
+}
+
+.category-differential .material-card::before {
+  background: linear-gradient(to bottom, #8b9e9f, transparent);
+}
+
+.category-integral .material-card::before {
+  background: linear-gradient(to bottom, #a49b8e, transparent);
+}
+
+/* Dezenter Cover-Effekt */
+.material-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.category-vektor .material-card::after {
+  background: linear-gradient(180deg, rgba(184, 168, 154, 0.04) 0%, rgba(184, 168, 154, 0.02) 100%);
+}
+
+.category-algebra .material-card::after {
+  background: linear-gradient(180deg, rgba(201, 184, 150, 0.04) 0%, rgba(201, 184, 150, 0.02) 100%);
+}
+
+.category-differential .material-card::after {
+  background: linear-gradient(180deg, rgba(139, 158, 159, 0.04) 0%, rgba(139, 158, 159, 0.02) 100%);
+}
+
+.category-integral .material-card::after {
+  background: linear-gradient(180deg, rgba(164, 155, 142, 0.04) 0%, rgba(164, 155, 142, 0.02) 100%);
+}
+
 .material-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  border-color: #d5d0ca;
 }
 
-.category-vektor .material-card:hover {
-  border-color: rgba(184, 168, 154, 0.3);
-  box-shadow: 0 20px 40px rgba(184, 168, 154, 0.2);
+.material-card:hover::after {
+  opacity: 1;
 }
 
-.category-algebra .material-card:hover {
-  border-color: rgba(201, 184, 150, 0.3);
-  box-shadow: 0 20px 40px rgba(201, 184, 150, 0.2);
+.material-card:hover::before {
+  height: 100%;
+  width: 3px;
+  opacity: 0.4;
 }
 
-.category-differential .material-card:hover {
-  border-color: rgba(139, 158, 159, 0.3);
-  box-shadow: 0 20px 40px rgba(139, 158, 159, 0.2);
+/* Zusätzlicher Hover-Effekt - sanftes Glow */
+.material-card:hover .card-header {
+  border-bottom-color: transparent;
 }
 
-.category-integral .material-card:hover {
-  border-color: rgba(164, 155, 142, 0.3);
-  box-shadow: 0 20px 40px rgba(164, 155, 142, 0.2);
+.material-card:hover .card-header::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.card-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.category-vektor .card-header::after {
+  background: linear-gradient(90deg, #b8a89a 0%, transparent 100%);
+}
+
+.category-algebra .card-header::after {
+  background: linear-gradient(90deg, #c9b896 0%, transparent 100%);
+}
+
+.category-differential .card-header::after {
+  background: linear-gradient(90deg, #8b9e9f 0%, transparent 100%);
+}
+
+.category-integral .card-header::after {
+  background: linear-gradient(90deg, #a49b8e 0%, transparent 100%);
 }
 
 .card-header {
-  padding: 2rem 2rem 1rem 2rem;
+  padding: 2rem 2rem 1.25rem 2rem;
   position: relative;
   z-index: 2;
+  border-bottom: 1px solid #f5f3f0;
 }
 
 .material-card h4 {
   margin: 0;
-  color: #1d1d1f;
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
+  color: #3d3d3d;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
   transition: color 0.3s ease;
 }
 
@@ -126,7 +213,7 @@ body {
 }
 
 .card-content {
-  padding: 1rem 2rem 2rem 2rem;
+  padding: 1.5rem 2rem 2rem 2rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -135,19 +222,19 @@ body {
 }
 
 .material-card p {
-  font-size: 0.9375rem;
-  color: #6e6e73;
+  font-size: 0.88rem;
+  color: #6b6b6b;
   margin: 0 0 2rem 0;
   flex-grow: 1;
-  line-height: 1.6;
+  line-height: 1.8;
   font-weight: 400;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
 }
 
 .button-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  gap: 1rem;
   margin-top: auto;
 }
 
@@ -155,16 +242,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.875rem 1.25rem;
-  background: #f5f5f7;
-  color: #1d1d1f !important;
+  padding: 0.9rem 1rem;
+  background: #fafaf9;
+  color: #5a5a5a !important;
   text-decoration: none;
-  border: none;
+  border: 1px solid #e8e5e0;
   border-radius: 12px;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  letter-spacing: -0.01em;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
 }
@@ -178,29 +266,29 @@ body {
   height: 100%;
   opacity: 0;
   transition: opacity 0.3s ease;
-  border-radius: 12px;
 }
 
-/* Gradient Hover für Primary Button */
+/* Dezente Hover-Farben */
 .category-vektor .btn-small:first-child::before {
-  background: linear-gradient(135deg, #b8a89a 0%, #cbbfb3 100%);
+  background: linear-gradient(180deg, #b8a89a 0%, #cbbfb3 100%);
 }
 
 .category-algebra .btn-small:first-child::before {
-  background: linear-gradient(135deg, #c9b896 0%, #d9ccad 100%);
+  background: linear-gradient(180deg, #c9b896 0%, #d9ccad 100%);
 }
 
 .category-differential .btn-small:first-child::before {
-  background: linear-gradient(135deg, #8b9e9f 0%, #a5b5b6 100%);
+  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
 }
 
 .category-integral .btn-small:first-child::before {
-  background: linear-gradient(135deg, #a49b8e 0%, #b8afa4 100%);
+  background: linear-gradient(180deg, #a49b8e 0%, #b8afa4 100%);
 }
 
 .btn-small:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  border-color: transparent;
   color: #ffffff !important;
 }
 
@@ -208,8 +296,25 @@ body {
   opacity: 1;
 }
 
-.btn-small:active {
-  transform: scale(0.98);
+.btn-small:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.btn-small::after {
+  content: '→';
+  position: absolute;
+  right: 1rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  z-index: 3;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.btn-quiz:hover::after {
+  content: '✓';
 }
 
 .btn-small span {
@@ -219,108 +324,109 @@ body {
 
 .btn-quiz {
   background: #ffffff;
-  border: 1px solid #e5e5e7;
+  border-color: #e0ddd8;
 }
 
 .btn-quiz::before {
-  background: linear-gradient(135deg, #6e6e73 0%, #8e8e93 100%);
+  background: linear-gradient(180deg, #6b6b6b 0%, #8a8a8a 100%);
 }
 
 .section-header {
   position: relative;
-  padding: 1rem 1.5rem;
+  padding: 0.5rem 0 0.5rem 1rem;
   margin: 4.5rem 0 2rem 0;
-  font-weight: 600;
-  font-size: 1.5rem;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
   display: inline-block;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-left: 2px solid;
+  border-radius: 0 16px 16px 0;
 }
 
-/* Farbcodierung für Sections */
+/* Natürliche Farbcodierung */
 h2.section-header:nth-of-type(1) {
+  border-left-color: #b8a89a;
   color: #7d7169;
-  border-left: 4px solid #b8a89a;
 }
 
 h2.section-header:nth-of-type(2) {
+  border-left-color: #c9b896;
   color: #8d7f5e;
-  border-left: 4px solid #c9b896;
 }
 
 h2.section-header:nth-of-type(3) {
+  border-left-color: #8b9e9f;
   color: #5d6f70;
-  border-left: 4px solid #8b9e9f;
 }
 
 h2.section-header:nth-of-type(4) {
+  border-left-color: #a49b8e;
   color: #706960;
-  border-left: 4px solid #a49b8e;
 }
 
 .page-header {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 100%);
-  color: #1d1d1f;
-  padding: 4rem 2.5rem;
+  background: #ffffff;
+  color: #3d3d3d;
+  padding: 3.5rem 2.5rem;
   margin: -2rem -2rem 4rem -2rem;
   position: relative;
   overflow: hidden;
+  border-bottom: 1px solid #e8e5e0;
   border-radius: 0 0 32px 32px;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
 }
 
-/* Moderne Dekoration */
+/* Zen-inspirierte Dekoration */
 .page-header::before {
   content: '';
   position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(139, 158, 159, 0.08) 0%, transparent 70%);
+  top: 50%;
+  right: 60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(139, 158, 159, 0.06) 0%, transparent 60%);
   border-radius: 50%;
+  transform: translateY(-50%);
 }
 
 .page-header::after {
   content: '';
   position: absolute;
-  bottom: -30%;
-  right: 20%;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(184, 168, 154, 0.06) 0%, transparent 70%);
+  top: 50%;
+  right: 180px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(184, 168, 154, 0.04) 0%, transparent 60%);
   border-radius: 50%;
+  transform: translateY(-50%);
 }
 
 .page-header h1 {
   margin: 0;
-  font-size: 2.5rem;
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: 2.2rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   position: relative;
   z-index: 1;
-  color: #1d1d1f;
+  color: #3d3d3d;
 }
 
 .back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: inline-block;
   margin-top: 4rem;
-  padding: 1rem 2rem;
+  padding: 0.9rem 2.5rem;
   background: #ffffff;
-  color: #1d1d1f !important;
+  color: #5a5a5a !important;
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.9375rem;
-  letter-spacing: -0.01em;
-  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: 1px solid #e8e5e0;
   border-radius: 14px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .back-link::before {
@@ -330,16 +436,16 @@ h2.section-header:nth-of-type(4) {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #8b9e9f 0%, #a5b5b6 100%);
+  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: -1;
-  border-radius: 14px;
 }
 
 .back-link:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: transparent;
   color: #ffffff !important;
 }
 
@@ -347,25 +453,25 @@ h2.section-header:nth-of-type(4) {
   opacity: 1;
 }
 
-.back-link:active {
-  transform: translateY(-2px);
-}
-
-/* Glassmorphism Effekt für moderne Optik */
-@supports (backdrop-filter: blur(20px)) {
-  .material-card {
-    backdrop-filter: blur(20px);
-  }
-  
-  .section-header {
-    backdrop-filter: blur(10px);
-  }
+/* Wabi-Sabi Textur-Effekt */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(184, 168, 154, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(139, 158, 159, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 @media (max-width: 768px) {
   .materials-grid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1.5rem;
   }
   
   .page-header {
@@ -375,7 +481,12 @@ h2.section-header:nth-of-type(4) {
   }
   
   .page-header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+  
+  .page-header::before,
+  .page-header::after {
+    display: none;
   }
   
   .material-card {
@@ -383,29 +494,31 @@ h2.section-header:nth-of-type(4) {
     border-radius: 16px;
   }
   
+  .material-card::after {
+    border-radius: 16px;
+  }
+  
   .section-header {
-    font-size: 1.25rem;
-    border-radius: 12px;
-    padding: 0.875rem 1.25rem;
+    font-size: 1.1rem;
+    border-radius: 0 12px 12px 0;
   }
   
   .intro-text {
-    font-size: 0.9375rem;
+    font-size: 0.9rem;
     padding: 1.5rem 1.75rem;
     border-radius: 16px;
   }
   
   .card-header {
-    padding: 1.75rem 1.5rem 0.875rem 1.5rem;
+    padding: 1.75rem 1.5rem 1rem 1.5rem;
   }
   
   .card-content {
-    padding: 0.875rem 1.5rem 1.75rem 1.5rem;
+    padding: 1.25rem 1.5rem 1.75rem 1.5rem;
   }
   
   .btn-small {
     border-radius: 10px;
-    padding: 0.75rem 1rem;
   }
   
   .back-link {
