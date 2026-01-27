@@ -321,23 +321,6 @@ body {
   opacity: 1;
 }
 
-.btn:hover::after {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.btn::after {
-  content: '→';
-  position: absolute;
-  right: 1.5rem;
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.3s ease;
-  z-index: 3;
-  color: #ffffff;
-  font-size: 1rem;
-}
-
 .btn span {
   position: relative;
   z-index: 2;
@@ -541,7 +524,9 @@ body::before {
         <span class="tag">Preiselastizität</span>
         <span class="tag">Wirtschaftskreislauf</span>
       </div>
-      <a href="/teaching/vwl/" class="btn"><span>Folien & Quizze</span></a>
+      <div class="button-group">
+        <a href="/teaching/vwl/" class="btn"><span>Folien & Quizze</span></a>
+      </div>
     </div>
   </div>
 
@@ -563,7 +548,9 @@ body::before {
         <span class="tag">Algorithmen</span>
         <span class="tag">Datenstrukturen</span>
       </div>
-      <a href="/teaching/informatik/" class="btn"><span>Folien & Quizze</span></a>
+      <div class="button-group">
+        <a href="/teaching/informatik/" class="btn"><span>Folien & Quizze</span></a>
+      </div>
     </div>
   </div>
 </div>
