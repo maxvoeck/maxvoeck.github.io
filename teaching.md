@@ -278,8 +278,13 @@ body {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+}
+
+.button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
   margin-top: auto;
-  align-self: flex-start;
 }
 
 .btn::before {
@@ -336,6 +341,15 @@ body {
 .btn span {
   position: relative;
   z-index: 2;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  border-color: #e0ddd8;
+}
+
+.btn-secondary::before {
+  background: linear-gradient(180deg, #6b6b6b 0%, #8a8a8a 100%);
 }
 
 .page-header {
@@ -502,7 +516,10 @@ body::before {
         <span class="tag">Vektorräume</span>
         <span class="tag">Differentialrechnung</span>
       </div>
-      <a href="/teaching/mathematik/" class="btn"><span>Materialien ansehen</span></a>
+      <div class="button-group">
+        <a href="/teaching/mathematik/" class="btn"><span>Folien & Quizze</span></a>
+        <a href="/assets/pdfs/Mathematik_Skript.pdf" class="btn btn-secondary"><span>Skript PDF</span></a>
+      </div>
     </div>
   </div>
 
@@ -524,7 +541,7 @@ body::before {
         <span class="tag">Preiselastizität</span>
         <span class="tag">Wirtschaftskreislauf</span>
       </div>
-      <a href="/teaching/vwl/" class="btn"><span>Materialien ansehen</span></a>
+      <a href="/teaching/vwl/" class="btn"><span>Folien & Quizze</span></a>
     </div>
   </div>
 
@@ -546,7 +563,7 @@ body::before {
         <span class="tag">Algorithmen</span>
         <span class="tag">Datenstrukturen</span>
       </div>
-      <a href="/teaching/informatik/" class="btn"><span>Materialien ansehen</span></a>
+      <a href="/teaching/informatik/" class="btn"><span>Folien & Quizze</span></a>
     </div>
   </div>
 </div>
