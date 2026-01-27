@@ -18,61 +18,18 @@ body {
   position: relative;
 }
 
-/* Hero Header */
-.hero-header {
-  background: #ffffff;
-  padding: 4rem 2.5rem;
-  margin: -2rem -2rem 4rem -2rem;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid #e8e5e0;
-  border-radius: 0 0 32px 32px;
-}
-
-/* Zen-inspirierte Dekoration */
-.hero-header::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 60px;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(139, 158, 159, 0.06) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
-
-.hero-header::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 180px;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(184, 168, 154, 0.04) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
-
-.hero-header h1 {
-  margin: 0 0 1rem 0;
-  font-size: 2.5rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  color: #3d3d3d;
-  position: relative;
-  z-index: 1;
-}
-
-.intro {
-  font-size: 1.05rem;
+.intro-text {
+  font-size: 0.95rem;
   color: #6b6b6b;
   font-weight: 400;
-  margin: 0;
+  margin-bottom: 3.5rem;
+  padding: 2rem 2.5rem;
+  background: #ffffff;
+  border-radius: 18px;
+  border-left: 3px solid #8b9e9f;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   letter-spacing: 0.02em;
   line-height: 1.8;
-  position: relative;
-  z-index: 1;
 }
 
 .sections {
@@ -351,23 +308,11 @@ body::before {
     gap: 1.5rem;
   }
 
-  .hero-header {
-    margin: -1rem -1rem 2.5rem -1rem;
-    padding: 2.5rem 1.75rem;
-    border-radius: 0 0 24px 24px;
-  }
-
-  .hero-header h1 {
-    font-size: 2rem;
-  }
-
-  .intro {
-    font-size: 0.95rem;
-  }
-
-  .hero-header::before,
-  .hero-header::after {
-    display: none;
+  .intro-text {
+    font-size: 0.9rem;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2.5rem;
+    border-radius: 16px;
   }
 
   .card-header {
@@ -408,10 +353,9 @@ body::before {
 </style>
 
 <div class="home">
-  <div class="hero-header">
-    <h1></h1>
-    <p class="intro">Mathematik, Wirtschaft & Datenanalyse</p>
-  </div>
+  <p class="intro-text">
+    Mathematik, Wirtschaft & Datenanalyse
+  </p>
   
   <div class="sections">
     <div class="section-card about">
