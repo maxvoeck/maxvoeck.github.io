@@ -409,7 +409,7 @@ body::before {
 
 <div class="home">
   <div class="hero-header">
-    <h1>Maximilian Vöck</h1>
+    <h1></h1>
     <p class="intro">Mathematik, Wirtschaft & Datenanalyse</p>
   </div>
   
