@@ -22,6 +22,7 @@ body {
   font-size: 0.95rem;
   color: #6b6b6b;
   font-weight: 400;
+  margin-top: 2.5rem;
   margin-bottom: 3.5rem;
   padding: 2rem 2.5rem;
   background: #ffffff;
@@ -311,6 +312,7 @@ body::before {
   .intro-text {
     font-size: 0.9rem;
     padding: 1.5rem 1.75rem;
+    margin-top: 2rem;
     margin-bottom: 2.5rem;
     border-radius: 16px;
   }
