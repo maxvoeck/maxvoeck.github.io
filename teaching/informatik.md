@@ -65,6 +65,10 @@ body {
   border-top: 2px solid #a49b8e;
 }
 
+.category-programmierung .material-card {
+  border-top: 2px solid #8b9e9f;
+}
+
 /* Minimalistischer Akzent */
 .material-card::before {
   content: '';
@@ -91,6 +95,10 @@ body {
 
 .category-integral .material-card::before {
   background: linear-gradient(to bottom, #a49b8e, transparent);
+}
+
+.category-programmierung .material-card::before {
+  background: linear-gradient(to bottom, #8b9e9f, transparent);
 }
 
 /* Dezenter Cover-Effekt */
@@ -122,6 +130,10 @@ body {
 
 .category-integral .material-card::after {
   background: linear-gradient(180deg, rgba(164, 155, 142, 0.04) 0%, rgba(164, 155, 142, 0.02) 100%);
+}
+
+.category-programmierung .material-card::after {
+  background: linear-gradient(180deg, rgba(139, 158, 159, 0.04) 0%, rgba(139, 158, 159, 0.02) 100%);
 }
 
 .material-card:hover {
@@ -179,6 +191,10 @@ body {
   background: linear-gradient(90deg, #a49b8e 0%, transparent 100%);
 }
 
+.category-programmierung .card-header::after {
+  background: linear-gradient(90deg, #8b9e9f 0%, transparent 100%);
+}
+
 .card-header {
   padding: 2rem 2rem 1.25rem 2rem;
   position: relative;
@@ -210,6 +226,10 @@ body {
 
 .category-integral .material-card:hover h4 {
   color: #a49b8e;
+}
+
+.category-programmierung .material-card:hover h4 {
+  color: #8b9e9f;
 }
 
 .card-content {
@@ -285,6 +305,10 @@ body {
   background: linear-gradient(180deg, #a49b8e 0%, #b8afa4 100%);
 }
 
+.category-programmierung .btn-small:first-child::before {
+  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
+}
+
 .btn-small:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
@@ -345,8 +369,8 @@ body {
 
 /* Natürliche Farbcodierung */
 h2.section-header:nth-of-type(1) {
-  border-left-color: #b8a89a;
-  color: #7d7169;
+  border-left-color: #8b9e9f;
+  color: #5d6f70;
 }
 
 h2.section-header:nth-of-type(2) {
@@ -355,8 +379,8 @@ h2.section-header:nth-of-type(2) {
 }
 
 h2.section-header:nth-of-type(3) {
-  border-left-color: #8b9e9f;
-  color: #5d6f70;
+  border-left-color: #b8a89a;
+  color: #7d7169;
 }
 
 h2.section-header:nth-of-type(4) {
@@ -565,7 +589,23 @@ body::before {
       </div>
     </div>
   </div>
-</div>
 
+  <div class="material-card">
+    <div class="card-header">
+      <h4>Listen und Datenstrukturen</h4>
+    </div>
+    <div class="card-content">
+      <p>
+        Arbeiten mit Listen in Python: Erstellen und Verstehen von Listen, Zugriff auf Elemente über Index und Slicing (start:stop:step), 
+        veränderbare Listen (mutable), Elemente hinzufügen mit append() und insert(), entfernen mit remove() und pop(), 
+        wichtige Methoden wie sort(), reverse(), index() und count(). Inklusive Mini-Übungen und Lösungen
+      </p>
+      <div class="button-group">
+        <a href="/assets/pdfs/Info_3.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_listen_datenstrukturen.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
