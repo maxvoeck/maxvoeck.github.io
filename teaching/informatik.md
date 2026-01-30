@@ -606,6 +606,23 @@ body::before {
       </div>
     </div>
   </div>
+
+  <div class="material-card">
+  <div class="card-header">
+    <h4>Kontrollstrukturen – if, for, while</h4>
+  </div>
+  <div class="card-content">
+    <p>
+      Steuerung des Programmablaufs: Bedingte Anweisungen mit if/elif/else, Vergleichsoperatoren (==, !=, &lt;, &gt;) und logische Operatoren (and, or, not). 
+      Schleifen mit for (über Sequenzen und range()) und while (bedingungsbasiert). 
+      Sprunganweisungen break und continue, verschachtelte Schleifen sowie häufige Fehler (Einrückung, Doppelpunkte). 
+      Inklusive Fehlersuche-Übungen und Klausurvorbereitung
+    </p>
+    <div class="button-group">
+      <a href="/assets/pdfs/Info_4.pdf" class="btn-small"><span>PDF</span></a>
+      <a href="/assets/quizzes/quiz_kontrollstrukturen.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+    </div>
+  </div>
 </div>
 
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
