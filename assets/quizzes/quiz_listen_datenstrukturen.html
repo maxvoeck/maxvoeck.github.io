@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Grundlagen Quiz - Listen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #F7F5F2;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #3D3D3D;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(61, 61, 61, 0.1);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+            border: 1px solid #E8E5E0;
+        }
+
+        .quiz-header {
+            background: #3D3D3D;
+            color: #F7F5F2;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+            color: #8B9E9F;
+        }
+
+        .progress-bar {
+            background: #E8E5E0;
+            height: 8px;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: #8B9E9F;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            color: #8B9E9F;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #3D3D3D;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background-color: #F7F5F2;
+            border-left: 4px solid #8B9E9F;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #3D3D3D;
+            overflow-x: auto;
+            white-space: pre;
+            border-radius: 4px;
+            border: 1px solid #E8E5E0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #E8E5E0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: #F7F5F2;
+            border-color: #8B9E9F;
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: #8B9E9F;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            background: #F0EFED;
+            border-color: #8B9E9F;
+        }
+
+        .option.correct {
+            background: #E8F0E5;
+            border-color: #6A9955;
+        }
+
+        .option.correct .option-letter {
+            background: #6A9955;
+        }
+
+        .option.incorrect {
+            background: #F5E7E7;
+            border-color: #B94A48;
+        }
+
+        .option.incorrect .option-letter {
+            background: #B94A48;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: #E8F0E5;
+            border-left: 4px solid #6A9955;
+            color: #2D4A22;
+        }
+
+        .feedback.incorrect {
+            background: #F5E7E7;
+            border-left: 4px solid #B94A48;
+            color: #5C241E;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: #8B9E9F;
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #7A8E8F;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 158, 159, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #3D3D3D;
+            border: 2px solid #E8E5E0;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #F7F5F2;
+            border-color: #8B9E9F;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: #8B9E9F;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            color: white;
+            box-shadow: 0 10px 30px rgba(139, 158, 159, 0.3);
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3D3D3D;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            background: #F7F5F2;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border: 1px solid #E8E5E0;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #8B9E9F;
+        }
+
+        .result-stat-label {
+            font-size: 0.9rem;
+            color: #6B6B6B;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .quiz-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>🐍 Python Grundlagen Quiz</h1>
+            <p>Listen (Lists)</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-content">
+            <div id="questionsContainer"></div>
+
+            <div class="results-container" id="resultsContainer">
+                <div class="result-message" id="resultMessage"></div>
+                <div class="score-circle">
+                    <div class="score-number" id="scoreNumber">0%</div>
+                    <div class="score-label">Erreicht</div>
+                </div>
+                <div class="result-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctCount">0</div>
+                        <div class="result-stat-label">Richtig</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="incorrectCount">0</div>
+                        <div class="result-stat-label">Falsch</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalCount">0</div>
+                        <div class="result-stat-label">Gesamt</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Was gibt dieser Code aus?",
+                code: "liste = [10, 20, 30]\nprint(liste[0])",
+                options: [
+                    "10",
+                    "20",
+                    "0",
+                    "IndexError"
+                ],
+                correct: 0,
+                explanation: "Der Index [0] gibt das erste Element zurück. Listen sind 0-basiert, also ist 10 das erste Element."
+            },
+            {
+                question: "Was ist der Fehler in diesem Code?",
+                code: "liste = [1, 2, 3]\nprint(liste[3])",
+                options: [
+                    "Die Liste hat nur 3 Elemente (Index 0, 1, 2)",
+                    "Die Klammern sind falsch",
+                    "print() ist falsch geschrieben",
+                    "Es fehlen Anführungszeichen"
+                ],
+                correct: 0,
+                explanation: "Liste hat Indizes 0, 1, 2. Index 3 existiert nicht → IndexError: list index out of range"
+            },
+            {
+                question: "Was gibt [-1] zurück?",
+                code: "liste = ['A', 'B', 'C', 'D']\nprint(liste[-1])",
+                options: [
+                    "'A'",
+                    "'D'",
+                    "Fehler: Negative Indizes nicht erlaubt",
+                    "None"
+                ],
+                correct: 1,
+                explanation: "Negative Indizes zählen von hinten: [-1] ist das letzte Element, [-2] das vorletzte, etc."
+            },
+            {
+                question: "Was macht die append() Methode?",
+                code: "liste = [1, 2]\nliste.append(3)",
+                options: [
+                    "Fügt 3 am Anfang ein",
+                    "Fügt 3 am Ende ein",
+                    "Ersetzt das letzte Element durch 3",
+                    "Gibt eine neue Liste zurück"
+                ],
+                correct: 1,
+                explanation: "append() fügt ein Element immer am Ende der Liste hinzu. Die Liste wird zu [1, 2, 3]."
+            },
+            {
+                question: "Was ist das Ergebnis dieses Codes?",
+                code: "a = [1, 2]\nb = [3, 4]\nprint(a + b)",
+                options: [
+                    "[4, 6]",
+                    "[1, 2, 3, 4]",
+                    "Fehler: Listen können nicht addiert werden",
+                    "[[1, 2], [3, 4]]"
+                ],
+                correct: 1,
+                explanation: "Der + Operator verbindet (konkateniert) Listen zu einer neuen Liste [1, 2, 3, 4]."
+            },
+            {
+                question: "Was ist der Unterschied zwischen remove() und pop()?",
+                code: null,
+                options: [
+                    "remove() entfernt nach Index, pop() nach Wert",
+                    "remove() entfernt nach Wert, pop() nach Index",
+                    "Beide machen das Gleiche",
+                    "remove() löscht die ganze Liste"
+                ],
+                correct: 1,
+                explanation: "remove(10) sucht den Wert 10 und entfernt ihn. pop(0) entfernt das Element an Index 0 und gibt es zurück."
+            },
+            {
+                question: "Was gibt dieser Slicing-Code aus?",
+                code: "liste = [1, 2, 3, 4, 5]\nprint(liste[1:4])",
+                options: [
+                    "[1, 2, 3, 4]",
+                    "[2, 3, 4]",
+                    "[2, 3, 4, 5]",
+                    "Fehler: Syntax nicht erlaubt"
+                ],
+                correct: 1,
+                explanation: "Slicing [1:4] bedeutet: Start bei Index 1 (einschließlich), Ende bei Index 4 (ausschließlich) → [2, 3, 4]"
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: "liste = [10, 20, 30]\nliste.remove(20)",
+                options: [
+                    "Der Code ist korrekt, entfernt 20",
+                    "remove() existiert nicht",
+                    "Man muss den Index angeben, nicht den Wert",
+                    "Die Liste ist zu kurz"
+                ],
+                correct: 0,
+                explanation: "Der Code ist korrekt! remove(20) entfernt das erste Vorkommen des Werts 20 aus der Liste."
+            },
+            {
+                question: "Was gibt len() bei dieser verschachtelten Liste zurück?",
+                code: "matrix = [[1, 2], [3, 4], [5, 6]]\nprint(len(matrix))",
+                options: [
+                    "6",
+                    "2",
+                    "3",
+                    "Fehler: len() geht nicht bei verschachtelten Listen"
+                ],
+                correct: 2,
+                explanation: "len() zählt die Elemente der äußeren Liste: es gibt 3 Elemente (die 3 inneren Listen)."
+            },
+            {
+                question: "Was gibt sort() zurück?",
+                code: "liste = [3, 1, 2]\nresult = liste.sort()\nprint(result)",
+                options: [
+                    "[1, 2, 3]",
+                    "None",
+                    "[3, 2, 1]",
+                    "Fehler"
+                ],
+                correct: 1,
+                explanation: "sort() sortiert die Liste direkt (in-place) und gibt None zurück! Die Liste ist danit [1, 2, 3], aber result ist None."
+            },
+            {
+                question: "Was ist der Fehler hier?",
+                code: "liste = [1, 2, 3]\nliste.insert(5, 10)",
+                options: [
+                    "Index 5 existiert nicht → Fehler",
+                    "10 wird am Index 5 eingefügt, Liste wird länger",
+                    "insert() akzeptiert keine Zahlen",
+                    "Es fehlt ein Komma"
+                ],
+                correct: 1,
+                explanation: "insert(5, 10) fügt 10 an Index 5 ein. Da die Liste nur 3 Elemente hat, wird es einfach am Ende angehängt. Kein Fehler!"
+            },
+            {
+                question: "Was macht pop() ohne Argument?",
+                code: "liste = ['a', 'b', 'c']\nletztes = liste.pop()\nprint(letztes)",
+                options: [
+                    "Entfernt und gibt 'a' zurück",
+                    "Entfernt und gibt 'c' zurück",
+                    "Entfernt nichts, gibt 'c' zurück",
+                    "Fehler: Argument erforderlich"
+                ],
+                correct: 1,
+                explanation: "pop() ohne Argument entfernt und gibt das letzte Element zurück (hier 'c'). Die Liste ist danach ['a', 'b']."
+            },
+            {
+                question: "Was gibt dieser Code aus?",
+                code: "liste = [10, 20, 30, 20]\nprint(liste.count(20))",
+                options: [
+                    "1",
+                    "2",
+                    "3",
+                    "0"
+                ],
+                correct: 1,
+                explanation: "count(20) zählt, wie oft der Wert 20 in der Liste vorkommt. Hier: zweimal (an Index 1 und 3)."
+            },
+            {
+                question: "Was ist der Fehler?",
+                code: 'element = liste[1.5]',
+                options: [
+                    "Listen-Indizes müssen Ganzzahlen sein",
+                    "Der Code funktioniert (gibt 2. Element zurück)",
+                    "Die Liste hat kein Element 1.5",
+                    "Es fehlen Anführungszeichen"
+                ],
+                correct: 0,
+                explanation: "Indizes müssen integers sein! 1.5 als float führt zu einem TypeError."
+            },
+            {
+                question: "Was gibt index() zurück?",
+                code: "liste = ['Apfel', 'Birne', 'Kirsche']\nprint(liste.index('Birne'))",
+                options: [
+                    "1",
+                    "2",
+                    "'Birne'",
+                    "Fehler: Birne nicht gefunden"
+                ],
+                correct: 0,
+                explanation: "index('Birne') gibt den Index (Position) des Elements zurück. 'Birne' ist an Index 1."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        function initQuiz() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                if (index === 0) questionDiv.classList.add('active');
+                
+                let codeBlock = q.code ? `<div class="code-block">${q.code}</div>` : '';
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Frage ${index + 1} von ${questions.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    ${codeBlock}
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption(${index}, ${i})">
+                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                <div class="option-text">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${index === 0 ? 'style="visibility: hidden;"' : ''}>
+                            ← Zurück
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                            ${index === questions.length - 1 ? 'Auswertung anzeigen' : 'Weiter →'}
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+
+            updateProgress();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (answers[questionIndex] !== undefined) return;
+
+            const optionsContainer = document.getElementById(`options-${questionIndex}`);
+            const options = optionsContainer.querySelectorAll('.option');
+            const correct = questions[questionIndex].correct;
+            
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
+            
+            options.forEach(opt => opt.classList.add('disabled'));
+            
+            answers[questionIndex] = optionIndex;
+            if (optionIndex === correct) score++;
+            
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            feedback.classList.add('show');
+            feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            feedback.querySelector('.feedback-title').textContent = 
+                optionIndex === correct ? '✓ Richtig!' : '✗ Leider falsch';
+            feedback.querySelector('.feedback-text').textContent = questions[questionIndex].explanation;
+            
+            document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion++;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion--;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('questionsContainer').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+            
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('scoreNumber').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = questions.length - score;
+            document.getElementById('totalCount').textContent = questions.length;
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = '🎉 Hervorragend! Du beherrschst Python-Listen perfekt!';
+            } else if (percentage >= 70) {
+                message = '👍 Sehr gut! Du kennst dich mit Listen aus!';
+            } else if (percentage >= 50) {
+                message = '📚 Gut! Wiederhole noch einmal Indexe, Slicing und Methoden.';
+            } else {
+                message = '💪 Übe weiter! Achte auf 0-basierte Indexe und die Unterschiede zwischen den Methoden.';
+            }
+            
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('questionsContainer').style.display = 'block';
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
