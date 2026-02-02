@@ -665,6 +665,18 @@ body::before {
       </div>
     </div>
   </div>
+
+  <div class="material-card">
+  <div class="card-header">
+    <h4>Konjunktur & Konjunkturzyklen</h4>
+  </div>
+  <div class="card-content">
+    <p>Die 4 Konjunkturphasen (Aufschwung, Boom, Abschwung, Depression), BIP-Berechnung, Wachstumsraten, Rezessionsdefinition, Früh- und Spätindikatoren, wirtschaftspolitische Maßnahmen</p>
+    <div class="button-group">
+      <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="btn-small"><span>PDF</span></a>
+      <a href="/assets/quizzes/quiz_konjunktur.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+    </div>
+  </div>
 </div>
 
 <h2 class="section-header">Klausuraufgaben</h2>
