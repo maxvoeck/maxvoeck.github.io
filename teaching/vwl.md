@@ -678,5 +678,7 @@ body::before {
     </div>
   </div>
 </div>
+</div>
+
 
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
