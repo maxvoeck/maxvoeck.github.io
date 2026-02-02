@@ -870,4 +870,33 @@ body::before {
   </div>
 </div>
 
+<h2 class="section-header">Interaktive Tools</h2>
+<div class="materials-grid category-interactive">
+  <div class="material-card">
+    <div class="card-header">
+      <h4>📐 Tangenten-Explorer</h4>
+    </div>
+    <div class="card-content">
+      <p>Interaktive Visualisierung von Tangenten und Ableitungen. Bewege den Punkt auf verschiedenen Funktionen und beobachte live, wie sich die Steigung ändert</p>
+      <div class="button-group">
+        <a href="/assets/interactive/tangenten_explorer.html" class="btn-small"><span>Öffnen</span></a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="material-card">
+    <div class="card-header">
+      <h4>📐 3D-Vektor-Explorer</h4>
+    </div>
+    <div class="card-content">
+      <p>Drehe und manipuliere Vektoren im 3D-Raum. Visualisiere Addition, Subtraktion, Skalar- und Kreuzprodukt interaktiv mit Touch- und Maus-Steuerung</p>
+      <div class="button-group">
+        <a href="/assets/interactive/vektor_explorer.html" class="btn-small"><span>Öffnen</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>

@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D-Vektor-Explorer</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #f7f5f2 0%, #f0ede8 25%, #e8e5e0 50%, #f0ede8 75%, #f7f5f2 100%);
+  min-height: 100vh;
+  padding: 2rem;
+  color: #3d3d3d;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #3d3d3d;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: #6b6b6b;
+  font-size: 1rem;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 350px 1fr 350px;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.panel {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.panel-left {
+  border-left: 3px solid #b8a89a;
+}
+
+.panel-right {
+  border-left: 3px solid #8b9e9f;
+}
+
+.panel h2 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  color: #3d3d3d;
+}
+
+.vector-group {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.vector-group:last-child {
+  margin-bottom: 0;
+}
+
+.vector-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #3d3d3d;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.color-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.input-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6b6b6b;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #e8e5e0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: #8b9e9f;
+}
+
+.operation-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.operation-btn {
+  padding: 0.7rem;
+  background: #fafaf9;
+  border: 1px solid #e8e5e0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.operation-btn:hover {
+  background: #8b9e9f;
+  color: white;
+  border-color: #8b9e9f;
+  transform: translateY(-2px);
+}
+
+.operation-btn.active {
+  background: #8b9e9f;
+  color: white;
+  border-color: #8b9e9f;
+}
+
+.info-box {
+  background: #f0ede8;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+.info-box h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  color: #3d3d3d;
+}
+
+.info-item {
+  font-size: 0.85rem;
+  color: #6b6b6b;
+  margin-bottom: 0.5rem;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-value {
+  font-weight: 600;
+  color: #3d3d3d;
+}
+
+.result-box {
+  background: #e8f4f5;
+  padding: 1.2rem;
+  border-radius: 12px;
+  border-left: 3px solid #8b9e9f;
+}
+
+.result-box h3 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  color: #3d3d3d;
+}
+
+.result-value {
+  font-size: 1.1rem;
+  font-family: 'Courier New', monospace;
+  color: #3d3d3d;
+  background: #ffffff;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.canvas-container {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+canvas {
+  border: 1px solid #e8e5e0;
+  border-radius: 12px;
+  cursor: grab;
+  touch-action: none;
+  max-width: 100%;
+  height: auto;
+}
+
+canvas:active {
+  cursor: grabbing;
+}
+
+.canvas-controls {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.canvas-btn {
+  padding: 0.6rem 1.2rem;
+  background: #fafaf9;
+  border: 1px solid #e8e5e0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.canvas-btn:hover {
+  background: #8b9e9f;
+  color: white;
+  border-color: #8b9e9f;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.checkbox-label {
+  font-size: 0.85rem;
+  color: #6b6b6b;
+  cursor: pointer;
+}
+
+.explanation {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border-left: 3px solid #c9b896;
+  grid-column: 1 / -1;
+}
+
+.explanation h2 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #3d3d3d;
+}
+
+.explanation p {
+  color: #6b6b6b;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+  color: #6b6b6b;
+  line-height: 1.8;
+}
+
+.explanation li {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 1200px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .panel-right {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  
+  .header {
+    padding: 1.5rem;
+  }
+  
+  .header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .panel {
+    padding: 1.5rem;
+  }
+  
+  .main-content {
+    gap: 1.5rem;
+  }
+  
+  .canvas-container {
+    padding: 1rem;
+  }
+  
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .canvas-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .canvas-btn {
+    width: 100%;
+  }
+  
+  .operation-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 0.5rem;
+  }
+  
+  .header {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .header h1 {
+    font-size: 1.3rem;
+  }
+  
+  .header p {
+    font-size: 0.9rem;
+  }
+  
+  .main-content {
+    gap: 1rem;
+  }
+  
+  .panel {
+    padding: 1rem;
+  }
+  
+  .canvas-container {
+    padding: 0.5rem;
+  }
+  
+  .explanation {
+    padding: 1rem;
+  }
+  
+  .explanation h2 {
+    font-size: 1.1rem;
+  }
+  
+  .explanation p, .explanation li {
+    font-size: 0.9rem;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📐 3D-Vektor-Explorer</h1>
+    <p>Entdecke Vektoren im dreidimensionalen Raum</p>
+  </div>
+  
+  <div class="main-content">
+    <!-- Linkes Panel: Vektor-Eingaben -->
+    <div class="panel panel-left">
+      <h2>Vektoren eingeben</h2>
+      
+      <div class="vector-group">
+        <div class="vector-title">
+          <span class="color-indicator" style="background: #b8a89a;"></span>
+          Vektor a⃗
+        </div>
+        <div class="input-row">
+          <span class="input-label">x:</span>
+          <input type="number" id="ax" value="3" step="0.5">
+        </div>
+        <div class="input-row">
+          <span class="input-label">y:</span>
+          <input type="number" id="ay" value="2" step="0.5">
+        </div>
+        <div class="input-row">
+          <span class="input-label">z:</span>
+          <input type="number" id="az" value="1" step="0.5">
+        </div>
+      </div>
+      
+      <div class="vector-group">
+        <div class="vector-title">
+          <span class="color-indicator" style="background: #8b9e9f;"></span>
+          Vektor b⃗
+        </div>
+        <div class="input-row">
+          <span class="input-label">x:</span>
+          <input type="number" id="bx" value="1" step="0.5">
+        </div>
+        <div class="input-row">
+          <span class="input-label">y:</span>
+          <input type="number" id="by" value="3" step="0.5">
+        </div>
+        <div class="input-row">
+          <span class="input-label">z:</span>
+          <input type="number" id="bz" value="2" step="0.5">
+        </div>
+      </div>
+      
+      <div class="info-box">
+        <h3>Vektorinformationen</h3>
+        <div class="info-item">
+          <span>|a⃗|:</span>
+          <span class="info-value" id="lengthA">0.00</span>
+        </div>
+        <div class="info-item">
+          <span>|b⃗|:</span>
+          <span class="info-value" id="lengthB">0.00</span>
+        </div>
+        <div class="info-item" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #d5d0ca;">
+          <span>Winkel:</span>
+          <span class="info-value" id="angle">0.00°</span>
+        </div>
+      </div>
+      
+      <div class="checkbox-group">
+        <input type="checkbox" id="showGrid" checked>
+        <label class="checkbox-label" for="showGrid">Koordinatensystem anzeigen</label>
+      </div>
+      
+      <div class="checkbox-group">
+        <input type="checkbox" id="showLabels" checked>
+        <label class="checkbox-label" for="showLabels">Beschriftungen anzeigen</label>
+      </div>
+    </div>
+    
+    <!-- Mittleres Panel: 3D-Visualisierung -->
+    <div class="canvas-container">
+      <canvas id="canvas" width="600" height="600"></canvas>
+      <div class="canvas-controls">
+        <button class="canvas-btn" onclick="resetView()">↺ Ansicht zurücksetzen</button>
+        <button class="canvas-btn" onclick="viewXY()">XY-Ebene</button>
+        <button class="canvas-btn" onclick="viewXZ()">XZ-Ebene</button>
+        <button class="canvas-btn" onclick="viewYZ()">YZ-Ebene</button>
+      </div>
+    </div>
+    
+    <!-- Rechtes Panel: Operationen -->
+    <div class="panel panel-right">
+      <h2>Vektoroperationen</h2>
+      
+      <div class="operation-buttons">
+        <button class="operation-btn" onclick="setOperation('none')">Keine</button>
+        <button class="operation-btn active" onclick="setOperation('sum')">a⃗ + b⃗</button>
+        <button class="operation-btn" onclick="setOperation('diff')">a⃗ - b⃗</button>
+        <button class="operation-btn" onclick="setOperation('cross')">a⃗ × b⃗</button>
+      </div>
+      
+      <div class="result-box" style="margin-top: 1.5rem;">
+        <h3 id="resultTitle">Summe a⃗ + b⃗</h3>
+        <div class="result-value" id="resultVector">(4, 5, 3)</div>
+        <div class="info-item" style="margin-top: 0.5rem;">
+          <span>Betrag:</span>
+          <span class="info-value" id="resultLength">0.00</span>
+        </div>
+      </div>
+      
+      <div class="info-box" style="margin-top: 1.5rem;">
+        <h3>Skalarprodukt</h3>
+        <div class="result-value" id="scalarProduct">0</div>
+        <p style="font-size: 0.8rem; color: #6b6b6b; margin-top: 0.5rem;">
+          a⃗ · b⃗ = ax·bx + ay·by + az·bz
+        </p>
+      </div>
+      
+      <div class="info-box" style="margin-top: 1rem; background: #fff5e6; border-left: 3px solid #c9b896;">
+        <h3>💡 Interaktion</h3>
+        <p style="font-size: 0.85rem; color: #6b6b6b; margin: 0;">
+          <strong>Desktop:</strong> Klicke und ziehe mit der Maus.<br>
+          <strong>Mobil:</strong> Wische mit dem Finger, um die 3D-Ansicht zu drehen.
+        </p>
+      </div>
+    </div>
+    
+    <!-- Erklärung -->
+    <div class="explanation">
+      <h2>🎯 Was lernst du hier?</h2>
+      <p>
+        Dieser interaktive Explorer hilft dir, <strong>Vektoren im dreidimensionalen Raum</strong> zu verstehen und zu visualisieren.
+      </p>
+      <ul>
+        <li><strong>Vektordarstellung:</strong> Pfeile vom Ursprung zum Endpunkt (x, y, z)</li>
+        <li><strong>Betrag |a⃗|:</strong> Länge des Vektors = √(x² + y² + z²)</li>
+        <li><strong>Addition a⃗ + b⃗:</strong> Komponenten werden addiert → (ax+bx, ay+by, az+bz)</li>
+        <li><strong>Subtraktion a⃗ - b⃗:</strong> Komponenten werden subtrahiert</li>
+        <li><strong>Skalarprodukt a⃗ · b⃗:</strong> Ergibt eine Zahl (Skalar), misst "Parallelität"</li>
+        <li><strong>Kreuzprodukt a⃗ × b⃗:</strong> Ergibt einen neuen Vektor, steht senkrecht auf a⃗ und b⃗</li>
+        <li><strong>Winkel zwischen Vektoren:</strong> Berechnet über cos(α) = (a⃗ · b⃗) / (|a⃗| · |b⃗|)</li>
+      </ul>
+      <p style="margin-top: 1rem;">
+        <strong>Probiere aus:</strong> Ändere die Vektorkomponenten und beobachte, wie sich die Visualisierung ändert. 
+        Drehe die 3D-Ansicht mit der Maus oder durch Wischen mit dem Finger, um verschiedene Perspektiven zu sehen. Wähle verschiedene Operationen aus!
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+// Konfiguration
+const config = {
+  width: 600,
+  height: 600,
+  scale: 50,
+  angleX: 0.6,
+  angleY: 0.6,
+  centerX: 300,
+  centerY: 300
+};
+
+let currentOperation = 'sum';
+let showGrid = true;
+let showLabels = true;
+
+// Maus-Interaktion
+let isDragging = false;
+let lastMouseX = 0;
+let lastMouseY = 0;
+
+canvas.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  lastMouseX = e.clientX;
+  lastMouseY = e.clientY;
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  if (isDragging) {
+    const deltaX = e.clientX - lastMouseX;
+    const deltaY = e.clientY - lastMouseY;
+    
+    config.angleY += deltaX * 0.01;
+    config.angleX += deltaY * 0.01;
+    
+    // Begrenze X-Rotation
+    config.angleX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, config.angleX));
+    
+    lastMouseX = e.clientX;
+    lastMouseY = e.clientY;
+    
+    draw();
+  }
+});
+
+canvas.addEventListener('mouseup', () => {
+  isDragging = false;
+});
+
+canvas.addEventListener('mouseleave', () => {
+  isDragging = false;
+});
+
+// Touch-Support für mobile Geräte
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  isDragging = true;
+  const touch = e.touches[0];
+  lastMouseX = touch.clientX;
+  lastMouseY = touch.clientY;
+});
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  if (isDragging && e.touches.length === 1) {
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - lastMouseX;
+    const deltaY = touch.clientY - lastMouseY;
+    
+    config.angleY += deltaX * 0.01;
+    config.angleX += deltaY * 0.01;
+    
+    // Begrenze X-Rotation
+    config.angleX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, config.angleX));
+    
+    lastMouseX = touch.clientX;
+    lastMouseY = touch.clientY;
+    
+    draw();
+  }
+});
+
+canvas.addEventListener('touchend', (e) => {
+  e.preventDefault();
+  isDragging = false;
+});
+
+canvas.addEventListener('touchcancel', (e) => {
+  e.preventDefault();
+  isDragging = false;
+});
+
+// 3D zu 2D Projektion
+function project3D(x, y, z) {
+  // Rotation um Y-Achse
+  let x1 = x * Math.cos(config.angleY) - z * Math.sin(config.angleY);
+  let z1 = x * Math.sin(config.angleY) + z * Math.cos(config.angleY);
+  
+  // Rotation um X-Achse
+  let y1 = y * Math.cos(config.angleX) - z1 * Math.sin(config.angleX);
+  let z2 = y * Math.sin(config.angleX) + z1 * Math.cos(config.angleX);
+  
+  // Isometrische Projektion
+  const screenX = config.centerX + x1 * config.scale;
+  const screenY = config.centerY - y1 * config.scale;
+  
+  return { x: screenX, y: screenY, z: z2 };
+}
+
+// Zeichne Pfeil
+function drawArrow(x, y, z, color, label) {
+  const start = project3D(0, 0, 0);
+  const end = project3D(x, y, z);
+  
+  // Pfeilschaft
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(start.x, start.y);
+  ctx.lineTo(end.x, end.y);
+  ctx.stroke();
+  
+  // Pfeilspitze
+  const angle = Math.atan2(end.y - start.y, end.x - start.x);
+  const headLength = 15;
+  
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(end.x, end.y);
+  ctx.lineTo(
+    end.x - headLength * Math.cos(angle - Math.PI / 6),
+    end.y - headLength * Math.sin(angle - Math.PI / 6)
+  );
+  ctx.lineTo(
+    end.x - headLength * Math.cos(angle + Math.PI / 6),
+    end.y - headLength * Math.sin(angle + Math.PI / 6)
+  );
+  ctx.closePath();
+  ctx.fill();
+  
+  // Label
+  if (showLabels && label) {
+    ctx.fillStyle = color;
+    ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText(label, end.x + 10, end.y - 10);
+  }
+  
+  return end;
+}
+
+// Zeichne Koordinatensystem
+function drawCoordinateSystem() {
+  if (!showGrid) return;
+  
+  const axisLength = 5;
+  
+  // X-Achse (rot)
+  ctx.strokeStyle = '#e07a5f';
+  ctx.lineWidth = 2;
+  const xEnd = project3D(axisLength, 0, 0);
+  ctx.beginPath();
+  ctx.moveTo(config.centerX, config.centerY);
+  ctx.lineTo(xEnd.x, xEnd.y);
+  ctx.stroke();
+  
+  if (showLabels) {
+    ctx.fillStyle = '#e07a5f';
+    ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillText('x', xEnd.x + 10, xEnd.y);
+  }
+  
+  // Y-Achse (grün)
+  ctx.strokeStyle = '#81b29a';
+  const yEnd = project3D(0, axisLength, 0);
+  ctx.beginPath();
+  ctx.moveTo(config.centerX, config.centerY);
+  ctx.lineTo(yEnd.x, yEnd.y);
+  ctx.stroke();
+  
+  if (showLabels) {
+    ctx.fillStyle = '#81b29a';
+    ctx.fillText('y', yEnd.x + 10, yEnd.y);
+  }
+  
+  // Z-Achse (blau)
+  ctx.strokeStyle = '#3d5a80';
+  const zEnd = project3D(0, 0, axisLength);
+  ctx.beginPath();
+  ctx.moveTo(config.centerX, config.centerY);
+  ctx.lineTo(zEnd.x, zEnd.y);
+  ctx.stroke();
+  
+  if (showLabels) {
+    ctx.fillStyle = '#3d5a80';
+    ctx.fillText('z', zEnd.x + 10, zEnd.y);
+  }
+  
+  // Raster
+  ctx.strokeStyle = '#e8e5e0';
+  ctx.lineWidth = 0.5;
+  
+  for (let i = -4; i <= 4; i++) {
+    if (i === 0) continue;
+    
+    // XY-Ebene
+    const p1 = project3D(i, -4, 0);
+    const p2 = project3D(i, 4, 0);
+    ctx.beginPath();
+    ctx.moveTo(p1.x, p1.y);
+    ctx.lineTo(p2.x, p2.y);
+    ctx.stroke();
+    
+    const p3 = project3D(-4, i, 0);
+    const p4 = project3D(4, i, 0);
+    ctx.beginPath();
+    ctx.moveTo(p3.x, p3.y);
+    ctx.lineTo(p4.x, p4.y);
+    ctx.stroke();
+  }
+}
+
+// Lese Vektorwerte
+function getVectorA() {
+  return {
+    x: parseFloat(document.getElementById('ax').value) || 0,
+    y: parseFloat(document.getElementById('ay').value) || 0,
+    z: parseFloat(document.getElementById('az').value) || 0
+  };
+}
+
+function getVectorB() {
+  return {
+    x: parseFloat(document.getElementById('bx').value) || 0,
+    y: parseFloat(document.getElementById('by').value) || 0,
+    z: parseFloat(document.getElementById('bz').value) || 0
+  };
+}
+
+// Vektor-Operationen
+function vectorLength(v) {
+  return Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+}
+
+function vectorAdd(a, b) {
+  return { x: a.x + b.x, y: a.y + b.y, z: a.z + b.z };
+}
+
+function vectorSubtract(a, b) {
+  return { x: a.x - b.x, y: a.y - b.y, z: a.z - b.z };
+}
+
+function vectorCross(a, b) {
+  return {
+    x: a.y * b.z - a.z * b.y,
+    y: a.z * b.x - a.x * b.z,
+    z: a.x * b.y - a.y * b.x
+  };
+}
+
+function vectorDot(a, b) {
+  return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+function angleBetween(a, b) {
+  const dot = vectorDot(a, b);
+  const lengths = vectorLength(a) * vectorLength(b);
+  if (lengths === 0) return 0;
+  const cosAngle = dot / lengths;
+  return Math.acos(Math.max(-1, Math.min(1, cosAngle))) * 180 / Math.PI;
+}
+
+// Zeichne gestrichelte Linie
+function drawDashedLine(x1, y1, x2, y2, color) {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.5;
+  ctx.setLineDash([5, 5]);
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.lineTo(x2, y2);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+// Hauptzeichenfunktion
+function draw() {
+  ctx.clearRect(0, 0, config.width, config.height);
+  
+  // Hintergrund
+  ctx.fillStyle = '#fafaf9';
+  ctx.fillRect(0, 0, config.width, config.height);
+  
+  drawCoordinateSystem();
+  
+  const a = getVectorA();
+  const b = getVectorB();
+  
+  // Zeichne Vektoren
+  const endA = drawArrow(a.x, a.y, a.z, '#b8a89a', 'a⃗');
+  const endB = drawArrow(b.x, b.y, b.z, '#8b9e9f', 'b⃗');
+  
+  // Zeichne Operation
+  let result;
+  let resultColor = '#c9b896';
+  
+  switch (currentOperation) {
+    case 'sum':
+      result = vectorAdd(a, b);
+      // Zeige Parallelogramm
+      const bFromA = project3D(a.x + b.x, a.y + b.y, a.z + b.z);
+      drawDashedLine(endA.x, endA.y, bFromA.x, bFromA.y, '#8b9e9f');
+      drawDashedLine(endB.x, endB.y, bFromA.x, bFromA.y, '#b8a89a');
+      drawArrow(result.x, result.y, result.z, resultColor, 'a⃗+b⃗');
+      break;
+      
+    case 'diff':
+      result = vectorSubtract(a, b);
+      // Zeige Differenz
+      const negB = project3D(a.x - b.x, a.y - b.y, a.z - b.z);
+      drawDashedLine(endB.x, endB.y, endA.x, endA.y, '#6b6b6b');
+      drawArrow(result.x, result.y, result.z, resultColor, 'a⃗-b⃗');
+      break;
+      
+    case 'cross':
+      result = vectorCross(a, b);
+      resultColor = '#a49b8e';
+      drawArrow(result.x, result.y, result.z, resultColor, 'a⃗×b⃗');
+      break;
+      
+    default:
+      result = null;
+  }
+  
+  updateDisplay(a, b, result);
+}
+
+// Aktualisiere Anzeigen
+function updateDisplay(a, b, result) {
+  document.getElementById('lengthA').textContent = vectorLength(a).toFixed(2);
+  document.getElementById('lengthB').textContent = vectorLength(b).toFixed(2);
+  document.getElementById('angle').textContent = angleBetween(a, b).toFixed(2) + '°';
+  
+  const dot = vectorDot(a, b);
+  document.getElementById('scalarProduct').textContent = dot.toFixed(2);
+  
+  if (result) {
+    document.getElementById('resultVector').textContent = 
+      `(${result.x.toFixed(2)}, ${result.y.toFixed(2)}, ${result.z.toFixed(2)})`;
+    document.getElementById('resultLength').textContent = vectorLength(result).toFixed(2);
+  }
+}
+
+// Operation wechseln
+function setOperation(op) {
+  currentOperation = op;
+  
+  // Update Buttons
+  document.querySelectorAll('.operation-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+  
+  // Update Titel
+  const titles = {
+    'none': 'Keine Operation',
+    'sum': 'Summe a⃗ + b⃗',
+    'diff': 'Differenz a⃗ - b⃗',
+    'cross': 'Kreuzprodukt a⃗ × b⃗'
+  };
+  document.getElementById('resultTitle').textContent = titles[op];
+  
+  draw();
+}
+
+// View-Funktionen
+function resetView() {
+  config.angleX = 0.6;
+  config.angleY = 0.6;
+  draw();
+}
+
+function viewXY() {
+  config.angleX = 0;
+  config.angleY = 0;
+  draw();
+}
+
+function viewXZ() {
+  config.angleX = Math.PI / 2;
+  config.angleY = 0;
+  draw();
+}
+
+function viewYZ() {
+  config.angleX = 0;
+  config.angleY = Math.PI / 2;
+  draw();
+}
+
+// Event Listeners
+['ax', 'ay', 'az', 'bx', 'by', 'bz'].forEach(id => {
+  document.getElementById(id).addEventListener('input', draw);
+});
+
+document.getElementById('showGrid').addEventListener('change', (e) => {
+  showGrid = e.target.checked;
+  draw();
+});
+
+document.getElementById('showLabels').addEventListener('change', (e) => {
+  showLabels = e.target.checked;
+  draw();
+});
+
+// Initiale Zeichnung
+draw();
+</script>
+</body>
+</html>
