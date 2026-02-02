@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tangenten-Explorer</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #f7f5f2 0%, #f0ede8 25%, #e8e5e0 50%, #f0ede8 75%, #f7f5f2 100%);
+  min-height: 100vh;
+  padding: 2rem;
+  color: #3d3d3d;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  color: #3d3d3d;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: #6b6b6b;
+  font-size: 1rem;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.controls-panel {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border-left: 3px solid #8b9e9f;
+}
+
+.control-group {
+  margin-bottom: 2rem;
+}
+
+.control-group:last-child {
+  margin-bottom: 0;
+}
+
+.control-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #3d3d3d;
+  margin-bottom: 0.5rem;
+}
+
+.control-sublabel {
+  font-size: 0.8rem;
+  color: #6b6b6b;
+  margin-bottom: 0.8rem;
+}
+
+.function-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.function-btn {
+  padding: 0.6rem;
+  background: #fafaf9;
+  border: 1px solid #e8e5e0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+}
+
+.function-btn:hover {
+  background: #8b9e9f;
+  color: white;
+  border-color: #8b9e9f;
+}
+
+.function-btn.active {
+  background: #8b9e9f;
+  color: white;
+  border-color: #8b9e9f;
+}
+
+.slider-container {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #e8e5e0;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #8b9e9f;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #6d7e7f;
+  transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #8b9e9f;
+  cursor: pointer;
+  border: none;
+}
+
+.slider-value {
+  display: inline-block;
+  background: #f0ede8;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #3d3d3d;
+  min-width: 60px;
+  text-align: center;
+}
+
+.info-box {
+  background: #f0ede8;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+  border-left: 3px solid #b8a89a;
+}
+
+.info-box h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #3d3d3d;
+}
+
+.info-item {
+  font-size: 0.85rem;
+  color: #6b6b6b;
+  margin-bottom: 0.3rem;
+  font-family: 'Courier New', monospace;
+}
+
+.info-item strong {
+  color: #3d3d3d;
+}
+
+.canvas-container {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  border: 1px solid #e8e5e0;
+  border-radius: 12px;
+  cursor: crosshair;
+  touch-action: none;
+  max-width: 100%;
+  height: auto;
+}
+
+.explanation {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  border-left: 3px solid #c9b896;
+}
+
+.explanation h2 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #3d3d3d;
+}
+
+.explanation p {
+  color: #6b6b6b;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.explanation ul {
+  margin-left: 1.5rem;
+  color: #6b6b6b;
+  line-height: 1.8;
+}
+
+.explanation li {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+  
+  .header {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .header h1 {
+    font-size: 1.4rem;
+  }
+  
+  .header p {
+    font-size: 0.9rem;
+  }
+  
+  .controls-panel {
+    padding: 1.5rem;
+  }
+  
+  .canvas-container {
+    padding: 1rem;
+  }
+  
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .explanation {
+    padding: 1.5rem;
+  }
+  
+  .function-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .control-group {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 0.5rem;
+  }
+  
+  .header {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .header h1 {
+    font-size: 1.3rem;
+  }
+  
+  .header p {
+    font-size: 0.85rem;
+  }
+  
+  .controls-panel, .canvas-container, .explanation {
+    padding: 1rem;
+  }
+  
+  .control-label {
+    font-size: 0.85rem;
+  }
+  
+  .control-sublabel {
+    font-size: 0.75rem;
+  }
+  
+  .info-box h3 {
+    font-size: 0.85rem;
+  }
+  
+  .info-item {
+    font-size: 0.8rem;
+  }
+  
+  .explanation h2 {
+    font-size: 1.1rem;
+  }
+  
+  .explanation p, .explanation li {
+    font-size: 0.85rem;
+  }
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>📐 Tangenten-Explorer</h1>
+    <p>Entdecke, wie Tangenten und Ableitungen zusammenhängen</p>
+  </div>
+  
+  <div class="main-content">
+    <div class="controls-panel">
+      <div class="control-group">
+        <label class="control-label">Wähle eine Funktion</label>
+        <div class="function-buttons">
+          <button class="function-btn active" onclick="setFunction('quadratic')">f(x) = x²</button>
+          <button class="function-btn" onclick="setFunction('cubic')">f(x) = x³</button>
+          <button class="function-btn" onclick="setFunction('sin')">f(x) = sin(x)</button>
+          <button class="function-btn" onclick="setFunction('exp')">f(x) = eˣ</button>
+          <button class="function-btn" onclick="setFunction('sqrt')">f(x) = √x</button>
+          <button class="function-btn" onclick="setFunction('rational')">f(x) = 1/x</button>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <label class="control-label">Position des Berührpunkts</label>
+        <div class="control-sublabel">Verschiebe den Punkt auf der Kurve</div>
+        <div class="slider-container">
+          <input type="range" id="xSlider" min="-5" max="5" step="0.01" value="1">
+        </div>
+        <span class="slider-value" id="xValue">x = 1.00</span>
+      </div>
+      
+      <div class="control-group">
+        <label class="control-label">Tangentenlänge</label>
+        <div class="slider-container">
+          <input type="range" id="lengthSlider" min="1" max="5" step="0.1" value="3">
+        </div>
+        <span class="slider-value" id="lengthValue">3.0</span>
+      </div>
+      
+      <div class="info-box">
+        <h3>📊 Aktuelle Werte</h3>
+        <div class="info-item"><strong>Punkt:</strong> (<span id="pointX">1.00</span>, <span id="pointY">1.00</span>)</div>
+        <div class="info-item"><strong>Steigung m:</strong> <span id="slopeValue">2.00</span></div>
+        <div class="info-item"><strong>f'(x):</strong> <span id="derivativeValue">2.00</span></div>
+        <div class="info-item" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #d5d0ca;">
+          <strong>Tangentengleichung:</strong><br>
+          <span id="tangentEquation">y = 2.00x - 1.00</span>
+        </div>
+      </div>
+      
+      <div class="info-box" style="background: #e8f4f5; border-left-color: #8b9e9f; margin-top: 1rem;">
+        <h3>💡 Tipp</h3>
+        <p style="font-size: 0.85rem; color: #6b6b6b; margin: 0;">
+          <strong>Desktop:</strong> Klicke auf die Leinwand oder verwende den Slider.<br>
+          <strong>Mobil:</strong> Tippe auf die Leinwand oder nutze den Slider.
+        </p>
+      </div>
+    </div>
+    
+    <div class="canvas-container">
+      <canvas id="canvas" width="700" height="600"></canvas>
+    </div>
+  </div>
+  
+  <div class="explanation">
+    <h2>🎯 Was lernst du hier?</h2>
+    <p>
+      Dieser interaktive Explorer hilft dir zu verstehen, was eine <strong>Tangente</strong> ist und wie sie mit der <strong>Ableitung</strong> zusammenhängt.
+    </p>
+    <ul>
+      <li><strong>Tangente:</strong> Eine Gerade, die die Kurve in genau einem Punkt berührt</li>
+      <li><strong>Steigung der Tangente:</strong> Zeigt, wie steil die Kurve an diesem Punkt ist</li>
+      <li><strong>Ableitung f'(x):</strong> Gibt genau diese Steigung an!</li>
+      <li><strong>Tangentengleichung:</strong> y = f'(x₀) · (x - x₀) + f(x₀) oder y = mx + b</li>
+    </ul>
+    <p style="margin-top: 1rem;">
+      <strong>Probiere aus:</strong> Verschiebe den Punkt und beobachte, wie sich die Steigung ändert. 
+      Bei x² wird die Kurve steiler, je weiter du nach rechts gehst. Bei sin(x) schwankt die Steigung zwischen -1 und +1.
+    </p>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const xSlider = document.getElementById('xSlider');
+const lengthSlider = document.getElementById('lengthSlider');
+
+// Konfiguration
+const config = {
+  width: 700,
+  height: 600,
+  xMin: -6,
+  xMax: 6,
+  yMin: -5,
+  yMax: 5,
+  gridStep: 1
+};
+
+// Aktuelle Funktion
+let currentFunction = 'quadratic';
+let currentX = 1;
+let tangentLength = 3;
+
+// Funktionsdefinitionen
+const functions = {
+  quadratic: {
+    f: x => x * x,
+    df: x => 2 * x,
+    name: 'f(x) = x²',
+    dfName: "f'(x) = 2x",
+    range: { min: -5, max: 5 }
+  },
+  cubic: {
+    f: x => x * x * x / 4,
+    df: x => 3 * x * x / 4,
+    name: 'f(x) = x³/4',
+    dfName: "f'(x) = 3x²/4",
+    range: { min: -4, max: 4 }
+  },
+  sin: {
+    f: x => 2 * Math.sin(x),
+    df: x => 2 * Math.cos(x),
+    name: 'f(x) = 2·sin(x)',
+    dfName: "f'(x) = 2·cos(x)",
+    range: { min: -5, max: 5 }
+  },
+  exp: {
+    f: x => Math.exp(x / 2) - 1,
+    df: x => Math.exp(x / 2) / 2,
+    name: 'f(x) = eˣ/² - 1',
+    dfName: "f'(x) = eˣ/²/2",
+    range: { min: -3, max: 3 }
+  },
+  sqrt: {
+    f: x => x >= 0 ? Math.sqrt(x) * 2 : null,
+    df: x => x > 0 ? 1 / Math.sqrt(x) : null,
+    name: 'f(x) = 2√x',
+    dfName: "f'(x) = 1/√x",
+    range: { min: 0.1, max: 5 }
+  },
+  rational: {
+    f: x => x !== 0 ? 1 / x : null,
+    df: x => x !== 0 ? -1 / (x * x) : null,
+    name: 'f(x) = 1/x',
+    dfName: "f'(x) = -1/x²",
+    range: { min: -5, max: 5 }
+  }
+};
+
+// Koordinatentransformation
+function toCanvasX(x) {
+  return (x - config.xMin) / (config.xMax - config.xMin) * config.width;
+}
+
+function toCanvasY(y) {
+  return config.height - (y - config.yMin) / (config.yMax - config.yMin) * config.height;
+}
+
+function fromCanvasX(canvasX) {
+  return canvasX / config.width * (config.xMax - config.xMin) + config.xMin;
+}
+
+function fromCanvasY(canvasY) {
+  return (config.height - canvasY) / config.height * (config.yMax - config.yMin) + config.yMin;
+}
+
+// Zeichne Koordinatensystem
+function drawGrid() {
+  ctx.strokeStyle = '#e8e5e0';
+  ctx.lineWidth = 1;
+  
+  // Vertikale Linien
+  for (let x = Math.ceil(config.xMin); x <= Math.floor(config.xMax); x += config.gridStep) {
+    const canvasX = toCanvasX(x);
+    ctx.beginPath();
+    ctx.moveTo(canvasX, 0);
+    ctx.lineTo(canvasX, config.height);
+    ctx.stroke();
+  }
+  
+  // Horizontale Linien
+  for (let y = Math.ceil(config.yMin); y <= Math.floor(config.yMax); y += config.gridStep) {
+    const canvasY = toCanvasY(y);
+    ctx.beginPath();
+    ctx.moveTo(0, canvasY);
+    ctx.lineTo(config.width, canvasY);
+    ctx.stroke();
+  }
+  
+  // Achsen
+  ctx.strokeStyle = '#3d3d3d';
+  ctx.lineWidth = 2;
+  
+  // x-Achse
+  const yAxisCanvas = toCanvasY(0);
+  ctx.beginPath();
+  ctx.moveTo(0, yAxisCanvas);
+  ctx.lineTo(config.width, yAxisCanvas);
+  ctx.stroke();
+  
+  // y-Achse
+  const xAxisCanvas = toCanvasX(0);
+  ctx.beginPath();
+  ctx.moveTo(xAxisCanvas, 0);
+  ctx.lineTo(xAxisCanvas, config.height);
+  ctx.stroke();
+  
+  // Beschriftung
+  ctx.fillStyle = '#6b6b6b';
+  ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'center';
+  
+  for (let x = Math.ceil(config.xMin); x <= Math.floor(config.xMax); x += 1) {
+    if (x === 0) continue;
+    const canvasX = toCanvasX(x);
+    ctx.fillText(x.toString(), canvasX, yAxisCanvas + 20);
+  }
+  
+  ctx.textAlign = 'right';
+  for (let y = Math.ceil(config.yMin); y <= Math.floor(config.yMax); y += 1) {
+    if (y === 0) continue;
+    const canvasY = toCanvasY(y);
+    ctx.fillText(y.toString(), xAxisCanvas - 10, canvasY + 5);
+  }
+}
+
+// Zeichne Funktion
+function drawFunction() {
+  const func = functions[currentFunction];
+  ctx.strokeStyle = '#8b9e9f';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  
+  let started = false;
+  for (let canvasX = 0; canvasX <= config.width; canvasX += 2) {
+    const x = fromCanvasX(canvasX);
+    const y = func.f(x);
+    
+    if (y === null || isNaN(y) || y < config.yMin - 1 || y > config.yMax + 1) {
+      started = false;
+      continue;
+    }
+    
+    const canvasY = toCanvasY(y);
+    
+    if (!started) {
+      ctx.moveTo(canvasX, canvasY);
+      started = true;
+    } else {
+      ctx.lineTo(canvasX, canvasY);
+    }
+  }
+  
+  ctx.stroke();
+  
+  // Funktionsname
+  ctx.fillStyle = '#8b9e9f';
+  ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText(func.name, 20, 30);
+}
+
+// Zeichne Tangente
+function drawTangent() {
+  const func = functions[currentFunction];
+  const x0 = currentX;
+  const y0 = func.f(x0);
+  
+  if (y0 === null || isNaN(y0)) return;
+  
+  const slope = func.df(x0);
+  if (slope === null || isNaN(slope)) return;
+  
+  // Tangentenpunkte
+  const x1 = x0 - tangentLength;
+  const y1 = y0 + slope * (x1 - x0);
+  const x2 = x0 + tangentLength;
+  const y2 = y0 + slope * (x2 - x0);
+  
+  // Zeichne Tangente
+  ctx.strokeStyle = '#c9b896';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([5, 5]);
+  ctx.beginPath();
+  ctx.moveTo(toCanvasX(x1), toCanvasY(y1));
+  ctx.lineTo(toCanvasX(x2), toCanvasY(y2));
+  ctx.stroke();
+  ctx.setLineDash([]);
+  
+  // Berührpunkt
+  ctx.fillStyle = '#b8a89a';
+  ctx.beginPath();
+  ctx.arc(toCanvasX(x0), toCanvasY(y0), 6, 0, 2 * Math.PI);
+  ctx.fill();
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  
+  // Koordinaten anzeigen
+  ctx.fillStyle = '#3d3d3d';
+  ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(`(${x0.toFixed(2)}, ${y0.toFixed(2)})`, 
+               toCanvasX(x0), toCanvasY(y0) - 15);
+}
+
+// Aktualisiere Anzeige
+function updateDisplay() {
+  const func = functions[currentFunction];
+  const x0 = currentX;
+  const y0 = func.f(x0);
+  const slope = func.df(x0);
+  
+  if (y0 === null || slope === null) return;
+  
+  // Tangentengleichung: y = mx + b
+  const b = y0 - slope * x0;
+  
+  document.getElementById('xValue').textContent = `x = ${x0.toFixed(2)}`;
+  document.getElementById('lengthValue').textContent = tangentLength.toFixed(1);
+  document.getElementById('pointX').textContent = x0.toFixed(2);
+  document.getElementById('pointY').textContent = y0.toFixed(2);
+  document.getElementById('slopeValue').textContent = slope.toFixed(2);
+  document.getElementById('derivativeValue').textContent = slope.toFixed(2);
+  document.getElementById('tangentEquation').textContent = 
+    `y = ${slope.toFixed(2)}x ${b >= 0 ? '+' : ''} ${b.toFixed(2)}`;
+}
+
+// Zeichne alles
+function draw() {
+  ctx.clearRect(0, 0, config.width, config.height);
+  drawGrid();
+  drawFunction();
+  drawTangent();
+  updateDisplay();
+}
+
+// Event Listeners
+xSlider.addEventListener('input', (e) => {
+  currentX = parseFloat(e.target.value);
+  draw();
+});
+
+lengthSlider.addEventListener('input', (e) => {
+  tangentLength = parseFloat(e.target.value);
+  draw();
+});
+
+canvas.addEventListener('click', (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const canvasX = e.clientX - rect.left;
+  const x = fromCanvasX(canvasX);
+  
+  const func = functions[currentFunction];
+  const range = func.range;
+  
+  if (x >= range.min && x <= range.max) {
+    currentX = x;
+    xSlider.value = x;
+    draw();
+  }
+});
+
+// Touch-Support für mobile Geräte
+canvas.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  const canvasX = touch.clientX - rect.left;
+  const x = fromCanvasX(canvasX);
+  
+  const func = functions[currentFunction];
+  const range = func.range;
+  
+  if (x >= range.min && x <= range.max) {
+    currentX = x;
+    xSlider.value = x;
+    draw();
+  }
+});
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+  const canvasX = touch.clientX - rect.left;
+  const x = fromCanvasX(canvasX);
+  
+  const func = functions[currentFunction];
+  const range = func.range;
+  
+  if (x >= range.min && x <= range.max) {
+    currentX = x;
+    xSlider.value = x;
+    draw();
+  }
+});
+
+// Funktionswechsel
+function setFunction(funcName) {
+  currentFunction = funcName;
+  const func = functions[funcName];
+  
+  // Update Slider Range
+  xSlider.min = func.range.min;
+  xSlider.max = func.range.max;
+  
+  // Setze x auf Mittelwert des gültigen Bereichs
+  currentX = (func.range.min + func.range.max) / 2;
+  xSlider.value = currentX;
+  
+  // Update Button-Styles
+  document.querySelectorAll('.function-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  event.target.classList.add('active');
+  
+  draw();
+}
+
+// Initiale Zeichnung
+draw();
+</script>
+</body>
+</html>
