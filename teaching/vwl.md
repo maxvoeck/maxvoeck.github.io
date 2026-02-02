@@ -679,19 +679,5 @@ body::before {
   </div>
 </div>
 
-<h2 class="section-header">Klausuraufgaben</h2>
-<div class="materials-grid category-klausur">
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Klausuraufgaben Mikroökonomie</h4>
-    </div>
-    <div class="card-content">
-      <p>Umfangreiche Sammlung von Übungsaufgaben zur Prüfungsvorbereitung: Bedürfnis und Nachfrage, Güterarten, Einkommenselastizität, Angebots- und Nachfragefunktionen, Marktgleichgewicht, Steuern und Subventionen, Konsumenten- und Produzentenrente</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/VWL_Klausuren_Gesamt.pdf" class="btn-small"><span>PDF</span></a>
-      </div>
-    </div>
-  </div>
-</div>
 
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
