@@ -623,6 +623,24 @@ body::before {
       <a href="/assets/quizzes/quiz_kontrollstrukturen.html" class="btn-small btn-quiz"><span>Quiz</span></a>
     </div>
   </div>
+
+  <div class="material-card">
+  <div class="card-header">
+    <h4>Funktionen in Python</h4>
+  </div>
+  <div class="card-content">
+    <p>
+      Wiederverwendbare Code-Bausteine erstellen: Funktionen definieren mit def, Parameter und Rückgabewerte nutzen, 
+      Unterschied zwischen print und return verstehen. Benannte Parameter und Standardwerte (Default-Werte), 
+      Funktionen mit Kontrollstrukturen kombinieren, Funktionen die andere Funktionen aufrufen. 
+      Inklusive praktischer Beispiele (Rechner-Funktion) und Mini-Übungen mit Lösungen
+    </p>
+    <div class="button-group">
+      <a href="/assets/pdfs/Info_5.pdf" class="btn-small"><span>PDF</span></a>
+      <a href="/assets/quizzes/quiz_funktionen.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+    </div>
+  </div>
+</div>
 </div>
 
 <a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
