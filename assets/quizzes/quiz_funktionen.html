@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Grundlagen Quiz - Funktionen</title>
+    <title>Quiz: Funktionen in Python</title>
     <style>
         * {
             margin: 0;
@@ -12,29 +12,27 @@
         }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #F7F5F2;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #3D3D3D;
         }
 
         .quiz-container {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(61, 61, 61, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             max-width: 800px;
             width: 100%;
             overflow: hidden;
-            border: 1px solid #E8E5E0;
         }
 
         .quiz-header {
-            background: #3D3D3D;
-            color: #F7F5F2;
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
             padding: 2rem;
             text-align: center;
         }
@@ -42,23 +40,21 @@
         .quiz-header h1 {
             font-size: 1.8rem;
             margin-bottom: 0.5rem;
-            font-weight: 600;
         }
 
         .quiz-header p {
             opacity: 0.9;
             font-size: 1rem;
-            color: #8B9E9F;
         }
 
         .progress-bar {
-            background: #E8E5E0;
+            background: #e0e0e0;
             height: 8px;
             position: relative;
         }
 
         .progress-fill {
-            background: #8B9E9F;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
             height: 100%;
             width: 0%;
             transition: width 0.3s ease;
@@ -89,34 +85,32 @@
         }
 
         .question-number {
-            color: #8B9E9F;
+            color: #667eea;
             font-weight: 600;
             font-size: 0.9rem;
             margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .question-text {
             font-size: 1.3rem;
             font-weight: 600;
-            color: #3D3D3D;
+            color: #1f2937;
             margin-bottom: 1.5rem;
             line-height: 1.5;
         }
 
         .code-block {
-            background-color: #F7F5F2;
-            border-left: 4px solid #8B9E9F;
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
             padding: 15px 20px;
             margin: 15px 0;
             font-family: 'Courier New', monospace;
             font-size: 14px;
-            color: #3D3D3D;
+            color: #1f2937;
             overflow-x: auto;
             white-space: pre;
             border-radius: 4px;
-            border: 1px solid #E8E5E0;
+            border: 1px solid #e0e0e0;
         }
 
         .options {
@@ -126,8 +120,8 @@
         }
 
         .option {
-            background: white;
-            border: 2px solid #E8E5E0;
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
             border-radius: 12px;
             padding: 1rem 1.5rem;
             cursor: pointer;
@@ -138,13 +132,13 @@
         }
 
         .option:hover {
-            background: #F7F5F2;
-            border-color: #8B9E9F;
+            background: #f0f1f3;
+            border-color: #667eea;
             transform: translateX(5px);
         }
 
         .option-letter {
-            background: #8B9E9F;
+            background: #667eea;
             color: white;
             width: 32px;
             height: 32px;
@@ -157,26 +151,26 @@
         }
 
         .option.selected {
-            background: #F0EFED;
-            border-color: #8B9E9F;
+            background: #e8eaf6;
+            border-color: #667eea;
         }
 
         .option.correct {
-            background: #E8F0E5;
-            border-color: #6A9955;
+            background: #d4edda;
+            border-color: #28a745;
         }
 
         .option.correct .option-letter {
-            background: #6A9955;
+            background: #28a745;
         }
 
         .option.incorrect {
-            background: #F5E7E7;
-            border-color: #B94A48;
+            background: #f8d7da;
+            border-color: #dc3545;
         }
 
         .option.incorrect .option-letter {
-            background: #B94A48;
+            background: #dc3545;
         }
 
         .option.disabled {
@@ -197,15 +191,15 @@
         }
 
         .feedback.correct {
-            background: #E8F0E5;
-            border-left: 4px solid #6A9955;
-            color: #2D4A22;
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
         }
 
         .feedback.incorrect {
-            background: #F5E7E7;
-            border-left: 4px solid #B94A48;
-            color: #5C241E;
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
         }
 
         .feedback-title {
@@ -228,29 +222,26 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: inherit;
         }
 
         .btn-primary {
-            background: #8B9E9F;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
 
         .btn-primary:hover:not(:disabled) {
-            background: #7A8E8F;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(139, 158, 159, 0.3);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
         }
 
         .btn-secondary {
-            background: white;
-            color: #3D3D3D;
-            border: 2px solid #E8E5E0;
+            background: #f8f9fa;
+            color: #374151;
+            border: 2px solid #e0e0e0;
         }
 
         .btn-secondary:hover:not(:disabled) {
-            background: #F7F5F2;
-            border-color: #8B9E9F;
+            background: #e9ecef;
         }
 
         .btn:disabled {
@@ -273,14 +264,14 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: #8B9E9F;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 2rem auto;
             color: white;
-            box-shadow: 0 10px 30px rgba(139, 158, 159, 0.3);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
         .score-number {
@@ -296,12 +287,12 @@
         .result-message {
             font-size: 1.5rem;
             font-weight: 600;
-            color: #3D3D3D;
+            color: #1f2937;
             margin-bottom: 1rem;
         }
 
         .result-details {
-            background: #F7F5F2;
+            background: #f8f9fa;
             border-radius: 12px;
             padding: 1.5rem;
             margin: 2rem 0;
@@ -309,7 +300,6 @@
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 1rem;
-            border: 1px solid #E8E5E0;
         }
 
         .result-stat {
@@ -319,12 +309,12 @@
         .result-stat-number {
             font-size: 2rem;
             font-weight: 700;
-            color: #8B9E9F;
+            color: #667eea;
         }
 
         .result-stat-label {
             font-size: 0.9rem;
-            color: #6B6B6B;
+            color: #666;
             margin-top: 0.3rem;
         }
 
