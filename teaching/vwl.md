@@ -49,20 +49,12 @@ body {
 }
 
 /* Dezente, natürliche Farbpalette */
-.category-vektor .material-card {
+.category-mikro .material-card {
   border-top: 2px solid #b8a89a;
 }
 
-.category-algebra .material-card {
+.category-makro .material-card {
   border-top: 2px solid #c9b896;
-}
-
-.category-differential .material-card {
-  border-top: 2px solid #8b9e9f;
-}
-
-.category-integral .material-card {
-  border-top: 2px solid #a49b8e;
 }
 
 /* Minimalistischer Akzent */
@@ -77,20 +69,12 @@ body {
   transition: all 0.4s ease;
 }
 
-.category-vektor .material-card::before {
+.category-mikro .material-card::before {
   background: linear-gradient(to bottom, #b8a89a, transparent);
 }
 
-.category-algebra .material-card::before {
+.category-makro .material-card::before {
   background: linear-gradient(to bottom, #c9b896, transparent);
-}
-
-.category-differential .material-card::before {
-  background: linear-gradient(to bottom, #8b9e9f, transparent);
-}
-
-.category-integral .material-card::before {
-  background: linear-gradient(to bottom, #a49b8e, transparent);
 }
 
 /* Dezenter Cover-Effekt */
@@ -108,20 +92,12 @@ body {
   z-index: 0;
 }
 
-.category-vektor .material-card::after {
+.category-mikro .material-card::after {
   background: linear-gradient(180deg, rgba(184, 168, 154, 0.04) 0%, rgba(184, 168, 154, 0.02) 100%);
 }
 
-.category-algebra .material-card::after {
+.category-makro .material-card::after {
   background: linear-gradient(180deg, rgba(201, 184, 150, 0.04) 0%, rgba(201, 184, 150, 0.02) 100%);
-}
-
-.category-differential .material-card::after {
-  background: linear-gradient(180deg, rgba(139, 158, 159, 0.04) 0%, rgba(139, 158, 159, 0.02) 100%);
-}
-
-.category-integral .material-card::after {
-  background: linear-gradient(180deg, rgba(164, 155, 142, 0.04) 0%, rgba(164, 155, 142, 0.02) 100%);
 }
 
 .material-card:hover {
@@ -163,20 +139,12 @@ body {
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.category-vektor .card-header::after {
+.category-mikro .card-header::after {
   background: linear-gradient(90deg, #b8a89a 0%, transparent 100%);
 }
 
-.category-algebra .card-header::after {
+.category-makro .card-header::after {
   background: linear-gradient(90deg, #c9b896 0%, transparent 100%);
-}
-
-.category-differential .card-header::after {
-  background: linear-gradient(90deg, #8b9e9f 0%, transparent 100%);
-}
-
-.category-integral .card-header::after {
-  background: linear-gradient(90deg, #a49b8e 0%, transparent 100%);
 }
 
 .card-header {
@@ -196,20 +164,12 @@ body {
   transition: color 0.3s ease;
 }
 
-.category-vektor .material-card:hover h4 {
+.category-mikro .material-card:hover h4 {
   color: #b8a89a;
 }
 
-.category-algebra .material-card:hover h4 {
+.category-makro .material-card:hover h4 {
   color: #c9b896;
-}
-
-.category-differential .material-card:hover h4 {
-  color: #8b9e9f;
-}
-
-.category-integral .material-card:hover h4 {
-  color: #a49b8e;
 }
 
 .card-content {
@@ -268,21 +228,14 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* Dezente Hover-Farben */
-.category-vektor .btn-small:first-child::before {
+/* Dezente Hover-Farben - Mikro */
+.category-mikro .btn-small:first-child::before {
   background: linear-gradient(180deg, #b8a89a 0%, #cbbfb3 100%);
 }
 
-.category-algebra .btn-small:first-child::before {
+/* Dezente Hover-Farben - Makro */
+.category-makro .btn-small:first-child::before {
   background: linear-gradient(180deg, #c9b896 0%, #d9ccad 100%);
-}
-
-.category-differential .btn-small:first-child::before {
-  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
-}
-
-.category-integral .btn-small:first-child::before {
-  background: linear-gradient(180deg, #a49b8e 0%, #b8afa4 100%);
 }
 
 .btn-small:hover {
@@ -294,27 +247,6 @@ body {
 
 .btn-small:hover::before {
   opacity: 1;
-}
-
-.btn-small:hover::after {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.btn-small::after {
-  content: '→';
-  position: absolute;
-  right: 1rem;
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.3s ease;
-  z-index: 3;
-  color: #ffffff;
-  font-size: 1rem;
-}
-
-.btn-quiz:hover::after {
-  content: '✓';
 }
 
 .btn-small span {
@@ -352,16 +284,6 @@ h2.section-header:nth-of-type(1) {
 h2.section-header:nth-of-type(2) {
   border-left-color: #c9b896;
   color: #8d7f5e;
-}
-
-h2.section-header:nth-of-type(3) {
-  border-left-color: #8b9e9f;
-  color: #5d6f70;
-}
-
-h2.section-header:nth-of-type(4) {
-  border-left-color: #a49b8e;
-  color: #706960;
 }
 
 .page-header {
@@ -667,30 +589,30 @@ body::before {
   </div>
 
   <div class="material-card">
-  <div class="card-header">
-    <h4>Konjunktur & Konjunkturzyklen</h4>
-  </div>
-  <div class="card-content">
-    <p>Die 4 Konjunkturphasen (Aufschwung, Boom, Abschwung, Depression), BIP-Berechnung, Wachstumsraten, Rezessionsdefinition, Früh- und Spätindikatoren, wirtschaftspolitische Maßnahmen</p>
-    <div class="button-group">
-      <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="btn-small"><span>PDF</span></a>
-      <a href="/assets/quizzes/quiz_konjunktur.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+    <div class="card-header">
+      <h4>Konjunktur & Konjunkturzyklen</h4>
     </div>
-  </div>
+    <div class="card-content">
+      <p>Die 4 Konjunkturphasen (Aufschwung, Boom, Abschwung, Depression), BIP-Berechnung, Wachstumsraten, Rezessionsdefinition, Früh- und Spätindikatoren, wirtschaftspolitische Maßnahmen</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_konjunktur.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
+    </div>
   </div>
 
   <div class="material-card">
-  <div class="card-header">
-    <h4>Antizyklische Konjunkturpolitik</h4>
-  </div>
-  <div class="card-content">
-    <p>Staatliche Stabilisierung der Konjunktur: Grundprinzipien antizyklischer Politik, Fiskal- und Geldpolitik, expansive vs. restriktive Maßnahmen, historische Fallbeispiele (Finanzkrise 2008), Herausforderungen bei der Umsetzung</p>
-    <div class="button-group">
-      <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="btn-small"><span>PDF</span></a>
-      <a href="/assets/quizzes/quiz_konjunkturpolitik.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+    <div class="card-header">
+      <h4>Antizyklische Konjunkturpolitik</h4>
+    </div>
+    <div class="card-content">
+      <p>Staatliche Stabilisierung der Konjunktur: Grundprinzipien antizyklischer Politik, Fiskal- und Geldpolitik, expansive vs. restriktive Maßnahmen, historische Fallbeispiele (Finanzkrise 2008), Herausforderungen bei der Umsetzung</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_konjunkturpolitik.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
     </div>
   </div>
-</div>
 </div>
 
 
