@@ -623,6 +623,7 @@ body::before {
       <a href="/assets/quizzes/quiz_kontrollstrukturen.html" class="btn-small btn-quiz"><span>Quiz</span></a>
     </div>
   </div>
+  </div>
 
   <div class="material-card">
   <div class="card-header">
