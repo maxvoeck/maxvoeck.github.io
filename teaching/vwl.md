@@ -677,6 +677,18 @@ body::before {
       <a href="/assets/quizzes/quiz_konjunktur.html" class="btn-small btn-quiz"><span>Quiz</span></a>
     </div>
   </div>
+
+  <div class="material-card">
+  <div class="card-header">
+    <h4>Antizyklische Konjunkturpolitik</h4>
+  </div>
+  <div class="card-content">
+    <p>Staatliche Stabilisierung der Konjunktur: Grundprinzipien antizyklischer Politik, Fiskal- und Geldpolitik, expansive vs. restriktive Maßnahmen, historische Fallbeispiele (Finanzkrise 2008), Herausforderungen bei der Umsetzung</p>
+    <div class="button-group">
+      <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="btn-small"><span>PDF</span></a>
+      <a href="/assets/quizzes/quiz_konjunkturpolitik.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+    </div>
+  </div>
 </div>
 </div>
 
