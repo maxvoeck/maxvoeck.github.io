@@ -613,6 +613,18 @@ body::before {
       </div>
     </div>
   </div>
+  <div class="material-card">
+    <div class="card-header">
+      <h4>Arbeitslosigkeit & Arbeitsmarktpolitik</h4>
+    </div>
+    <div class="card-content">
+      <p>Messung und Berechnung der Arbeitslosenquote, drei Arten der Arbeitslosigkeit (friktionell, strukturell, konjunkturell), individuelle und gesamtwirtschaftliche Folgen, Okun's Gesetz, aktive vs. passive Arbeitsmarktpolitik, Kurzarbeitergeld, Herausforderungen der Digitalisierung und demografischer Wandel</p>
+      <div class="button-group">
+        <a href="/assets/pdfs/Vwl_13_Arbeitslosigkeit.pdf" class="btn-small"><span>PDF</span></a>
+        <a href="/assets/quizzes/quiz_arbeitslosigkeit.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+      </div>
+    </div>
+  </div>
 </div>
 
 
