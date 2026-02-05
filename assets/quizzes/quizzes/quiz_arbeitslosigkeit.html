@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Arbeitslosigkeit & Arbeitsmarktpolitik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: #f0f1f3;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            background: #e8eaf6;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.correct .option-letter {
+            background: #28a745;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option.incorrect .option-letter {
+            background: #dc3545;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #374151;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #e9ecef;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .quiz-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>📊 Arbeitslosigkeit & Arbeitsmarktpolitik</h1>
+            <p>Teste dein Wissen über Arbeitslosenquote, Arten der Arbeitslosigkeit und politische Maßnahmen</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-content">
+            <div id="questionArea"></div>
+
+            <div class="results-container" id="resultsContainer">
+                <div class="score-circle">
+                    <div class="score-number" id="scoreNumber">0%</div>
+                    <div class="score-label">Deine Punktzahl</div>
+                </div>
+                <div class="result-message" id="resultMessage"></div>
+                <div class="result-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctAnswers">0</div>
+                        <div class="result-stat-label">Richtig</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="incorrectAnswers">0</div>
+                        <div class="result-stat-label">Falsch</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalQuestions">15</div>
+                        <div class="result-stat-label">Fragen</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+            </div>
+
+            <div class="controls" id="controls">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>← Zurück</button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Weiter →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Eine Person gilt als arbeitslos, wenn sie unter anderem:",
+                options: [
+                    "Mehr als 10 Stunden pro Woche arbeitet",
+                    "Weniger als 1 Stunde pro Woche erwerbstätig ist",
+                    "Nur Teilzeit arbeitet (bis 20 Stunden/Woche)",
+                    "Ausschließlich geringfügig beschäftigt ist"
+                ],
+                correct: 1,
+                explanation: "Laut Definition gilt als arbeitslos, wer weniger als 1 Stunde pro Woche erwerbstätig ist, dem Arbeitsmarkt zur Verfügung steht und aktiv eine Beschäftigung sucht."
+            },
+            {
+                question: "Wie berechnet man die Arbeitslosenquote?",
+                options: [
+                    "(Arbeitslose / Gesamtbevölkerung) × 100%",
+                    "(Arbeitslose / Erwerbspersonen) × 100%",
+                    "(Arbeitslose / Erwerbstätige) × 100%",
+                    "(Erwerbspersonen / Arbeitslose) × 100%"
+                ],
+                correct: 1,
+                explanation: "Die Arbeitslosenquote wird berechnet als: (Anzahl Arbeitslose / Erwerbspersonen) × 100%. Erwerbspersonen = Erwerbstätige + Arbeitslose."
+            },
+            {
+                question: "Welche Personen gehören NICHT zu den Erwerbspersonen?",
+                options: [
+                    "Teilzeitbeschäftigte",
+                    "Arbeitslose, die aktiv Arbeit suchen",
+                    "Rentner und Studenten",
+                    "Selbstständige"
+                ],
+                correct: 2,
+                explanation: "Rentner, Schüler und Studenten gehören nicht zu den Erwerbspersonen, da sie nicht aktiv dem Arbeitsmarkt zur Verfügung stehen. Erwerbspersonen umfassen nur Erwerbstätige und Arbeitslose."
+            },
+            {
+                question: "Ein Land hat 45 Mio. Erwerbstätige und 2,5 Mio. Arbeitslose. Wie hoch ist die Arbeitslosenquote?",
+                options: [
+                    "5,26%",
+                    "5,56%",
+                    "2,50%",
+                    "18,00%"
+                ],
+                correct: 0,
+                explanation: "Erwerbspersonen = 45 + 2,5 = 47,5 Mio. → Arbeitslosenquote = (2,5 / 47,5) × 100% = 5,26%"
+            },
+            {
+                question: "Maria hat ihr Studium beendet und sucht seit 6 Wochen nach ihrer ersten Stelle. Welche Art von Arbeitslosigkeit liegt vor?",
+                options: [
+                    "Strukturelle Arbeitslosigkeit",
+                    "Konjunkturelle Arbeitslosigkeit",
+                    "Friktionelle Arbeitslosigkeit",
+                    "Saisonale Arbeitslosigkeit"
+                ],
+                correct: 2,
+                explanation: "Dies ist friktionelle Arbeitslosigkeit (Sucharbeitslosigkeit). Sie entsteht durch normale Jobsuche nach Studium/Ausbildung oder beim Jobwechsel und dauert typischerweise nur wenige Wochen bis Monate."
+            },
+            {
+                question: "Ein Kassierer verliert seinen Job durch Self-Checkout-Automaten. Seine Qualifikation wird nicht mehr benötigt. Welche Art von Arbeitslosigkeit ist das?",
+                options: [
+                    "Friktionelle Arbeitslosigkeit",
+                    "Strukturelle Arbeitslosigkeit",
+                    "Konjunkturelle Arbeitslosigkeit",
+                    "Freiwillige Arbeitslosigkeit"
+                ],
+                correct: 1,
+                explanation: "Dies ist strukturelle Arbeitslosigkeit, verursacht durch technologischen Wandel (Automatisierung). Die Qualifikation wird dauerhaft überflüssig. Lösung: Umschulung und Weiterbildung."
+            },
+            {
+                question: "Während der Corona-Krise 2020 wurden viele Hotelmitarbeiter entlassen. Als sich die Wirtschaft 2021/22 erholte, wurden sie wieder eingestellt. Welche Art von Arbeitslosigkeit war das?",
+                options: [
+                    "Strukturelle Arbeitslosigkeit",
+                    "Friktionelle Arbeitslosigkeit",
+                    "Konjunkturelle Arbeitslosigkeit",
+                    "Technologische Arbeitslosigkeit"
+                ],
+                correct: 2,
+                explanation: "Dies ist konjunkturelle Arbeitslosigkeit. Sie entsteht durch Wirtschaftsabschwung oder Rezession und ist mittelfristig. Wenn sich die Konjunktur erholt, sinkt diese Art der Arbeitslosigkeit wieder."
+            },
+            {
+                question: "Welche Aussage zur friktionellen Arbeitslosigkeit ist FALSCH?",
+                options: [
+                    "Sie dauert in der Regel nur wenige Wochen bis Monate",
+                    "Sie entsteht durch normale Jobsuche und -wechsel",
+                    "Sie kann durch bessere Jobbörsen reduziert werden",
+                    "Sie ist die gefährlichste Form der Arbeitslosigkeit"
+                ],
+                correct: 3,
+                explanation: "Friktionelle Arbeitslosigkeit ist die am wenigsten problematische Form, da sie kurz ist und meist freiwillig erfolgt. Gefährlicher sind strukturelle (langfristig) und konjunkturelle Arbeitslosigkeit."
+            },
+            {
+                question: "Was besagt Okun's Gesetz?",
+                options: [
+                    "Höhere Bildung führt zu weniger Arbeitslosigkeit",
+                    "Steigt die Arbeitslosigkeit um 1%, sinkt das BIP um etwa 2-3%",
+                    "Arbeitslosigkeit und Inflation steigen immer zusammen",
+                    "Höhere Löhne führen zu mehr Arbeitslosigkeit"
+                ],
+                correct: 1,
+                explanation: "Okun's Gesetz (1962) besagt: Steigt die Arbeitslosigkeit um 1 Prozentpunkt, sinkt das BIP um etwa 2-3%. Dies zeigt die massiven volkswirtschaftlichen Kosten von Arbeitslosigkeit."
+            },
+            {
+                question: "Was ist der Hauptunterschied zwischen aktiver und passiver Arbeitsmarktpolitik?",
+                options: [
+                    "Aktiv = staatliche Maßnahmen, Passiv = private Initiativen",
+                    "Aktiv = Förderung & Qualifizierung, Passiv = finanzielle Absicherung",
+                    "Aktiv = kurzfristig, Passiv = langfristig",
+                    "Aktiv = für Jugendliche, Passiv = für Ältere"
+                ],
+                correct: 1,
+                explanation: "Aktive Arbeitsmarktpolitik fördert Integration durch Weiterbildung, Vermittlung und Qualifizierung. Passive Politik sichert finanziell ab (ALG I, Bürgergeld) ohne die Ursachen zu beheben."
+            },
+            {
+                question: "Welche Leistung gehört zur PASSIVEN Arbeitsmarktpolitik?",
+                options: [
+                    "Umschulung zum IT-Spezialisten",
+                    "Arbeitslosengeld I",
+                    "Arbeitsvermittlung durch Jobcenter",
+                    "Existenzgründungsförderung"
+                ],
+                correct: 1,
+                explanation: "Arbeitslosengeld I ist passive Arbeitsmarktpolitik (finanzielle Absicherung). Umschulung, Vermittlung und Gründungsförderung sind aktive Maßnahmen."
+            },
+            {
+                question: "Wie funktioniert Kurzarbeitergeld?",
+                options: [
+                    "Unternehmen zahlen Arbeitslosen Geld für Weiterbildung",
+                    "Staat zahlt 60-67% des Lohnausfalls bei reduzierter Arbeitszeit",
+                    "Arbeitslose bekommen Zuschüsse für Bewerbungen",
+                    "Unternehmen erhalten Geld für Neueinstellungen"
+                ],
+                correct: 1,
+                explanation: "Bei Kurzarbeit reduziert das Unternehmen die Arbeitszeit (statt zu entlassen), und der Staat zahlt 60-67% des Lohnausfalls. So bleiben Mitarbeiter im Unternehmen und Know-how bleibt erhalten."
+            },
+            {
+                question: "Welche Maßnahme hilft primär gegen STRUKTURELLE Arbeitslosigkeit?",
+                options: [
+                    "Konjunkturpakete für Infrastruktur",
+                    "Bessere Online-Jobbörsen",
+                    "Umschulung und Weiterbildung",
+                    "Kurzarbeitergeld"
+                ],
+                correct: 2,
+                explanation: "Strukturelle Arbeitslosigkeit entsteht durch dauerhaften Wandel (z.B. Technologie). Lösung: Umschulung und Weiterbildung, um neue Qualifikationen zu erwerben. Konjunkturpakete helfen gegen konjunkturelle Arbeitslosigkeit."
+            },
+            {
+                question: "Ein Textilarbeiter verliert seinen Job, weil die Produktion nach China verlagert wird. Was liegt vor?",
+                options: [
+                    "Friktionelle Arbeitslosigkeit durch Jobwechsel",
+                    "Konjunkturelle Arbeitslosigkeit durch Rezession",
+                    "Strukturelle Arbeitslosigkeit durch Globalisierung",
+                    "Saisonale Arbeitslosigkeit"
+                ],
+                correct: 2,
+                explanation: "Dies ist strukturelle Arbeitslosigkeit durch Globalisierung. Die Produktionsverlagerung ins Ausland ist eine dauerhafte strukturelle Veränderung, die neue Qualifikationen oder Branchenwechsel erfordert."
+            },
+            {
+                question: "Welche Folge von Arbeitslosigkeit ist KEINE gesamtwirtschaftliche Folge?",
+                options: [
+                    "Produktionsverlust durch ungenutztes Potenzial",
+                    "Höhere Sozialausgaben des Staates",
+                    "Verlust von individuellen Qualifikationen",
+                    "Geringere Steuereinnahmen"
+                ],
+                correct: 2,
+                explanation: "Der Verlust von Qualifikationen ist eine individuelle Folge (betrifft die einzelne Person). Gesamtwirtschaftliche Folgen sind: Produktionsverlust, höhere Sozialausgaben, geringere Steuereinnahmen und politische Instabilität."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = new Array(quizData.length).fill(null);
+        let answered = false;
+
+        function initQuiz() {
+            showQuestion(currentQuestion);
+            updateProgress();
+        }
+
+        function showQuestion(index) {
+            const questionArea = document.getElementById('questionArea');
+            const question = quizData[index];
+            answered = answers[index] !== null;
+
+            const letters = ['A', 'B', 'C', 'D'];
+            
+            let optionsHTML = '';
+            question.options.forEach((option, i) => {
+                let optionClass = 'option';
+                if (answered) {
+                    optionClass += ' disabled';
+                    if (i === question.correct) {
+                        optionClass += ' correct';
+                    } else if (i === answers[index] && i !== question.correct) {
+                        optionClass += ' incorrect';
+                    }
+                } else if (answers[index] === i) {
+                    optionClass += ' selected';
+                }
+
+                optionsHTML += `
+                    <div class="${optionClass}" onclick="selectOption(${i})">
+                        <div class="option-letter">${letters[i]}</div>
+                        <span>${option}</span>
+                    </div>
+                `;
+            });
+
+            let feedbackHTML = '';
+            if (answered) {
+                const isCorrect = answers[index] === question.correct;
+                feedbackHTML = `
+                    <div class="feedback ${isCorrect ? 'correct' : 'incorrect'} show">
+                        <div class="feedback-title">${isCorrect ? '✓ Richtig!' : '✗ Falsch'}</div>
+                        <div>${question.explanation}</div>
+                    </div>
+                `;
+            }
+
+            questionArea.innerHTML = `
+                <div class="question-container active">
+                    <div class="question-number">Frage ${index + 1} von ${quizData.length}</div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options">${optionsHTML}</div>
+                    ${feedbackHTML}
+                </div>
+            `;
+
+            updateButtons();
+        }
+
+        function selectOption(optionIndex) {
+            if (answered) return;
+
+            answers[currentQuestion] = optionIndex;
+            answered = true;
+
+            const question = quizData[currentQuestion];
+            if (optionIndex === question.correct) {
+                score++;
+            }
+
+            showQuestion(currentQuestion);
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                answered = answers[currentQuestion] !== null;
+                showQuestion(currentQuestion);
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                answered = answers[currentQuestion] !== null;
+                showQuestion(currentQuestion);
+                updateProgress();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            prevBtn.disabled = currentQuestion === 0;
+            nextBtn.disabled = !answered;
+            nextBtn.textContent = currentQuestion === quizData.length - 1 ? 'Ergebnisse →' : 'Weiter →';
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('questionArea').style.display = 'none';
+            document.getElementById('controls').style.display = 'none';
+            document.getElementById('resultsContainer').classList.add('show');
+
+            const percentage = Math.round((score / quizData.length) * 100);
+            
+            document.getElementById('scoreNumber').textContent = percentage + '%';
+            document.getElementById('correctAnswers').textContent = score;
+            document.getElementById('incorrectAnswers').textContent = quizData.length - score;
+
+            let message = '';
+            if (percentage >= 90) {
+                message = '🌟 Hervorragend! Du beherrschst das Thema perfekt!';
+            } else if (percentage >= 75) {
+                message = '👏 Sehr gut! Du hast die wichtigsten Konzepte verstanden!';
+            } else if (percentage >= 60) {
+                message = '✓ Gut gemacht! Mit etwas Übung wirst du noch besser!';
+            } else if (percentage >= 50) {
+                message = '📚 Noch Luft nach oben. Wiederhole die Präsentation nochmal!';
+            } else {
+                message = '💪 Nicht aufgeben! Schau dir die Materialien nochmal genau an!';
+            }
+
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = new Array(quizData.length).fill(null);
+            answered = false;
+
+            document.getElementById('questionArea').style.display = 'block';
+            document.getElementById('controls').style.display = 'flex';
+            document.getElementById('resultsContainer').classList.remove('show');
+
+            initQuiz();
+        }
+
+        // Quiz starten
+        initQuiz();
+    </script>
+</body>
+</html>
