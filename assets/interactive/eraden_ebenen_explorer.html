@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Geraden und Ebenen - Lagebeziehungen</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8dfd5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #5a4a3a;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 20px;
+        }
+
+        .controls-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .visualization-panel {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #5a4a3a;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f5f0e8;
+        }
+
+        .case-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .case-btn {
+            padding: 15px 20px;
+            border: 2px solid #d4c4b0;
+            border-radius: 15px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .case-btn:hover {
+            border-color: #8b7355;
+            transform: translateX(5px);
+        }
+
+        .case-btn.active {
+            background: #8b7355;
+            color: white;
+            border-color: #8b7355;
+        }
+
+        .case-icon {
+            font-size: 1.3em;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .case-label {
+            flex: 1;
+        }
+
+        .case-subtitle {
+            font-size: 0.8em;
+            opacity: 0.7;
+            margin-top: 3px;
+        }
+
+        .case-btn.active .case-subtitle {
+            opacity: 0.9;
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 600px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #fafaf8;
+        }
+
+        .info-panel {
+            background: #f9f6f2;
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .info-title {
+            color: #5a4a3a;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .info-content {
+            color: #6b5b4b;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .math-formula {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            border-left: 3px solid #8b7355;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .badge-schneidend { background: #c8e6c9; color: #2e7d32; }
+        .badge-parallel { background: #fff9c4; color: #f57f17; }
+        .badge-windschief { background: #ffccbc; color: #d84315; }
+        .badge-identisch { background: #b3e5fc; color: #01579b; }
+        .badge-in-ebene { background: #d1c4e9; color: #4527a0; }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls-panel {
+                max-height: none;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+                margin-bottom: 20px;
+            }
+
+            .controls-panel, .visualization-panel {
+                padding: 15px;
+            }
+
+            .section {
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 1em;
+            }
+
+            .case-btn {
+                padding: 12px 15px;
+                font-size: 0.9em;
+            }
+
+            .case-icon {
+                font-size: 1.2em;
+                min-width: 25px;
+            }
+
+            .case-subtitle {
+                font-size: 0.75em;
+            }
+
+            #canvas-container {
+                height: 400px;
+            }
+
+            .info-panel {
+                padding: 15px;
+            }
+
+            .info-title {
+                font-size: 1em;
+            }
+
+            .info-content {
+                font-size: 0.9em;
+            }
+
+            .math-formula {
+                font-size: 0.8em;
+                padding: 10px;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            h1 {
+                font-size: 1.1em;
+            }
+
+            .controls-panel, .visualization-panel {
+                padding: 12px;
+                border-radius: 15px;
+            }
+
+            .case-btn {
+                padding: 10px 12px;
+            }
+
+            #canvas-container {
+                height: 300px;
+            }
+
+            .badge {
+                font-size: 0.75em;
+                padding: 3px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔷 Lagebeziehungen im Raum</h1>
+        
+        <div class="main-content">
+            <div class="controls-panel">
+                <div class="section">
+                    <div class="section-title">Gerade - Gerade</div>
+                    <div class="case-grid">
+                        <button class="case-btn active" onclick="showCase('gg-schneidend')">
+                            <span class="case-icon">✖️</span>
+                            <div class="case-label">
+                                Sich schneidend
+                                <div class="case-subtitle">Geraden kreuzen sich</div>
+                            </div>
+                        </button>
+                        <button class="case-btn" onclick="showCase('gg-parallel')">
+                            <span class="case-icon">⫽</span>
+                            <div class="case-label">
+                                Parallel
+                                <div class="case-subtitle">Gleiche Richtung, kein Schnittpunkt</div>
+                            </div>
+                        </button>
+                        <button class="case-btn" onclick="showCase('gg-identisch')">
+                            <span class="case-icon">═</span>
+                            <div class="case-label">
+                                Identisch
+                                <div class="case-subtitle">Gleiche Gerade</div>
+                            </div>
+                        </button>
+                        <button class="case-btn" onclick="showCase('gg-windschief')">
+                            <span class="case-icon">⤢</span>
+                            <div class="case-label">
+                                Windschief
+                                <div class="case-subtitle">Nicht parallel, schneiden sich nicht</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Gerade - Ebene</div>
+                    <div class="case-grid">
+                        <button class="case-btn" onclick="showCase('ge-schneidend')">
+                            <span class="case-icon">↘️</span>
+                            <div class="case-label">
+                                Schneidend
+                                <div class="case-subtitle">Gerade durchstößt die Ebene</div>
+                            </div>
+                        </button>
+                        <button class="case-btn" onclick="showCase('ge-parallel')">
+                            <span class="case-icon">⫽</span>
+                            <div class="case-label">
+                                Parallel
+                                <div class="case-subtitle">Gerade verläuft parallel zur Ebene</div>
+                            </div>
+                        </button>
+                        <button class="case-btn" onclick="showCase('ge-in-ebene')">
+                            <span class="case-icon">⊂</span>
+                            <div class="case-label">
+                                In der Ebene
+                                <div class="case-subtitle">Gerade liegt in der Ebene</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Ebene - Ebene</div>
+                    <div class="case-grid">
+                        <button class="case-btn" onclick="showCase('ee-schneidend')">
+                            <span class="case-icon">✂️</span>
+                            <div class="case-label">
+                                Schneidend
+                                <div class="case-subtitle">Ebenen schneiden sich in einer Geraden</div>
+                            </div>
+                        </button>
+                        <button class="case-btn" onclick="showCase('ee-parallel')">
+                            <span class="case-icon">⫽</span>
+                            <div class="case-label">
+                                Parallel
+                                <div class="case-subtitle">Ebenen verlaufen parallel</div>
+                            </div>
+                        </button>
+                        <button class="case-btn" onclick="showCase('ee-identisch')">
+                            <span class="case-icon">═</span>
+                            <div class="case-label">
+                                Identisch
+                                <div class="case-subtitle">Gleiche Ebene</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visualization-panel">
+                <div id="canvas-container"></div>
+                
+                <div class="info-panel">
+                    <div class="info-title" id="info-title">Sich schneidende Geraden</div>
+                    <div class="info-content" id="info-content">
+                        <span class="badge badge-schneidend">Schnittpunkt vorhanden</span>
+                        <p>Zwei Geraden schneiden sich, wenn sie in einer gemeinsamen Ebene liegen und genau einen Punkt gemeinsam haben.</p>
+                        <div class="math-formula">
+                            g: x⃗ = (0, 0, 0) + r·(1, 0, 0)<br>
+                            h: x⃗ = (0, 0, 0) + s·(0, 1, 0)
+                        </div>
+                        <p><strong>Bedingung:</strong> Die Richtungsvektoren sind nicht parallel (u⃗ × v⃗ ≠ 0⃗) und der Verbindungsvektor liegt in der von u⃗ und v⃗ aufgespannten Ebene.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Three.js Setup
+        let scene, camera, renderer;
+        let objects = [];
+        let currentCase = 'gg-schneidend';
+
+        const caseConfigurations = {
+            // Gerade-Gerade Fälle
+            'gg-schneidend': {
+                title: 'Sich schneidende Geraden',
+                badge: 'schneidend',
+                description: 'Zwei Geraden schneiden sich, wenn sie in einer gemeinsamen Ebene liegen und genau einen Punkt gemeinsam haben.',
+                formula: 'g: x⃗ = (1, 0, 1) + r·(1, 1, 0)<br>h: x⃗ = (1, 0, 1) + s·(-1, 1, 0)',
+                condition: 'Die Richtungsvektoren sind nicht parallel (u⃗ × v⃗ ≠ 0⃗) und der Verbindungsvektor liegt in der von u⃗ und v⃗ aufgespannten Ebene.',
+                objects: [
+                    { type: 'line', point: [1, 0, 1], direction: [1, 1, 0], color: 0x8b7355, name: 'g' },
+                    { type: 'line', point: [1, 0, 1], direction: [-1, 1, 0], color: 0xd84315, name: 'h' }
+                ]
+            },
+            'gg-parallel': {
+                title: 'Parallele Geraden',
+                badge: 'parallel',
+                description: 'Zwei Geraden sind parallel, wenn sie die gleiche oder entgegengesetzte Richtung haben und keinen gemeinsamen Punkt besitzen.',
+                formula: 'g: x⃗ = (0, 1, 0.5) + r·(1, 0.5, 0.5)<br>h: x⃗ = (0, -1, 1.5) + s·(1, 0.5, 0.5)',
+                condition: 'Die Richtungsvektoren sind Vielfache voneinander (u⃗ = λ·v⃗), aber die Geraden sind nicht identisch.',
+                objects: [
+                    { type: 'line', point: [0, 1, 0.5], direction: [1, 0.5, 0.5], color: 0x8b7355, name: 'g' },
+                    { type: 'line', point: [0, -1, 1.5], direction: [1, 0.5, 0.5], color: 0xd84315, name: 'h' }
+                ]
+            },
+            'gg-identisch': {
+                title: 'Identische Geraden',
+                badge: 'identisch',
+                description: 'Zwei Geraden sind identisch, wenn sie alle Punkte gemeinsam haben.',
+                formula: 'g: x⃗ = (0.5, 0.5, 0.5) + r·(1, 1, 1)<br>h: x⃗ = (1.5, 1.5, 1.5) + s·(2, 2, 2)',
+                condition: 'Die Richtungsvektoren sind Vielfache voneinander und ein Punkt der einen Geraden liegt auf der anderen.',
+                objects: [
+                    { type: 'line', point: [0.5, 0.5, 0.5], direction: [1, 1, 1], color: 0x8b7355, name: 'g/h', width: 5 }
+                ]
+            },
+            'gg-windschief': {
+                title: 'Windschiefe Geraden',
+                badge: 'windschief',
+                description: 'Zwei Geraden sind windschief, wenn sie sich weder schneiden noch parallel sind. Sie liegen nicht in einer gemeinsamen Ebene.',
+                formula: 'g: x⃗ = (1, -1, 0.5) + r·(1, 1, 0.5)<br>h: x⃗ = (-1, 1, 1.5) + s·(1, -0.5, 1)',
+                condition: 'Die Richtungsvektoren sind nicht parallel (u⃗ × v⃗ ≠ 0⃗) und das Spatprodukt (b⃗ - a⃗)·(u⃗ × v⃗) ≠ 0.',
+                objects: [
+                    { type: 'line', point: [1, -1, 0.5], direction: [1, 1, 0.5], color: 0x8b7355, name: 'g' },
+                    { type: 'line', point: [-1, 1, 1.5], direction: [1, -0.5, 1], color: 0xd84315, name: 'h' }
+                ]
+            },
+
+            // Gerade-Ebene Fälle
+            'ge-schneidend': {
+                title: 'Gerade schneidet Ebene',
+                badge: 'schneidend',
+                description: 'Eine Gerade schneidet eine Ebene, wenn sie diese in genau einem Punkt durchstößt.',
+                formula: 'g: x⃗ = (1, 1, 2) + r·(0.5, -0.5, -1)<br>E: x⃗ = (0.5, 0.5, 0) + s·(1, 0.5, 0) + t·(0.5, 1, 0)',
+                condition: 'Der Richtungsvektor der Geraden ist nicht senkrecht zum Normalenvektor der Ebene (u⃗ · n⃗ ≠ 0).',
+                objects: [
+                    { type: 'plane', point: [0.5, 0.5, 0], dir1: [1, 0.5, 0], dir2: [0.5, 1, 0], color: 0x01579b, name: 'E' },
+                    { type: 'line', point: [1, 1, 2], direction: [0.5, -0.5, -1], color: 0x8b7355, name: 'g' }
+                ]
+            },
+            'ge-parallel': {
+                title: 'Gerade parallel zu Ebene',
+                badge: 'parallel',
+                description: 'Eine Gerade ist parallel zu einer Ebene, wenn sie keinen Punkt mit der Ebene gemeinsam hat.',
+                formula: 'g: x⃗ = (0.5, 0.5, 1.5) + r·(1, 0.5, 0)<br>E: x⃗ = (0.5, 0.5, 0) + s·(1, 0.5, 0) + t·(0.5, 1, 0)',
+                condition: 'Der Richtungsvektor der Geraden ist senkrecht zum Normalenvektor (u⃗ · n⃗ = 0) und die Gerade liegt nicht in der Ebene.',
+                objects: [
+                    { type: 'plane', point: [0.5, 0.5, 0], dir1: [1, 0.5, 0], dir2: [0.5, 1, 0], color: 0x01579b, name: 'E' },
+                    { type: 'line', point: [0.5, 0.5, 1.5], direction: [1, 0.5, 0], color: 0x8b7355, name: 'g' }
+                ]
+            },
+            'ge-in-ebene': {
+                title: 'Gerade liegt in Ebene',
+                badge: 'in-ebene',
+                description: 'Eine Gerade liegt in einer Ebene, wenn alle ihre Punkte auch Punkte der Ebene sind.',
+                formula: 'g: x⃗ = (0.5, 0.5, 0) + r·(1, 0.5, 0)<br>E: x⃗ = (0.5, 0.5, 0) + s·(1, 0.5, 0) + t·(0.5, 1, 0)',
+                condition: 'Der Richtungsvektor ist senkrecht zum Normalenvektor (u⃗ · n⃗ = 0) und ein Punkt der Geraden liegt in der Ebene.',
+                objects: [
+                    { type: 'plane', point: [0.5, 0.5, 0], dir1: [1, 0.5, 0], dir2: [0.5, 1, 0], color: 0x01579b, name: 'E' },
+                    { type: 'line', point: [0.5, 0.5, 0], direction: [1, 0.5, 0], color: 0x8b7355, name: 'g' }
+                ]
+            },
+
+            // Ebene-Ebene Fälle
+            'ee-schneidend': {
+                title: 'Schneidende Ebenen',
+                badge: 'schneidend',
+                description: 'Zwei Ebenen schneiden sich in einer Geraden, wenn ihre Normalenvektoren nicht parallel sind.',
+                formula: 'E₁: x⃗ = (0.5, 0.5, 0) + s·(1, 0.5, 0) + t·(0.5, 1, 0)<br>E₂: x⃗ = (0.5, 0, 0.5) + s·(1, 0, 0.5) + t·(0, 1, 0.5)',
+                condition: 'Die Normalenvektoren sind nicht parallel (n⃗₁ × n⃗₂ ≠ 0⃗).',
+                objects: [
+                    { type: 'plane', point: [0.5, 0.5, 0], dir1: [1, 0.5, 0], dir2: [0.5, 1, 0], color: 0x01579b, name: 'E₁' },
+                    { type: 'plane', point: [0.5, 0, 0.5], dir1: [1, 0, 0.5], dir2: [0, 1, 0.5], color: 0x2e7d32, name: 'E₂', opacity: 0.3 }
+                ]
+            },
+            'ee-parallel': {
+                title: 'Parallele Ebenen',
+                badge: 'parallel',
+                description: 'Zwei Ebenen sind parallel, wenn ihre Normalenvektoren parallel sind und sie keinen gemeinsamen Punkt haben.',
+                formula: 'E₁: x⃗ = (0.5, 0.5, 0) + s·(1, 0.5, 0) + t·(0.5, 1, 0)<br>E₂: x⃗ = (0.5, 0.5, 2) + s·(1, 0.5, 0) + t·(0.5, 1, 0)',
+                condition: 'Die Normalenvektoren sind parallel (n⃗₁ ∥ n⃗₂), aber die Ebenen sind nicht identisch.',
+                objects: [
+                    { type: 'plane', point: [0.5, 0.5, 0], dir1: [1, 0.5, 0], dir2: [0.5, 1, 0], color: 0x01579b, name: 'E₁' },
+                    { type: 'plane', point: [0.5, 0.5, 2], dir1: [1, 0.5, 0], dir2: [0.5, 1, 0], color: 0x2e7d32, name: 'E₂', opacity: 0.3 }
+                ]
+            },
+            'ee-identisch': {
+                title: 'Identische Ebenen',
+                badge: 'identisch',
+                description: 'Zwei Ebenen sind identisch, wenn sie alle Punkte gemeinsam haben.',
+                formula: 'E₁: x⃗ = (0.5, 0.5, 0.5) + s·(1, 0.5, 0.5) + t·(0.5, 1, 0.5)<br>E₂: x⃗ = (1, 1, 1) + s·(2, 1, 1) + t·(1, 2, 1)',
+                condition: 'Die Normalenvektoren sind parallel und ein Punkt der einen Ebene liegt in der anderen Ebene.',
+                objects: [
+                    { type: 'plane', point: [0.5, 0.5, 0.5], dir1: [1, 0.5, 0.5], dir2: [0.5, 1, 0.5], color: 0x01579b, name: 'E₁/E₂' }
+                ]
+            }
+        };
+
+        function initThreeJS() {
+            const container = document.getElementById('canvas-container');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xfafaf8);
+
+            camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(6, 6, 6);
+            camera.lookAt(0, 0, 0);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.3);
+            directionalLight.position.set(10, 10, 10);
+            scene.add(directionalLight);
+
+            // Orbit controls
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+            let rotation = { x: Math.PI / 6, y: Math.PI / 4 };
+
+            container.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaX = e.clientX - previousMousePosition.x;
+                    const deltaY = e.clientY - previousMousePosition.y;
+                    
+                    rotation.y += deltaX * 0.01;
+                    rotation.x += deltaY * 0.01;
+                    rotation.x = Math.max(-Math.PI/2 + 0.1, Math.min(Math.PI/2 - 0.1, rotation.x));
+                    
+                    updateCameraPosition();
+                    previousMousePosition = { x: e.clientX, y: e.clientY };
+                }
+            });
+
+            container.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            // Touch events for mobile
+            container.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    isDragging = true;
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                    e.preventDefault();
+                }
+            });
+
+            container.addEventListener('touchmove', (e) => {
+                if (isDragging && e.touches.length === 1) {
+                    const deltaX = e.touches[0].clientX - previousMousePosition.x;
+                    const deltaY = e.touches[0].clientY - previousMousePosition.y;
+                    
+                    rotation.y += deltaX * 0.01;
+                    rotation.x += deltaY * 0.01;
+                    rotation.x = Math.max(-Math.PI/2 + 0.1, Math.min(Math.PI/2 - 0.1, rotation.x));
+                    
+                    updateCameraPosition();
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                    e.preventDefault();
+                }
+            });
+
+            container.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const distance = camera.position.length();
+                const newDistance = Math.max(4, Math.min(15, distance * (1 + e.deltaY * 0.001)));
+                camera.position.multiplyScalar(newDistance / distance);
+            });
+
+            function updateCameraPosition() {
+                const distance = camera.position.length();
+                camera.position.x = distance * Math.sin(rotation.y) * Math.cos(rotation.x);
+                camera.position.y = distance * Math.sin(rotation.x);
+                camera.position.z = distance * Math.cos(rotation.y) * Math.cos(rotation.x);
+                camera.lookAt(0, 0, 0);
+            }
+
+            createCoordinateSystem();
+            updateCameraPosition();
+            animate();
+        }
+
+        function createCoordinateSystem() {
+            const coordinateSystem = new THREE.Group();
+
+            const axisLength = 5;
+            const axisConfig = [
+                { color: 0x000000, dir: [1, 0, 0], label: 'x' },
+                { color: 0x000000, dir: [0, 1, 0], label: 'y' },
+                { color: 0x000000, dir: [0, 0, 1], label: 'z' }
+            ];
+
+            axisConfig.forEach(axis => {
+                const material = new THREE.LineBasicMaterial({ color: axis.color, linewidth: 2 });
+                const points = [
+                    new THREE.Vector3(0, 0, 0),
+                    new THREE.Vector3(...axis.dir.map(d => d * axisLength))
+                ];
+                const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                const line = new THREE.Line(geometry, material);
+                coordinateSystem.add(line);
+
+                const arrowGeometry = new THREE.ConeGeometry(0.08, 0.25, 8);
+                const arrowMaterial = new THREE.MeshBasicMaterial({ color: axis.color });
+                const arrow = new THREE.Mesh(arrowGeometry, arrowMaterial);
+                arrow.position.set(...axis.dir.map(d => d * axisLength));
+                
+                if (axis.dir[0]) arrow.rotation.z = -Math.PI / 2;
+                if (axis.dir[2]) arrow.rotation.x = Math.PI / 2;
+                
+                coordinateSystem.add(arrow);
+            });
+
+            const gridHelper = new THREE.GridHelper(8, 8, 0xd4c4b0, 0xe8dfd5);
+            coordinateSystem.add(gridHelper);
+
+            scene.add(coordinateSystem);
+        }
+
+        function createLine(point, direction, color, width = 3) {
+            const material = new THREE.LineBasicMaterial({ color: color, linewidth: width });
+            const t = 4;
+            const points = [
+                new THREE.Vector3(
+                    point[0] - t * direction[0],
+                    point[1] - t * direction[1],
+                    point[2] - t * direction[2]
+                ),
+                new THREE.Vector3(
+                    point[0] + t * direction[0],
+                    point[1] + t * direction[1],
+                    point[2] + t * direction[2]
+                )
+            ];
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            return new THREE.Line(geometry, material);
+        }
+
+        function createPlane(point, dir1, dir2, color, opacity = 0.4) {
+            const geometry = new THREE.PlaneGeometry(7, 7, 1, 1);
+            const material = new THREE.MeshBasicMaterial({ 
+                color: color, 
+                side: THREE.DoubleSide, 
+                transparent: true, 
+                opacity: opacity
+            });
+            const plane = new THREE.Mesh(geometry, material);
+
+            const normal = new THREE.Vector3().crossVectors(
+                new THREE.Vector3(...dir1),
+                new THREE.Vector3(...dir2)
+            ).normalize();
+
+            plane.lookAt(normal);
+            plane.position.set(...point);
+
+            return plane;
+        }
+
+        function clearObjects() {
+            objects.forEach(obj => scene.remove(obj));
+            objects = [];
+        }
+
+        function showCase(caseId) {
+            currentCase = caseId;
+            
+            // Update button states
+            document.querySelectorAll('.case-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.case-btn').classList.add('active');
+
+            // Clear previous objects
+            clearObjects();
+
+            // Get configuration
+            const config = caseConfigurations[caseId];
+
+            // Update info panel
+            document.getElementById('info-title').textContent = config.title;
+            const badgeClass = `badge badge-${config.badge}`;
+            let badgeText = config.badge === 'schneidend' ? 'Schnittpunkt/Schnittgerade' :
+                           config.badge === 'parallel' ? 'Kein Schnittpunkt' :
+                           config.badge === 'windschief' ? 'Nicht in gemeinsamer Ebene' :
+                           config.badge === 'identisch' ? 'Alle Punkte gemeinsam' :
+                           config.badge === 'in-ebene' ? 'Unendlich viele Schnittpunkte' : '';
+            
+            document.getElementById('info-content').innerHTML = `
+                <span class="${badgeClass}">${badgeText}</span>
+                <p>${config.description}</p>
+                <div class="math-formula">${config.formula}</div>
+                <p><strong>Bedingung:</strong> ${config.condition}</p>
+            `;
+
+            // Create objects
+            config.objects.forEach(obj => {
+                let object;
+                if (obj.type === 'line') {
+                    object = createLine(obj.point, obj.direction, obj.color, obj.width);
+                } else if (obj.type === 'plane') {
+                    object = createPlane(obj.point, obj.dir1, obj.dir2, obj.color, obj.opacity);
+                }
+                objects.push(object);
+                scene.add(object);
+            });
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            initThreeJS();
+            showCase('gg-schneidend');
+
+            window.addEventListener('resize', () => {
+                const container = document.getElementById('canvas-container');
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        });
+    </script>
+</body>
+</html>

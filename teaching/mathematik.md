@@ -895,6 +895,18 @@ body::before {
       </div>
     </div>
   </div>
+
+  <div class="material-card">
+    <div class="card-header">
+      <h4>🔷 Geraden & Ebenen im Raum</h4>
+    </div>
+    <div class="card-content">
+      <p>Erkunde alle Lagebeziehungen von Geraden und Ebenen im 3D-Raum. Klicke auf verschiedene Fälle wie schneidend, parallel, windschief oder identisch und sieh die interaktive Visualisierung</p>
+      <div class="button-group">
+        <a href="/assets/interactive/geraden_ebenen_explorer.html" class="btn-small"><span>Öffnen</span></a>
+      </div>
+    </div>
+  </div>
 </div>
 
 
