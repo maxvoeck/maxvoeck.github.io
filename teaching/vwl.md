@@ -232,7 +232,8 @@ body {
 .lp-module-dot {
   position: absolute;
   left: -2.5rem;
-  top: 1.75rem;
+  top: 50%;
+  transform: translateY(-50%);
   width: 11px;
   height: 11px;
   border-radius: 50%;
@@ -1069,7 +1070,7 @@ function render() {
       const attempts = qr.attempts > 1 ? ` · ${qr.attempts} Versuche` : '';
       metaRow.innerHTML = `<span class="lp-quiz-badge ${cls}">${icon} Quiz: ${qr.percentage}%${attempts}</span>`;
     } else {
-      metaRow.innerHTML = `<span class="lp-quiz-badge lp-quiz-badge--none">Quiz noch nicht absolviert</span>`;
+      metaRow.innerHTML = '';
     }
   });
 }
