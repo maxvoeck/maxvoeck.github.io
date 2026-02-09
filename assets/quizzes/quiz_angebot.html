@@ -250,13 +250,22 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 2rem auto;
             color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .score-circle.passed {
+            background: linear-gradient(135deg, #7a9e7e 0%, #5a8a5e 100%);
+            box-shadow: 0 10px 30px rgba(122, 158, 126, 0.4);
+        }
+
+        .score-circle.failed {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
         }
 
@@ -275,6 +284,27 @@
             font-weight: 600;
             color: #1f2937;
             margin-bottom: 1rem;
+        }
+
+        /* ── Pass/Fail badge ── */
+        .result-badge {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            margin-bottom: 1.5rem;
+        }
+
+        .result-badge.passed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .result-badge.failed {
+            background: #f8d7da;
+            color: #721c24;
         }
 
         .result-details {
@@ -302,6 +332,17 @@
             font-size: 0.9rem;
             color: #666;
             margin-top: 0.3rem;
+        }
+
+        .btn-back {
+            margin-top: 1rem;
+            background: #f8f9fa;
+            color: #374151;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-back:hover {
+            background: #e9ecef;
         }
 
         @media (max-width: 768px) {
@@ -343,7 +384,8 @@
 
             <div class="results-container" id="resultsContainer">
                 <div class="result-message" id="resultMessage"></div>
-                <div class="score-circle">
+                <div class="result-badge" id="resultBadge"></div>
+                <div class="score-circle" id="scoreCircle">
                     <div class="score-number" id="scoreNumber">0%</div>
                     <div class="score-label">Erreicht</div>
                 </div>
@@ -362,11 +404,19 @@
                     </div>
                 </div>
                 <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+                <br>
+                <a href="/teaching/vwl/" class="btn btn-back" style="display:inline-block; text-decoration:none; margin-top:1rem; padding:0.8rem 2rem;">← Zurück zum Lernpfad</a>
             </div>
         </div>
     </div>
 
     <script>
+        // ══════════════════════════════════════════
+        //  CONFIGURATION – change these per quiz
+        // ══════════════════════════════════════════
+        const QUIZ_MODULE_ID = 'm3';   // matches data-module on overview page
+        const PASS_THRESHOLD = 70;      // percent needed to mark module complete
+
         const quizData = [
             {
                 question: "Was ist ein Markt im ökonomischen Sinne?",
@@ -539,6 +589,37 @@
         let score = 0;
         let answers = [];
 
+        // ══════════════════════════════════════════
+        //  PROGRESS STORAGE – shared with overview
+        // ══════════════════════════════════════════
+        const PROGRESS_KEY = 'vwl-progress';
+        const QUIZ_RESULTS_KEY = 'vwl-quiz-results';
+
+        function saveQuizResult(percentage, passed) {
+            try {
+                // Save detailed quiz result
+                const results = JSON.parse(localStorage.getItem(QUIZ_RESULTS_KEY) || '{}');
+                results[QUIZ_MODULE_ID] = {
+                    percentage: percentage,
+                    passed: passed,
+                    score: score,
+                    total: quizData.length,
+                    date: new Date().toISOString(),
+                    attempts: (results[QUIZ_MODULE_ID]?.attempts || 0) + 1
+                };
+                localStorage.setItem(QUIZ_RESULTS_KEY, JSON.stringify(results));
+
+                // If passed, also mark module complete in main progress
+                if (passed) {
+                    const progress = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+                    progress[QUIZ_MODULE_ID] = Date.now();
+                    localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+                }
+            } catch (e) {
+                // localStorage not available – fail silently
+            }
+        }
+
         function initQuiz() {
             const container = document.getElementById('questionsContainer');
             container.innerHTML = '';
@@ -636,10 +717,23 @@
             resultsContainer.classList.add('show');
             
             const percentage = Math.round((score / quizData.length) * 100);
+            const passed = percentage >= PASS_THRESHOLD;
+
             document.getElementById('scoreNumber').textContent = percentage + '%';
             document.getElementById('correctCount').textContent = score;
             document.getElementById('incorrectCount').textContent = quizData.length - score;
             document.getElementById('totalCount').textContent = quizData.length;
+
+            // Score circle color
+            const scoreCircle = document.getElementById('scoreCircle');
+            scoreCircle.classList.add(passed ? 'passed' : 'failed');
+
+            // Badge
+            const badge = document.getElementById('resultBadge');
+            badge.classList.add(passed ? 'passed' : 'failed');
+            badge.textContent = passed
+                ? `✓ Bestanden · Modul abgeschlossen`
+                : `✗ Nicht bestanden · ${PASS_THRESHOLD}% benötigt`;
             
             let message = '';
             if (percentage >= 90) {
@@ -653,6 +747,9 @@
             }
             
             document.getElementById('resultMessage').textContent = message;
+
+            // ── Save result to localStorage ──
+            saveQuizResult(percentage, passed);
         }
 
         function restartQuiz() {
@@ -660,6 +757,8 @@
             score = 0;
             answers = [];
             document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('scoreCircle').classList.remove('passed', 'failed');
+            document.getElementById('resultBadge').classList.remove('passed', 'failed');
             document.getElementById('questionsContainer').style.display = 'block';
             initQuiz();
         }

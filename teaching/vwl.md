@@ -5,627 +5,1076 @@ permalink: /teaching/vwl/
 ---
 
 <style>
-/* Japandi Design mit Apple-Style Rounded Corners */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+/* ═══════════════════════════════════════
+   DESIGN SYSTEM – Japandi Learning Platform
+   ═══════════════════════════════════════ */
+
+:root {
+  --bg: #f5f2ed;
+  --surface: #ffffff;
+  --surface-hover: #fafaf8;
+  --border: #e8e4dc;
+  --border-light: #f0ede7;
+  
+  --text-primary: #2c2c2c;
+  --text-secondary: #6b6560;
+  --text-muted: #9b9590;
+  
+  --mikro: #b8a89a;
+  --mikro-deep: #9a8a7a;
+  --mikro-light: rgba(184, 168, 154, 0.08);
+  
+  --makro: #8b9e9f;
+  --makro-deep: #6d8486;
+  --makro-light: rgba(139, 158, 159, 0.08);
+  
+  --accent: #c9b896;
+  --success: #7a9e7e;
+  --success-light: rgba(122, 158, 126, 0.1);
+  
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+}
 
 body {
-  background: #f7f5f2;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
+  background: var(--bg);
+  font-family: 'DM Sans', -apple-system, sans-serif;
   line-height: 1.7;
-  color: #3d3d3d;
+  color: var(--text-primary);
 }
 
-.intro-text {
-  font-size: 0.95rem;
-  color: #6b6b6b;
-  font-weight: 400;
-  margin-bottom: 3.5rem;
-  padding: 2rem 2.5rem;
-  background: #ffffff;
-  border-radius: 18px;
-  border-left: 3px solid #8b9e9f;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  letter-spacing: 0.02em;
-}
+/* ═══════════════════════════════════════
+   HERO / HEADER
+   ═══════════════════════════════════════ */
 
-.materials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
-  margin: 2.5rem 0;
-}
-
-.material-card {
-  background: #ffffff;
-  border: 1px solid #e8e5e0;
-  border-radius: 20px;
-  padding: 0;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  display: flex;
-  flex-direction: column;
-  min-height: 320px;
+.lp-hero {
+  background: var(--surface);
+  padding: 3rem 2.5rem 2.5rem;
+  margin: -2rem -2rem 0 -2rem;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
-/* Dezente, natürliche Farbpalette */
-.category-mikro .material-card {
-  border-top: 2px solid #b8a89a;
-}
-
-.category-makro .material-card {
-  border-top: 2px solid #c9b896;
-}
-
-/* Minimalistischer Akzent */
-.material-card::before {
+.lp-hero::before {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 60px;
-  opacity: 0.15;
-  transition: all 0.4s ease;
+  top: -80px;
+  right: -40px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(184, 168, 154, 0.06) 0%, transparent 65%);
+  border-radius: 50%;
 }
 
-.category-mikro .material-card::before {
-  background: linear-gradient(to bottom, #b8a89a, transparent);
-}
-
-.category-makro .material-card::before {
-  background: linear-gradient(to bottom, #c9b896, transparent);
-}
-
-/* Dezenter Cover-Effekt */
-.material-card::after {
+.lp-hero::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 0;
+  bottom: -60px;
+  right: 120px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(139, 158, 159, 0.05) 0%, transparent 65%);
+  border-radius: 50%;
 }
 
-.category-mikro .material-card::after {
-  background: linear-gradient(180deg, rgba(184, 168, 154, 0.04) 0%, rgba(184, 168, 154, 0.02) 100%);
-}
-
-.category-makro .material-card::after {
-  background: linear-gradient(180deg, rgba(201, 184, 150, 0.04) 0%, rgba(201, 184, 150, 0.02) 100%);
-}
-
-.material-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  border-color: #d5d0ca;
-}
-
-.material-card:hover::after {
-  opacity: 1;
-}
-
-.material-card:hover::before {
-  height: 100%;
-  width: 3px;
-  opacity: 0.4;
-}
-
-/* Zusätzlicher Hover-Effekt - sanftes Glow */
-.material-card:hover .card-header {
-  border-bottom-color: transparent;
-}
-
-.material-card:hover .card-header::after {
-  opacity: 1;
-  transform: scaleX(1);
-}
-
-.card-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  opacity: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.category-mikro .card-header::after {
-  background: linear-gradient(90deg, #b8a89a 0%, transparent 100%);
-}
-
-.category-makro .card-header::after {
-  background: linear-gradient(90deg, #c9b896 0%, transparent 100%);
-}
-
-.card-header {
-  padding: 2rem 2rem 1.25rem 2rem;
+.lp-hero-content {
   position: relative;
-  z-index: 2;
-  border-bottom: 1px solid #f5f3f0;
+  z-index: 1;
 }
 
-.material-card h4 {
-  margin: 0;
-  color: #3d3d3d;
-  font-size: 1.05rem;
-  font-weight: 500;
-  line-height: 1.6;
-  letter-spacing: 0.01em;
-  transition: color 0.3s ease;
-}
-
-.category-mikro .material-card:hover h4 {
-  color: #b8a89a;
-}
-
-.category-makro .material-card:hover h4 {
-  color: #c9b896;
-}
-
-.card-content {
-  padding: 1.5rem 2rem 2rem 2rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 2;
-}
-
-.material-card p {
-  font-size: 0.88rem;
-  color: #6b6b6b;
-  margin: 0 0 2rem 0;
-  flex-grow: 1;
-  line-height: 1.8;
+.lp-hero h1 {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 2.4rem;
   font-weight: 400;
-  letter-spacing: 0.01em;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
-.button-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.lp-hero-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0 0 2rem 0;
+  font-weight: 300;
+}
+
+/* Progress Overview */
+.lp-progress-bar-outer {
+  background: var(--border-light);
+  border-radius: 100px;
+  height: 6px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.lp-progress-bar-inner {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--mikro) 0%, var(--makro) 100%);
+  transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  width: 0%;
+}
+
+.lp-progress-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.lp-progress-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+.lp-progress-percent {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════
+   LEARNING PATH SECTION
+   ═══════════════════════════════════════ */
+
+.lp-section {
+  margin: 3rem 0 0 0;
+}
+
+.lp-section-header {
+  display: flex;
+  align-items: center;
   gap: 1rem;
-  margin-top: auto;
+  margin-bottom: 0.5rem;
+  padding: 0 0.25rem;
 }
 
-.btn-small {
+.lp-section-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.9rem 1rem;
-  background: #fafaf9;
-  color: #5a5a5a !important;
-  text-decoration: none;
-  border: 1px solid #e8e5e0;
-  border-radius: 12px;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  flex-shrink: 0;
 }
 
-.btn-small::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.lp-section--mikro .lp-section-icon {
+  background: var(--mikro-light);
+  color: var(--mikro-deep);
+  border: 1px solid rgba(184, 168, 154, 0.15);
 }
 
-/* Dezente Hover-Farben - Mikro */
-.category-mikro .btn-small:first-child::before {
-  background: linear-gradient(180deg, #b8a89a 0%, #cbbfb3 100%);
+.lp-section--makro .lp-section-icon {
+  background: var(--makro-light);
+  color: var(--makro-deep);
+  border: 1px solid rgba(139, 158, 159, 0.15);
 }
 
-/* Dezente Hover-Farben - Makro */
-.category-makro .btn-small:first-child::before {
-  background: linear-gradient(180deg, #c9b896 0%, #d9ccad 100%);
-}
-
-.btn-small:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  border-color: transparent;
-  color: #ffffff !important;
-}
-
-.btn-small:hover::before {
-  opacity: 1;
-}
-
-.btn-small span {
-  position: relative;
-  z-index: 2;
-}
-
-.btn-quiz {
-  background: #ffffff;
-  border-color: #e0ddd8;
-}
-
-.btn-quiz::before {
-  background: linear-gradient(180deg, #6b6b6b 0%, #8a8a8a 100%);
-}
-
-.section-header {
-  position: relative;
-  padding: 0.5rem 0 0.5rem 1rem;
-  margin: 4.5rem 0 2rem 0;
-  font-weight: 500;
-  font-size: 1.2rem;
-  letter-spacing: 0.02em;
-  display: inline-block;
-  border-left: 2px solid;
-  border-radius: 0 16px 16px 0;
-}
-
-/* Natürliche Farbcodierung */
-h2.section-header:nth-of-type(1) {
-  border-left-color: #b8a89a;
-  color: #7d7169;
-}
-
-h2.section-header:nth-of-type(2) {
-  border-left-color: #c9b896;
-  color: #8d7f5e;
-}
-
-.page-header {
-  background: #ffffff;
-  color: #3d3d3d;
-  padding: 3.5rem 2.5rem;
-  margin: -2rem -2rem 4rem -2rem;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid #e8e5e0;
-  border-radius: 0 0 32px 32px;
-}
-
-/* Zen-inspirierte Dekoration */
-.page-header::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 60px;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(139, 158, 159, 0.06) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
-
-.page-header::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 180px;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(184, 168, 154, 0.04) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
-
-.page-header h1 {
-  margin: 0;
-  font-size: 2.2rem;
+.lp-section-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 1.5rem;
   font-weight: 400;
-  letter-spacing: 0.02em;
-  position: relative;
-  z-index: 1;
-  color: #3d3d3d;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.005em;
 }
 
-.back-link {
-  display: inline-block;
-  margin-top: 4rem;
-  padding: 0.9rem 2.5rem;
-  background: #ffffff;
-  color: #5a5a5a !important;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  border: 1px solid #e8e5e0;
-  border-radius: 14px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+.lp-section-meta {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  padding: 0 0.25rem 0 calc(36px + 1rem);
+  margin-bottom: 1.75rem;
 }
 
-.back-link::before {
+/* ═══════════════════════════════════════
+   LEARNING PATH – VERTICAL TIMELINE
+   ═══════════════════════════════════════ */
+
+.lp-path {
+  position: relative;
+  padding-left: 2.5rem;
+}
+
+/* Vertical connector line */
+.lp-path::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
+  left: 17px;
+  top: 24px;
+  bottom: 24px;
+  width: 1px;
+  background: var(--border);
 }
 
-.back-link:hover {
+/* ═══════════════════════════════════════
+   MODULE CARD
+   ═══════════════════════════════════════ */
+
+.lp-module {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+/* Step dot on the timeline */
+.lp-module-dot {
+  position: absolute;
+  left: -2.5rem;
+  top: 1.75rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.lp-module.is-complete .lp-module-dot {
+  background: var(--success);
+  border-color: var(--success);
+  box-shadow: 0 0 0 3px var(--success-light);
+}
+
+.lp-module-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.75rem;
+  transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: default;
+  position: relative;
+}
+
+.lp-module-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  border-color: transparent;
-  color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border-color: #d8d4cc;
 }
 
-.back-link:hover::before {
+.lp-module.is-complete .lp-module-card {
+  border-left: 2px solid var(--success);
+}
+
+/* Step number + title row */
+.lp-module-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.lp-module-step {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--border-light);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.lp-section--mikro .lp-module-step {
+  color: var(--mikro-deep);
+  background: var(--mikro-light);
+}
+
+.lp-section--makro .lp-module-step {
+  color: var(--makro-deep);
+  background: var(--makro-light);
+}
+
+.lp-module.is-complete .lp-module-step {
+  color: var(--success);
+  background: var(--success-light);
+}
+
+.lp-module-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.lp-module-desc {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: 0.25rem 0 1.25rem 0;
+  font-weight: 300;
+}
+
+/* Prerequisite hint */
+.lp-module-prereq {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: -0.25rem 0 1rem 0;
+}
+
+.lp-module-prereq::before {
+  content: '↗ ';
+}
+
+/* Actions row */
+.lp-module-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.lp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary) !important;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.lp-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.lp-btn--pdf:hover {
+  background: var(--mikro);
+  border-color: var(--mikro);
+  color: #fff !important;
+}
+
+.lp-section--makro .lp-btn--pdf:hover {
+  background: var(--makro);
+  border-color: var(--makro);
+}
+
+.lp-btn--quiz:hover {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: #fff !important;
+}
+
+.lp-btn--icon {
+  font-size: 0.85rem;
+}
+
+/* Completion toggle */
+.lp-check {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.lp-check:hover {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.lp-check-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  background: var(--surface);
+}
+
+.lp-check-box svg {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  width: 11px;
+  height: 11px;
+}
+
+.lp-module.is-complete .lp-check-box {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+.lp-module.is-complete .lp-check-box svg {
   opacity: 1;
 }
 
-/* Wabi-Sabi Textur-Effekt */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(184, 168, 154, 0.02) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(139, 158, 159, 0.02) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
+.lp-module.is-complete .lp-check {
+  color: var(--success);
 }
+
+/* ═══════════════════════════════════════
+   BOTTOM SECTION
+   ═══════════════════════════════════════ */
+
+.lp-footer {
+  margin-top: 4rem;
+  padding: 2rem 2rem;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.lp-footer-text {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.lp-footer-text strong {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.lp-footer-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.lp-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--surface);
+  color: var(--text-secondary) !important;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.lp-btn-back:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: var(--makro);
+  border-color: var(--makro);
+  color: #fff !important;
+}
+
+.lp-btn-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.2rem;
+  background: transparent;
+  color: var(--text-muted) !important;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.lp-btn-reset:hover {
+  border-color: var(--border);
+  color: var(--text-secondary) !important;
+}
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════ */
 
 @media (max-width: 768px) {
-  .materials-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .lp-hero {
+    margin: -1rem -1rem 0 -1rem;
+    padding: 2.5rem 1.5rem 2rem;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   }
   
-  .page-header {
-    margin: -1rem -1rem 2.5rem -1rem;
-    padding: 2.5rem 1.75rem;
-    border-radius: 0 0 24px 24px;
+  .lp-hero h1 {
+    font-size: 1.85rem;
   }
   
-  .page-header h1 {
-    font-size: 1.8rem;
-  }
-  
-  .page-header::before,
-  .page-header::after {
+  .lp-hero::before,
+  .lp-hero::after {
     display: none;
   }
   
-  .material-card {
-    min-height: auto;
-    border-radius: 16px;
+  .lp-section-meta {
+    padding-left: calc(36px + 1rem);
   }
   
-  .material-card::after {
-    border-radius: 16px;
+  .lp-path {
+    padding-left: 2rem;
   }
   
-  .section-header {
-    font-size: 1.1rem;
-    border-radius: 0 12px 12px 0;
+  .lp-module-dot {
+    left: -2rem;
   }
   
-  .intro-text {
-    font-size: 0.9rem;
-    padding: 1.5rem 1.75rem;
-    border-radius: 16px;
+  .lp-module-card {
+    padding: 1.25rem 1.25rem;
   }
   
-  .card-header {
-    padding: 1.75rem 1.5rem 1rem 1.5rem;
+  .lp-module-actions {
+    flex-direction: column;
+    align-items: stretch;
   }
   
-  .card-content {
-    padding: 1.25rem 1.5rem 1.75rem 1.5rem;
+  .lp-btn {
+    justify-content: center;
+    padding: 0.75rem;
   }
   
-  .btn-small {
-    border-radius: 10px;
+  .lp-check {
+    margin-left: 0;
+    justify-content: center;
   }
   
-  .back-link {
-    border-radius: 12px;
+  .lp-footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  .lp-footer-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .lp-btn-back, .lp-btn-reset {
+    justify-content: center;
   }
 }
+
+/* ═══════════════════════════════════════
+   ANIMATION
+   ═══════════════════════════════════════ */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lp-module {
+  animation: fadeInUp 0.5s ease both;
+}
+
+.lp-module:nth-child(1) { animation-delay: 0.05s; }
+.lp-module:nth-child(2) { animation-delay: 0.1s; }
+.lp-module:nth-child(3) { animation-delay: 0.15s; }
+.lp-module:nth-child(4) { animation-delay: 0.2s; }
+.lp-module:nth-child(5) { animation-delay: 0.25s; }
+.lp-module:nth-child(6) { animation-delay: 0.3s; }
+.lp-module:nth-child(7) { animation-delay: 0.35s; }
+.lp-module:nth-child(8) { animation-delay: 0.4s; }
+
+/* ═══════════════════════════════════════
+   QUIZ SCORE BADGE
+   ═══════════════════════════════════════ */
+
+.lp-quiz-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.lp-quiz-badge--passed {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.lp-quiz-badge--failed {
+  background: rgba(200, 100, 80, 0.08);
+  color: #b07060;
+}
+
+.lp-quiz-badge--none {
+  background: var(--border-light);
+  color: var(--text-muted);
+}
+
+.lp-module-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
 </style>
 
-<p class="intro-text">
-  Materialien zur Prüfungsvorbereitung am Studienkolleg Leipzig
-</p>
+<!-- ═══════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════ -->
 
-<h2 class="section-header">Mikroökonomie</h2>
-<div class="materials-grid category-mikro">
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Bedürfnis, Bedarf und Nachfrage</h4>
+<div class="lp-hero">
+  <div class="lp-hero-content">
+    <h1>Volkswirtschaftslehre</h1>
+    <p class="lp-hero-subtitle">Lernpfad zur Prüfungsvorbereitung · Studienkolleg Leipzig</p>
+    
+    <div class="lp-progress-bar-outer">
+      <div class="lp-progress-bar-inner" id="progressBar"></div>
     </div>
-    <div class="card-content">
-      <p>Grundkonzepte der Wirtschaft: Definition und Unterscheidung von Bedürfnis, Bedarf und Nachfrage, Bedürfnisarten, Maslows Bedürfnispyramide mit praktischen Beispielen</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/WS_VWL_1-3.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Güterarten in der Wirtschaft</h4>
-    </div>
-    <div class="card-content">
-      <p>Freie und wirtschaftliche Güter, inferiore und superiore Güter, Einkommenselastizität der Nachfrage, meritorische und demeritorische Güter, staatliche Markteingriffe</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_gueterarten.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Angebot und Angebotskurve</h4>
-    </div>
-    <div class="card-content">
-      <p>Das Marktmodell, Gesetz des Angebots, Angebotsfunktion, aggregiertes Marktangebot, Verschiebung vs. Bewegung auf der Angebotskurve, Einflussfaktoren</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_angebot.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Nachfrage und Nachfragekurve</h4>
-    </div>
-    <div class="card-content">
-      <p>Gesetz der Nachfrage, Nachfragefunktion, aggregierte Marktnachfrage, Verschiebung der Nachfragekurve, Einflussfaktoren wie Einkommen, Präferenzen und Preise verwandter Güter</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_nachfrage.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Marktgleichgewicht</h4>
-    </div>
-    <div class="card-content">
-      <p>Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Auswirkungen von Steuern und Subventionen, praktische Beispiele und Berechnungen</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_marktgleichgewicht.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Konsumenten- und Produzentenrente</h4>
-    </div>
-    <div class="card-content">
-      <p>Definition und Berechnung der Konsumenten- und Produzentenrente, ökonomische Wohlfahrt, Prohibitivpreis, graphische Darstellung, Beispielrechnungen am Smartwatch-Markt, Übungsaufgaben mit Lösungswegen</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/WS_VWL_6.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_renten.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Marktformen: Monopol, Oligopol, Polypol</h4>
-    </div>
-    <div class="card-content">
-      <p>Übersicht über Marktformen, Marktmacht, Marktstruktur, Vor- und Nachteile für Verbraucher, zahlreiche Beispiele und Übungsaufgaben zur Einordnung realer Märkte</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/WS_VWL_7.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_marktformen.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
-    </div>
-  </div>
-  
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Die Budgetgerade – Konsumentscheidungen des Haushalts</h4>
-    </div>
-    <div class="card-content">
-      <p>Mathematische Grundlagen der Konsumentscheidung: Budgetrestriktion, Gleichung und graphische Darstellung der Budgetgerade, Einkommens- und Preisänderungen, Opportunitätskosten sowie zahlreiche Übungsaufgaben mit Lösungen</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_budgetgerade.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
+    <div class="lp-progress-stats">
+      <span class="lp-progress-text"><span id="completedCount">0</span> von <span id="totalCount">13</span> Modulen abgeschlossen</span>
+      <span class="lp-progress-percent" id="progressPercent">0 %</span>
     </div>
   </div>
 </div>
 
-<h2 class="section-header">Makroökonomie</h2>
-<div class="materials-grid category-makro">
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Volkswirtschaftliche Gesamtrechnung</h4>
-    </div>
-    <div class="card-content">
-      <p>Systematische Erfassung wirtschaftlicher Aktivitäten: Definition und Ziele der VGR, Bruttoinlandsprodukt (BIP), drei Berechnungsmethoden (Entstehung, Verwendung, Verteilung), Inlandsprinzip vs. Inländerprinzip, Vermeidung von Doppelzählung, praktische Beispiele und Übungsaufgaben</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/VWL_11.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_vgr.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
-    </div>
+<!-- ═══════════════════════════════════════
+     MIKROÖKONOMIE
+     ═══════════════════════════════════════ -->
+
+<div class="lp-section lp-section--mikro">
+  <div class="lp-section-header">
+    <div class="lp-section-icon">Mi</div>
+    <h2 class="lp-section-title">Mikroökonomie</h2>
   </div>
+  <p class="lp-section-meta">8 Module · Vom Grundbegriff zum Marktmodell</p>
   
-  <div class="material-card">
-    <div class="card-header">
-      <h4>VGR II: Nominales vs. reales BIP</h4>
-    </div>
-    <div class="card-content">
-      <p>Unterschied zwischen nominalem und realem BIP, BIP-Deflator als Inflationsmaß, BIP pro Kopf und Kaufkraftbereinigung (PPP), Grenzen des BIP als Wohlstandsindikator, alternative Wohlstandsindikatoren (HDI, World Happiness Report, Gini-Koeffizient), umfangreiche Übungsaufgaben mit Lösungen</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/VWL_12.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_vgr2.html" class="btn-small btn-quiz"><span>Quiz</span></a>
-      </div>
-    </div>
-  </div>
+  <div class="lp-path">
 
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Konjunktur & Konjunkturzyklen</h4>
-    </div>
-    <div class="card-content">
-      <p>Die 4 Konjunkturphasen (Aufschwung, Boom, Abschwung, Depression), BIP-Berechnung, Wachstumsraten, Rezessionsdefinition, Früh- und Spätindikatoren, wirtschaftspolitische Maßnahmen</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_konjunktur.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+    <div class="lp-module" data-module="m1">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">01</span>
+          <h4 class="lp-module-title">Bedürfnis, Bedarf und Nachfrage</h4>
+        </div>
+        <p class="lp-module-desc">Grundkonzepte der Wirtschaft: Definition und Unterscheidung von Bedürfnis, Bedarf und Nachfrage, Bedürfnisarten, Maslows Bedürfnispyramide mit praktischen Beispielen</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/WS_VWL_1-3.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m1')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Antizyklische Konjunkturpolitik</h4>
-    </div>
-    <div class="card-content">
-      <p>Staatliche Stabilisierung der Konjunktur: Grundprinzipien antizyklischer Politik, Fiskal- und Geldpolitik, expansive vs. restriktive Maßnahmen, historische Fallbeispiele (Finanzkrise 2008), Herausforderungen bei der Umsetzung</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_konjunkturpolitik.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+    <div class="lp-module" data-module="m2">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">02</span>
+          <h4 class="lp-module-title">Güterarten in der Wirtschaft</h4>
+        </div>
+        <p class="lp-module-desc">Freie und wirtschaftliche Güter, inferiore und superiore Güter, Einkommenselastizität der Nachfrage, meritorische und demeritorische Güter, staatliche Markteingriffe</p>
+        <p class="lp-module-prereq">Baut auf: Bedürfnis, Bedarf und Nachfrage</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_gueterarten.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m2')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="material-card">
-    <div class="card-header">
-      <h4>Arbeitslosigkeit & Arbeitsmarktpolitik</h4>
-    </div>
-    <div class="card-content">
-      <p>Messung und Berechnung der Arbeitslosenquote, drei Arten der Arbeitslosigkeit (friktionell, strukturell, konjunkturell), individuelle und gesamtwirtschaftliche Folgen, Okun's Gesetz, aktive vs. passive Arbeitsmarktpolitik, Kurzarbeitergeld, Herausforderungen der Digitalisierung und demografischer Wandel</p>
-      <div class="button-group">
-        <a href="/assets/pdfs/Vwl_13_Arbeitslosigkeit.pdf" class="btn-small"><span>PDF</span></a>
-        <a href="/assets/quizzes/quiz_arbeitslosigkeit.html" class="btn-small btn-quiz"><span>Quiz</span></a>
+
+    <div class="lp-module" data-module="m3">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">03</span>
+          <h4 class="lp-module-title">Angebot und Angebotskurve</h4>
+        </div>
+        <p class="lp-module-desc">Das Marktmodell, Gesetz des Angebots, Angebotsfunktion, aggregiertes Marktangebot, Verschiebung vs. Bewegung auf der Angebotskurve, Einflussfaktoren</p>
+        <p class="lp-module-prereq">Baut auf: Güterarten</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_angebot.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m3')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
       </div>
     </div>
+
+    <div class="lp-module" data-module="m4">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">04</span>
+          <h4 class="lp-module-title">Nachfrage und Nachfragekurve</h4>
+        </div>
+        <p class="lp-module-desc">Gesetz der Nachfrage, Nachfragefunktion, aggregierte Marktnachfrage, Verschiebung der Nachfragekurve, Einflussfaktoren wie Einkommen, Präferenzen und Preise verwandter Güter</p>
+        <p class="lp-module-prereq">Baut auf: Angebot und Angebotskurve</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_nachfrage.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m4')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-module" data-module="m5">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">05</span>
+          <h4 class="lp-module-title">Marktgleichgewicht</h4>
+        </div>
+        <p class="lp-module-desc">Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Auswirkungen von Steuern und Subventionen, praktische Beispiele und Berechnungen</p>
+        <p class="lp-module-prereq">Baut auf: Angebot und Nachfrage</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_marktgleichgewicht.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m5')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-module" data-module="m6">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">06</span>
+          <h4 class="lp-module-title">Konsumenten- und Produzentenrente</h4>
+        </div>
+        <p class="lp-module-desc">Definition und Berechnung der Konsumenten- und Produzentenrente, ökonomische Wohlfahrt, Prohibitivpreis, graphische Darstellung, Beispielrechnungen am Smartwatch-Markt</p>
+        <p class="lp-module-prereq">Baut auf: Marktgleichgewicht</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/WS_VWL_6.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_renten.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m6')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-module" data-module="m7">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">07</span>
+          <h4 class="lp-module-title">Marktformen: Monopol, Oligopol, Polypol</h4>
+        </div>
+        <p class="lp-module-desc">Übersicht über Marktformen, Marktmacht, Marktstruktur, Vor- und Nachteile für Verbraucher, zahlreiche Beispiele und Übungsaufgaben zur Einordnung realer Märkte</p>
+        <p class="lp-module-prereq">Baut auf: Marktgleichgewicht</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/WS_VWL_7.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_marktformen.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m7')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-module" data-module="m8">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">08</span>
+          <h4 class="lp-module-title">Budgetgerade – Konsumentscheidungen</h4>
+        </div>
+        <p class="lp-module-desc">Mathematische Grundlagen der Konsumentscheidung: Budgetrestriktion, Gleichung und graphische Darstellung, Einkommens- und Preisänderungen, Opportunitätskosten</p>
+        <p class="lp-module-prereq">Baut auf: Nachfrage und Güterarten</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_budgetgerade.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m8')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════
+     MAKROÖKONOMIE
+     ═══════════════════════════════════════ -->
 
-<a href="/teaching/" class="back-link">← Zurück zur Übersicht</a>
+<div class="lp-section lp-section--makro">
+  <div class="lp-section-header">
+    <div class="lp-section-icon">Ma</div>
+    <h2 class="lp-section-title">Makroökonomie</h2>
+  </div>
+  <p class="lp-section-meta">5 Module · Von der Gesamtrechnung zur Wirtschaftspolitik</p>
+  
+  <div class="lp-path">
+
+    <div class="lp-module" data-module="m9">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">09</span>
+          <h4 class="lp-module-title">Volkswirtschaftliche Gesamtrechnung</h4>
+        </div>
+        <p class="lp-module-desc">Definition und Ziele der VGR, Bruttoinlandsprodukt (BIP), drei Berechnungsmethoden, Inlandsprinzip vs. Inländerprinzip, Vermeidung von Doppelzählung</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/VWL_11.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_vgr.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m9')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-module" data-module="m10">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">10</span>
+          <h4 class="lp-module-title">Nominales vs. reales BIP</h4>
+        </div>
+        <p class="lp-module-desc">BIP-Deflator, BIP pro Kopf und Kaufkraftbereinigung (PPP), Grenzen des BIP als Wohlstandsindikator, alternative Indikatoren (HDI, Gini-Koeffizient)</p>
+        <p class="lp-module-prereq">Baut auf: Volkswirtschaftliche Gesamtrechnung</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/VWL_12.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_vgr2.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m10')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-module" data-module="m11">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">11</span>
+          <h4 class="lp-module-title">Konjunktur & Konjunkturzyklen</h4>
+        </div>
+        <p class="lp-module-desc">Die 4 Konjunkturphasen, BIP-Berechnung, Wachstumsraten, Rezessionsdefinition, Früh- und Spätindikatoren, wirtschaftspolitische Maßnahmen</p>
+        <p class="lp-module-prereq">Baut auf: Nominales vs. reales BIP</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_konjunktur.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m11')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-module" data-module="m12">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">12</span>
+          <h4 class="lp-module-title">Antizyklische Konjunkturpolitik</h4>
+        </div>
+        <p class="lp-module-desc">Grundprinzipien antizyklischer Politik, Fiskal- und Geldpolitik, expansive vs. restriktive Maßnahmen, historische Fallbeispiele (Finanzkrise 2008)</p>
+        <p class="lp-module-prereq">Baut auf: Konjunkturzyklen</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_konjunkturpolitik.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m12')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-module" data-module="m13">
+      <div class="lp-module-dot"></div>
+      <div class="lp-module-card">
+        <div class="lp-module-top">
+          <span class="lp-module-step">13</span>
+          <h4 class="lp-module-title">Arbeitslosigkeit & Arbeitsmarktpolitik</h4>
+        </div>
+        <p class="lp-module-desc">Arbeitslosenquote, drei Arten der Arbeitslosigkeit, Okun's Gesetz, aktive vs. passive Arbeitsmarktpolitik, Kurzarbeitergeld, Digitalisierung und demografischer Wandel</p>
+        <p class="lp-module-prereq">Baut auf: Konjunktur und Konjunkturpolitik</p>
+        <div class="lp-module-actions">
+          <a href="/assets/pdfs/Vwl_13_Arbeitslosigkeit.pdf" class="lp-btn lp-btn--pdf"><span class="lp-btn--icon">📄</span> <span>PDF</span></a>
+          <a href="/assets/quizzes/quiz_arbeitslosigkeit.html" class="lp-btn lp-btn--quiz"><span class="lp-btn--icon">✎</span> <span>Quiz</span></a>
+          <label class="lp-check" onclick="toggleModule('m13')">
+            <span class="lp-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>
+            <span>Erledigt</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════ -->
+
+<div class="lp-footer">
+  <div class="lp-footer-text">
+    <strong>13 Module</strong> · Materialien für Bildungszwecke · Frei verwendbar
+  </div>
+  <div class="lp-footer-actions">
+    <a href="/teaching/" class="lp-btn-back">← Übersicht</a>
+    <button class="lp-btn-reset" onclick="resetProgress()">Fortschritt zurücksetzen</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PROGRESS TRACKING (localStorage)
+     ═══════════════════════════════════════ -->
+
+<script>
+const STORAGE_KEY = 'vwl-progress';
+const QUIZ_RESULTS_KEY = 'vwl-quiz-results';
+const TOTAL_MODULES = 13;
+const PASS_THRESHOLD = 70;
+
+function getProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function getQuizResults() {
+  try {
+    return JSON.parse(localStorage.getItem(QUIZ_RESULTS_KEY)) || {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveProgress(progress) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+}
+
+function toggleModule(moduleId) {
+  const progress = getProgress();
+  const quizResults = getQuizResults();
+  
+  // If quiz was passed, don't allow manual un-checking
+  if (progress[moduleId] && quizResults[moduleId]?.passed) {
+    if (!confirm('Dieses Modul wurde per Quiz bestanden. Trotzdem zurücksetzen?')) return;
+    // Also clear quiz result
+    delete quizResults[moduleId];
+    localStorage.setItem(QUIZ_RESULTS_KEY, JSON.stringify(quizResults));
+  }
+  
+  if (progress[moduleId]) {
+    delete progress[moduleId];
+  } else {
+    progress[moduleId] = Date.now();
+  }
+  saveProgress(progress);
+  render();
+}
+
+function resetProgress() {
+  if (confirm('Fortschritt und alle Quiz-Ergebnisse wirklich zurücksetzen?')) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(QUIZ_RESULTS_KEY);
+    render();
+  }
+}
+
+function render() {
+  const progress = getProgress();
+  const quizResults = getQuizResults();
+  const completed = Object.keys(progress).length;
+  const percent = Math.round((completed / TOTAL_MODULES) * 100);
+  
+  // Update progress bar
+  document.getElementById('progressBar').style.width = percent + '%';
+  document.getElementById('completedCount').textContent = completed;
+  document.getElementById('progressPercent').textContent = percent + ' %';
+  
+  // Update module states + quiz badges
+  document.querySelectorAll('.lp-module').forEach(el => {
+    const id = el.dataset.module;
+    
+    // Completion state
+    if (progress[id]) {
+      el.classList.add('is-complete');
+    } else {
+      el.classList.remove('is-complete');
+    }
+    
+    // Quiz badge – insert/update after the actions row
+    const actionsRow = el.querySelector('.lp-module-actions');
+    let metaRow = el.querySelector('.lp-module-meta');
+    
+    if (!metaRow) {
+      metaRow = document.createElement('div');
+      metaRow.className = 'lp-module-meta';
+      actionsRow.parentNode.insertBefore(metaRow, actionsRow);
+    }
+    
+    const qr = quizResults[id];
+    if (qr) {
+      const cls = qr.passed ? 'lp-quiz-badge--passed' : 'lp-quiz-badge--failed';
+      const icon = qr.passed ? '✓' : '✗';
+      const attempts = qr.attempts > 1 ? ` · ${qr.attempts} Versuche` : '';
+      metaRow.innerHTML = `<span class="lp-quiz-badge ${cls}">${icon} Quiz: ${qr.percentage}%${attempts}</span>`;
+    } else {
+      metaRow.innerHTML = `<span class="lp-quiz-badge lp-quiz-badge--none">Quiz noch nicht absolviert</span>`;
+    }
+  });
+}
+
+// Init on page load
+document.addEventListener('DOMContentLoaded', render);
+if (document.readyState !== 'loading') render();
+</script>
