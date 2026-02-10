@@ -5,389 +5,301 @@ permalink: /about/
 ---
 
 <style>
-/* Japandi Design - Japanisch-Skandinavische Fusion */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
 
-body {
-  background: #f7f5f2;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
-  line-height: 1.7;
-  color: #3d3d3d;
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: rgba(255,255,255,0.06);
+  --bg-card-hover: rgba(255,255,255,0.09);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.14);
+  --text-primary: rgba(255,255,255,0.92);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.32);
+  --accent-1: #6366f1;
+  --accent-2: #8b5cf6;
+  --accent-3: #a78bfa;
+  --edu: #f59e0b;
+  --edu-soft: rgba(245, 158, 11, 0.12);
+  --focus: #ec4899;
+  --focus-soft: rgba(236, 72, 153, 0.12);
+  --interests: #06b6d4;
+  --interests-soft: rgba(6, 182, 212, 0.12);
 }
 
-.page-header {
-  background: #ffffff;
-  color: #3d3d3d;
-  padding: 3.5rem 2.5rem;
-  margin: -2rem -2rem 4rem -2rem;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid #e8e5e0;
+body, html, .page-content, .wrapper, main, .post-content {
+  background: var(--bg-deep) !important;
+  color: var(--text-primary);
+}
+.post-header, .page-heading, header.post-header { display: none !important; }
+a { color: var(--accent-3); }
+a:hover { color: #c4b5fd; text-decoration: none; }
+
+/* ═══ AMBIENT ═══ */
+.ab-ambient {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0; overflow: hidden; pointer-events: none;
+}
+.ab-ambient-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(120px); opacity: 0.4;
+  animation: ab-drift 20s ease-in-out infinite;
+}
+.ab-ambient-orb:nth-child(1) {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+  top: -10%; right: -8%;
+}
+.ab-ambient-orb:nth-child(2) {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+  bottom: 10%; left: -8%;
+  animation-delay: -9s; animation-duration: 24s;
+}
+.ab-ambient-orb:nth-child(3) {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+  top: 40%; left: 50%;
+  animation-delay: -14s; animation-duration: 22s;
+}
+@keyframes ab-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(25px, -18px) scale(1.04); }
+  50% { transform: translate(-18px, 25px) scale(0.96); }
+  75% { transform: translate(12px, 12px) scale(1.02); }
+}
+.ab-ambient::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4; pointer-events: none;
 }
 
-/* Zen-inspirierte Dekoration */
-.page-header::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 60px;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(139, 158, 159, 0.06) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
+/* ═══ CONTENT ═══ */
+.ab-content {
+  position: relative; z-index: 1;
+  max-width: 780px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
-.page-header::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 180px;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(184, 168, 154, 0.04) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
+/* ═══ HERO ═══ */
+.ab-hero {
+  background: var(--bg-card);
+  backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem 2.25rem 2rem;
+  margin-bottom: 2rem;
+  position: relative; overflow: hidden;
+}
+.ab-hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+}
+.ab-hero-eyebrow {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent-3); margin-bottom: 0.75rem;
+}
+.ab-hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem; font-weight: 600;
+  letter-spacing: -0.03em; line-height: 1.1;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.ab-hero-text {
+  font-size: 0.95rem; color: var(--text-secondary);
+  font-weight: 300; line-height: 1.85;
 }
 
-.page-header h1 {
-  margin: 0;
-  font-size: 2.2rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  position: relative;
-  z-index: 1;
-  color: #3d3d3d;
-}
-
-.intro-section {
-  background: #ffffff;
-  border-radius: 2px;
-  padding: 2.5rem;
-  margin-bottom: 3rem;
-  border-left: 3px solid #8b9e9f;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  position: relative;
-}
-
-.intro-section p {
-  font-size: 1rem;
-  color: #6b6b6b;
-  line-height: 1.8;
-  margin: 0;
-  letter-spacing: 0.02em;
-  font-weight: 400;
-}
-
-.content-grid {
+/* ═══ CARDS ═══ */
+.ab-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin: 2.5rem 0;
+  grid-template-columns: 1fr;
+  gap: 1rem;
 }
 
-.content-card {
-  background: #ffffff;
-  border: 1px solid #e8e5e0;
-  border-radius: 2px;
-  padding: 0;
+.ab-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2rem 2rem 1.75rem;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  position: relative; overflow: hidden;
 }
-
-.content-card.education {
-  border-top: 2px solid #b8a89a;
+.ab-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  opacity: 0; transition: opacity 0.3s ease;
 }
-
-.content-card.focus {
-  border-top: 2px solid #c9a690;
+.ab-card:hover {
+  background: var(--bg-card-hover); border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
+.ab-card:hover::before { opacity: 1; }
 
-.content-card.interests {
-  border-top: 2px solid #8b9e9f;
-}
+.ab-card--edu { border-left: 2px solid var(--edu); }
+.ab-card--focus { border-left: 2px solid var(--focus); }
+.ab-card--interests { border-left: 2px solid var(--interests); }
 
-/* Minimalistischer Akzent */
-.content-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 60px;
-  opacity: 0.15;
-  transition: all 0.4s ease;
-}
+.ab-card--edu:hover { box-shadow: 0 12px 40px rgba(245,158,11,0.06); }
+.ab-card--focus:hover { box-shadow: 0 12px 40px rgba(236,72,153,0.06); }
+.ab-card--interests:hover { box-shadow: 0 12px 40px rgba(6,182,212,0.06); }
 
-.content-card.education::before {
-  background: linear-gradient(to bottom, #b8a89a, transparent);
-}
-
-.content-card.focus::before {
-  background: linear-gradient(to bottom, #c9a690, transparent);
-}
-
-.content-card.interests::before {
-  background: linear-gradient(to bottom, #8b9e9f, transparent);
-}
-
-/* Dezenter Cover-Effekt */
-.content-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 2px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 0;
-}
-
-.content-card.education::after {
-  background: linear-gradient(180deg, rgba(184, 168, 154, 0.04) 0%, rgba(184, 168, 154, 0.02) 100%);
-}
-
-.content-card.focus::after {
-  background: linear-gradient(180deg, rgba(201, 166, 144, 0.04) 0%, rgba(201, 166, 144, 0.02) 100%);
-}
-
-.content-card.interests::after {
-  background: linear-gradient(180deg, rgba(139, 158, 159, 0.04) 0%, rgba(139, 158, 159, 0.02) 100%);
-}
-
-.content-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  border-color: #d5d0ca;
-}
-
-.content-card:hover::after {
-  opacity: 1;
-}
-
-.content-card:hover::before {
-  height: 100%;
-  width: 3px;
-  opacity: 0.4;
-}
-
-.card-header {
-  padding: 2rem 2rem 1rem 2rem;
-  position: relative;
-  z-index: 2;
-}
-
-.card-header h2 {
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: #3d3d3d;
-  transition: color 0.3s ease;
-}
-
-.content-card.education:hover .card-header h2 {
-  color: #b8a89a;
-}
-
-.content-card.focus:hover .card-header h2 {
-  color: #c9a690;
-}
-
-.content-card.interests:hover .card-header h2 {
-  color: #8b9e9f;
-}
-
-.card-content {
-  padding: 0 2rem 2rem 2rem;
-  position: relative;
-  z-index: 2;
-}
-
-.education-item {
-  margin-bottom: 1.5rem;
-}
-
-.education-item:last-child {
-  margin-bottom: 0;
-}
-
-.education-item strong {
-  display: block;
-  color: #3d3d3d;
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-  letter-spacing: 0.01em;
-}
-
-.education-item span {
-  color: #8a8a8a;
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-}
-
-.focus-list,
-.interest-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.focus-list li,
-.interest-list li {
-  position: relative;
-  padding-left: 1.5rem;
+/* Card header */
+.ab-card-head {
+  display: flex; align-items: center; gap: 0.85rem;
   margin-bottom: 1.25rem;
-  color: #6b6b6b;
+}
+
+.ab-card-badge {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem; flex-shrink: 0;
+}
+.ab-card--edu .ab-card-badge { background: var(--edu-soft); border: 1px solid rgba(245,158,11,0.2); }
+.ab-card--focus .ab-card-badge { background: var(--focus-soft); border: 1px solid rgba(236,72,153,0.2); }
+.ab-card--interests .ab-card-badge { background: var(--interests-soft); border: 1px solid rgba(6,182,212,0.2); }
+
+.ab-card h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.2rem; font-weight: 500;
+  letter-spacing: -0.01em; margin: 0;
+  color: var(--text-primary);
+}
+
+/* Education items */
+.ab-edu-item {
+  margin-bottom: 1.25rem;
+  padding-left: 0.25rem;
+}
+.ab-edu-item:last-child { margin-bottom: 0; }
+
+.ab-edu-title {
+  display: block;
+  font-size: 0.92rem; font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+}
+.ab-edu-place {
+  font-size: 0.8rem; color: var(--text-muted);
+  font-weight: 400; letter-spacing: 0.02em;
+}
+
+/* List items */
+.ab-list {
+  list-style: none; padding: 0; margin: 0;
+}
+.ab-list li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 1.1rem;
   font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 300;
   line-height: 1.8;
-  font-weight: 400;
-  letter-spacing: 0.01em;
 }
+.ab-list li:last-child { margin-bottom: 0; }
 
-.focus-list li:last-child,
-.interest-list li:last-child {
-  margin-bottom: 0;
-}
-
-.focus-list li::before {
+.ab-list li::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0.65rem;
-  width: 6px;
-  height: 6px;
-  background: #c9a690;
+  left: 0; top: 0.6rem;
+  width: 6px; height: 6px;
   border-radius: 50%;
 }
 
-.interest-list li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.65rem;
-  width: 6px;
-  height: 6px;
-  background: #8b9e9f;
-  border-radius: 50%;
-}
+.ab-card--focus .ab-list li::before { background: var(--focus); opacity: 0.6; }
+.ab-card--interests .ab-list li::before { background: var(--interests); opacity: 0.6; }
 
-.focus-list li strong,
-.interest-list li strong {
-  color: #3d3d3d;
+.ab-list li strong {
+  color: var(--text-primary);
   font-weight: 500;
 }
 
-/* Wabi-Sabi Textur-Effekt */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(184, 168, 154, 0.02) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(139, 158, 159, 0.02) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
+/* ═══ ANIMATIONS ═══ */
+@keyframes ab-fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+.ab-hero { animation: ab-fadeUp 0.6s ease both; }
+.ab-card { animation: ab-fadeUp 0.5s ease both; }
+.ab-card:nth-child(1) { animation-delay: 0.1s; }
+.ab-card:nth-child(2) { animation-delay: 0.2s; }
+.ab-card:nth-child(3) { animation-delay: 0.3s; }
 
+/* ═══ RESPONSIVE ═══ */
 @media (max-width: 768px) {
-  .content-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .page-header {
-    margin: -1rem -1rem 2.5rem -1rem;
-    padding: 2.5rem 1.75rem;
-  }
-
-  .page-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .page-header::before,
-  .page-header::after {
-    display: none;
-  }
-
-  .intro-section {
-    padding: 1.75rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .intro-section p {
-    font-size: 0.9rem;
-  }
-
-  .card-header {
-    padding: 1.75rem 1.5rem 1rem 1.5rem;
-  }
-
-  .card-content {
-    padding: 0 1.5rem 1.75rem 1.5rem;
-  }
-
-  .card-header h2 {
-    font-size: 1.05rem;
-  }
+  .ab-content { padding: 1.5rem 1rem 4rem; }
+  .ab-hero { padding: 2rem 1.5rem 1.5rem; border-radius: 20px; }
+  .ab-hero h1 { font-size: 1.9rem; }
+  .ab-card { padding: 1.5rem; border-radius: 16px; }
+  .ab-card h2 { font-size: 1.1rem; }
 }
 </style>
 
-<div class="intro-section">
-  <p>
-    Ich bin Maximilian Vöcklinghaus, Dozent am Studienkolleg der Rahn Education in Leipzig. Dort begleite ich internationale Studierende auf ihrem Weg ins deutsche Hochschulstudium und unterrichte Mathematik, Informatik und Volkswirtschaftslehre.
-  </p>
+<!-- AMBIENT -->
+<div class="ab-ambient">
+  <div class="ab-ambient-orb"></div>
+  <div class="ab-ambient-orb"></div>
+  <div class="ab-ambient-orb"></div>
 </div>
 
-<div class="content-grid">
-  <div class="content-card education">
-    <div class="card-header">
-      <h2>Ausbildung</h2>
-    </div>
-    <div class="card-content">
-      <div class="education-item">
-        <strong>Bachelor in Mathematik</strong>
-        <span>Heinrich-Heine-Universität Düsseldorf</span>
-      </div>
-      <div class="education-item">
-        <strong>Data Science Master</strong>
-        <span>RWTH Aachen</span>
-      </div>
-    </div>
+<div class="ab-content">
+
+  <!-- HERO -->
+  <div class="ab-hero">
+    <div class="ab-hero-eyebrow">Über mich</div>
+    <h1>Maximilian Vöcklinghaus</h1>
+    <p class="ab-hero-text">Dozent am Studienkolleg der Rahn Education in Leipzig. Ich begleite internationale Studierende auf ihrem Weg ins deutsche Hochschulstudium und unterrichte Mathematik, Informatik und Volkswirtschaftslehre.</p>
   </div>
 
-  <div class="content-card focus">
-    <div class="card-header">
-      <h2>Schwerpunkte</h2>
+  <!-- CARDS -->
+  <div class="ab-grid">
+
+    <div class="ab-card ab-card--edu">
+      <div class="ab-card-head">
+        <div class="ab-card-badge">🎓</div>
+        <h2>Ausbildung</h2>
+      </div>
+      <div class="ab-edu-item">
+        <span class="ab-edu-title">Bachelor in Mathematik</span>
+        <span class="ab-edu-place">Heinrich-Heine-Universität Düsseldorf</span>
+      </div>
+      <div class="ab-edu-item">
+        <span class="ab-edu-title">Data Science Master</span>
+        <span class="ab-edu-place">RWTH Aachen</span>
+      </div>
     </div>
-    <div class="card-content">
-      <ul class="focus-list">
+
+    <div class="ab-card ab-card--focus">
+      <div class="ab-card-head">
+        <div class="ab-card-badge">◎</div>
+        <h2>Schwerpunkte</h2>
+      </div>
+      <ul class="ab-list">
         <li><strong>Mathematik & Data Science:</strong> Von Analysis und linearer Algebra bis zu praktischer Datenanalyse</li>
         <li><strong>Wirtschaftswissenschaften:</strong> Volkswirtschaftslehre, Marktanalysen, kritische Wirtschaftstheorie</li>
         <li><strong>Didaktik & Bildung:</strong> Entwicklung interaktiver Lernmaterialien und digitaler Bildungsressourcen</li>
       </ul>
     </div>
-  </div>
 
-  <div class="content-card interests">
-    <div class="card-header">
-      <h2>Interessen</h2>
-    </div>
-    <div class="card-content">
-      <ul class="interest-list">
+    <div class="ab-card ab-card--interests">
+      <div class="ab-card-head">
+        <div class="ab-card-badge">✦</div>
+        <h2>Interessen</h2>
+      </div>
+      <ul class="ab-list">
         <li>Kritische Theorie und Kulturanalyse</li>
         <li>Wirtschaftsphilosophie</li>
         <li>Schnittstelle zwischen quantitativen Methoden und gesellschaftlicher Analyse</li>
       </ul>
     </div>
+
   </div>
+
 </div>

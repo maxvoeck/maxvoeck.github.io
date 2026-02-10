@@ -5,552 +5,385 @@ permalink: /teaching/
 ---
 
 <style>
-/* Japandi Design mit Apple-Style Rounded Corners */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
 
-body {
-  background: linear-gradient(135deg, #f7f5f2 0%, #f0ede8 25%, #e8e5e0 50%, #f0ede8 75%, #f7f5f2 100%);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
-  line-height: 1.7;
-  color: #3d3d3d;
-  min-height: 100vh;
-  background-attachment: fixed;
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: rgba(255,255,255,0.06);
+  --bg-card-hover: rgba(255,255,255,0.09);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.14);
+  --text-primary: rgba(255,255,255,0.92);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.32);
+  --accent-1: #6366f1;
+  --accent-2: #8b5cf6;
+  --accent-3: #a78bfa;
+  --math: #ec4899;
+  --math-soft: rgba(236, 72, 153, 0.12);
+  --econ: #f59e0b;
+  --econ-soft: rgba(245, 158, 11, 0.12);
+  --cs: #3b82f6;
+  --cs-soft: rgba(59, 130, 246, 0.12);
 }
 
-.intro-text {
-  font-size: 0.95rem;
-  color: #6b6b6b;
-  font-weight: 400;
-  margin-bottom: 3.5rem;
-  padding: 2rem 2.5rem;
-  background: #ffffff;
-  border-radius: 18px;
-  border-left: 3px solid #8b9e9f;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  letter-spacing: 0.02em;
-  line-height: 1.8;
+body, html, .page-content, .wrapper, main, .post-content {
+  background: var(--bg-deep) !important;
+  color: var(--text-primary);
+}
+.post-header, .page-heading, header.post-header { display: none !important; }
+a { color: var(--text-secondary); }
+a:hover { color: var(--text-primary); text-decoration: none; }
+
+/* ═══ AMBIENT ═══ */
+.te-ambient {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0; overflow: hidden; pointer-events: none;
+}
+.te-ambient-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(120px); opacity: 0.4;
+  animation: te-drift 20s ease-in-out infinite;
+}
+.te-ambient-orb:nth-child(1) {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.18) 0%, transparent 70%);
+  top: -10%; left: -8%;
+}
+.te-ambient-orb:nth-child(2) {
+  width: 450px; height: 450px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, transparent 70%);
+  top: 50%; right: -10%;
+  animation-delay: -8s; animation-duration: 24s;
+}
+.te-ambient-orb:nth-child(3) {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.14) 0%, transparent 70%);
+  bottom: -8%; left: 30%;
+  animation-delay: -14s; animation-duration: 22s;
+}
+@keyframes te-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(25px, -18px) scale(1.04); }
+  50% { transform: translate(-18px, 25px) scale(0.96); }
+  75% { transform: translate(12px, 12px) scale(1.02); }
+}
+.te-ambient::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4; pointer-events: none;
 }
 
-.sections {
+/* ═══ CONTENT ═══ */
+.te-content {
+  position: relative; z-index: 1;
+  max-width: 780px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+/* ═══ HERO ═══ */
+.te-hero {
+  background: var(--bg-card);
+  backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem 2.25rem 2rem;
+  margin-bottom: 3rem;
+  position: relative; overflow: hidden;
+}
+.te-hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+}
+.te-hero-eyebrow {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent-3); margin-bottom: 0.75rem;
+}
+.te-hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem; font-weight: 600;
+  letter-spacing: -0.03em; line-height: 1.1;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.te-hero-sub {
+  font-size: 0.92rem; color: var(--text-secondary);
+  font-weight: 300; line-height: 1.8;
+}
+
+/* ═══ CARDS GRID ═══ */
+.te-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin: 2.5rem 0;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
-.section-card {
-  background: #ffffff;
-  border: 1px solid #e8e5e0;
+.te-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 0;
+  padding: 2rem 2rem 1.75rem;
   transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  position: relative; overflow: hidden;
+  text-decoration: none !important;
+  display: block;
+}
+.te-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.te-card:hover {
+  background: var(--bg-card-hover); border-color: var(--border-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  text-decoration: none !important;
+}
+.te-card:hover::before { opacity: 1; }
+
+/* Card accent border */
+.te-card--math { border-left: 2px solid var(--math); }
+.te-card--econ { border-left: 2px solid var(--econ); }
+.te-card--cs { border-left: 2px solid var(--cs); }
+
+.te-card--math:hover { box-shadow: 0 12px 40px rgba(236,72,153,0.08); }
+.te-card--econ:hover { box-shadow: 0 12px 40px rgba(245,158,11,0.08); }
+.te-card--cs:hover { box-shadow: 0 12px 40px rgba(59,130,246,0.08); }
+
+/* Card header */
+.te-card-head {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-/* Dezente, natürliche Farbpalette */
-.section-card.math {
-  border-top: 2px solid #b8a89a;
+.te-card-icon {
+  width: 44px; height: 44px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.3s ease;
 }
+.te-card--math .te-card-icon { background: var(--math-soft); border: 1px solid rgba(236,72,153,0.2); }
+.te-card--econ .te-card-icon { background: var(--econ-soft); border: 1px solid rgba(245,158,11,0.2); }
+.te-card--cs .te-card-icon { background: var(--cs-soft); border: 1px solid rgba(59,130,246,0.2); }
 
-.section-card.econ {
-  border-top: 2px solid #c9a690;
+.te-card-icon svg {
+  width: 22px; height: 22px; transition: all 0.3s ease;
 }
+.te-card--math .te-card-icon svg { fill: var(--math); }
+.te-card--econ .te-card-icon svg { fill: var(--econ); }
+.te-card--cs .te-card-icon svg { fill: var(--cs); }
 
-.section-card.cs {
-  border-top: 2px solid #8b9e9f;
-}
+.te-card:hover .te-card-icon { transform: scale(1.08); }
 
-/* Minimalistischer Akzent */
-.section-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 60px;
-  opacity: 0.15;
-  transition: all 0.4s ease;
-}
+.te-card-title-wrap { flex: 1; }
 
-.section-card.math::before {
-  background: linear-gradient(to bottom, #b8a89a, transparent);
-}
-
-.section-card.econ::before {
-  background: linear-gradient(to bottom, #c9a690, transparent);
-}
-
-.section-card.cs::before {
-  background: linear-gradient(to bottom, #8b9e9f, transparent);
-}
-
-/* Dezenter Cover-Effekt */
-.section-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 0;
-}
-
-.section-card.math::after {
-  background: linear-gradient(180deg, rgba(184, 168, 154, 0.04) 0%, rgba(184, 168, 154, 0.02) 100%);
-}
-
-.section-card.econ::after {
-  background: linear-gradient(180deg, rgba(201, 166, 144, 0.04) 0%, rgba(201, 166, 144, 0.02) 100%);
-}
-
-.section-card.cs::after {
-  background: linear-gradient(180deg, rgba(139, 158, 159, 0.04) 0%, rgba(139, 158, 159, 0.02) 100%);
-}
-
-.section-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  border-color: #d5d0ca;
-}
-
-.section-card:hover::after {
-  opacity: 1;
-}
-
-.section-card:hover::before {
-  height: 100%;
-  width: 3px;
-  opacity: 0.4;
-}
-
-.card-header {
-  padding: 2rem 2rem 1.5rem 2rem;
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-}
-
-.icon-wrapper {
-  width: 48px;
-  height: 48px;
-  background: transparent;
-  border: 1px solid #e8e5e0;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 3;
-}
-
-.section-card.math:hover .icon-wrapper {
-  background: #b8a89a;
-  border-color: #b8a89a;
-}
-
-.section-card.econ:hover .icon-wrapper {
-  background: #c9a690;
-  border-color: #c9a690;
-}
-
-.section-card.cs:hover .icon-wrapper {
-  background: #8b9e9f;
-  border-color: #8b9e9f;
-}
-
-.icon-wrapper svg {
-  width: 24px;
-  height: 24px;
-  fill: #6b6b6b;
-  transition: fill 0.3s ease;
-}
-
-.section-card:hover .icon-wrapper svg {
-  fill: #ffffff;
-}
-
-.card-title-wrapper {
-  flex-grow: 1;
-}
-
-.section-card h2 {
-  margin: 0;
-  color: #3d3d3d;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  line-height: 1.4;
+.te-card h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.25rem; font-weight: 500;
+  letter-spacing: -0.01em; margin: 0;
+  color: var(--text-primary) !important;
   transition: color 0.3s ease;
 }
+.te-card--math:hover h2 { color: var(--math) !important; }
+.te-card--econ:hover h2 { color: var(--econ) !important; }
+.te-card--cs:hover h2 { color: var(--cs) !important; }
 
-.section-card.math:hover h2 {
-  color: #b8a89a;
+.te-card-count {
+  font-size: 0.72rem; color: var(--text-muted);
+  font-weight: 400; margin-top: 0.15rem;
 }
 
-.section-card.econ:hover h2 {
-  color: #c9a690;
+/* Card body */
+.te-card-desc {
+  font-size: 0.85rem; color: var(--text-secondary);
+  font-weight: 300; line-height: 1.7;
+  margin-bottom: 1.25rem;
 }
 
-.section-card.cs:hover h2 {
-  color: #8b9e9f;
-}
+/* Tags */
+.te-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
 
-.card-content {
-  padding: 0 2rem 2rem 2rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 2;
+.te-tag {
+  padding: 0.3rem 0.75rem; border-radius: 8px;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.03em; transition: all 0.3s ease;
+  border: 1px solid var(--border);
+  color: var(--text-muted); background: transparent;
 }
+.te-card--math .te-tag { color: rgba(236,72,153,0.7); border-color: rgba(236,72,153,0.15); }
+.te-card--econ .te-tag { color: rgba(245,158,11,0.7); border-color: rgba(245,158,11,0.15); }
+.te-card--cs .te-tag { color: rgba(59,130,246,0.7); border-color: rgba(59,130,246,0.15); }
 
-.section-card p {
-  color: #6b6b6b;
-  line-height: 1.8;
-  margin: 0 0 1.5rem 0;
-  font-size: 0.88rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+.te-card:hover .te-tag { border-color: var(--border-hover); }
+.te-card--math:hover .te-tag { background: var(--math-soft); border-color: rgba(236,72,153,0.25); color: var(--math); }
+.te-card--econ:hover .te-tag { background: var(--econ-soft); border-color: rgba(245,158,11,0.25); color: var(--econ); }
+.te-card--cs:hover .te-tag { background: var(--cs-soft); border-color: rgba(59,130,246,0.25); color: var(--cs); }
+
+/* Card actions */
+.te-card-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.te-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.6rem 1.15rem; border-radius: 10px;
+  font-size: 0.78rem; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  text-decoration: none !important;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-secondary) !important;
+  transition: all 0.25s ease;
 }
-
-.topics-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
+.te-btn:hover {
+  transform: translateY(-1px); border-color: var(--border-hover);
+  background: rgba(255,255,255,0.08);
+  color: var(--text-primary) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
+.te-card--math .te-btn:first-child:hover { border-color: rgba(236,72,153,0.4); box-shadow: 0 4px 16px rgba(236,72,153,0.1); }
+.te-card--econ .te-btn:first-child:hover { border-color: rgba(245,158,11,0.4); box-shadow: 0 4px 16px rgba(245,158,11,0.1); }
+.te-card--cs .te-btn:first-child:hover { border-color: rgba(59,130,246,0.4); box-shadow: 0 4px 16px rgba(59,130,246,0.1); }
 
-.tag {
-  background: #fafaf9;
-  color: #6b6b6b;
-  padding: 0.35rem 0.85rem;
-  border: 1px solid #e8e5e0;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  transition: all 0.3s ease;
-}
+.te-btn--secondary:hover { border-color: var(--border-hover); }
 
-.section-card.math:hover .tag {
-  border-color: #b8a89a;
-  background: rgba(184, 168, 154, 0.08);
-  color: #7d7169;
-}
-
-.section-card.econ:hover .tag {
-  border-color: #c9a690;
-  background: rgba(201, 166, 144, 0.08);
-  color: #8d7a6a;
-}
-
-.section-card.cs:hover .tag {
-  border-color: #8b9e9f;
-  background: rgba(139, 158, 159, 0.08);
-  color: #5d6f70;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.9rem 1.5rem;
-  background: #fafaf9;
-  color: #5a5a5a !important;
-  text-decoration: none;
-  border: 1px solid #e8e5e0;
-  border-radius: 12px;
+/* Arrow on hover */
+.te-btn-arrow {
+  opacity: 0; transform: translateX(-4px);
+  transition: all 0.25s ease;
   font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+}
+.te-btn:hover .te-btn-arrow {
+  opacity: 1; transform: translateX(0);
 }
 
-.button-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-top: auto;
+/* ═══ FOOTER NOTE ═══ */
+.te-footer {
+  text-align: center; color: var(--text-muted);
+  margin-top: 2rem; padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.82rem; font-weight: 300;
+  letter-spacing: 0.01em; line-height: 1.7;
 }
 
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+/* ═══ ANIMATIONS ═══ */
+@keyframes te-fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+.te-hero { animation: te-fadeUp 0.6s ease both; }
+.te-card { animation: te-fadeUp 0.5s ease both; }
+.te-card:nth-child(1) { animation-delay: 0.1s; }
+.te-card:nth-child(2) { animation-delay: 0.2s; }
+.te-card:nth-child(3) { animation-delay: 0.3s; }
 
-.section-card.math .btn::before {
-  background: linear-gradient(180deg, #b8a89a 0%, #cbbfb3 100%);
-}
-
-.section-card.econ .btn::before {
-  background: linear-gradient(180deg, #c9a690 0%, #dbc0af 100%);
-}
-
-.section-card.cs .btn::before {
-  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  border-color: transparent;
-  color: #ffffff !important;
-}
-
-.btn:hover::before {
-  opacity: 1;
-}
-
-.btn span {
-  position: relative;
-  z-index: 2;
-}
-
-.btn-secondary {
-  background: #ffffff;
-  border-color: #e0ddd8;
-}
-
-.btn-secondary::before {
-  background: linear-gradient(180deg, #6b6b6b 0%, #8a8a8a 100%);
-}
-
-.page-header {
-  background: #ffffff;
-  color: #3d3d3d;
-  padding: 3.5rem 2.5rem;
-  margin: -2rem -2rem 4rem -2rem;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid #e8e5e0;
-  border-radius: 0 0 32px 32px;
-}
-
-/* Zen-inspirierte Dekoration */
-.page-header::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 60px;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(139, 158, 159, 0.06) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
-
-.page-header::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 180px;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(184, 168, 154, 0.04) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
-
-.page-header h1 {
-  margin: 0;
-  font-size: 2.2rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  position: relative;
-  z-index: 1;
-  color: #3d3d3d;
-}
-
-.footer-note {
-  text-align: center;
-  color: #8a8a8a;
-  margin-top: 4rem;
-  padding-top: 2.5rem;
-  border-top: 1px solid #e8e5e0;
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 1.7;
-}
-
-/* Wabi-Sabi Textur-Effekt */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 15% 25%, rgba(184, 168, 154, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 85% 75%, rgba(139, 158, 159, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(201, 184, 150, 0.02) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.8;
-}
-
+/* ═══ RESPONSIVE ═══ */
 @media (max-width: 768px) {
-  .sections {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .page-header {
-    margin: -1rem -1rem 2.5rem -1rem;
-    padding: 2.5rem 1.75rem;
-    border-radius: 0 0 24px 24px;
-  }
-
-  .page-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .page-header::before,
-  .page-header::after {
-    display: none;
-  }
-
-  .intro-text {
-    font-size: 0.9rem;
-    padding: 1.5rem 1.75rem;
-    margin-bottom: 2.5rem;
-    border-radius: 16px;
-  }
-
-  .card-header {
-    padding: 1.75rem 1.5rem 1.25rem 1.5rem;
-  }
-
-  .card-content {
-    padding: 0 1.5rem 1.75rem 1.5rem;
-  }
-
-  .icon-wrapper {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-  }
-
-  .icon-wrapper svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .section-card h2 {
-    font-size: 1.05rem;
-  }
-  
-  .section-card {
-    border-radius: 16px;
-  }
-  
-  .section-card::after {
-    border-radius: 16px;
-  }
-  
-  .btn {
-    border-radius: 10px;
-  }
+  .te-content { padding: 1.5rem 1rem 4rem; }
+  .te-hero { padding: 2rem 1.5rem 1.5rem; border-radius: 20px; }
+  .te-hero h1 { font-size: 1.9rem; }
+  .te-card { padding: 1.5rem 1.5rem 1.5rem; border-radius: 16px; }
+  .te-card h2 { font-size: 1.1rem; }
+  .te-card-actions { flex-direction: column; }
+  .te-btn { justify-content: center; }
 }
 </style>
 
-<p class="intro-text">
-  Ausgewählte Materialien aus meiner Lehrtätigkeit am Studienkolleg Leipzig. 
-  Alle Unterlagen sind speziell auf die Anforderungen der Feststellungsprüfung (FSP) abgestimmt.
-</p>
+<!-- AMBIENT -->
+<div class="te-ambient">
+  <div class="te-ambient-orb"></div>
+  <div class="te-ambient-orb"></div>
+  <div class="te-ambient-orb"></div>
+</div>
 
-<div class="sections">
-  <div class="section-card math">
-    <div class="card-header">
-      <div class="icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 4H8.5L14 12L8.5 20H18V18H11.5L16 12L11.5 6H18V4Z"/>
-        </svg>
-      </div>
-      <div class="card-title-wrapper">
-        <h2>Mathematik</h2>
-      </div>
-    </div>
-    <div class="card-content">
-      <p>Fundierte Vorbereitung auf Analysis und Lineare Algebra für technische Studiengänge</p>
-      <div class="topics-preview">
-        <span class="tag">Integralrechnung</span>
-        <span class="tag">Vektorräume</span>
-        <span class="tag">Differentialrechnung</span>
-      </div>
-      <div class="button-group">
-        <a href="/teaching/mathematik/" class="btn"><span>Folien & Quizze</span></a>
-        <a href="/assets/pdfs/Mathematik_Skript.pdf" class="btn btn-secondary"><span>Skript PDF</span></a>
-      </div>
-    </div>
+<div class="te-content">
+
+  <!-- HERO -->
+  <div class="te-hero">
+    <div class="te-hero-eyebrow">Studienkolleg Leipzig</div>
+    <h1>Lehrmaterialien</h1>
+    <p class="te-hero-sub">Ausgewählte Materialien aus meiner Lehrtätigkeit. Alle Unterlagen sind speziell auf die Anforderungen der Feststellungsprüfung (FSP) abgestimmt.</p>
   </div>
 
-  <div class="section-card econ">
-    <div class="card-header">
-      <div class="icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 14L5 12L9 16L14 11L16 13L21 8V18C21 19.1 20.1 20 19 20H5C3.9 20 3 19.1 3 18V14ZM21 5V7L16 12L14 10L9 15L5 11L3 13V5C3 3.9 3.9 3 5 3H19C20.1 3 21 3.9 21 5Z"/>
-        </svg>
+  <!-- CARDS -->
+  <div class="te-grid">
+
+    <!-- MATHEMATIK -->
+    <div class="te-card te-card--math">
+      <div class="te-card-head">
+        <div class="te-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M18 4H8.5L14 12L8.5 20H18V18H11.5L16 12L11.5 6H18V4Z"/></svg>
+        </div>
+        <div class="te-card-title-wrap">
+          <h2>Mathematik</h2>
+          <div class="te-card-count">28 Module · 3 interaktive Tools</div>
+        </div>
       </div>
-      <div class="card-title-wrapper">
-        <h2>Volkswirtschaftslehre</h2>
+      <p class="te-card-desc">Fundierte Vorbereitung auf Analysis und Lineare Algebra für technische Studiengänge – von Vektorrechnung bis Rotationsvolumen</p>
+      <div class="te-tags">
+        <span class="te-tag">Vektorrechnung</span>
+        <span class="te-tag">Lineare Algebra</span>
+        <span class="te-tag">Differentialrechnung</span>
+        <span class="te-tag">Integralrechnung</span>
+      </div>
+      <div class="te-card-actions">
+        <a href="/teaching/mathematik/" class="te-btn" onclick="event.stopPropagation()"><span>Lernpfad öffnen</span><span class="te-btn-arrow">→</span></a>
+        <a href="/assets/pdfs/Mathematik_Skript.pdf" class="te-btn te-btn--secondary" onclick="event.stopPropagation()"><span>📄 Gesamtskript</span></a>
       </div>
     </div>
-    <div class="card-content">
-      <p>Makro- und Mikroökonomie mit praxisnahen Beispielen und aktuellen Bezügen</p>
-      <div class="topics-preview">
-        <span class="tag">Marktgleichgewicht</span>
-        <span class="tag">Preiselastizität</span>
-        <span class="tag">Wirtschaftskreislauf</span>
+
+    <!-- VWL -->
+    <div class="te-card te-card--econ">
+      <div class="te-card-head">
+        <div class="te-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 14L5 12L9 16L14 11L16 13L21 8V18C21 19.1 20.1 20 19 20H5C3.9 20 3 19.1 3 18V14ZM21 5V7L16 12L14 10L9 15L5 11L3 13V5C3 3.9 3.9 3 5 3H19C20.1 3 21 3.9 21 5Z"/></svg>
+        </div>
+        <div class="te-card-title-wrap">
+          <h2>Volkswirtschaftslehre</h2>
+          <div class="te-card-count">13 Module · Mikro & Makro</div>
+        </div>
       </div>
-      <div class="button-group">
-        <a href="/teaching/vwl/" class="btn"><span>Folien & Quizze</span></a>
+      <p class="te-card-desc">Makro- und Mikroökonomie mit praxisnahen Beispielen – von Bedürfnissen bis zur Arbeitsmarktpolitik</p>
+      <div class="te-tags">
+        <span class="te-tag">Marktgleichgewicht</span>
+        <span class="te-tag">Konsumentenrente</span>
+        <span class="te-tag">BIP & Konjunktur</span>
+        <span class="te-tag">Wirtschaftspolitik</span>
+      </div>
+      <div class="te-card-actions">
+        <a href="/teaching/vwl/" class="te-btn" onclick="event.stopPropagation()"><span>Lernpfad öffnen</span><span class="te-btn-arrow">→</span></a>
       </div>
     </div>
+
+    <!-- INFORMATIK -->
+    <div class="te-card te-card--cs">
+      <div class="te-card-head">
+        <div class="te-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M8 3L4 7L8 11L9.4 9.6L6.8 7L9.4 4.4L8 3ZM16 3L14.6 4.4L17.2 7L14.6 9.6L16 11L20 7L16 3ZM10 13L12 21L14 20L12 12L10 13Z"/></svg>
+        </div>
+        <div class="te-card-title-wrap">
+          <h2>Informatik</h2>
+          <div class="te-card-count">5 Module · Python</div>
+        </div>
+      </div>
+      <p class="te-card-desc">Grundlagen der Programmierung und algorithmisches Denken – von print() bis zu eigenen Funktionen</p>
+      <div class="te-tags">
+        <span class="te-tag">Python</span>
+        <span class="te-tag">Kontrollstrukturen</span>
+        <span class="te-tag">Listen</span>
+        <span class="te-tag">Funktionen</span>
+      </div>
+      <div class="te-card-actions">
+        <a href="/teaching/informatik/" class="te-btn" onclick="event.stopPropagation()"><span>Lernpfad öffnen</span><span class="te-btn-arrow">→</span></a>
+      </div>
+    </div>
+
   </div>
 
-  <div class="section-card cs">
-    <div class="card-header">
-      <div class="icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 3L4 7L8 11L9.4 9.6L6.8 7L9.4 4.4L8 3ZM16 3L14.6 4.4L17.2 7L14.6 9.6L16 11L20 7L16 3ZM10 13L12 21L14 20L12 12L10 13Z"/>
-        </svg>
-      </div>
-      <div class="card-title-wrapper">
-        <h2>Informatik</h2>
-      </div>
-    </div>
-    <div class="card-content">
-      <p>Grundlagen der Programmierung und algorithmisches Denken für Einsteiger</p>
-      <div class="topics-preview">
-        <span class="tag">Python</span>
-        <span class="tag">Algorithmen</span>
-        <span class="tag">Datenstrukturen</span>
-      </div>
-      <div class="button-group">
-        <a href="/teaching/informatik/" class="btn"><span>Folien & Quizze</span></a>
-      </div>
-    </div>
+  <div class="te-footer">
+    Alle Materialien frei verwendbar für Bildungszwecke
   </div>
+
 </div>
