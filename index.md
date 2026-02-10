@@ -335,7 +335,7 @@ body, html, .page-content, .wrapper, main {
 
   <!-- Hero -->
   <div class="ma-hero">
-    <h1>Maks Voecks</h1>
+    <h1></h1>
     <p class="ma-hero-subtitle">Mathematik, Wirtschaft & Datenanalyse</p>
   </div>
 
