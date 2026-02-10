@@ -5,330 +5,784 @@ permalink: /teaching/informatik/
 ---
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
+/* ═══════════════════════════════════════════════════════════════
+   APPLE DESIGN SYSTEM – Informatik für Studienkolleg
+   ═══════════════════════════════════════════════════════════════ */
 
+/* ─── Design Tokens ─── */
 :root {
-  --bg-deep: #0a0a0f;
-  --bg-card: rgba(18, 18, 28, 0.85);
-  --bg-card-hover: rgba(24, 24, 38, 0.9);
-  --border: rgba(255,255,255,0.08);
-  --border-hover: rgba(255,255,255,0.14);
-  --text-primary: rgba(255,255,255,0.92);
-  --text-secondary: rgba(255,255,255,0.55);
-  --text-muted: rgba(255,255,255,0.32);
-  --accent-1: #6366f1;
-  --accent-2: #8b5cf6;
-  --accent-3: #a78bfa;
-  --python: #3b82f6;
-  --python-soft: rgba(59, 130, 246, 0.12);
-  --success: #34d399;
-  --success-soft: rgba(52, 211, 153, 0.12);
-  --radius: 16px;
+  /* iOS/macOS Farbsystem */
+  --system-blue: #007AFF;
+  --system-green: #34C759;
+  --system-indigo: #5856D6;
+  --system-orange: #FF9500;
+  --system-pink: #FF2D55;
+  --system-purple: #AF52DE;
+  --system-red: #FF3B30;
+  --system-teal: #5AC8FA;
+  --system-yellow: #FFCC00;
+  
+  /* Semantische Farben */
+  --python: #007AFF;
+  
+  /* Neutrale Palette */
+  --gray-1: #F5F5F7;
+  --gray-2: #E5E5EA;
+  --gray-3: #D1D1D6;
+  --gray-4: #C7C7CC;
+  --gray-5: #AEAEB2;
+  --gray-6: #8E8E93;
+  --gray-7: #636366;
+  --gray-8: #48484A;
+  --gray-9: #3A3A3C;
+  --gray-10: #2C2C2E;
+  --gray-11: #1C1C1E;
+  --gray-12: #000000;
+  
+  /* Dynamische Farben (Light/Dark Mode) */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F7;
+  --bg-tertiary: #FFFFFF;
+  --text-primary: #000000;
+  --text-secondary: #3A3A3C;
+  --text-tertiary: #8E8E93;
+  --separator: rgba(0, 0, 0, 0.08);
+  --separator-strong: rgba(0, 0, 0, 0.16);
+  
+  /* Typografie */
+  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+  
+  /* Abstände (8-Punkt-Grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  
+  /* Radien */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Schatten */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+  --shadow-xl: 0 24px 48px rgba(0,0,0,0.16);
+  
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #1C1C1E;
+    --bg-tertiary: #2C2C2E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #EBEBF5;
+    --text-tertiary: #8E8E93;
+    --separator: rgba(255, 255, 255, 0.12);
+    --separator-strong: rgba(255, 255, 255, 0.24);
+    
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.24);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.32);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.48);
+    --shadow-xl: 0 24px 48px rgba(0,0,0,0.64);
+  }
+}
+
+/* ─── Reset & Base ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body, html, .page-content, .wrapper, main, .post-content {
-  background: var(--bg-deep) !important;
+  background: var(--bg-primary) !important;
+  color: var(--text-primary);
+  font-family: var(--font-stack);
+  line-height: 1.47059;
+  letter-spacing: -0.022em;
+}
+
+.post-header, .page-heading, header.post-header { 
+  display: none !important; 
+}
+
+/* ─── Container ─── */
+.ma-container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .ma-container {
+    padding: var(--space-16) var(--space-8);
+  }
+}
+
+/* ─── Hero Section ─── */
+.ma-hero {
+  text-align: center;
+  margin-bottom: var(--space-16);
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ma-hero-eyebrow {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--system-indigo);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.ma-hero-eyebrow::before,
+.ma-hero-eyebrow::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--separator-strong);
+}
+
+.ma-hero h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.003em;
+  line-height: 1.08349;
+  margin-bottom: var(--space-3);
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--gray-6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .ma-hero h1 {
+    font-size: 64px;
+  }
+}
+
+.ma-hero-subtitle {
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-8);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.381;
+}
+
+/* Progress Ring */
+.ma-progress-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ma-progress-ring {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.ma-progress-ring svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.ma-progress-ring-bg {
+  fill: none;
+  stroke: var(--separator);
+  stroke-width: 8;
+}
+
+.ma-progress-ring-fill {
+  fill: none;
+  stroke: var(--system-indigo);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 339.292;
+  stroke-dashoffset: 339.292;
+  transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ma-progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;
+  font-weight: 600;
   color: var(--text-primary);
 }
-.post-header, .page-heading, header.post-header { display: none !important; }
-a { color: var(--text-secondary); }
-a:hover { color: var(--text-primary); }
 
-/* ═══ AMBIENT – reduced blur, will-change ═══ */
-.inf-ambient {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 0; overflow: hidden; pointer-events: none;
-}
-.inf-ambient-orb {
-  position: absolute; border-radius: 50%;
-  filter: blur(80px); opacity: 0.35;
-  will-change: transform;
-  animation: inf-drift 25s ease-in-out infinite;
-}
-.inf-ambient-orb:nth-child(1) {
-  width: 450px; height: 450px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.18) 0%, transparent 70%);
-  top: -10%; left: -6%;
-}
-.inf-ambient-orb:nth-child(2) {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, transparent 70%);
-  top: 40%; right: -10%;
-  animation-delay: -10s;
-}
-.inf-ambient-orb:nth-child(3) {
-  width: 350px; height: 350px;
-  background: radial-gradient(circle, rgba(52, 211, 153, 0.08) 0%, transparent 70%);
-  bottom: -5%; left: 25%;
-  animation-delay: -18s;
-}
-@keyframes inf-drift {
-  0%, 100% { transform: translate(0, 0); }
-  33% { transform: translate(20px, -15px); }
-  66% { transform: translate(-15px, 20px); }
-}
-.inf-ambient::after {
-  content: ''; position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  opacity: 0.4; pointer-events: none;
-}
-@media (max-width: 768px) {
-  .inf-ambient-orb { animation: none !important; filter: blur(60px); opacity: 0.25; }
+.ma-progress-label {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  font-weight: 500;
 }
 
-/* ═══ CONTENT ═══ */
-.inf-content {
-  position: relative; z-index: 1;
-  max-width: 780px; margin: 0 auto;
-  padding: 2rem 1.5rem 5rem;
-  font-family: 'Inter', -apple-system, sans-serif;
+/* ─── Section Styling ─── */
+.ma-section {
+  margin-bottom: var(--space-16);
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
-/* ═══ HERO – only element with real blur ═══ */
-.inf-hero {
-  background: rgba(18, 18, 28, 0.7);
-  backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-  border: 1px solid var(--border); border-radius: 24px;
-  padding: 2.5rem 2.25rem 2rem; margin-bottom: 3rem;
-  position: relative; overflow: hidden;
-}
-.inf-hero::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-}
-.inf-hero-eyebrow {
-  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--accent-3); margin-bottom: 0.75rem;
-}
-.inf-hero h1 {
-  font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 600;
-  letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 0.4rem;
-  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.inf-hero-sub { font-size: 0.92rem; color: var(--text-secondary); font-weight: 300; margin-bottom: 2rem; }
-.inf-progress-track { background: rgba(255,255,255,0.06); border-radius: 100px; height: 4px; overflow: hidden; margin-bottom: 0.75rem; }
-.inf-progress-fill {
-  height: 100%; border-radius: 100px;
-  background: linear-gradient(90deg, var(--python), var(--accent-2), var(--accent-3));
-  width: 0%; transition: width 0.6s ease;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.25);
-}
-.inf-progress-meta { display: flex; justify-content: space-between; }
-.inf-progress-meta span { font-size: 0.75rem; color: var(--text-muted); font-weight: 400; }
-.inf-progress-meta .inf-pct { color: var(--accent-3); font-weight: 500; }
+.ma-section:nth-child(2) { animation-delay: 0.1s; }
 
-/* ═══ SECTION ═══ */
-.inf-section { margin-bottom: 3rem; }
-.inf-section-head { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.4rem; padding: 0 0.25rem; }
-.inf-section-badge {
-  width: 36px; height: 36px; border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-  background: var(--python-soft); color: var(--python); border: 1px solid rgba(59,130,246,0.2);
-}
-.inf-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 500; letter-spacing: -0.01em; color: var(--text-primary); margin: 0; }
-.inf-section-meta { font-size: 0.78rem; color: var(--text-muted); padding-left: calc(36px + 0.85rem + 0.25rem); margin-bottom: 1.5rem; }
-
-/* ═══ TIMELINE ═══ */
-.inf-path { position: relative; padding-left: 2.5rem; }
-.inf-path::before {
-  content: ''; position: absolute; left: 17px; top: 20px; bottom: 20px; width: 1px;
-  background: linear-gradient(180deg, var(--border) 0%, rgba(255,255,255,0.03) 100%);
-}
-.inf-module { position: relative; margin-bottom: 0.75rem; }
-.inf-module-dot {
-  position: absolute; left: -2.5rem; top: 50%; transform: translateY(-50%);
-  width: 11px; height: 11px; border-radius: 50%;
-  background: var(--bg-deep); border: 2px solid var(--border); z-index: 2;
-  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.inf-module.is-complete .inf-module-dot {
-  background: var(--success); border-color: var(--success);
-  box-shadow: 0 0 8px rgba(52,211,153,0.3);
+.ma-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  padding: 0 var(--space-2);
 }
 
-/* ═══ CARD – fake glass, NO backdrop-filter ═══ */
-.inf-card {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); padding: 1.35rem 1.5rem;
-  position: relative; overflow: hidden;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+.ma-section-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  background: var(--bg-secondary);
+  transition: transform var(--transition-spring);
 }
-.inf-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-  opacity: 0; transition: opacity 0.15s ease;
-}
-.inf-card:hover {
-  background: var(--bg-card-hover); border-color: var(--border-hover);
-  transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-}
-.inf-card:hover::before { opacity: 1; }
-.inf-module.is-complete .inf-card { border-left: 2px solid var(--success); }
 
-.inf-card-top { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.3rem; }
-.inf-step-num {
-  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; padding: 0.15rem 0.55rem; border-radius: 6px; flex-shrink: 0;
-  color: var(--python); background: var(--python-soft);
+.ma-section:hover .ma-section-icon {
+  transform: scale(1.1) rotate(-5deg);
 }
-.inf-module.is-complete .inf-step-num { color: var(--success); background: var(--success-soft); }
-.inf-card h4 { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); margin: 0; line-height: 1.45; }
-.inf-card-desc { font-size: 0.82rem; color: var(--text-secondary); font-weight: 300; line-height: 1.7; margin: 0.25rem 0 1.1rem 0; }
-.inf-card-prereq { font-size: 0.72rem; color: var(--text-muted); margin: -0.2rem 0 0.9rem 0; font-style: italic; }
-.inf-card-prereq::before { content: '↗ '; color: var(--accent-3); }
 
-/* ═══ ACTIONS – all 0.15s ═══ */
-.inf-actions { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
-.inf-btn {
-  display: inline-flex; align-items: center; gap: 0.35rem;
-  padding: 0.55rem 1rem; border-radius: 10px;
-  font-size: 0.76rem; font-weight: 500; letter-spacing: 0.04em;
-  text-transform: uppercase; text-decoration: none;
-  border: 1px solid var(--border); background: rgba(255,255,255,0.03);
-  color: var(--text-secondary) !important; cursor: pointer;
-  font-family: 'Inter', -apple-system, sans-serif;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+.ma-section--python .ma-section-icon { 
+  background: rgba(0, 122, 255, 0.12); 
+  color: var(--python);
 }
-.inf-btn:hover {
-  transform: translateY(-1px); border-color: var(--border-hover);
-  background: rgba(255,255,255,0.08); color: var(--text-primary) !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2); text-decoration: none;
-}
-.inf-btn--pdf:hover { border-color: rgba(59,130,246,0.4); box-shadow: 0 4px 12px rgba(59,130,246,0.1); }
-.inf-btn--quiz:hover { border-color: rgba(99,102,241,0.4); box-shadow: 0 4px 12px rgba(99,102,241,0.1); }
 
-.inf-check {
-  margin-left: auto; display: flex; align-items: center; gap: 0.4rem;
-  font-size: 0.72rem; color: var(--text-muted); cursor: pointer;
-  padding: 0.35rem 0.55rem; border-radius: 8px; user-select: none;
-  transition: background 0.15s ease, color 0.15s ease;
+.ma-section-title-group {
+  flex: 1;
 }
-.inf-check:hover { background: var(--success-soft); color: var(--success); }
-.inf-check-box {
-  width: 18px; height: 18px; border-radius: 6px;
-  border: 1.5px solid var(--border);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.inf-check-box svg { opacity: 0; transition: opacity 0.15s ease; width: 11px; height: 11px; }
-.inf-module.is-complete .inf-check-box { background: var(--success); border-color: var(--success); box-shadow: 0 0 8px rgba(52,211,153,0.2); }
-.inf-module.is-complete .inf-check-box svg { opacity: 1; }
-.inf-module.is-complete .inf-check { color: var(--success); }
 
-/* ═══ FOOTER – second element with blur ═══ */
-.inf-footer {
-  margin-top: 2rem; padding: 1.5rem 1.75rem;
-  background: rgba(18, 18, 28, 0.7);
-  backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-  border: 1px solid var(--border); border-radius: 20px;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+.ma-section-title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.021em;
+  line-height: 1.14286;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
 }
-.inf-footer-text { font-size: 0.8rem; color: var(--text-muted); font-weight: 300; }
-.inf-footer-text strong { color: var(--text-secondary); font-weight: 500; }
-.inf-footer-actions { display: flex; gap: 0.6rem; }
-.inf-btn-reset {
-  display: inline-flex; align-items: center; padding: 0.55rem 1rem; border-radius: 10px;
-  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.04em;
-  border: 1px solid transparent; background: transparent;
-  color: var(--text-muted) !important; cursor: pointer;
-  font-family: 'Inter', -apple-system, sans-serif;
-  transition: border-color 0.15s ease, color 0.15s ease;
-}
-.inf-btn-reset:hover { border-color: var(--border); color: var(--text-secondary) !important; }
 
-/* ═══ ANIMATIONS – all 5 staggered (small page) ═══ */
-@keyframes inf-fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+.ma-section-subtitle {
+  font-size: 15px;
+  color: var(--text-tertiary);
+  font-weight: 400;
 }
-.inf-hero { animation: inf-fadeUp 0.4s ease both; }
-.inf-section { animation: inf-fadeUp 0.35s ease both; animation-delay: 0.05s; }
-.inf-module { animation: inf-fadeUp 0.3s ease both; }
-.inf-module:nth-child(1) { animation-delay: 0.03s; }
-.inf-module:nth-child(2) { animation-delay: 0.06s; }
-.inf-module:nth-child(3) { animation-delay: 0.09s; }
-.inf-module:nth-child(4) { animation-delay: 0.12s; }
-.inf-module:nth-child(5) { animation-delay: 0.15s; }
 
-/* ═══ RESPONSIVE ═══ */
-@media (max-width: 768px) {
-  .inf-content { padding: 1.5rem 1rem 4rem; }
-  .inf-hero { padding: 2rem 1.5rem 1.5rem; border-radius: 20px; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-  .inf-hero h1 { font-size: 1.9rem; }
-  .inf-path { padding-left: 2rem; }
-  .inf-module-dot { left: -2rem; }
-  .inf-card { padding: 1.1rem 1.2rem; }
-  .inf-actions { flex-direction: column; align-items: stretch; }
-  .inf-btn { justify-content: center; }
-  .inf-check { margin-left: 0; justify-content: center; }
-  .inf-footer { flex-direction: column; text-align: center; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-  .inf-footer-actions { width: 100%; flex-direction: column; }
-  .inf-section-meta { padding-left: calc(36px + 0.85rem); }
-  .inf-card:hover { transform: none; box-shadow: none; }
+/* ─── Grid Layout ─── */
+.ma-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .ma-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+/* ─── Cards ─── */
+.ma-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  border: 2px solid transparent;
+}
+
+.ma-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.ma-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background: var(--bg-tertiary);
+}
+
+.ma-card:hover::before {
+  opacity: 1;
+}
+
+.ma-card:active {
+  transform: scale(0.98);
+  transition-duration: var(--transition-fast);
+}
+
+.ma-card-complete {
+  border-color: var(--system-green);
+  background: linear-gradient(135deg, rgba(52, 199, 89, 0.05) 0%, var(--bg-secondary) 100%);
+}
+
+.ma-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.ma-card-number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ma-section--python .ma-card-number { color: var(--python); }
+
+.ma-card h4 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.022em;
+  line-height: 1.23536;
+  margin: 0;
+}
+
+.ma-card p {
+  font-size: 14px;
+  line-height: 1.42859;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ma-card-prereq {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-style: italic;
+  margin-bottom: var(--space-4);
+  margin-top: calc(-1 * var(--space-2));
+}
+
+.ma-card-prereq::before {
+  content: '↗ ';
+  color: var(--system-indigo);
+}
+
+/* ─── Actions ─── */
+.ma-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ma-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  position: relative;
+  z-index: 2;
+}
+
+.ma-btn--primary {
+  background: var(--system-indigo);
+  color: white !important;
+}
+
+.ma-btn--primary:hover {
+  background: #0051D5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+.ma-btn--secondary {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-primary) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ma-btn--secondary {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.ma-btn--secondary:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .ma-btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.ma-btn--ghost {
+  background: transparent;
+  color: var(--text-tertiary) !important;
+  padding: var(--space-2);
+}
+
+.ma-btn--ghost:hover {
+  color: var(--system-green) !important;
+  background: rgba(52, 199, 89, 0.1);
+}
+
+/* ─── Check Button ─── */
+.ma-check {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 2px solid var(--separator-strong);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+  z-index: 2;
+  padding: 0;
+}
+
+.ma-check:hover {
+  border-color: var(--system-green);
+  background: rgba(52, 199, 89, 0.05);
+}
+
+.ma-check svg {
+  width: 16px;
+  height: 16px;
+  color: white;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all var(--transition-spring);
+  pointer-events: none;
+}
+
+.ma-card-complete .ma-check {
+  background: var(--system-green);
+  border-color: var(--system-green);
+}
+
+.ma-card-complete .ma-check svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Footer ─── */
+.ma-footer {
+  margin-top: var(--space-20);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--separator);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  align-items: center;
+  text-align: center;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+}
+
+@media (min-width: 768px) {
+  .ma-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.ma-footer-text {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.ma-footer-text strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.ma-footer-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Touch Optimizations ─── */
+@media (hover: none) {
+  .ma-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .ma-card:active {
+    transform: scale(0.98);
+    background: var(--bg-tertiary);
+  }
+}
+
+/* ─── Print Styles ─── */
+@media print {
+  .ma-btn, .ma-check { display: none; }
+  .ma-card { break-inside: avoid; }
 }
 </style>
 
-<!-- AMBIENT -->
-<div class="inf-ambient">
-  <div class="inf-ambient-orb"></div>
-  <div class="inf-ambient-orb"></div>
-  <div class="inf-ambient-orb"></div>
-</div>
+<div class="ma-container">
 
-<div class="inf-content">
-
-  <div class="inf-hero">
-    <div class="inf-hero-eyebrow">Studienkolleg Leipzig</div>
+  <!-- Hero -->
+  <div class="ma-hero">
+    <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
     <h1>Informatik</h1>
-    <p class="inf-hero-sub">5 Module · Python-Programmierung von Grund auf</p>
-    <div class="inf-progress-track"><div class="inf-progress-fill" id="infProgressBar"></div></div>
-    <div class="inf-progress-meta">
-      <span><span id="infCompletedCount">0</span> von <span id="infTotalCount">5</span> Modulen</span>
-      <span class="inf-pct" id="infProgressPercent">0 %</span>
+    <p class="ma-hero-subtitle">5 Module · Python-Programmierung von Grund auf</p>
+    
+    <div class="ma-progress-container">
+      <div class="ma-progress-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="ma-progress-ring-bg" cx="60" cy="60" r="54"/>
+          <circle class="ma-progress-ring-fill" id="progressRing" cx="60" cy="60" r="54"/>
+        </svg>
+        <div class="ma-progress-text" id="progressText">0%</div>
+      </div>
+      <div class="ma-progress-label"><span id="completedCount">0</span> von 5 abgeschlossen</div>
     </div>
   </div>
 
-  <div class="inf-section">
-    <div class="inf-section-head">
-      <div class="inf-section-badge">Py</div>
-      <h2 class="inf-section-title">Python</h2>
+  <!-- Python -->
+  <div class="ma-section ma-section--python">
+    <div class="ma-section-header">
+      <div class="ma-section-icon">🐍</div>
+      <div class="ma-section-title-group">
+        <h2 class="ma-section-title">Python</h2>
+        <p class="ma-section-subtitle">5 Module · Von print() bis Funktionen</p>
+      </div>
     </div>
-    <p class="inf-section-meta">5 Module · Von print() bis Funktionen</p>
-    <div class="inf-path">
-      <div class="inf-module" data-module="p1"><div class="inf-module-dot"></div><div class="inf-card"><div class="inf-card-top"><span class="inf-step-num">01</span><h4>Python Grundlagen – print() und input()</h4></div><p class="inf-card-desc">Einführung in Python: Die print()-Funktion zur Ausgabe von Text und Zahlen, Parameter sep und end, input() für Benutzereingaben, Datentypen (str, int, float) und Umwandlung. Praktische Übungen zu Altersrechner, BMI und Einkaufslisten</p><div class="inf-actions"><a href="/assets/pdfs/Info_1.pdf" class="inf-btn inf-btn--pdf"><span>📄</span> PDF</a><a href="/assets/quizzes/quiz_python_grundlage.html" class="inf-btn inf-btn--quiz"><span>✎</span> Quiz</a><label class="inf-check" onclick="infToggle('p1')"><span class="inf-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>Erledigt</label></div></div></div>
-      <div class="inf-module" data-module="p2"><div class="inf-module-dot"></div><div class="inf-card"><div class="inf-card-top"><span class="inf-step-num">02</span><h4>Variablen und Datentypen</h4></div><p class="inf-card-desc">Variablen erstellen und verwenden, Datentypen unterscheiden (str, int, float, bool), Rechenoperationen und Operatoren, Typkonvertierung, Namenskonventionen. Übungen zu Kreisberechnungen und Temperaturumrechnung</p><p class="inf-card-prereq">Baut auf: print() und input()</p><div class="inf-actions"><a href="/assets/pdfs/Info_2.pdf" class="inf-btn inf-btn--pdf"><span>📄</span> PDF</a><a href="/assets/quizzes/quiz_variablen_datentypen.html" class="inf-btn inf-btn--quiz"><span>✎</span> Quiz</a><label class="inf-check" onclick="infToggle('p2')"><span class="inf-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>Erledigt</label></div></div></div>
-      <div class="inf-module" data-module="p3"><div class="inf-module-dot"></div><div class="inf-card"><div class="inf-card-top"><span class="inf-step-num">03</span><h4>Listen und Datenstrukturen</h4></div><p class="inf-card-desc">Erstellen und Verstehen von Listen, Zugriff über Index und Slicing (start:stop:step), mutable Listen, append(), insert(), remove(), pop(), sort(), reverse(), index() und count()</p><p class="inf-card-prereq">Baut auf: Variablen und Datentypen</p><div class="inf-actions"><a href="/assets/pdfs/Info_3.pdf" class="inf-btn inf-btn--pdf"><span>📄</span> PDF</a><a href="/assets/quizzes/quiz_listen_datenstrukturen.html" class="inf-btn inf-btn--quiz"><span>✎</span> Quiz</a><label class="inf-check" onclick="infToggle('p3')"><span class="inf-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>Erledigt</label></div></div></div>
-      <div class="inf-module" data-module="p4"><div class="inf-module-dot"></div><div class="inf-card"><div class="inf-card-top"><span class="inf-step-num">04</span><h4>Kontrollstrukturen – if, for, while</h4></div><p class="inf-card-desc">Bedingte Anweisungen mit if/elif/else, Vergleichs- und logische Operatoren, for-Schleifen über Sequenzen und range(), while-Schleifen, break und continue, verschachtelte Schleifen, Fehlersuche-Übungen</p><p class="inf-card-prereq">Baut auf: Listen und Datenstrukturen</p><div class="inf-actions"><a href="/assets/pdfs/Info_4.pdf" class="inf-btn inf-btn--pdf"><span>📄</span> PDF</a><a href="/assets/quizzes/quiz_kontrollstrukturen.html" class="inf-btn inf-btn--quiz"><span>✎</span> Quiz</a><label class="inf-check" onclick="infToggle('p4')"><span class="inf-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>Erledigt</label></div></div></div>
-      <div class="inf-module" data-module="p5"><div class="inf-module-dot"></div><div class="inf-card"><div class="inf-card-top"><span class="inf-step-num">05</span><h4>Funktionen in Python</h4></div><p class="inf-card-desc">Funktionen definieren mit def, Parameter und Rückgabewerte, print vs. return, benannte Parameter und Standardwerte, Funktionen mit Kontrollstrukturen kombinieren, Funktionen die andere Funktionen aufrufen</p><p class="inf-card-prereq">Baut auf: Kontrollstrukturen</p><div class="inf-actions"><a href="/assets/pdfs/Info_5.pdf" class="inf-btn inf-btn--pdf"><span>📄</span> PDF</a><a href="/assets/quizzes/quiz_funktionen.html" class="inf-btn inf-btn--quiz"><span>✎</span> Quiz</a><label class="inf-check" onclick="infToggle('p5')"><span class="inf-check-box"><svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2.5 6.5L5 9L9.5 3.5"/></svg></span>Erledigt</label></div></div></div>
+    <div class="ma-grid">
+
+      <div class="ma-card" data-module="p1">
+        <div class="ma-card-header">
+          <span class="ma-card-number">01</span>
+          <h4>Python Grundlagen – print() und input()</h4>
+        </div>
+        <p>Einführung in Python: Die print()-Funktion zur Ausgabe von Text und Zahlen, Parameter sep und end, input() für Benutzereingaben, Datentypen und Umwandlung</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Info_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_python_grundlage.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('p1', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ma-card" data-module="p2">
+        <div class="ma-card-header">
+          <span class="ma-card-number">02</span>
+          <h4>Variablen und Datentypen</h4>
+        </div>
+        <p>Variablen erstellen und verwenden, Datentypen unterscheiden (str, int, float, bool), Rechenoperationen, Typkonvertierung, Namenskonventionen</p>
+        <p class="ma-card-prereq">Baut auf: print() und input()</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Info_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_variablen_datentypen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('p2', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ma-card" data-module="p3">
+        <div class="ma-card-header">
+          <span class="ma-card-number">03</span>
+          <h4>Listen und Datenstrukturen</h4>
+        </div>
+        <p>Erstellen und Verstehen von Listen, Zugriff über Index und Slicing, mutable Listen, append(), insert(), remove(), pop(), sort(), reverse()</p>
+        <p class="ma-card-prereq">Baut auf: Variablen und Datentypen</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Info_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_listen_datenstrukturen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('p3', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ma-card" data-module="p4">
+        <div class="ma-card-header">
+          <span class="ma-card-number">04</span>
+          <h4>Kontrollstrukturen – if, for, while</h4>
+        </div>
+        <p>Bedingte Anweisungen mit if/elif/else, Vergleichs- und logische Operatoren, for-Schleifen, while-Schleifen, break und continue</p>
+        <p class="ma-card-prereq">Baut auf: Listen und Datenstrukturen</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Info_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_kontrollstrukturen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('p4', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ma-card" data-module="p5">
+        <div class="ma-card-header">
+          <span class="ma-card-number">05</span>
+          <h4>Funktionen in Python</h4>
+        </div>
+        <p>Funktionen definieren mit def, Parameter und Rückgabewerte, print vs. return, benannte Parameter und Standardwerte, Funktionen kombinieren</p>
+        <p class="ma-card-prereq">Baut auf: Kontrollstrukturen</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Info_5.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_funktionen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('p5', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <div class="inf-footer">
-    <div class="inf-footer-text"><strong>5 Module</strong> · Materialien für Bildungszwecke · Frei verwendbar</div>
-    <div class="inf-footer-actions">
-      <a href="/teaching/" class="inf-btn">← Übersicht</a>
-      <button class="inf-btn-reset" onclick="infReset()">Fortschritt zurücksetzen</button>
+  <!-- Footer -->
+  <div class="ma-footer">
+    <div class="ma-footer-text">
+      <strong>5 Module</strong> · Materialien für Bildungszwecke · Frei verwendbar
+    </div>
+    <div class="ma-footer-actions">
+      <a href="/teaching/" class="ma-btn ma-btn--secondary">← Übersicht</a>
+      <button class="ma-btn ma-btn--ghost" onclick="resetProgress()">Zurücksetzen</button>
     </div>
   </div>
 
 </div>
 
 <script>
-const INF_KEY = 'info-progress';
-const INF_TOTAL = 5;
-function infGetProgress() { try { return JSON.parse(localStorage.getItem(INF_KEY)) || {}; } catch(e) { return {}; } }
-function infSaveProgress(p) { localStorage.setItem(INF_KEY, JSON.stringify(p)); }
-function infToggle(id) { const p = infGetProgress(); if (p[id]) { delete p[id]; } else { p[id] = Date.now(); } infSaveProgress(p); infRender(); }
-function infReset() { if (confirm('Fortschritt wirklich zurücksetzen?')) { localStorage.removeItem(INF_KEY); infRender(); } }
-function infRender() {
-  const p = infGetProgress(), c = Object.keys(p).length, pct = Math.round((c / INF_TOTAL) * 100);
-  document.getElementById('infProgressBar').style.width = pct + '%';
-  document.getElementById('infCompletedCount').textContent = c;
-  document.getElementById('infProgressPercent').textContent = pct + ' %';
-  document.querySelectorAll('.inf-module').forEach(el => { if (p[el.dataset.module]) el.classList.add('is-complete'); else el.classList.remove('is-complete'); });
+const STORAGE_KEY = 'info-progress';
+const TOTAL_MODULES = 5;
+const CIRCUMFERENCE = 339.292;
+
+function getProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch {
+    return {};
+  }
 }
-document.addEventListener('DOMContentLoaded', infRender);
-if (document.readyState !== 'loading') infRender();
+
+function saveProgress(progress) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+}
+
+function updateUI() {
+  const progress = getProgress();
+  const completed = Object.keys(progress).length;
+  const percentage = Math.round((completed / TOTAL_MODULES) * 100);
+  
+  const offset = CIRCUMFERENCE - (percentage / 100) * CIRCUMFERENCE;
+  document.getElementById('progressRing').style.strokeDashoffset = offset;
+  document.getElementById('progressText').textContent = percentage + '%';
+  document.getElementById('completedCount').textContent = completed;
+  
+  document.querySelectorAll('.ma-card').forEach(card => {
+    const moduleId = card.dataset.module;
+    if (progress[moduleId]) {
+      card.classList.add('ma-card-complete');
+    } else {
+      card.classList.remove('ma-card-complete');
+    }
+  });
+}
+
+function toggleModule(id, event) {
+  if (event) {
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  
+  const progress = getProgress();
+  if (progress[id]) {
+    delete progress[id];
+  } else {
+    progress[id] = Date.now();
+  }
+  saveProgress(progress);
+  updateUI();
+}
+
+function resetProgress() {
+  if (confirm('Möchtest du wirklich deinen gesamten Fortschritt zurücksetzen?')) {
+    localStorage.removeItem(STORAGE_KEY);
+    updateUI();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', updateUI);
+if (document.readyState !== 'loading') updateUI();
 </script>

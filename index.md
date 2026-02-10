@@ -3,412 +3,381 @@ layout: default
 ---
 
 <style>
-/* Japandi Design mit Apple-Style Rounded Corners */
+/* ═══════════════════════════════════════════════════════════════
+   APPLE DESIGN SYSTEM – Startseite
+   ═══════════════════════════════════════════════════════════════ */
 
-body {
-  background: linear-gradient(135deg, #f7f5f2 0%, #f0ede8 25%, #e8e5e0 50%, #f0ede8 75%, #f7f5f2 100%);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
-  line-height: 1.7;
-  color: #3d3d3d;
-  min-height: 100vh;
-  background-attachment: fixed;
+:root {
+  --system-blue: #007AFF;
+  --system-green: #34C759;
+  --system-indigo: #5856D6;
+  --system-orange: #FF9500;
+  --system-pink: #FF2D55;
+  --system-purple: #AF52DE;
+  --system-teal: #5AC8FA;
+
+  --about: #5856D6;
+  --analysen: #5AC8FA;
+  --teaching: #FF9500;
+
+  --gray-6: #8E8E93;
+
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F7;
+  --bg-tertiary: #FFFFFF;
+  --text-primary: #000000;
+  --text-secondary: #3A3A3C;
+  --text-tertiary: #8E8E93;
+  --separator: rgba(0, 0, 0, 0.08);
+  --separator-strong: rgba(0, 0, 0, 0.16);
+
+  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.home {
-  position: relative;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #1C1C1E;
+    --bg-tertiary: #2C2C2E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #EBEBF5;
+    --text-tertiary: #8E8E93;
+    --separator: rgba(255, 255, 255, 0.12);
+    --separator-strong: rgba(255, 255, 255, 0.24);
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.24);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.32);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.48);
+  }
 }
 
-.intro-text {
-  font-size: 0.95rem;
-  color: #6b6b6b;
-  font-weight: 400;
-  margin-top: 2.5rem;
-  margin-bottom: 3.5rem;
-  padding: 2rem 2.5rem;
-  background: #ffffff;
-  border-radius: 18px;
-  border-left: 3px solid #8b9e9f;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  letter-spacing: 0.02em;
-  line-height: 1.8;
-}
-
-.sections {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin: 2.5rem 0;
-}
-
-.section-card {
-  background: #ffffff;
-  border: 1px solid #e8e5e0;
-  border-radius: 20px;
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
   padding: 0;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body, html, .page-content, .wrapper, main {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary);
+  font-family: var(--font-stack);
+  line-height: 1.47059;
+  letter-spacing: -0.022em;
+}
+
+/* ─── Layout ─── */
+.ma-home {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .ma-home {
+    padding: var(--space-16) var(--space-8);
+  }
+}
+
+/* ─── Hero ─── */
+.ma-hero {
+  text-align: center;
+  margin-bottom: var(--space-16);
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ma-hero h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.003em;
+  line-height: 1.08349;
+  margin-bottom: var(--space-4);
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--gray-6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .ma-hero h1 {
+    font-size: 64px;
+  }
+}
+
+.ma-hero-subtitle {
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.381;
+}
+
+/* ─── Cards Grid ─── */
+.ma-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .ma-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ─── Section Card ─── */
+.ma-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8) var(--space-6);
   position: relative;
   overflow: hidden;
+  transition: all var(--transition-base);
+  border: 2px solid transparent;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  text-decoration: none !important;
+  color: inherit !important;
 }
 
-/* Dezente, natürliche Farbpalette */
-.section-card.about {
-  border-top: 2px solid #b8a89a;
-}
-
-.section-card.analyses {
-  border-top: 2px solid #8b9e9f;
-}
-
-.section-card.teaching {
-  border-top: 2px solid #c9a690;
-}
-
-/* Minimalistischer Akzent */
-.section-card::before {
+.ma-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 60px;
-  opacity: 0.15;
-  transition: all 0.4s ease;
-}
-
-.section-card.about::before {
-  background: linear-gradient(to bottom, #b8a89a, transparent);
-}
-
-.section-card.analyses::before {
-  background: linear-gradient(to bottom, #8b9e9f, transparent);
-}
-
-.section-card.teaching::before {
-  background: linear-gradient(to bottom, #c9a690, transparent);
-}
-
-/* Dezenter Cover-Effekt */
-.section-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 20px;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 0;
+  transition: opacity var(--transition-base);
 }
 
-.section-card.about::after {
-  background: linear-gradient(180deg, rgba(184, 168, 154, 0.04) 0%, rgba(184, 168, 154, 0.02) 100%);
+.ma-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  background: var(--bg-tertiary);
+  text-decoration: none !important;
 }
 
-.section-card.analyses::after {
-  background: linear-gradient(180deg, rgba(139, 158, 159, 0.04) 0%, rgba(139, 158, 159, 0.02) 100%);
-}
-
-.section-card.teaching::after {
-  background: linear-gradient(180deg, rgba(201, 166, 144, 0.04) 0%, rgba(201, 166, 144, 0.02) 100%);
-}
-
-.section-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  border-color: #d5d0ca;
-}
-
-.section-card:hover::after {
+.ma-card:hover::before {
   opacity: 1;
 }
 
-.section-card:hover::before {
-  height: 100%;
-  width: 3px;
-  opacity: 0.4;
+.ma-card:active {
+  transform: scale(0.98);
+  transition-duration: var(--transition-fast);
 }
 
-.card-header {
-  padding: 2rem 2rem 1.5rem 2rem;
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-}
+/* Card accent colors */
+.ma-card--about { border-top: 3px solid var(--about); }
+.ma-card--analysen { border-top: 3px solid var(--analysen); }
+.ma-card--teaching { border-top: 3px solid var(--teaching); }
 
-.icon-wrapper {
-  width: 48px;
-  height: 48px;
-  background: transparent;
-  border: 1px solid #e8e5e0;
-  border-radius: 12px;
+.ma-card--about:hover { box-shadow: 0 12px 32px rgba(88, 86, 214, 0.1); }
+.ma-card--analysen:hover { box-shadow: 0 12px 32px rgba(90, 200, 250, 0.1); }
+.ma-card--teaching:hover { box-shadow: 0 12px 32px rgba(255, 149, 0, 0.1); }
+
+/* ─── Card Icon ─── */
+.ma-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 3;
+  margin-bottom: var(--space-5);
+  transition: transform var(--transition-spring);
 }
 
-.section-card.about:hover .icon-wrapper {
-  background: #b8a89a;
-  border-color: #b8a89a;
+.ma-card:hover .ma-card-icon {
+  transform: scale(1.1) rotate(-5deg);
 }
 
-.section-card.analyses:hover .icon-wrapper {
-  background: #8b9e9f;
-  border-color: #8b9e9f;
-}
+.ma-card--about .ma-card-icon { background: rgba(88, 86, 214, 0.12); }
+.ma-card--analysen .ma-card-icon { background: rgba(90, 200, 250, 0.12); }
+.ma-card--teaching .ma-card-icon { background: rgba(255, 149, 0, 0.12); }
 
-.section-card.teaching:hover .icon-wrapper {
-  background: #c9a690;
-  border-color: #c9a690;
-}
-
-.icon-wrapper svg {
+.ma-card-icon svg {
   width: 24px;
   height: 24px;
-  fill: #6b6b6b;
-  transition: fill 0.3s ease;
+  transition: fill var(--transition-fast);
 }
 
-.section-card:hover .icon-wrapper svg {
-  fill: #ffffff;
+.ma-card--about .ma-card-icon svg { fill: var(--about); }
+.ma-card--analysen .ma-card-icon svg { fill: var(--analysen); }
+.ma-card--teaching .ma-card-icon svg { fill: var(--teaching); }
+
+/* ─── Card Content ─── */
+.ma-card h2 {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.021em;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-3) 0;
 }
 
-.card-title-wrapper {
+.ma-card p {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-6) 0;
   flex-grow: 1;
 }
 
-.section-card h2 {
-  margin: 0;
-  color: #3d3d3d;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  line-height: 1.4;
-  transition: color 0.3s ease;
-}
-
-.section-card.about:hover h2 {
-  color: #b8a89a;
-}
-
-.section-card.analyses:hover h2 {
-  color: #8b9e9f;
-}
-
-.section-card.teaching:hover h2 {
-  color: #c9a690;
-}
-
-.card-content {
-  padding: 0 2rem 2rem 2rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 2;
-}
-
-.section-card p {
-  color: #6b6b6b;
-  line-height: 1.8;
-  margin: 0 0 1.5rem 0;
-  font-size: 0.88rem;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-}
-
-.btn {
+/* ─── Button ─── */
+.ma-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 0.9rem 1.5rem;
-  background: #fafaf9;
-  color: #5a5a5a !important;
-  text-decoration: none;
-  border: 1px solid #e8e5e0;
-  border-radius: 12px;
-  font-size: 0.85rem;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  margin-top: auto;
-}
-
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.section-card.about .btn::before {
-  background: linear-gradient(180deg, #b8a89a 0%, #cbbfb3 100%);
-}
-
-.section-card.analyses .btn::before {
-  background: linear-gradient(180deg, #8b9e9f 0%, #a5b5b6 100%);
-}
-
-.section-card.teaching .btn::before {
-  background: linear-gradient(180deg, #c9a690 0%, #dbc0af 100%);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  border-color: transparent;
-  color: #ffffff !important;
-}
-
-.btn:hover::before {
-  opacity: 1;
-}
-
-.btn span {
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
   position: relative;
   z-index: 2;
+  background: var(--system-indigo);
+  color: white !important;
+  margin-top: auto;
+  align-self: flex-start;
 }
 
-/* Wabi-Sabi Textur-Effekt */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 15% 25%, rgba(184, 168, 154, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 85% 75%, rgba(139, 158, 159, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(201, 184, 150, 0.02) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.8;
+.ma-btn:hover {
+  background: #0051D5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
 }
 
-@media (max-width: 768px) {
-  .sections {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
+.ma-btn-arrow {
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all var(--transition-fast);
+}
 
-  .intro-text {
-    font-size: 0.9rem;
-    padding: 1.5rem 1.75rem;
-    margin-top: 2rem;
-    margin-bottom: 2.5rem;
-    border-radius: 16px;
-  }
+.ma-btn:hover .ma-btn-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
 
-  .card-header {
-    padding: 1.75rem 1.5rem 1.25rem 1.5rem;
-  }
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-  .card-content {
-    padding: 0 1.5rem 1.75rem 1.5rem;
-  }
+.ma-card {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
 
-  .icon-wrapper {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-  }
+.ma-card:nth-child(1) { animation-delay: 0.1s; }
+.ma-card:nth-child(2) { animation-delay: 0.2s; }
+.ma-card:nth-child(3) { animation-delay: 0.3s; }
 
-  .icon-wrapper svg {
-    width: 20px;
-    height: 20px;
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
+}
 
-  .section-card h2 {
-    font-size: 1.05rem;
+/* ─── Touch ─── */
+@media (hover: none) {
+  .ma-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
   }
-  
-  .section-card {
-    border-radius: 16px;
+  .ma-card:active {
+    transform: scale(0.98);
+    background: var(--bg-tertiary);
   }
-  
-  .section-card::after {
-    border-radius: 16px;
-  }
-  
-  .btn {
-    border-radius: 10px;
-  }
+}
+
+/* ─── Print ─── */
+@media print {
+  .ma-btn { display: none; }
+  .ma-card { break-inside: avoid; }
 }
 </style>
 
-<div class="home">
-  <p class="intro-text">
-    Mathematik, Wirtschaft & Datenanalyse
-  </p>
-  
-  <div class="sections">
-    <div class="section-card about">
-      <div class="card-header">
-        <div class="icon-wrapper">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z"/>
-          </svg>
-        </div>
-        <div class="card-title-wrapper">
-          <h2>Über mich</h2>
-        </div>
-      </div>
-      <div class="card-content">
-        <p>Hintergrund, Ausbildung und Schwerpunkte</p>
-        <a href="/about/" class="btn"><span>Mehr erfahren</span></a>
-      </div>
-    </div>
-    
-    <div class="section-card analyses">
-      <div class="card-header">
-        <div class="icon-wrapper">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z"/>
-          </svg>
-        </div>
-        <div class="card-title-wrapper">
-          <h2>Analysen</h2>
-        </div>
-      </div>
-      <div class="card-content">
-        <p>Wirtschaftliche Betrachtungen und datengestützte Untersuchungen</p>
-        <a href="/analysen/" class="btn"><span>Analysen lesen</span></a>
-      </div>
-    </div>
-    
-    <div class="section-card teaching">
-      <div class="card-header">
-        <div class="icon-wrapper">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18ZM12 3L1 9L12 15L21 10.09V17H23V9L12 3Z"/>
-          </svg>
-        </div>
-        <div class="card-title-wrapper">
-          <h2>Unterrichtsmaterialien</h2>
-        </div>
-      </div>
-      <div class="card-content">
-        <p>Mathematik, Volkswirtschaftslehre und Informatik</p>
-        <a href="/teaching/" class="btn"><span>Materialien</span></a>
-      </div>
-    </div>
+<div class="ma-home">
+
+  <!-- Hero -->
+  <div class="ma-hero">
+    <h1>Maks Voecks</h1>
+    <p class="ma-hero-subtitle">Mathematik, Wirtschaft & Datenanalyse</p>
   </div>
+
+  <!-- Cards -->
+  <div class="ma-grid">
+
+    <!-- Über mich -->
+    <div class="ma-card ma-card--about">
+      <div class="ma-card-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z"/>
+        </svg>
+      </div>
+      <h2>Über mich</h2>
+      <p>Hintergrund, Ausbildung und Schwerpunkte</p>
+      <a href="/about/" class="ma-btn" onclick="event.stopPropagation()">Mehr erfahren <span class="ma-btn-arrow">→</span></a>
+    </div>
+
+    <!-- Analysen -->
+    <div class="ma-card ma-card--analysen">
+      <div class="ma-card-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z"/>
+        </svg>
+      </div>
+      <h2>Analysen</h2>
+      <p>Wirtschaftliche Betrachtungen und datengestützte Untersuchungen</p>
+      <a href="/analysen/" class="ma-btn" onclick="event.stopPropagation()">Analysen lesen <span class="ma-btn-arrow">→</span></a>
+    </div>
+
+    <!-- Unterrichtsmaterialien -->
+    <div class="ma-card ma-card--teaching">
+      <div class="ma-card-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18ZM12 3L1 9L12 15L21 10.09V17H23V9L12 3Z"/>
+        </svg>
+      </div>
+      <h2>Unterrichtsmaterialien</h2>
+      <p>Mathematik, Volkswirtschaftslehre und Informatik</p>
+      <a href="/teaching/" class="ma-btn" onclick="event.stopPropagation()">Materialien <span class="ma-btn-arrow">→</span></a>
+    </div>
+
+  </div>
+
 </div>

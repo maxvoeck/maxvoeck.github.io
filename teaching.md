@@ -5,385 +5,528 @@ permalink: /teaching/
 ---
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
+/* ═══════════════════════════════════════════════════════════════
+   APPLE DESIGN SYSTEM – Lehrmaterialien Übersicht
+   ═══════════════════════════════════════════════════════════════ */
 
+/* ─── Design Tokens ─── */
 :root {
-  --bg-deep: #0a0a0f;
-  --bg-card: rgba(255,255,255,0.06);
-  --bg-card-hover: rgba(255,255,255,0.09);
-  --border: rgba(255,255,255,0.08);
-  --border-hover: rgba(255,255,255,0.14);
-  --text-primary: rgba(255,255,255,0.92);
-  --text-secondary: rgba(255,255,255,0.55);
-  --text-muted: rgba(255,255,255,0.32);
-  --accent-1: #6366f1;
-  --accent-2: #8b5cf6;
-  --accent-3: #a78bfa;
-  --math: #ec4899;
-  --math-soft: rgba(236, 72, 153, 0.12);
-  --econ: #f59e0b;
-  --econ-soft: rgba(245, 158, 11, 0.12);
-  --cs: #3b82f6;
-  --cs-soft: rgba(59, 130, 246, 0.12);
+  --system-blue: #007AFF;
+  --system-green: #34C759;
+  --system-indigo: #5856D6;
+  --system-orange: #FF9500;
+  --system-pink: #FF2D55;
+  --system-purple: #AF52DE;
+  --system-red: #FF3B30;
+  --system-teal: #5AC8FA;
+  --system-yellow: #FFCC00;
+
+  --math: #FF2D55;
+  --econ: #FF9500;
+  --cs: #007AFF;
+
+  --gray-1: #F5F5F7;
+  --gray-6: #8E8E93;
+
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F7;
+  --bg-tertiary: #FFFFFF;
+  --text-primary: #000000;
+  --text-secondary: #3A3A3C;
+  --text-tertiary: #8E8E93;
+  --separator: rgba(0, 0, 0, 0.08);
+  --separator-strong: rgba(0, 0, 0, 0.16);
+
+  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+  --shadow-xl: 0 24px 48px rgba(0,0,0,0.16);
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #1C1C1E;
+    --bg-tertiary: #2C2C2E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #EBEBF5;
+    --text-tertiary: #8E8E93;
+    --separator: rgba(255, 255, 255, 0.12);
+    --separator-strong: rgba(255, 255, 255, 0.24);
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.24);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.32);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.48);
+    --shadow-xl: 0 24px 48px rgba(0,0,0,0.64);
+  }
+}
+
+/* ─── Reset & Base ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body, html, .page-content, .wrapper, main, .post-content {
-  background: var(--bg-deep) !important;
+  background: var(--bg-primary) !important;
   color: var(--text-primary);
-}
-.post-header, .page-heading, header.post-header { display: none !important; }
-a { color: var(--text-secondary); }
-a:hover { color: var(--text-primary); text-decoration: none; }
-
-/* ═══ AMBIENT ═══ */
-.te-ambient {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 0; overflow: hidden; pointer-events: none;
-}
-.te-ambient-orb {
-  position: absolute; border-radius: 50%;
-  filter: blur(120px); opacity: 0.4;
-  animation: te-drift 20s ease-in-out infinite;
-}
-.te-ambient-orb:nth-child(1) {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(236, 72, 153, 0.18) 0%, transparent 70%);
-  top: -10%; left: -8%;
-}
-.te-ambient-orb:nth-child(2) {
-  width: 450px; height: 450px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.14) 0%, transparent 70%);
-  top: 50%; right: -10%;
-  animation-delay: -8s; animation-duration: 24s;
-}
-.te-ambient-orb:nth-child(3) {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.14) 0%, transparent 70%);
-  bottom: -8%; left: 30%;
-  animation-delay: -14s; animation-duration: 22s;
-}
-@keyframes te-drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(25px, -18px) scale(1.04); }
-  50% { transform: translate(-18px, 25px) scale(0.96); }
-  75% { transform: translate(12px, 12px) scale(1.02); }
-}
-.te-ambient::after {
-  content: ''; position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-  opacity: 0.4; pointer-events: none;
+  font-family: var(--font-stack);
+  line-height: 1.47059;
+  letter-spacing: -0.022em;
 }
 
-/* ═══ CONTENT ═══ */
-.te-content {
-  position: relative; z-index: 1;
-  max-width: 780px; margin: 0 auto;
-  padding: 2rem 1.5rem 5rem;
-  font-family: 'Inter', -apple-system, sans-serif;
+.post-header, .page-heading, header.post-header { 
+  display: none !important; 
 }
 
-/* ═══ HERO ═══ */
-.te-hero {
-  background: var(--bg-card);
-  backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 2.5rem 2.25rem 2rem;
-  margin-bottom: 3rem;
-  position: relative; overflow: hidden;
-}
-.te-hero::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
-}
-.te-hero-eyebrow {
-  font-size: 0.72rem; font-weight: 500;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--accent-3); margin-bottom: 0.75rem;
-}
-.te-hero h1 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 2.5rem; font-weight: 600;
-  letter-spacing: -0.03em; line-height: 1.1;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.te-hero-sub {
-  font-size: 0.92rem; color: var(--text-secondary);
-  font-weight: 300; line-height: 1.8;
+/* ─── Container ─── */
+.ma-container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-5);
 }
 
-/* ═══ CARDS GRID ═══ */
-.te-grid {
+@media (min-width: 768px) {
+  .ma-container {
+    padding: var(--space-16) var(--space-8);
+  }
+}
+
+/* ─── Hero Section ─── */
+.ma-hero {
+  text-align: center;
+  margin-bottom: var(--space-16);
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ma-hero-eyebrow {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--system-indigo);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.ma-hero-eyebrow::before,
+.ma-hero-eyebrow::after {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--separator-strong);
+}
+
+.ma-hero h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.003em;
+  line-height: 1.08349;
+  margin-bottom: var(--space-4);
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--gray-6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 768px) {
+  .ma-hero h1 {
+    font-size: 64px;
+  }
+}
+
+.ma-hero-subtitle {
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.381;
+}
+
+/* ─── Course Cards Grid ─── */
+.ma-courses {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: var(--space-5);
+  margin-bottom: var(--space-16);
 }
 
-.te-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 2rem 2rem 1.75rem;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  position: relative; overflow: hidden;
+/* ─── Course Card ─── */
+.ma-course {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-8);
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  border: 2px solid transparent;
   text-decoration: none !important;
   display: block;
+  color: inherit !important;
 }
-.te-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
-  opacity: 0; transition: opacity 0.3s ease;
+
+.ma-course::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
 }
-.te-card:hover {
-  background: var(--bg-card-hover); border-color: var(--border-hover);
+
+.ma-course:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+  box-shadow: var(--shadow-lg);
+  background: var(--bg-tertiary);
   text-decoration: none !important;
 }
-.te-card:hover::before { opacity: 1; }
 
-/* Card accent border */
-.te-card--math { border-left: 2px solid var(--math); }
-.te-card--econ { border-left: 2px solid var(--econ); }
-.te-card--cs { border-left: 2px solid var(--cs); }
-
-.te-card--math:hover { box-shadow: 0 12px 40px rgba(236,72,153,0.08); }
-.te-card--econ:hover { box-shadow: 0 12px 40px rgba(245,158,11,0.08); }
-.te-card--cs:hover { box-shadow: 0 12px 40px rgba(59,130,246,0.08); }
-
-/* Card header */
-.te-card-head {
-  display: flex; align-items: center; gap: 1rem;
-  margin-bottom: 1rem;
+.ma-course:hover::before {
+  opacity: 1;
 }
 
-.te-card-icon {
-  width: 44px; height: 44px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; transition: all 0.3s ease;
+.ma-course:active {
+  transform: scale(0.98);
+  transition-duration: var(--transition-fast);
 }
-.te-card--math .te-card-icon { background: var(--math-soft); border: 1px solid rgba(236,72,153,0.2); }
-.te-card--econ .te-card-icon { background: var(--econ-soft); border: 1px solid rgba(245,158,11,0.2); }
-.te-card--cs .te-card-icon { background: var(--cs-soft); border: 1px solid rgba(59,130,246,0.2); }
 
-.te-card-icon svg {
-  width: 22px; height: 22px; transition: all 0.3s ease;
+.ma-course--math { border-left: 4px solid var(--math); }
+.ma-course--econ { border-left: 4px solid var(--econ); }
+.ma-course--cs { border-left: 4px solid var(--cs); }
+
+.ma-course--math:hover { box-shadow: 0 12px 32px rgba(255, 45, 85, 0.1); }
+.ma-course--econ:hover { box-shadow: 0 12px 32px rgba(255, 149, 0, 0.1); }
+.ma-course--cs:hover { box-shadow: 0 12px 32px rgba(0, 122, 255, 0.1); }
+
+/* ─── Course Header ─── */
+.ma-course-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
 }
-.te-card--math .te-card-icon svg { fill: var(--math); }
-.te-card--econ .te-card-icon svg { fill: var(--econ); }
-.te-card--cs .te-card-icon svg { fill: var(--cs); }
 
-.te-card:hover .te-card-icon { transform: scale(1.08); }
+.ma-course-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  transition: transform var(--transition-spring);
+}
 
-.te-card-title-wrap { flex: 1; }
+.ma-course:hover .ma-course-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
 
-.te-card h2 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.25rem; font-weight: 500;
-  letter-spacing: -0.01em; margin: 0;
+.ma-course--math .ma-course-icon { background: rgba(255, 45, 85, 0.12); }
+.ma-course--econ .ma-course-icon { background: rgba(255, 149, 0, 0.12); }
+.ma-course--cs .ma-course-icon { background: rgba(0, 122, 255, 0.12); }
+
+.ma-course-title-group {
+  flex: 1;
+}
+
+.ma-course h2 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.021em;
+  line-height: 1.14286;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.ma-course-count {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+/* ─── Course Description ─── */
+.ma-course-desc {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-5);
+}
+
+/* ─── Tags ─── */
+.ma-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.ma-tag {
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--text-tertiary);
+  transition: all var(--transition-fast);
+}
+
+@media (prefers-color-scheme: dark) {
+  .ma-tag {
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.ma-course--math .ma-tag { color: var(--math); background: rgba(255, 45, 85, 0.08); }
+.ma-course--econ .ma-tag { color: var(--econ); background: rgba(255, 149, 0, 0.08); }
+.ma-course--cs .ma-tag { color: var(--cs); background: rgba(0, 122, 255, 0.08); }
+
+/* ─── Course Actions ─── */
+.ma-course-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.ma-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.ma-btn--primary {
+  background: var(--system-indigo);
+  color: white !important;
+}
+
+.ma-btn--primary:hover {
+  background: #0051D5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+}
+
+.ma-btn--secondary {
+  background: rgba(0, 0, 0, 0.05);
   color: var(--text-primary) !important;
-  transition: color 0.3s ease;
-}
-.te-card--math:hover h2 { color: var(--math) !important; }
-.te-card--econ:hover h2 { color: var(--econ) !important; }
-.te-card--cs:hover h2 { color: var(--cs) !important; }
-
-.te-card-count {
-  font-size: 0.72rem; color: var(--text-muted);
-  font-weight: 400; margin-top: 0.15rem;
 }
 
-/* Card body */
-.te-card-desc {
-  font-size: 0.85rem; color: var(--text-secondary);
-  font-weight: 300; line-height: 1.7;
-  margin-bottom: 1.25rem;
+@media (prefers-color-scheme: dark) {
+  .ma-btn--secondary {
+    background: rgba(255, 255, 255, 0.1);
+  }
 }
 
-/* Tags */
-.te-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
-
-.te-tag {
-  padding: 0.3rem 0.75rem; border-radius: 8px;
-  font-size: 0.72rem; font-weight: 500;
-  letter-spacing: 0.03em; transition: all 0.3s ease;
-  border: 1px solid var(--border);
-  color: var(--text-muted); background: transparent;
-}
-.te-card--math .te-tag { color: rgba(236,72,153,0.7); border-color: rgba(236,72,153,0.15); }
-.te-card--econ .te-tag { color: rgba(245,158,11,0.7); border-color: rgba(245,158,11,0.15); }
-.te-card--cs .te-tag { color: rgba(59,130,246,0.7); border-color: rgba(59,130,246,0.15); }
-
-.te-card:hover .te-tag { border-color: var(--border-hover); }
-.te-card--math:hover .te-tag { background: var(--math-soft); border-color: rgba(236,72,153,0.25); color: var(--math); }
-.te-card--econ:hover .te-tag { background: var(--econ-soft); border-color: rgba(245,158,11,0.25); color: var(--econ); }
-.te-card--cs:hover .te-tag { background: var(--cs-soft); border-color: rgba(59,130,246,0.25); color: var(--cs); }
-
-/* Card actions */
-.te-card-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-
-.te-btn {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.6rem 1.15rem; border-radius: 10px;
-  font-size: 0.78rem; font-weight: 500;
-  letter-spacing: 0.04em; text-transform: uppercase;
-  text-decoration: none !important;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.03);
-  color: var(--text-secondary) !important;
-  transition: all 0.25s ease;
-}
-.te-btn:hover {
-  transform: translateY(-1px); border-color: var(--border-hover);
-  background: rgba(255,255,255,0.08);
-  color: var(--text-primary) !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-}
-.te-card--math .te-btn:first-child:hover { border-color: rgba(236,72,153,0.4); box-shadow: 0 4px 16px rgba(236,72,153,0.1); }
-.te-card--econ .te-btn:first-child:hover { border-color: rgba(245,158,11,0.4); box-shadow: 0 4px 16px rgba(245,158,11,0.1); }
-.te-card--cs .te-btn:first-child:hover { border-color: rgba(59,130,246,0.4); box-shadow: 0 4px 16px rgba(59,130,246,0.1); }
-
-.te-btn--secondary:hover { border-color: var(--border-hover); }
-
-/* Arrow on hover */
-.te-btn-arrow {
-  opacity: 0; transform: translateX(-4px);
-  transition: all 0.25s ease;
-  font-size: 0.85rem;
-}
-.te-btn:hover .te-btn-arrow {
-  opacity: 1; transform: translateX(0);
+.ma-btn--secondary:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
 
-/* ═══ FOOTER NOTE ═══ */
-.te-footer {
-  text-align: center; color: var(--text-muted);
-  margin-top: 2rem; padding-top: 2rem;
-  border-top: 1px solid var(--border);
-  font-size: 0.82rem; font-weight: 300;
-  letter-spacing: 0.01em; line-height: 1.7;
+@media (prefers-color-scheme: dark) {
+  .ma-btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
 }
 
-/* ═══ ANIMATIONS ═══ */
-@keyframes te-fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+.ma-btn-arrow {
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all var(--transition-fast);
 }
-.te-hero { animation: te-fadeUp 0.6s ease both; }
-.te-card { animation: te-fadeUp 0.5s ease both; }
-.te-card:nth-child(1) { animation-delay: 0.1s; }
-.te-card:nth-child(2) { animation-delay: 0.2s; }
-.te-card:nth-child(3) { animation-delay: 0.3s; }
 
-/* ═══ RESPONSIVE ═══ */
-@media (max-width: 768px) {
-  .te-content { padding: 1.5rem 1rem 4rem; }
-  .te-hero { padding: 2rem 1.5rem 1.5rem; border-radius: 20px; }
-  .te-hero h1 { font-size: 1.9rem; }
-  .te-card { padding: 1.5rem 1.5rem 1.5rem; border-radius: 16px; }
-  .te-card h2 { font-size: 1.1rem; }
-  .te-card-actions { flex-direction: column; }
-  .te-btn { justify-content: center; }
+.ma-btn:hover .ma-btn-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ─── Footer ─── */
+.ma-footer {
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--separator);
+  text-align: center;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+}
+
+.ma-footer-text {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ma-course {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.ma-course:nth-child(1) { animation-delay: 0.1s; }
+.ma-course:nth-child(2) { animation-delay: 0.2s; }
+.ma-course:nth-child(3) { animation-delay: 0.3s; }
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Touch Optimizations ─── */
+@media (hover: none) {
+  .ma-course:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .ma-course:active {
+    transform: scale(0.98);
+    background: var(--bg-tertiary);
+  }
+}
+
+/* ─── Print Styles ─── */
+@media print {
+  .ma-btn { display: none; }
+  .ma-course { break-inside: avoid; }
 }
 </style>
 
-<!-- AMBIENT -->
-<div class="te-ambient">
-  <div class="te-ambient-orb"></div>
-  <div class="te-ambient-orb"></div>
-  <div class="te-ambient-orb"></div>
-</div>
+<div class="ma-container">
 
-<div class="te-content">
-
-  <!-- HERO -->
-  <div class="te-hero">
-    <div class="te-hero-eyebrow">Studienkolleg Leipzig</div>
+  <!-- Hero -->
+  <div class="ma-hero">
+    <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
     <h1>Lehrmaterialien</h1>
-    <p class="te-hero-sub">Ausgewählte Materialien aus meiner Lehrtätigkeit. Alle Unterlagen sind speziell auf die Anforderungen der Feststellungsprüfung (FSP) abgestimmt.</p>
+    <p class="ma-hero-subtitle">Ausgewählte Materialien aus meiner Lehrtätigkeit, abgestimmt auf die Anforderungen der Feststellungsprüfung</p>
   </div>
 
-  <!-- CARDS -->
-  <div class="te-grid">
+  <!-- Course Cards -->
+  <div class="ma-courses">
 
-    <!-- MATHEMATIK -->
-    <div class="te-card te-card--math">
-      <div class="te-card-head">
-        <div class="te-card-icon">
-          <svg viewBox="0 0 24 24"><path d="M18 4H8.5L14 12L8.5 20H18V18H11.5L16 12L11.5 6H18V4Z"/></svg>
-        </div>
-        <div class="te-card-title-wrap">
+    <!-- Mathematik -->
+    <div class="ma-course ma-course--math">
+      <div class="ma-course-header">
+        <div class="ma-course-icon">📐</div>
+        <div class="ma-course-title-group">
           <h2>Mathematik</h2>
-          <div class="te-card-count">28 Module · 3 interaktive Tools</div>
+          <div class="ma-course-count">28 Module · 3 interaktive Tools</div>
         </div>
       </div>
-      <p class="te-card-desc">Fundierte Vorbereitung auf Analysis und Lineare Algebra für technische Studiengänge – von Vektorrechnung bis Rotationsvolumen</p>
-      <div class="te-tags">
-        <span class="te-tag">Vektorrechnung</span>
-        <span class="te-tag">Lineare Algebra</span>
-        <span class="te-tag">Differentialrechnung</span>
-        <span class="te-tag">Integralrechnung</span>
+      <p class="ma-course-desc">Fundierte Vorbereitung auf Analysis und Lineare Algebra für technische Studiengänge – von Vektorrechnung bis Rotationsvolumen</p>
+      <div class="ma-tags">
+        <span class="ma-tag">Vektorrechnung</span>
+        <span class="ma-tag">Lineare Algebra</span>
+        <span class="ma-tag">Differentialrechnung</span>
+        <span class="ma-tag">Integralrechnung</span>
       </div>
-      <div class="te-card-actions">
-        <a href="/teaching/mathematik/" class="te-btn" onclick="event.stopPropagation()"><span>Lernpfad öffnen</span><span class="te-btn-arrow">→</span></a>
-        <a href="/assets/pdfs/Mathematik_Skript.pdf" class="te-btn te-btn--secondary" onclick="event.stopPropagation()"><span>📄 Gesamtskript</span></a>
+      <div class="ma-course-actions">
+        <a href="/teaching/mathematik/" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Lernpfad öffnen <span class="ma-btn-arrow">→</span></a>
+        <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 Gesamtskript</a>
       </div>
     </div>
 
     <!-- VWL -->
-    <div class="te-card te-card--econ">
-      <div class="te-card-head">
-        <div class="te-card-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 14L5 12L9 16L14 11L16 13L21 8V18C21 19.1 20.1 20 19 20H5C3.9 20 3 19.1 3 18V14ZM21 5V7L16 12L14 10L9 15L5 11L3 13V5C3 3.9 3.9 3 5 3H19C20.1 3 21 3.9 21 5Z"/></svg>
-        </div>
-        <div class="te-card-title-wrap">
+    <div class="ma-course ma-course--econ">
+      <div class="ma-course-header">
+        <div class="ma-course-icon">📊</div>
+        <div class="ma-course-title-group">
           <h2>Volkswirtschaftslehre</h2>
-          <div class="te-card-count">13 Module · Mikro & Makro</div>
+          <div class="ma-course-count">13 Module · Mikro & Makro</div>
         </div>
       </div>
-      <p class="te-card-desc">Makro- und Mikroökonomie mit praxisnahen Beispielen – von Bedürfnissen bis zur Arbeitsmarktpolitik</p>
-      <div class="te-tags">
-        <span class="te-tag">Marktgleichgewicht</span>
-        <span class="te-tag">Konsumentenrente</span>
-        <span class="te-tag">BIP & Konjunktur</span>
-        <span class="te-tag">Wirtschaftspolitik</span>
+      <p class="ma-course-desc">Makro- und Mikroökonomie mit praxisnahen Beispielen – von Bedürfnissen bis zur Arbeitsmarktpolitik</p>
+      <div class="ma-tags">
+        <span class="ma-tag">Marktgleichgewicht</span>
+        <span class="ma-tag">Konsumentenrente</span>
+        <span class="ma-tag">BIP & Konjunktur</span>
+        <span class="ma-tag">Wirtschaftspolitik</span>
       </div>
-      <div class="te-card-actions">
-        <a href="/teaching/vwl/" class="te-btn" onclick="event.stopPropagation()"><span>Lernpfad öffnen</span><span class="te-btn-arrow">→</span></a>
+      <div class="ma-course-actions">
+        <a href="/teaching/vwl/" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Lernpfad öffnen <span class="ma-btn-arrow">→</span></a>
       </div>
     </div>
 
-    <!-- INFORMATIK -->
-    <div class="te-card te-card--cs">
-      <div class="te-card-head">
-        <div class="te-card-icon">
-          <svg viewBox="0 0 24 24"><path d="M8 3L4 7L8 11L9.4 9.6L6.8 7L9.4 4.4L8 3ZM16 3L14.6 4.4L17.2 7L14.6 9.6L16 11L20 7L16 3ZM10 13L12 21L14 20L12 12L10 13Z"/></svg>
-        </div>
-        <div class="te-card-title-wrap">
+    <!-- Informatik -->
+    <div class="ma-course ma-course--cs">
+      <div class="ma-course-header">
+        <div class="ma-course-icon">🐍</div>
+        <div class="ma-course-title-group">
           <h2>Informatik</h2>
-          <div class="te-card-count">5 Module · Python</div>
+          <div class="ma-course-count">5 Module · Python</div>
         </div>
       </div>
-      <p class="te-card-desc">Grundlagen der Programmierung und algorithmisches Denken – von print() bis zu eigenen Funktionen</p>
-      <div class="te-tags">
-        <span class="te-tag">Python</span>
-        <span class="te-tag">Kontrollstrukturen</span>
-        <span class="te-tag">Listen</span>
-        <span class="te-tag">Funktionen</span>
+      <p class="ma-course-desc">Grundlagen der Programmierung und algorithmisches Denken – von print() bis zu eigenen Funktionen</p>
+      <div class="ma-tags">
+        <span class="ma-tag">Python</span>
+        <span class="ma-tag">Kontrollstrukturen</span>
+        <span class="ma-tag">Listen</span>
+        <span class="ma-tag">Funktionen</span>
       </div>
-      <div class="te-card-actions">
-        <a href="/teaching/informatik/" class="te-btn" onclick="event.stopPropagation()"><span>Lernpfad öffnen</span><span class="te-btn-arrow">→</span></a>
+      <div class="ma-course-actions">
+        <a href="/teaching/informatik/" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Lernpfad öffnen <span class="ma-btn-arrow">→</span></a>
       </div>
     </div>
 
   </div>
 
-  <div class="te-footer">
-    Alle Materialien frei verwendbar für Bildungszwecke
+  <!-- Footer -->
+  <div class="ma-footer">
+    <p class="ma-footer-text">Alle Materialien frei verwendbar für Bildungszwecke</p>
   </div>
 
 </div>
