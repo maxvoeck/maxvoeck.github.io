@@ -665,3 +665,18 @@ th {
     height: 11px;
   }
 }
+
+/* ============================================
+   GLOBAL BUTTON SPEED FIX
+   Overrides page-specific slow transitions
+   ============================================ */
+
+.sv-btn, .ma-btn, .inf-btn, .te-btn, .ab-btn,
+.sv-check, .ma-check, .inf-check,
+[class*="-btn"] {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease !important;
+}
+
+.sv-card, .ma-card, .inf-card, .te-card, .ab-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease !important;
+}
