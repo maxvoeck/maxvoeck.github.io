@@ -662,78 +662,6 @@ body, html, .page-content, .wrapper, main, .post-content {
     </div>
   </div>
 
-  <!-- Vektorrechnung -->
-  <div class="ma-section ma-section--vektor">
-    <div class="ma-section-header">
-      <div class="ma-section-icon">📐</div>
-      <div class="ma-section-title-group">
-        <h2 class="ma-section-title">Vektorrechnung</h2>
-        <p class="ma-section-subtitle">4 Module · Grundlagen bis Raumgeometrie</p>
-      </div>
-    </div>
-    <div class="ma-grid">
-      <div class="ma-card" data-module="v1">
-        <div class="ma-card-header">
-          <span class="ma-card-number">01</span>
-          <h4>Grundlagen</h4>
-        </div>
-        <p>Einführung in Vektoren, Koordinatensysteme, Betrag, Einheitsvektoren und Grundoperationen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_1-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_vektorrechnung_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('v1', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="v2">
-        <div class="ma-card-header">
-          <span class="ma-card-number">02</span>
-          <h4>Vektor- & Spatprodukt</h4>
-        </div>
-        <p>Kreuzprodukt, Flächenberechnung, Spatprodukt und Volumenberechnung im Raum</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_vektorprodukt.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('v2', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="v3">
-        <div class="ma-card-header">
-          <span class="ma-card-number">03</span>
-          <h4>Geraden und Ebenen</h4>
-        </div>
-        <p>Parametergleichungen, Normalenvektor, Koordinatenform und Lagebeziehungen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_geraden_ebenen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('v3', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="v4">
-        <div class="ma-card-header">
-          <span class="ma-card-number">04</span>
-          <h4>Abstände und Lagen</h4>
-        </div>
-        <p>Abstandsberechnungen, Hessesche Normalenform und praktische Anwendungen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_lagebeziehungen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('v4', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Algebra -->
   <div class="ma-section ma-section--algebra">
     <div class="ma-section-header">
@@ -818,6 +746,80 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
     </div>
   </div>
+
+  <!-- Vektorrechnung -->
+  <div class="ma-section ma-section--vektor">
+    <div class="ma-section-header">
+      <div class="ma-section-icon">📐</div>
+      <div class="ma-section-title-group">
+        <h2 class="ma-section-title">Vektorrechnung</h2>
+        <p class="ma-section-subtitle">4 Module · Grundlagen bis Raumgeometrie</p>
+      </div>
+    </div>
+    <div class="ma-grid">
+      <div class="ma-card" data-module="v1">
+        <div class="ma-card-header">
+          <span class="ma-card-number">01</span>
+          <h4>Grundlagen</h4>
+        </div>
+        <p>Einführung in Vektoren, Koordinatensysteme, Betrag, Einheitsvektoren und Grundoperationen</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Geo_2_1-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_vektorrechnung_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('v1', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ma-card" data-module="v2">
+        <div class="ma-card-header">
+          <span class="ma-card-number">02</span>
+          <h4>Vektor- & Spatprodukt</h4>
+        </div>
+        <p>Kreuzprodukt, Flächenberechnung, Spatprodukt und Volumenberechnung im Raum</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Geo_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_vektorprodukt.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('v2', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ma-card" data-module="v3">
+        <div class="ma-card-header">
+          <span class="ma-card-number">03</span>
+          <h4>Geraden und Ebenen</h4>
+        </div>
+        <p>Parametergleichungen, Normalenvektor, Koordinatenform und Lagebeziehungen</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Geo_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_geraden_ebenen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('v3', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ma-card" data-module="v4">
+        <div class="ma-card-header">
+          <span class="ma-card-number">04</span>
+          <h4>Abstände und Lagen</h4>
+        </div>
+        <p>Abstandsberechnungen, Hessesche Normalenform und praktische Anwendungen</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Geo_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_lagebeziehungen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('v4', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
 
   <!-- Differentialrechnung -->
   <div class="ma-section ma-section--diff">
