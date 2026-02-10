@@ -5,331 +5,266 @@ permalink: /analysen/
 ---
 
 <style>
-/* Japandi Design - Japanisch-Skandinavische Fusion */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
 
-body {
-  background: #f7f5f2;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
-  line-height: 1.7;
-  color: #3d3d3d;
+:root {
+  --bg-deep: #0a0a0f;
+  --bg-card: rgba(255,255,255,0.06);
+  --bg-card-hover: rgba(255,255,255,0.09);
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.14);
+  --text-primary: rgba(255,255,255,0.92);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.32);
+  --accent-1: #6366f1;
+  --accent-2: #8b5cf6;
+  --accent-3: #a78bfa;
+  --analysen: #f97316;
+  --analysen-soft: rgba(249, 115, 22, 0.12);
 }
 
-.page-header {
-  background: #ffffff;
-  color: #3d3d3d;
-  padding: 3.5rem 2.5rem;
-  margin: -2rem -2rem 4rem -2rem;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 1px solid #e8e5e0;
+body, html, .page-content, .wrapper, main, .post-content {
+  background: var(--bg-deep) !important;
+  color: var(--text-primary);
+}
+.post-header, .page-heading, header.post-header { display: none !important; }
+a { color: var(--accent-3); }
+a:hover { color: #c4b5fd; text-decoration: none; }
+
+/* ═══ AMBIENT ═══ */
+.an-ambient {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 0; overflow: hidden; pointer-events: none;
+}
+.an-ambient-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(120px); opacity: 0.4;
+  animation: an-drift 20s ease-in-out infinite;
+}
+.an-ambient-orb:nth-child(1) {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.18) 0%, transparent 70%);
+  top: -10%; left: -5%;
+}
+.an-ambient-orb:nth-child(2) {
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, transparent 70%);
+  top: 45%; right: -10%;
+  animation-delay: -8s; animation-duration: 24s;
+}
+.an-ambient-orb:nth-child(3) {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  bottom: -5%; left: 30%;
+  animation-delay: -14s; animation-duration: 22s;
+}
+@keyframes an-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(25px, -18px) scale(1.04); }
+  50% { transform: translate(-18px, 25px) scale(0.96); }
+  75% { transform: translate(12px, 12px) scale(1.02); }
+}
+.an-ambient::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4; pointer-events: none;
 }
 
-/* Zen-inspirierte Dekoration */
-.page-header::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 60px;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(201, 166, 144, 0.06) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
+/* ═══ CONTENT ═══ */
+.an-content {
+  position: relative; z-index: 1;
+  max-width: 780px; margin: 0 auto;
+  padding: 2rem 1.5rem 5rem;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
-.page-header::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: 180px;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(184, 168, 154, 0.04) 0%, transparent 60%);
-  border-radius: 50%;
-  transform: translateY(-50%);
+/* ═══ HERO ═══ */
+.an-hero {
+  background: var(--bg-card);
+  backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem 2.25rem 2rem;
+  margin-bottom: 2.5rem;
+  position: relative; overflow: hidden;
+}
+.an-hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+}
+.an-hero-eyebrow {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--analysen); margin-bottom: 0.75rem;
+}
+.an-hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem; font-weight: 600;
+  letter-spacing: -0.03em; line-height: 1.1;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.an-hero-sub {
+  font-size: 0.92rem; color: var(--text-secondary);
+  font-weight: 300; line-height: 1.8;
 }
 
-.page-header h1 {
-  margin: 0;
-  font-size: 2.2rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  position: relative;
-  z-index: 1;
-  color: #3d3d3d;
-}
-
-.intro-text {
-  font-size: 0.95rem;
-  color: #6b6b6b;
-  font-weight: 400;
-  margin-bottom: 3.5rem;
-  padding: 2rem 2.5rem;
-  background: #ffffff;
-  border-radius: 2px;
-  border-left: 3px solid #c9a690;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  letter-spacing: 0.02em;
-  line-height: 1.8;
-}
-
-.post-list {
+/* ═══ POST LIST ═══ */
+.an-list {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  margin: 2.5rem 0;
+  gap: 1rem;
 }
 
-.post-item {
-  background: #ffffff;
-  border: 1px solid #e8e5e0;
-  border-radius: 2px;
-  padding: 0;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  border-top: 2px solid #c9a690;
+.an-post {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--analysen);
+  border-radius: 16px;
+  padding: 1.75rem 2rem;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  position: relative; overflow: hidden;
 }
-
-/* Minimalistischer Akzent */
-.post-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, #c9a690, transparent);
-  opacity: 0.15;
-  transition: all 0.4s ease;
+.an-post::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  opacity: 0; transition: opacity 0.15s ease;
 }
-
-/* Dezenter Cover-Effekt */
-.post-item::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(180deg, rgba(201, 166, 144, 0.04) 0%, rgba(201, 166, 144, 0.02) 100%);
-  border-radius: 2px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 0;
-}
-
-.post-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  border-color: #d5d0ca;
-}
-
-.post-item:hover::after {
-  opacity: 1;
-}
-
-.post-item:hover::before {
-  height: 100%;
-  width: 3px;
-  opacity: 0.4;
-}
-
-.post-content {
-  padding: 2rem 2.5rem;
-  position: relative;
-  z-index: 2;
-}
-
-.post-item h2 {
-  margin: 0 0 0.75rem 0;
-  font-size: 1.15rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  line-height: 1.4;
-}
-
-.post-item h2 a {
-  color: #3d3d3d;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.post-item:hover h2 a {
-  color: #c9a690;
-}
-
-.post-meta {
-  color: #8a8a8a;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  margin: 0 0 1.25rem 0;
-  text-transform: uppercase;
-}
-
-.post-item p {
-  color: #6b6b6b;
-  font-size: 0.88rem;
-  line-height: 1.8;
-  margin: 1rem 0 1.5rem 0;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-}
-
-.read-more {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.9rem 1.5rem;
-  background: #fafaf9;
-  color: #5a5a5a !important;
-  text-decoration: none;
-  border: 1px solid #e8e5e0;
-  border-radius: 1px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.read-more::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg, #c9a690 0%, #dbc0af 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.read-more:hover {
+.an-post:hover {
+  background: var(--bg-card-hover); border-color: var(--border-hover);
+  border-left-color: var(--analysen);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-  border-color: transparent;
-  color: #ffffff !important;
+  box-shadow: 0 8px 32px rgba(249, 115, 22, 0.06);
+}
+.an-post:hover::before { opacity: 1; }
+
+.an-post-date {
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 0.6rem;
 }
 
-.read-more:hover::before {
-  opacity: 1;
+.an-post h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem; font-weight: 500;
+  letter-spacing: -0.01em; line-height: 1.45;
+  margin: 0 0 0.5rem 0;
+}
+.an-post h2 a {
+  color: var(--text-primary) !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease;
+}
+.an-post:hover h2 a { color: var(--analysen) !important; }
+
+.an-post-excerpt {
+  font-size: 0.85rem; color: var(--text-secondary);
+  font-weight: 300; line-height: 1.75;
+  margin: 0 0 1.25rem 0;
 }
 
-.read-more:hover::after {
-  opacity: 1;
-  transform: translateX(0);
+.an-btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.55rem 1.1rem; border-radius: 10px;
+  font-size: 0.76rem; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  text-decoration: none !important;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-secondary) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+.an-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(249, 115, 22, 0.4);
+  background: rgba(255,255,255,0.08);
+  color: var(--text-primary) !important;
+  box-shadow: 0 4px 16px rgba(249, 115, 22, 0.1);
 }
 
-.read-more::after {
-  content: '→';
-  position: absolute;
-  right: 1.5rem;
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.3s ease;
-  z-index: 3;
-  color: #ffffff;
-  font-size: 1rem;
+.an-btn-arrow {
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  font-size: 0.85rem;
+}
+.an-btn:hover .an-btn-arrow {
+  opacity: 1; transform: translateX(0);
 }
 
-.read-more span {
-  position: relative;
-  z-index: 2;
-}
-
-.empty-state {
+/* ═══ EMPTY STATE ═══ */
+.an-empty {
   text-align: center;
-  padding: 4rem 2.5rem;
-  background: #ffffff;
-  border: 1px solid #e8e5e0;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  padding: 4rem 2rem;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+.an-empty p {
+  color: var(--text-muted);
+  font-size: 0.9rem; font-weight: 300;
+  font-style: italic; margin: 0;
 }
 
-.empty-state p {
-  color: #8a8a8a;
-  font-size: 0.88rem;
-  font-weight: 400;
-  font-style: italic;
-  letter-spacing: 0.01em;
-  margin: 0;
+/* ═══ ANIMATIONS ═══ */
+@keyframes an-fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+.an-hero { animation: an-fadeUp 0.6s ease both; }
+.an-post { animation: an-fadeUp 0.4s ease both; }
+.an-post:nth-child(1) { animation-delay: 0.08s; }
+.an-post:nth-child(2) { animation-delay: 0.14s; }
+.an-post:nth-child(3) { animation-delay: 0.2s; }
+.an-post:nth-child(4) { animation-delay: 0.26s; }
+.an-post:nth-child(5) { animation-delay: 0.32s; }
+.an-empty { animation: an-fadeUp 0.5s ease both; animation-delay: 0.1s; }
 
-/* Wabi-Sabi Textur-Effekt */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(201, 166, 144, 0.02) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(184, 168, 154, 0.02) 0%, transparent 50%);
-  pointer-events: none;
-  z-index: -1;
-}
-
+/* ═══ RESPONSIVE ═══ */
 @media (max-width: 768px) {
-  .page-header {
-    margin: -1rem -1rem 2.5rem -1rem;
-    padding: 2.5rem 1.75rem;
-  }
-
-  .page-header h1 {
-    font-size: 1.8rem;
-  }
-
-  .page-header::before,
-  .page-header::after {
-    display: none;
-  }
-
-  .intro-text {
-    font-size: 0.9rem;
-    padding: 1.5rem 1.75rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .post-content {
-    padding: 1.75rem 1.5rem;
-  }
-
-  .post-item h2 {
-    font-size: 1.05rem;
-  }
-
-  .empty-state {
-    padding: 3rem 1.5rem;
-  }
+  .an-content { padding: 1.5rem 1rem 4rem; }
+  .an-hero { padding: 2rem 1.5rem 1.5rem; border-radius: 20px; }
+  .an-hero h1 { font-size: 1.9rem; }
+  .an-post { padding: 1.5rem; border-radius: 14px; }
+  .an-post h2 { font-size: 1.05rem; }
 }
 </style>
 
-<p class="intro-text">
-  Hier veröffentliche ich Analysen zu wirtschaftlichen Themen, Marktentwicklungen und wirtschaftspolitischen Fragestellungen.
-</p>
+<!-- AMBIENT -->
+<div class="an-ambient">
+  <div class="an-ambient-orb"></div>
+  <div class="an-ambient-orb"></div>
+  <div class="an-ambient-orb"></div>
+</div>
 
-<div class="post-list">
-  {% for analyse in site.analysen %}
-  <article class="post-item">
-    <div class="post-content">
+<div class="an-content">
+
+  <!-- HERO -->
+  <div class="an-hero">
+    <div class="an-hero-eyebrow">Wirtschaftsanalysen</div>
+    <h1>Analysen</h1>
+    <p class="an-hero-sub">Analysen zu wirtschaftlichen Themen, Marktentwicklungen und wirtschaftspolitischen Fragestellungen.</p>
+  </div>
+
+  <!-- POST LIST -->
+  <div class="an-list">
+    {% for analyse in site.analysen %}
+    <article class="an-post">
+      <p class="an-post-date">{{ analyse.date | date: "%d. %B %Y" }}</p>
       <h2><a href="{{ analyse.url | relative_url }}">{{ analyse.title }}</a></h2>
-      <p class="post-meta">{{ analyse.date | date: "%d. %B %Y" }}</p>
-      <p>{{ analyse.excerpt }}</p>
-      <a href="{{ analyse.url | relative_url }}" class="read-more"><span>Weiterlesen</span></a>
-    </div>
-  </article>
-  {% endfor %}
-</div>
+      <p class="an-post-excerpt">{{ analyse.excerpt | strip_html | truncatewords: 40 }}</p>
+      <a href="{{ analyse.url | relative_url }}" class="an-btn"><span>Weiterlesen</span><span class="an-btn-arrow">→</span></a>
+    </article>
+    {% endfor %}
+  </div>
 
-{% if site.analysen.size == 0 %}
-<div class="empty-state">
-  <p>Bald erscheinen hier die ersten Analysen...</p>
+  {% if site.analysen.size == 0 %}
+  <div class="an-empty">
+    <p>Bald erscheinen hier die ersten Analysen...</p>
+  </div>
+  {% endif %}
+
 </div>
-{% endif %}
