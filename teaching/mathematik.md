@@ -718,7 +718,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
       <div class="ma-card" data-module="a4">
         <div class="ma-card-header">
-          <span class="ma-card-number">08</span>
+          <span class="ma-card-number">04</span>
           <h4>Lineare Gleichungssysteme</h4>
         </div>
         <p>Matrixschreibweise, Gauß-Algorithmus und Lösbarkeitskriterien</p>
@@ -733,7 +733,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
       <div class="ma-card" data-module="a5">
         <div class="ma-card-header">
-          <span class="ma-card-number">09</span>
+          <span class="ma-card-number">05</span>
           <h4>Parameterabhängigkeit</h4>
         </div>
         <p>LGS mit Parametern, Determinantentest und Fallunterscheidungen</p>
@@ -759,7 +759,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     <div class="ma-grid">
       <div class="ma-card" data-module="v1">
         <div class="ma-card-header">
-          <span class="ma-card-number">01</span>
+          <span class="ma-card-number">06</span>
           <h4>Grundlagen</h4>
         </div>
         <p>Einführung in Vektoren, Koordinatensysteme, Betrag, Einheitsvektoren und Grundoperationen</p>
@@ -774,7 +774,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
       <div class="ma-card" data-module="v2">
         <div class="ma-card-header">
-          <span class="ma-card-number">02</span>
+          <span class="ma-card-number">07</span>
           <h4>Vektor- & Spatprodukt</h4>
         </div>
         <p>Kreuzprodukt, Flächenberechnung, Spatprodukt und Volumenberechnung im Raum</p>
@@ -789,7 +789,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
       <div class="ma-card" data-module="v3">
         <div class="ma-card-header">
-          <span class="ma-card-number">03</span>
+          <span class="ma-card-number">08</span>
           <h4>Geraden und Ebenen</h4>
         </div>
         <p>Parametergleichungen, Normalenvektor, Koordinatenform und Lagebeziehungen</p>
@@ -804,7 +804,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
       <div class="ma-card" data-module="v4">
         <div class="ma-card-header">
-          <span class="ma-card-number">04</span>
+          <span class="ma-card-number">09</span>
           <h4>Abstände und Lagen</h4>
         </div>
         <p>Abstandsberechnungen, Hessesche Normalenform und praktische Anwendungen</p>
