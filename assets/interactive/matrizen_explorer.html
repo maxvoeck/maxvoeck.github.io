@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrizen-Explorer</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   APPLE DESIGN SYSTEM – Matrizen-Explorer
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --system-blue: #007AFF;
+  --system-green: #34C759;
+  --system-indigo: #5856D6;
+  --system-orange: #FF9500;
+  --system-pink: #FF2D55;
+  --system-purple: #AF52DE;
+  --system-teal: #5AC8FA;
+  --system-red: #FF3B30;
+  --system-yellow: #FFCC00;
+
+  --accent: #5856D6;
+  --accent-soft: rgba(88, 86, 214, 0.10);
+
+  --vec-1: #007AFF;
+  --vec-2: #FF2D55;
+  --vec-1-soft: rgba(0, 122, 255, 0.12);
+  --vec-2-soft: rgba(255, 45, 85, 0.12);
+  --area-original: rgba(88, 86, 214, 0.08);
+  --area-transformed: rgba(255, 149, 0, 0.18);
+  --grid-transformed: rgba(88, 86, 214, 0.12);
+
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F7;
+  --bg-tertiary: #FFFFFF;
+  --bg-grouped: #F2F2F7;
+  --text-primary: #000000;
+  --text-secondary: #3A3A3C;
+  --text-tertiary: #8E8E93;
+  --separator: rgba(0, 0, 0, 0.08);
+  --separator-strong: rgba(0, 0, 0, 0.16);
+
+  --canvas-bg: #FFFFFF;
+  --canvas-grid: #E5E5EA;
+  --canvas-axis: #000000;
+  --canvas-label: #8E8E93;
+
+  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px;
+
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px; --radius-xl: 20px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #1C1C1E;
+    --bg-tertiary: #2C2C2E;
+    --bg-grouped: #1C1C1E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #EBEBF5;
+    --text-tertiary: #8E8E93;
+    --separator: rgba(255, 255, 255, 0.12);
+    --separator-strong: rgba(255, 255, 255, 0.24);
+
+    --canvas-bg: #1C1C1E;
+    --canvas-grid: rgba(255, 255, 255, 0.06);
+    --canvas-axis: rgba(255, 255, 255, 0.5);
+    --canvas-label: rgba(255, 255, 255, 0.35);
+
+    --vec-1: #64D2FF;
+    --vec-2: #FF375F;
+    --vec-1-soft: rgba(100, 210, 255, 0.15);
+    --vec-2-soft: rgba(255, 55, 95, 0.15);
+    --area-original: rgba(167, 139, 250, 0.08);
+    --area-transformed: rgba(255, 214, 10, 0.15);
+    --grid-transformed: rgba(167, 139, 250, 0.08);
+
+    --accent: #a78bfa;
+    --accent-soft: rgba(167, 139, 250, 0.12);
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.4);
+  }
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-stack);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: var(--space-6);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: 1280px; margin: 0 auto; }
+
+/* ─── Header ─── */
+.page-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+  padding: var(--space-10) var(--space-6);
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.page-header h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.page-header p {
+  font-size: 1.05rem;
+  color: var(--text-tertiary);
+}
+
+/* ─── Main Layout ─── */
+.main-content {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+/* ─── Controls Panel ─── */
+.controls-panel {
+  background: var(--bg-primary);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.control-group { display: flex; flex-direction: column; gap: var(--space-2); }
+
+.control-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ─── Matrix Input ─── */
+.matrix-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.matrix-bracket {
+  font-size: 3.2rem;
+  font-weight: 200;
+  color: var(--text-tertiary);
+  line-height: 1;
+  user-select: none;
+}
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.matrix-grid input {
+  width: 100%;
+  padding: var(--space-3);
+  background: var(--bg-grouped);
+  border: 1.5px solid var(--separator);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text-primary);
+  transition: all var(--transition-fast);
+  -moz-appearance: textfield;
+}
+
+.matrix-grid input::-webkit-outer-spin-button,
+.matrix-grid input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.matrix-grid input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.matrix-grid input.col-1 { border-left: 3px solid var(--vec-1); }
+.matrix-grid input.col-2 { border-left: 3px solid var(--vec-2); }
+
+/* ─── Presets ─── */
+.preset-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2);
+}
+
+.preset-btn {
+  padding: var(--space-3) var(--space-2);
+  background: var(--bg-grouped);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-family: var(--font-stack);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.preset-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.preset-btn:active {
+  transform: scale(0.97);
+}
+
+/* ─── Toggle Buttons ─── */
+.toggle-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.toggle-btn {
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-grouped);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toggle-btn.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.toggle-btn:hover:not(.active) {
+  background: var(--bg-tertiary);
+  border-color: var(--separator-strong);
+}
+
+/* ─── Info Box ─── */
+.info-box {
+  background: var(--bg-grouped);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+}
+
+.info-box h3 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+  color: var(--text-tertiary);
+}
+
+.info-item {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-1);
+  font-family: var(--font-mono);
+  line-height: 1.6;
+}
+
+.info-item strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.info-divider {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--separator);
+}
+
+.det-positive { color: var(--system-green); }
+.det-negative { color: var(--system-red); }
+.det-zero { color: var(--system-orange); }
+
+.interpretation {
+  font-family: var(--font-stack);
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  margin-top: var(--space-2);
+}
+
+/* ─── Canvas ─── */
+.canvas-container {
+  background: var(--bg-primary);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas {
+  border: 1px solid var(--separator);
+  border-radius: var(--radius-md);
+  cursor: default;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ─── Explanation ─── */
+.explanation {
+  background: var(--bg-primary);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--system-indigo);
+}
+
+.explanation h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-4);
+}
+
+.explanation p {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: var(--space-4);
+  font-size: 0.95rem;
+}
+
+.explanation ul {
+  margin-left: var(--space-6);
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.explanation li {
+  margin-bottom: var(--space-2);
+  font-size: 0.95rem;
+}
+
+.explanation li strong { color: var(--text-primary); }
+
+.color-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.color-dot.blue { background: var(--vec-1); }
+.color-dot.pink { background: var(--vec-2); }
+.color-dot.orange { background: var(--system-orange); }
+
+.back-link {
+  display: inline-block;
+  margin-top: var(--space-8);
+  font-size: 0.9rem;
+  color: var(--system-blue);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.back-link:hover { opacity: 0.7; }
+
+/* ─── Animation ─── */
+.animate-btn {
+  padding: var(--space-3) var(--space-4);
+  background: var(--accent);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: var(--font-stack);
+  letter-spacing: 0.02em;
+  transition: all var(--transition-fast);
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.animate-btn:hover { opacity: 0.85; }
+.animate-btn:active { transform: scale(0.98); }
+.animate-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .main-content { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  body { padding: var(--space-4); }
+  .page-header { padding: var(--space-6) var(--space-4); margin-bottom: var(--space-6); }
+  .page-header h1 { font-size: 1.6rem; }
+  .controls-panel, .canvas-container, .explanation { padding: var(--space-4); }
+  .preset-buttons { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 480px) {
+  body { padding: var(--space-3); }
+  .page-header h1 { font-size: 1.4rem; }
+  .preset-buttons { grid-template-columns: repeat(2, 1fr); }
+  .matrix-bracket { font-size: 2.4rem; }
+  .matrix-grid input { font-size: 1rem; padding: var(--space-2); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="page-header">
+    <h1>Matrizen-Explorer</h1>
+    <p>Sieh, was eine Matrix geometrisch bewirkt</p>
+  </div>
+
+  <div class="main-content">
+    <div class="controls-panel">
+
+      <!-- Matrix Input -->
+      <div class="control-group">
+        <label class="control-label">Matrix A</label>
+        <div class="matrix-input-wrapper">
+          <span class="matrix-bracket">(</span>
+          <div class="matrix-grid">
+            <input type="number" id="m00" value="1" step="0.1" class="col-1">
+            <input type="number" id="m01" value="0" step="0.1" class="col-2">
+            <input type="number" id="m10" value="0" step="0.1" class="col-1">
+            <input type="number" id="m11" value="1" step="0.1" class="col-2">
+          </div>
+          <span class="matrix-bracket">)</span>
+        </div>
+      </div>
+
+      <!-- Presets -->
+      <div class="control-group">
+        <label class="control-label">Transformationen</label>
+        <div class="preset-buttons" style="grid-template-columns: repeat(3, 1fr);">
+          <button class="preset-btn" onclick="setPreset(1, 0, 0, 1)">Identität</button>
+          <button class="preset-btn" onclick="setPreset(2, 0, 0, 2)">Skalierung ×2</button>
+          <button class="preset-btn" onclick="setPreset(1, 1, 1, 1)">Singulär</button>
+        </div>
+      </div>
+
+      <!-- Animation -->
+      <div class="control-group">
+        <button class="animate-btn" id="animateBtn" onclick="animateTransform()">Transformation animieren</button>
+      </div>
+
+      <!-- Display Toggles -->
+      <div class="control-group">
+        <label class="control-label">Anzeige</label>
+        <div class="toggle-group">
+          <button class="toggle-btn active" id="toggleArea" onclick="toggleOption('showArea')">Fläche</button>
+          <button class="toggle-btn active" id="toggleOriginal" onclick="toggleOption('showOriginal')">Original</button>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="info-box">
+        <h3>Aktuelle Werte</h3>
+        <div class="info-item"><strong>det(A) = </strong><span id="detValue">1.00</span></div>
+        <div class="info-item"><strong>|det(A)| = </strong><span id="detAbsValue">1.00</span> <span style="font-family: var(--font-stack); font-size: 0.78rem; color: var(--text-tertiary);">(Flächenfaktor)</span></div>
+        <div class="interpretation" id="interpretation">Identität — keine Veränderung</div>
+        <div class="info-divider"></div>
+        <div class="info-item"><strong>Spalte 1:</strong> <span id="col1" style="color: var(--vec-1);">(1, 0)</span></div>
+        <div class="info-item"><strong>Spalte 2:</strong> <span id="col2" style="color: var(--vec-2);">(0, 1)</span></div>
+        <div class="info-divider" id="eigenSection" style="display: none;">
+        <div class="info-item"><strong>Eigenwerte:</strong> <span id="eigenvalues">—</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="canvas-container">
+      <canvas id="canvas" width="700" height="700"></canvas>
+    </div>
+  </div>
+
+  <div class="explanation">
+    <h2>Was lernst du hier?</h2>
+    <p>
+      Eine 2×2-Matrix beschreibt eine <strong>lineare Abbildung</strong> — sie transformiert jeden Punkt der Ebene.
+      Dieser Explorer macht sichtbar, was dabei geometrisch passiert.
+    </p>
+    <ul>
+      <li><span class="color-dot blue"></span><strong>Spalte 1</strong> — zeigt, wohin der Einheitsvektor e₁ = (1, 0) abgebildet wird</li>
+      <li><span class="color-dot pink"></span><strong>Spalte 2</strong> — zeigt, wohin der Einheitsvektor e₂ = (0, 1) abgebildet wird</li>
+      <li><span class="color-dot orange"></span><strong>Determinante</strong> — der Faktor, um den sich Flächen ändern. Negativ = Orientierung kippt</li>
+      <li><strong>det(A) = 0</strong> — die Matrix ist singulär, die Fläche wird auf eine Linie oder einen Punkt zusammengedrückt</li>
+    </ul>
+    <p>
+      Probiere die Presets durch und beobachte: Bei einer Drehung bleibt die Form erhalten (det = 1).
+      Bei einer Scherung ändert sich die Form, aber die Fläche bleibt gleich (det = 1).
+      Klicke „Animieren", um die Transformation schrittweise zu sehen.
+    </p>
+  </div>
+
+  <a href="/teaching/mathematik/" class="back-link">← Zurück zur Mathematik-Übersicht</a>
+
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+// ─── State ───
+let matrix = { a: 1, b: 0, c: 0, d: 1 };
+let animT = 1; // 0 = identity, 1 = full transform
+let animating = false;
+let animTarget = null;
+
+let displayOptions = {
+  showGrid: false,
+  showArea: true,
+  showOriginal: true,
+  showEigen: false
+};
+
+const SIZE = 700;
+const CENTER = SIZE / 2;
+const SCALE = 70; // pixels per unit
+
+// ─── CSS variable reader ───
+function css(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+// ─── Coordinate transforms ───
+function toCanvas(x, y) {
+  return [CENTER + x * SCALE, CENTER - y * SCALE];
+}
+
+// ─── Matrix helpers ───
+function det(a, b, c, d) { return a * d - b * c; }
+
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+function currentMatrix() {
+  return {
+    a: lerp(1, matrix.a, animT),
+    b: lerp(0, matrix.b, animT),
+    c: lerp(0, matrix.c, animT),
+    d: lerp(1, matrix.d, animT)
+  };
+}
+
+function transform(x, y, m) {
+  return [m.a * x + m.b * y, m.c * x + m.d * y];
+}
+
+// ─── Eigenvalues for 2x2 ───
+function eigenvalues(a, b, c, d) {
+  const trace = a + d;
+  const determinant = a * d - b * c;
+  const disc = trace * trace - 4 * determinant;
+
+  if (disc >= 0) {
+    const sqrt = Math.sqrt(disc);
+    return {
+      real: true,
+      l1: (trace + sqrt) / 2,
+      l2: (trace - sqrt) / 2
+    };
+  } else {
+    const realPart = trace / 2;
+    const imagPart = Math.sqrt(-disc) / 2;
+    return {
+      real: false,
+      re: realPart,
+      im: imagPart
+    };
+  }
+}
+
+function eigenvector(a, b, c, d, lambda) {
+  // (A - λI)v = 0
+  const a1 = a - lambda, b1 = b, c1 = c, d1 = d - lambda;
+
+  if (Math.abs(b1) > 1e-10) return [1, -(a1) / b1];
+  if (Math.abs(a1) > 1e-10) return [0, 1]; // b1 ≈ 0, a1 != 0
+  if (Math.abs(c1) > 1e-10) return [1, 0];
+  return [1, 0]; // identity-like
+}
+
+// ─── Drawing ───
+function drawBackground() {
+  ctx.fillStyle = css('--canvas-bg');
+  ctx.fillRect(0, 0, SIZE, SIZE);
+}
+
+function drawGrid() {
+  const gridColor = css('--canvas-grid');
+  const axisColor = css('--canvas-axis');
+  const labelColor = css('--canvas-label');
+
+  // Grid lines
+  ctx.strokeStyle = gridColor;
+  ctx.lineWidth = 1;
+
+  for (let i = -5; i <= 5; i++) {
+    // Vertical
+    const [x] = toCanvas(i, 0);
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, SIZE);
+    ctx.stroke();
+
+    // Horizontal
+    const [, y] = toCanvas(0, i);
+    ctx.beginPath();
+    ctx.moveTo(0, y);
+    ctx.lineTo(SIZE, y);
+    ctx.stroke();
+  }
+
+  // Axes
+  ctx.strokeStyle = axisColor;
+  ctx.lineWidth = 1.5;
+
+  ctx.beginPath();
+  ctx.moveTo(0, CENTER);
+  ctx.lineTo(SIZE, CENTER);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(CENTER, 0);
+  ctx.lineTo(CENTER, SIZE);
+  ctx.stroke();
+
+  // Labels
+  ctx.fillStyle = labelColor;
+  ctx.font = '11px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif';
+  ctx.textAlign = 'center';
+
+  for (let i = -4; i <= 4; i++) {
+    if (i === 0) continue;
+    const [x] = toCanvas(i, 0);
+    ctx.fillText(i.toString(), x, CENTER + 16);
+  }
+
+  ctx.textAlign = 'right';
+  for (let i = -4; i <= 4; i++) {
+    if (i === 0) continue;
+    const [, y] = toCanvas(0, i);
+    ctx.fillText(i.toString(), CENTER - 8, y + 4);
+  }
+}
+
+function drawTransformedGrid(m) {
+  if (!displayOptions.showGrid) return;
+
+  const gridColor = css('--grid-transformed');
+  ctx.strokeStyle = gridColor;
+  ctx.lineWidth = 1;
+
+  for (let i = -5; i <= 5; i++) {
+    // Transformed vertical lines (x = i)
+    ctx.beginPath();
+    for (let j = -5; j <= 5; j += 0.1) {
+      const [tx, ty] = transform(i, j, m);
+      const [cx, cy] = toCanvas(tx, ty);
+      if (j === -5) ctx.moveTo(cx, cy);
+      else ctx.lineTo(cx, cy);
+    }
+    ctx.stroke();
+
+    // Transformed horizontal lines (y = i)
+    ctx.beginPath();
+    for (let j = -5; j <= 5; j += 0.1) {
+      const [tx, ty] = transform(j, i, m);
+      const [cx, cy] = toCanvas(tx, ty);
+      if (j === -5) ctx.moveTo(cx, cy);
+      else ctx.lineTo(cx, cy);
+    }
+    ctx.stroke();
+  }
+}
+
+function drawOriginalSquare() {
+  if (!displayOptions.showOriginal) return;
+
+  const areaColor = css('--area-original');
+  const corners = [[0,0],[1,0],[1,1],[0,1]];
+
+  ctx.fillStyle = areaColor;
+  ctx.strokeStyle = css('--canvas-axis');
+  ctx.lineWidth = 1;
+  ctx.globalAlpha = 0.6;
+  ctx.setLineDash([4, 4]);
+
+  ctx.beginPath();
+  corners.forEach(([x, y], i) => {
+    const [cx, cy] = toCanvas(x, y);
+    if (i === 0) ctx.moveTo(cx, cy);
+    else ctx.lineTo(cx, cy);
+  });
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.setLineDash([]);
+  ctx.globalAlpha = 1;
+}
+
+function drawTransformedSquare(m) {
+  if (!displayOptions.showArea) return;
+
+  const areaColor = css('--area-transformed');
+  const corners = [[0,0],[1,0],[1,1],[0,1]];
+
+  ctx.fillStyle = areaColor;
+  ctx.beginPath();
+  corners.forEach(([x, y], i) => {
+    const [tx, ty] = transform(x, y, m);
+    const [cx, cy] = toCanvas(tx, ty);
+    if (i === 0) ctx.moveTo(cx, cy);
+    else ctx.lineTo(cx, cy);
+  });
+  ctx.closePath();
+  ctx.fill();
+
+  // Outline
+  ctx.strokeStyle = css('--system-orange');
+  ctx.lineWidth = 2;
+  ctx.globalAlpha = 0.7;
+  ctx.beginPath();
+  corners.forEach(([x, y], i) => {
+    const [tx, ty] = transform(x, y, m);
+    const [cx, cy] = toCanvas(tx, ty);
+    if (i === 0) ctx.moveTo(cx, cy);
+    else ctx.lineTo(cx, cy);
+  });
+  ctx.closePath();
+  ctx.stroke();
+  ctx.globalAlpha = 1;
+}
+
+function drawArrow(fromX, fromY, toX, toY, color, lineWidth, label) {
+  const [cx1, cy1] = toCanvas(fromX, fromY);
+  const [cx2, cy2] = toCanvas(toX, toY);
+
+  const dx = cx2 - cx1;
+  const dy = cy2 - cy1;
+  const len = Math.sqrt(dx * dx + dy * dy);
+
+  if (len < 2) return;
+
+  const ux = dx / len;
+  const uy = dy / len;
+
+  // Shaft
+  ctx.strokeStyle = color;
+  ctx.lineWidth = lineWidth;
+  ctx.beginPath();
+  ctx.moveTo(cx1, cy1);
+  ctx.lineTo(cx2, cy2);
+  ctx.stroke();
+
+  // Arrowhead
+  const headLen = 10;
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(cx2, cy2);
+  ctx.lineTo(cx2 - headLen * ux - 5 * uy, cy2 - headLen * uy + 5 * ux);
+  ctx.lineTo(cx2 - headLen * ux + 5 * uy, cy2 - headLen * uy - 5 * ux);
+  ctx.closePath();
+  ctx.fill();
+
+  // Label
+  if (label) {
+    ctx.fillStyle = color;
+    ctx.font = '600 12px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif';
+    ctx.textAlign = 'left';
+    const offsetX = uy * 14;
+    const offsetY = -ux * 14;
+    ctx.fillText(label, cx2 + offsetX + 4, cy2 + offsetY);
+  }
+}
+
+function drawVectors(m) {
+  const vec1 = css('--vec-1');
+  const vec2 = css('--vec-2');
+
+  // Original basis vectors (light, dashed)
+  if (displayOptions.showOriginal) {
+    ctx.globalAlpha = 0.3;
+    drawArrow(0, 0, 1, 0, vec1, 1.5, null);
+    drawArrow(0, 0, 0, 1, vec2, 1.5, null);
+    ctx.globalAlpha = 1;
+  }
+
+  // Transformed basis vectors
+  const [t1x, t1y] = transform(1, 0, m);
+  const [t2x, t2y] = transform(0, 1, m);
+
+  drawArrow(0, 0, t1x, t1y, vec1, 3, `(${t1x.toFixed(1)}, ${t1y.toFixed(1)})`);
+  drawArrow(0, 0, t2x, t2y, vec2, 3, `(${t2x.toFixed(1)}, ${t2y.toFixed(1)})`);
+}
+
+function drawEigenvectors(m) {
+  if (!displayOptions.showEigen) return;
+
+  const ev = eigenvalues(m.a, m.b, m.c, m.d);
+  if (!ev.real) return;
+
+  const drawEigenLine = (lambda, idx) => {
+    const v = eigenvector(m.a, m.b, m.c, m.d, lambda);
+    const len = Math.sqrt(v[0] * v[0] + v[1] * v[1]);
+    if (len < 1e-10) return;
+
+    const ux = v[0] / len;
+    const uy = v[1] / len;
+
+    const colors = [css('--system-green'), css('--system-yellow')];
+    ctx.strokeStyle = colors[idx];
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([8, 4]);
+    ctx.globalAlpha = 0.7;
+
+    const extent = 5;
+    const [cx1, cy1] = toCanvas(-extent * ux, -extent * uy);
+    const [cx2, cy2] = toCanvas(extent * ux, extent * uy);
+
+    ctx.beginPath();
+    ctx.moveTo(cx1, cy1);
+    ctx.lineTo(cx2, cy2);
+    ctx.stroke();
+
+    ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
+
+    // Label
+    ctx.fillStyle = colors[idx];
+    ctx.font = '600 11px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif';
+    ctx.textAlign = 'left';
+    const [lx, ly] = toCanvas(2.5 * ux, 2.5 * uy);
+    ctx.fillText(`λ${idx + 1} = ${lambda.toFixed(2)}`, lx + 6, ly - 6);
+  };
+
+  drawEigenLine(ev.l1, 0);
+  if (Math.abs(ev.l1 - ev.l2) > 1e-10) {
+    drawEigenLine(ev.l2, 1);
+  }
+}
+
+function drawFunctionLabel(m) {
+  const d = det(m.a, m.b, m.c, m.d);
+  const labelColor = css('--text-tertiary');
+
+  ctx.fillStyle = labelColor;
+  ctx.font = '12px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText(`det(A) = ${d.toFixed(2)}`, SIZE - 16, SIZE - 16);
+}
+
+// ─── Main Draw ───
+function draw() {
+  const m = currentMatrix();
+
+  drawBackground();
+  drawGrid();
+  drawTransformedGrid(m);
+  drawOriginalSquare();
+  drawTransformedSquare(m);
+  drawEigenvectors(m);
+  drawVectors(m);
+  drawFunctionLabel(m);
+  updateInfo(m);
+}
+
+// ─── Info Update ───
+function updateInfo(m) {
+  const d = det(m.a, m.b, m.c, m.d);
+  const absD = Math.abs(d);
+
+  const detEl = document.getElementById('detValue');
+  detEl.textContent = d.toFixed(2);
+  detEl.className = d > 0.001 ? 'det-positive' : (d < -0.001 ? 'det-negative' : 'det-zero');
+
+  document.getElementById('detAbsValue').textContent = absD.toFixed(2);
+
+  document.getElementById('col1').textContent = `(${m.a.toFixed(2)}, ${m.c.toFixed(2)})`;
+  document.getElementById('col2').textContent = `(${m.b.toFixed(2)}, ${m.d.toFixed(2)})`;
+
+  // Interpretation
+  const interp = document.getElementById('interpretation');
+  if (absD < 0.01) {
+    interp.textContent = 'Singulär — Fläche wird auf Linie/Punkt zusammengedrückt';
+  } else if (d < 0) {
+    interp.textContent = `Orientierung umgekehrt — Fläche um Faktor ${absD.toFixed(2)} skaliert`;
+  } else if (Math.abs(d - 1) < 0.01) {
+    interp.textContent = 'Flächenerhaltend (det = 1)';
+  } else {
+    interp.textContent = `Fläche um Faktor ${absD.toFixed(2)} skaliert`;
+  }
+
+  // Eigenwerte
+  const eigenSection = document.getElementById('eigenSection');
+  const eigenDisplay = document.getElementById('eigenvalues');
+
+  if (displayOptions.showEigen) {
+    eigenSection.style.display = 'block';
+    const ev = eigenvalues(m.a, m.b, m.c, m.d);
+    if (ev.real) {
+      eigenDisplay.textContent = `λ₁ = ${ev.l1.toFixed(2)}, λ₂ = ${ev.l2.toFixed(2)}`;
+    } else {
+      eigenDisplay.textContent = `${ev.re.toFixed(2)} ± ${ev.im.toFixed(2)}i (komplex)`;
+    }
+  } else {
+    eigenSection.style.display = 'none';
+  }
+}
+
+// ─── Input Handling ───
+function readMatrix() {
+  matrix.a = parseFloat(document.getElementById('m00').value) || 0;
+  matrix.b = parseFloat(document.getElementById('m01').value) || 0;
+  matrix.c = parseFloat(document.getElementById('m10').value) || 0;
+  matrix.d = parseFloat(document.getElementById('m11').value) || 0;
+  animT = 1;
+  draw();
+}
+
+document.querySelectorAll('.matrix-grid input').forEach(input => {
+  input.addEventListener('input', readMatrix);
+});
+
+function setMatrixInputs(a, b, c, d) {
+  document.getElementById('m00').value = parseFloat(a.toFixed(4));
+  document.getElementById('m01').value = parseFloat(b.toFixed(4));
+  document.getElementById('m10').value = parseFloat(c.toFixed(4));
+  document.getElementById('m11').value = parseFloat(d.toFixed(4));
+}
+
+function setPreset(a, b, c, d) {
+  matrix = { a, b, c, d };
+  setMatrixInputs(a, b, c, d);
+  animT = 1;
+  draw();
+}
+
+function setRotation(deg) {
+  const rad = deg * Math.PI / 180;
+  const cos = Math.cos(rad);
+  const sin = Math.sin(rad);
+  setPreset(
+    parseFloat(cos.toFixed(6)),
+    parseFloat((-sin).toFixed(6)),
+    parseFloat(sin.toFixed(6)),
+    parseFloat(cos.toFixed(6))
+  );
+}
+
+// ─── Animation ───
+function animateTransform() {
+  if (animating) return;
+
+  const btn = document.getElementById('animateBtn');
+  btn.disabled = true;
+  btn.textContent = 'Animiert …';
+  animating = true;
+  animT = 0;
+
+  const startTime = performance.now();
+  const duration = 800;
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    // Ease out cubic
+    animT = 1 - Math.pow(1 - progress, 3);
+    draw();
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      animT = 1;
+      animating = false;
+      btn.disabled = false;
+      btn.textContent = 'Transformation animieren';
+      draw();
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+// ─── Toggles ───
+function toggleOption(key) {
+  displayOptions[key] = !displayOptions[key];
+
+  const btnMap = {
+    showGrid: 'toggleGrid',
+    showArea: 'toggleArea',
+    showOriginal: 'toggleOriginal',
+    showEigen: 'toggleEigen'
+  };
+
+  const btn = document.getElementById(btnMap[key]);
+  btn.classList.toggle('active');
+  draw();
+}
+
+// ─── Dark mode listener ───
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => draw());
+
+// ─── Initial ───
+draw();
+</script>
+</body>
+</html>

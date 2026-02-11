@@ -1037,13 +1037,26 @@ body, html, .page-content, .wrapper, main, .post-content {
           <button class="ma-check" onclick="toggleModule('t3', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
         </div>
       </div>
+
+      <div class="ma-card" data-module="t4">
+        <div class="ma-tool-icon">🔲</div>
+        <div class="ma-card-header" style="margin-bottom: var(--space-2);">
+          <span class="ma-card-number">T4</span>
+          <h4>Matrizen-Explorer</h4>
+        </div>
+        <p>Sieh, was eine Matrix geometrisch bewirkt: Transformationen, Determinante und Flächenfaktor live</p>
+        <div class="ma-actions">
+          <a href="/assets/interactive/matrizen_explorer.html" class="ma-btn ma-btn--primary" style="width: 100%; justify-content: center;" onclick="event.stopPropagation()">Öffnen</a>
+          <button class="ma-check" onclick="toggleModule('t4', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Footer -->
   <div class="ma-footer">
     <div class="ma-footer-text">
-      <strong>28 Module</strong> · Materialien für Bildungszwecke · Frei verwendbar
+      <strong>28 Module</strong> 
     </div>
     <div class="ma-footer-actions">
       <a href="/teaching/" class="ma-btn ma-btn--secondary">← Übersicht</a>

@@ -5,63 +5,166 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tangenten-Explorer</title>
 <style>
-* {
+/* ═══════════════════════════════════════════════════════════════
+   APPLE DESIGN SYSTEM – Tangenten-Explorer
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Design Tokens ─── */
+:root {
+  --system-blue: #007AFF;
+  --system-green: #34C759;
+  --system-indigo: #5856D6;
+  --system-orange: #FF9500;
+  --system-pink: #FF2D55;
+  --system-purple: #AF52DE;
+  --system-teal: #5AC8FA;
+
+  --accent: #FF2D55;
+  --accent-soft: rgba(255, 45, 85, 0.10);
+  --tangent-color: #FF9500;
+  --tangent-soft: rgba(255, 149, 0, 0.12);
+  --curve-color: #007AFF;
+  --point-color: #FF2D55;
+
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F5F7;
+  --bg-tertiary: #FFFFFF;
+  --bg-grouped: #F2F2F7;
+  --text-primary: #000000;
+  --text-secondary: #3A3A3C;
+  --text-tertiary: #8E8E93;
+  --separator: rgba(0, 0, 0, 0.08);
+  --separator-strong: rgba(0, 0, 0, 0.16);
+
+  --canvas-bg: #FFFFFF;
+  --canvas-grid: #E5E5EA;
+  --canvas-axis: #000000;
+  --canvas-label: #8E8E93;
+
+  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Dark Mode ─── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #000000;
+    --bg-secondary: #1C1C1E;
+    --bg-tertiary: #2C2C2E;
+    --bg-grouped: #1C1C1E;
+    --text-primary: #FFFFFF;
+    --text-secondary: #EBEBF5;
+    --text-tertiary: #8E8E93;
+    --separator: rgba(255, 255, 255, 0.12);
+    --separator-strong: rgba(255, 255, 255, 0.24);
+
+    --canvas-bg: #1C1C1E;
+    --canvas-grid: rgba(255, 255, 255, 0.08);
+    --canvas-axis: rgba(255, 255, 255, 0.6);
+    --canvas-label: rgba(255, 255, 255, 0.4);
+
+    --curve-color: #64D2FF;
+    --tangent-color: #FFD60A;
+    --point-color: #FF375F;
+    --tangent-soft: rgba(255, 214, 10, 0.15);
+    --accent-soft: rgba(255, 55, 95, 0.15);
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+    --shadow-lg: 0 12px 24px rgba(0,0,0,0.4);
+  }
+}
+
+/* ─── Reset & Base ─── */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #f7f5f2 0%, #f0ede8 25%, #e8e5e0 50%, #f0ede8 75%, #f7f5f2 100%);
+  font-family: var(--font-stack);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   min-height: 100vh;
-  padding: 2rem;
-  color: #3d3d3d;
+  padding: var(--space-6);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* ─── Container ─── */
 .container {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.header {
+/* ─── Header ─── */
+.page-header {
   text-align: center;
-  margin-bottom: 2rem;
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  margin-bottom: var(--space-8);
+  padding: var(--space-10) var(--space-6);
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
 }
 
-.header h1 {
-  font-size: 2rem;
+.page-header h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.page-header p {
+  font-size: 1.05rem;
   font-weight: 400;
-  color: #3d3d3d;
-  margin-bottom: 0.5rem;
+  color: var(--text-tertiary);
+  letter-spacing: -0.01em;
 }
 
-.header p {
-  color: #6b6b6b;
-  font-size: 1rem;
-}
-
+/* ─── Main Layout ─── */
 .main-content {
   display: grid;
-  grid-template-columns: 350px 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: 340px 1fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
 }
 
+/* ─── Controls Panel ─── */
 .controls-panel {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  border-left: 3px solid #8b9e9f;
+  background: var(--bg-primary);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--system-pink);
 }
 
 .control-group {
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-6);
 }
 
 .control-group:last-child {
@@ -70,175 +173,235 @@ body {
 
 .control-label {
   display: block;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #3d3d3d;
-  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
 }
 
 .control-sublabel {
-  font-size: 0.8rem;
-  color: #6b6b6b;
-  margin-bottom: 0.8rem;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-3);
 }
 
+/* ─── Function Buttons ─── */
 .function-buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: var(--space-2);
 }
 
 .function-btn {
-  padding: 0.6rem;
-  background: #fafaf9;
-  border: 1px solid #e8e5e0;
-  border-radius: 10px;
+  padding: var(--space-3) var(--space-2);
+  background: var(--bg-grouped);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 0.85rem;
-  font-family: 'Courier New', monospace;
-  transition: all 0.3s ease;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .function-btn:hover {
-  background: #8b9e9f;
-  color: white;
-  border-color: #8b9e9f;
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .function-btn.active {
-  background: #8b9e9f;
-  color: white;
-  border-color: #8b9e9f;
+  background: var(--accent);
+  color: #FFFFFF;
+  border-color: var(--accent);
+  font-weight: 500;
 }
 
+/* ─── Sliders ─── */
 .slider-container {
-  position: relative;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-2);
 }
 
 input[type="range"] {
   width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  background: #e8e5e0;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--separator-strong);
   outline: none;
   -webkit-appearance: none;
+  transition: background var(--transition-fast);
 }
 
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: #8b9e9f;
+  background: var(--bg-primary);
+  border: 2px solid var(--accent);
   cursor: pointer;
-  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: all var(--transition-fast);
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-  background: #6d7e7f;
-  transform: scale(1.2);
+  transform: scale(1.15);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 input[type="range"]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: #8b9e9f;
+  background: var(--bg-primary);
+  border: 2px solid var(--accent);
   cursor: pointer;
-  border: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 .slider-value {
   display: inline-block;
-  background: #f0ede8;
-  padding: 0.3rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.85rem;
+  background: var(--bg-grouped);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
   font-weight: 500;
-  color: #3d3d3d;
-  min-width: 60px;
+  color: var(--text-primary);
+  min-width: 70px;
   text-align: center;
 }
 
+/* ─── Info Box ─── */
 .info-box {
-  background: #f0ede8;
-  padding: 1rem;
-  border-radius: 12px;
-  margin-top: 1rem;
-  border-left: 3px solid #b8a89a;
+  background: var(--bg-grouped);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-4);
 }
 
 .info-box h3 {
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: #3d3d3d;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+  color: var(--text-tertiary);
 }
 
 .info-item {
   font-size: 0.85rem;
-  color: #6b6b6b;
-  margin-bottom: 0.3rem;
-  font-family: 'Courier New', monospace;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-1);
+  font-family: var(--font-mono);
+  line-height: 1.6;
 }
 
 .info-item strong {
-  color: #3d3d3d;
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
+.info-divider {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--separator);
+}
+
+/* ─── Tip Box ─── */
+.tip-box {
+  background: var(--tangent-soft);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-4);
+  border-left: 3px solid var(--tangent-color);
+}
+
+.tip-box p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ─── Canvas Container ─── */
 .canvas-container {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  background: var(--bg-primary);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 500px;
 }
 
 canvas {
-  border: 1px solid #e8e5e0;
-  border-radius: 12px;
+  border: 1px solid var(--separator);
+  border-radius: var(--radius-md);
   cursor: crosshair;
   touch-action: none;
   max-width: 100%;
   height: auto;
 }
 
+/* ─── Explanation Card ─── */
 .explanation {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-  border-left: 3px solid #c9b896;
+  background: var(--bg-primary);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--system-indigo);
 }
 
 .explanation h2 {
-  font-size: 1.3rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  color: #3d3d3d;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
 }
 
 .explanation p {
-  color: #6b6b6b;
+  color: var(--text-secondary);
   line-height: 1.8;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
+  font-size: 0.95rem;
 }
 
 .explanation ul {
-  margin-left: 1.5rem;
-  color: #6b6b6b;
+  margin-left: var(--space-6);
+  color: var(--text-secondary);
   line-height: 1.8;
 }
 
 .explanation li {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-2);
+  font-size: 0.95rem;
 }
 
+.explanation li strong {
+  color: var(--text-primary);
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: var(--space-8);
+  font-size: 0.9rem;
+  color: var(--system-blue);
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.back-link:hover {
+  opacity: 0.7;
+}
+
+/* ─── Responsive ─── */
 @media (max-width: 1024px) {
   .main-content {
     grid-template-columns: 1fr;
@@ -247,127 +410,84 @@ canvas {
 
 @media (max-width: 768px) {
   body {
-    padding: 1rem;
+    padding: var(--space-4);
   }
-  
-  .header {
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+
+  .page-header {
+    padding: var(--space-6) var(--space-4);
+    margin-bottom: var(--space-6);
   }
-  
-  .header h1 {
-    font-size: 1.4rem;
+
+  .page-header h1 {
+    font-size: 1.6rem;
   }
-  
-  .header p {
-    font-size: 0.9rem;
-  }
-  
-  .controls-panel {
-    padding: 1.5rem;
-  }
-  
-  .canvas-container {
-    padding: 1rem;
-  }
-  
-  canvas {
-    max-width: 100%;
-    height: auto;
-  }
-  
+
+  .controls-panel,
+  .canvas-container,
   .explanation {
-    padding: 1.5rem;
+    padding: var(--space-4);
   }
-  
+
   .function-buttons {
-    grid-template-columns: 1fr;
-  }
-  
-  .control-group {
-    margin-bottom: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 480px) {
   body {
-    padding: 0.5rem;
+    padding: var(--space-3);
   }
-  
-  .header {
-    padding: 1rem;
-    margin-bottom: 1rem;
+
+  .page-header h1 {
+    font-size: 1.4rem;
   }
-  
-  .header h1 {
-    font-size: 1.3rem;
+
+  .function-buttons {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .header p {
-    font-size: 0.85rem;
+
+  .explanation {
+    padding: var(--space-4);
   }
-  
-  .controls-panel, .canvas-container, .explanation {
-    padding: 1rem;
-  }
-  
-  .control-label {
-    font-size: 0.85rem;
-  }
-  
-  .control-sublabel {
-    font-size: 0.75rem;
-  }
-  
-  .info-box h3 {
-    font-size: 0.85rem;
-  }
-  
-  .info-item {
-    font-size: 0.8rem;
-  }
-  
+
   .explanation h2 {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
-  
-  .explanation p, .explanation li {
-    font-size: 0.85rem;
-  }
-}
 }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="header">
-    <h1>📐 Tangenten-Explorer</h1>
+
+  <div class="page-header">
+    <h1>Tangenten-Explorer</h1>
     <p>Entdecke, wie Tangenten und Ableitungen zusammenhängen</p>
   </div>
-  
+
   <div class="main-content">
     <div class="controls-panel">
+
       <div class="control-group">
-        <label class="control-label">Wähle eine Funktion</label>
+        <label class="control-label">Funktion</label>
         <div class="function-buttons">
-          <button class="function-btn active" onclick="setFunction('quadratic')">f(x) = x²</button>
-          <button class="function-btn" onclick="setFunction('cubic')">f(x) = x³/4</button>
-          <button class="function-btn" onclick="setFunction('sin')">f(x) = 2*sin(x)</button>
-          <button class="function-btn" onclick="setFunction('exp')">f(x) = e^(x/2)-1</button>
-          <button class="function-btn" onclick="setFunction('sqrt')">f(x) = 2*√x</button>
-          <button class="function-btn" onclick="setFunction('rational')">f(x) = 1/x</button>
+          <button class="function-btn active" onclick="setFunction('quadratic')">x²</button>
+          <button class="function-btn" onclick="setFunction('cubic')">x³/4</button>
+          <button class="function-btn" onclick="setFunction('sin')">2·sin(x)</button>
+          <button class="function-btn" onclick="setFunction('exp')">eˣ/²−1</button>
+          <button class="function-btn" onclick="setFunction('sqrt')">2·√x</button>
+          <button class="function-btn" onclick="setFunction('rational')">1/x</button>
         </div>
       </div>
-      
+
       <div class="control-group">
-        <label class="control-label">Position des Berührpunkts</label>
-        <div class="control-sublabel">Verschiebe den Punkt auf der Kurve</div>
+        <label class="control-label">Position</label>
+        <div class="control-sublabel">Berührpunkt auf der Kurve</div>
         <div class="slider-container">
           <input type="range" id="xSlider" min="-5" max="5" step="0.01" value="1">
         </div>
         <span class="slider-value" id="xValue">x = 1.00</span>
       </div>
-      
+
       <div class="control-group">
         <label class="control-label">Tangentenlänge</label>
         <div class="slider-container">
@@ -375,48 +495,48 @@ canvas {
         </div>
         <span class="slider-value" id="lengthValue">3.0</span>
       </div>
-      
+
       <div class="info-box">
-        <h3>📊 Aktuelle Werte</h3>
+        <h3>Aktuelle Werte</h3>
         <div class="info-item"><strong>Punkt:</strong> (<span id="pointX">1.00</span>, <span id="pointY">1.00</span>)</div>
         <div class="info-item"><strong>Steigung m:</strong> <span id="slopeValue">2.00</span></div>
         <div class="info-item"><strong>f'(x):</strong> <span id="derivativeValue">2.00</span></div>
-        <div class="info-item" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #d5d0ca;">
-          <strong>Tangentengleichung:</strong><br>
-          <span id="tangentEquation">y = 2.00x - 1.00</span>
+        <div class="info-item info-divider">
+          <strong>Tangente:</strong><br>
+          <span id="tangentEquation">y = 2.00x − 1.00</span>
         </div>
       </div>
-      
-      <div class="info-box" style="background: #e8f4f5; border-left-color: #8b9e9f; margin-top: 1rem;">
-        <h3>💡 Tipp</h3>
-        <p style="font-size: 0.85rem; color: #6b6b6b; margin: 0;">
-          <strong>Desktop:</strong> Klicke auf die Leinwand oder verwende den Slider.<br>
-          <strong>Mobil:</strong> Tippe auf die Leinwand oder nutze den Slider.
-        </p>
+
+      <div class="tip-box">
+        <p><strong>Tipp:</strong> Klicke/tippe auf die Zeichenfläche oder nutze den Slider, um den Berührpunkt zu verschieben.</p>
       </div>
+
     </div>
-    
+
     <div class="canvas-container">
       <canvas id="canvas" width="700" height="600"></canvas>
     </div>
   </div>
-  
+
   <div class="explanation">
-    <h2>🎯 Was lernst du hier?</h2>
+    <h2>Was lernst du hier?</h2>
     <p>
-      Dieser interaktive Explorer hilft dir zu verstehen, was eine <strong>Tangente</strong> ist und wie sie mit der <strong>Ableitung</strong> zusammenhängt.
+      Dieser Explorer hilft dir zu verstehen, was eine <strong>Tangente</strong> ist und wie sie mit der <strong>Ableitung</strong> zusammenhängt.
     </p>
     <ul>
-      <li><strong>Tangente:</strong> Eine Gerade, die die Kurve in genau einem Punkt berührt</li>
-      <li><strong>Steigung der Tangente:</strong> Zeigt, wie steil die Kurve an diesem Punkt ist</li>
-      <li><strong>Ableitung f'(x):</strong> Gibt genau diese Steigung an!</li>
-      <li><strong>Tangentengleichung:</strong> y = f'(x₀) · (x - x₀) + f(x₀) oder y = mx + b</li>
+      <li><strong>Tangente</strong> — eine Gerade, die die Kurve in genau einem Punkt berührt</li>
+      <li><strong>Steigung</strong> — zeigt, wie steil die Kurve an diesem Punkt ist</li>
+      <li><strong>Ableitung f'(x)</strong> — gibt genau diese Steigung an</li>
+      <li><strong>Tangentengleichung</strong> — y = f'(x₀) · (x − x₀) + f(x₀)</li>
     </ul>
-    <p style="margin-top: 1rem;">
-      <strong>Probiere aus:</strong> Verschiebe den Punkt und beobachte, wie sich die Steigung ändert. 
-      Bei x² wird die Kurve steiler, je weiter du nach rechts gehst. Bei sin(x) schwankt die Steigung zwischen -1 und +1.
+    <p>
+      Verschiebe den Punkt und beobachte, wie sich die Steigung ändert.
+      Bei x² wird die Kurve steiler, je weiter du nach rechts gehst. Bei sin(x) schwankt die Steigung zwischen −2 und +2.
     </p>
   </div>
+
+  <a href="/teaching/mathematik/" class="back-link">← Zurück zur Mathematik-Übersicht</a>
+
 </div>
 
 <script>
@@ -425,7 +545,11 @@ const ctx = canvas.getContext('2d');
 const xSlider = document.getElementById('xSlider');
 const lengthSlider = document.getElementById('lengthSlider');
 
-// Konfiguration
+// ─── Read CSS custom properties for canvas colors ───
+function getCSSVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
 const config = {
   width: 700,
   height: 600,
@@ -436,12 +560,10 @@ const config = {
   gridStep: 1
 };
 
-// Aktuelle Funktion
 let currentFunction = 'quadratic';
 let currentX = 1;
 let tangentLength = 3;
 
-// Funktionsdefinitionen
 const functions = {
   quadratic: {
     f: x => x * x,
@@ -467,7 +589,7 @@ const functions = {
   exp: {
     f: x => Math.exp(x / 2) - 1,
     df: x => Math.exp(x / 2) / 2,
-    name: 'f(x) = eˣ/² - 1',
+    name: 'f(x) = eˣ/² − 1',
     dfName: "f'(x) = eˣ/²/2",
     range: { min: -3, max: 3 }
   },
@@ -482,191 +604,203 @@ const functions = {
     f: x => x !== 0 ? 1 / x : null,
     df: x => x !== 0 ? -1 / (x * x) : null,
     name: 'f(x) = 1/x',
-    dfName: "f'(x) = -1/x²",
+    dfName: "f'(x) = −1/x²",
     range: { min: -5, max: 5 }
   }
 };
 
-// Koordinatentransformation
+// ─── Coordinate transforms ───
 function toCanvasX(x) {
   return (x - config.xMin) / (config.xMax - config.xMin) * config.width;
 }
-
 function toCanvasY(y) {
   return config.height - (y - config.yMin) / (config.yMax - config.yMin) * config.height;
 }
-
-function fromCanvasX(canvasX) {
-  return canvasX / config.width * (config.xMax - config.xMin) + config.xMin;
+function fromCanvasX(cx) {
+  return cx / config.width * (config.xMax - config.xMin) + config.xMin;
 }
 
-function fromCanvasY(canvasY) {
-  return (config.height - canvasY) / config.height * (config.yMax - config.yMin) + config.yMin;
-}
-
-// Zeichne Koordinatensystem
+// ─── Draw Grid & Axes ───
 function drawGrid() {
-  ctx.strokeStyle = '#e8e5e0';
+  const gridColor = getCSSVar('--canvas-grid');
+  const axisColor = getCSSVar('--canvas-axis');
+  const labelColor = getCSSVar('--canvas-label');
+  const bgColor = getCSSVar('--canvas-bg');
+
+  // Background
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, config.width, config.height);
+
+  // Grid
+  ctx.strokeStyle = gridColor;
   ctx.lineWidth = 1;
-  
-  // Vertikale Linien
+
   for (let x = Math.ceil(config.xMin); x <= Math.floor(config.xMax); x += config.gridStep) {
-    const canvasX = toCanvasX(x);
+    const cx = toCanvasX(x);
     ctx.beginPath();
-    ctx.moveTo(canvasX, 0);
-    ctx.lineTo(canvasX, config.height);
+    ctx.moveTo(cx, 0);
+    ctx.lineTo(cx, config.height);
     ctx.stroke();
   }
-  
-  // Horizontale Linien
   for (let y = Math.ceil(config.yMin); y <= Math.floor(config.yMax); y += config.gridStep) {
-    const canvasY = toCanvasY(y);
+    const cy = toCanvasY(y);
     ctx.beginPath();
-    ctx.moveTo(0, canvasY);
-    ctx.lineTo(config.width, canvasY);
+    ctx.moveTo(0, cy);
+    ctx.lineTo(config.width, cy);
     ctx.stroke();
   }
-  
-  // Achsen
-  ctx.strokeStyle = '#3d3d3d';
-  ctx.lineWidth = 2;
-  
-  // x-Achse
-  const yAxisCanvas = toCanvasY(0);
+
+  // Axes
+  ctx.strokeStyle = axisColor;
+  ctx.lineWidth = 1.5;
+
+  const yAxis = toCanvasY(0);
   ctx.beginPath();
-  ctx.moveTo(0, yAxisCanvas);
-  ctx.lineTo(config.width, yAxisCanvas);
+  ctx.moveTo(0, yAxis);
+  ctx.lineTo(config.width, yAxis);
   ctx.stroke();
-  
-  // y-Achse
-  const xAxisCanvas = toCanvasX(0);
+
+  const xAxis = toCanvasX(0);
   ctx.beginPath();
-  ctx.moveTo(xAxisCanvas, 0);
-  ctx.lineTo(xAxisCanvas, config.height);
+  ctx.moveTo(xAxis, 0);
+  ctx.lineTo(xAxis, config.height);
   ctx.stroke();
-  
-  // Beschriftung
-  ctx.fillStyle = '#6b6b6b';
-  ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
+
+  // Labels
+  ctx.fillStyle = labelColor;
+  ctx.font = '11px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif';
   ctx.textAlign = 'center';
-  
-  for (let x = Math.ceil(config.xMin); x <= Math.floor(config.xMax); x += 1) {
+
+  for (let x = Math.ceil(config.xMin); x <= Math.floor(config.xMax); x++) {
     if (x === 0) continue;
-    const canvasX = toCanvasX(x);
-    ctx.fillText(x.toString(), canvasX, yAxisCanvas + 20);
+    ctx.fillText(x.toString(), toCanvasX(x), yAxis + 16);
   }
-  
+
   ctx.textAlign = 'right';
-  for (let y = Math.ceil(config.yMin); y <= Math.floor(config.yMax); y += 1) {
+  for (let y = Math.ceil(config.yMin); y <= Math.floor(config.yMax); y++) {
     if (y === 0) continue;
-    const canvasY = toCanvasY(y);
-    ctx.fillText(y.toString(), xAxisCanvas - 10, canvasY + 5);
+    ctx.fillText(y.toString(), xAxis - 8, toCanvasY(y) + 4);
   }
 }
 
-// Zeichne Funktion
+// ─── Draw Function Curve ───
 function drawFunction() {
   const func = functions[currentFunction];
-  ctx.strokeStyle = '#8b9e9f';
-  ctx.lineWidth = 3;
+  const curveColor = getCSSVar('--curve-color');
+
+  ctx.strokeStyle = curveColor;
+  ctx.lineWidth = 2.5;
   ctx.beginPath();
-  
+
   let started = false;
-  for (let canvasX = 0; canvasX <= config.width; canvasX += 2) {
-    const x = fromCanvasX(canvasX);
+  for (let cx = 0; cx <= config.width; cx += 1.5) {
+    const x = fromCanvasX(cx);
     const y = func.f(x);
-    
-    if (y === null || isNaN(y) || y < config.yMin - 1 || y > config.yMax + 1) {
+
+    if (y === null || isNaN(y) || y < config.yMin - 2 || y > config.yMax + 2) {
       started = false;
       continue;
     }
-    
-    const canvasY = toCanvasY(y);
-    
+
+    const cy = toCanvasY(y);
     if (!started) {
-      ctx.moveTo(canvasX, canvasY);
+      ctx.moveTo(cx, cy);
       started = true;
     } else {
-      ctx.lineTo(canvasX, canvasY);
+      ctx.lineTo(cx, cy);
     }
   }
-  
   ctx.stroke();
-  
-  // Funktionsname
-  ctx.fillStyle = '#8b9e9f';
-  ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
+
+  // Function name label
+  ctx.fillStyle = curveColor;
+  ctx.font = '600 13px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif';
   ctx.textAlign = 'left';
-  ctx.fillText(func.name, 20, 30);
+  ctx.fillText(func.name, 16, 26);
+
+  // Derivative label
+  ctx.font = '12px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif';
+  ctx.globalAlpha = 0.6;
+  ctx.fillText(func.dfName, 16, 44);
+  ctx.globalAlpha = 1;
 }
 
-// Zeichne Tangente
+// ─── Draw Tangent Line ───
 function drawTangent() {
   const func = functions[currentFunction];
   const x0 = currentX;
   const y0 = func.f(x0);
-  
+
   if (y0 === null || isNaN(y0)) return;
-  
+
   const slope = func.df(x0);
   if (slope === null || isNaN(slope)) return;
-  
-  // Tangentenpunkte
+
+  const tangentCol = getCSSVar('--tangent-color');
+  const pointCol = getCSSVar('--point-color');
+
+  // Tangent line
   const x1 = x0 - tangentLength;
   const y1 = y0 + slope * (x1 - x0);
   const x2 = x0 + tangentLength;
   const y2 = y0 + slope * (x2 - x0);
-  
-  // Zeichne Tangente
-  ctx.strokeStyle = '#c9b896';
+
+  ctx.strokeStyle = tangentCol;
   ctx.lineWidth = 2;
-  ctx.setLineDash([5, 5]);
+  ctx.setLineDash([6, 4]);
   ctx.beginPath();
   ctx.moveTo(toCanvasX(x1), toCanvasY(y1));
   ctx.lineTo(toCanvasX(x2), toCanvasY(y2));
   ctx.stroke();
   ctx.setLineDash([]);
-  
-  // Berührpunkt
-  ctx.fillStyle = '#b8a89a';
+
+  // Point glow
+  ctx.beginPath();
+  ctx.arc(toCanvasX(x0), toCanvasY(y0), 14, 0, 2 * Math.PI);
+  ctx.fillStyle = pointCol;
+  ctx.globalAlpha = 0.12;
+  ctx.fill();
+  ctx.globalAlpha = 1;
+
+  // Point
   ctx.beginPath();
   ctx.arc(toCanvasX(x0), toCanvasY(y0), 6, 0, 2 * Math.PI);
+  ctx.fillStyle = pointCol;
   ctx.fill();
-  ctx.strokeStyle = '#ffffff';
+  ctx.strokeStyle = getCSSVar('--canvas-bg');
   ctx.lineWidth = 2;
   ctx.stroke();
-  
-  // Koordinaten anzeigen
-  ctx.fillStyle = '#3d3d3d';
-  ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
+
+  // Coordinate label
+  const labelColor = getCSSVar('--text-primary');
+  ctx.fillStyle = labelColor;
+  ctx.font = '600 11px -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText(`(${x0.toFixed(2)}, ${y0.toFixed(2)})`, 
-               toCanvasX(x0), toCanvasY(y0) - 15);
+  ctx.fillText(`(${x0.toFixed(2)}, ${y0.toFixed(2)})`, toCanvasX(x0), toCanvasY(y0) - 18);
 }
 
-// Aktualisiere Anzeige
+// ─── Update Info Display ───
 function updateDisplay() {
   const func = functions[currentFunction];
   const x0 = currentX;
   const y0 = func.f(x0);
   const slope = func.df(x0);
-  
+
   if (y0 === null || slope === null) return;
-  
-  // Tangentengleichung: y = mx + b
+
   const b = y0 - slope * x0;
-  
+
   document.getElementById('xValue').textContent = `x = ${x0.toFixed(2)}`;
   document.getElementById('lengthValue').textContent = tangentLength.toFixed(1);
   document.getElementById('pointX').textContent = x0.toFixed(2);
   document.getElementById('pointY').textContent = y0.toFixed(2);
   document.getElementById('slopeValue').textContent = slope.toFixed(2);
   document.getElementById('derivativeValue').textContent = slope.toFixed(2);
-  document.getElementById('tangentEquation').textContent = 
-    `y = ${slope.toFixed(2)}x ${b >= 0 ? '+' : ''} ${b.toFixed(2)}`;
+  document.getElementById('tangentEquation').textContent =
+    `y = ${slope.toFixed(2)}x ${b >= 0 ? '+' : '−'} ${Math.abs(b).toFixed(2)}`;
 }
 
-// Zeichne alles
+// ─── Main Draw ───
 function draw() {
   ctx.clearRect(0, 0, config.width, config.height);
   drawGrid();
@@ -675,7 +809,7 @@ function draw() {
   updateDisplay();
 }
 
-// Event Listeners
+// ─── Event Listeners ───
 xSlider.addEventListener('input', (e) => {
   currentX = parseFloat(e.target.value);
   draw();
@@ -686,79 +820,57 @@ lengthSlider.addEventListener('input', (e) => {
   draw();
 });
 
-canvas.addEventListener('click', (e) => {
+function handleCanvasClick(clientX) {
   const rect = canvas.getBoundingClientRect();
-  const canvasX = e.clientX - rect.left;
+  const scaleX = config.width / rect.width;
+  const canvasX = (clientX - rect.left) * scaleX;
   const x = fromCanvasX(canvasX);
-  
+
   const func = functions[currentFunction];
   const range = func.range;
-  
+
   if (x >= range.min && x <= range.max) {
     currentX = x;
     xSlider.value = x;
     draw();
   }
-});
+}
 
-// Touch-Support für mobile Geräte
+canvas.addEventListener('click', (e) => handleCanvasClick(e.clientX));
+
 canvas.addEventListener('touchstart', (e) => {
   e.preventDefault();
-  const rect = canvas.getBoundingClientRect();
-  const touch = e.touches[0];
-  const canvasX = touch.clientX - rect.left;
-  const x = fromCanvasX(canvasX);
-  
-  const func = functions[currentFunction];
-  const range = func.range;
-  
-  if (x >= range.min && x <= range.max) {
-    currentX = x;
-    xSlider.value = x;
-    draw();
-  }
+  handleCanvasClick(e.touches[0].clientX);
 });
 
 canvas.addEventListener('touchmove', (e) => {
   e.preventDefault();
-  const rect = canvas.getBoundingClientRect();
-  const touch = e.touches[0];
-  const canvasX = touch.clientX - rect.left;
-  const x = fromCanvasX(canvasX);
-  
-  const func = functions[currentFunction];
-  const range = func.range;
-  
-  if (x >= range.min && x <= range.max) {
-    currentX = x;
-    xSlider.value = x;
-    draw();
-  }
+  handleCanvasClick(e.touches[0].clientX);
 });
 
-// Funktionswechsel
+// ─── Function Switch ───
 function setFunction(funcName) {
   currentFunction = funcName;
   const func = functions[funcName];
-  
-  // Update Slider Range
+
   xSlider.min = func.range.min;
   xSlider.max = func.range.max;
-  
-  // Setze x auf Mittelwert des gültigen Bereichs
+
   currentX = (func.range.min + func.range.max) / 2;
   xSlider.value = currentX;
-  
-  // Update Button-Styles
-  document.querySelectorAll('.function-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
+
+  document.querySelectorAll('.function-btn').forEach(btn => btn.classList.remove('active'));
   event.target.classList.add('active');
-  
+
   draw();
 }
 
-// Initiale Zeichnung
+// ─── Dark mode change listener ───
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  draw();
+});
+
+// ─── Initial draw ───
 draw();
 </script>
 </body>
