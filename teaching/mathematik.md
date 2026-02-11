@@ -674,12 +674,12 @@ body, html, .page-content, .wrapper, main, .post-content {
     <div class="ma-grid">
       <div class="ma-card" data-module="a1">
         <div class="ma-card-header">
-          <span class="ma-card-number">05</span>
+          <span class="ma-card-number">01</span>
           <h4>Matrizen</h4>
         </div>
         <p>Addition, Multiplikation, Transponieren und spezielle Matrizen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_1-5.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/Matrizen_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_matrizen_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('a1', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -689,12 +689,12 @@ body, html, .page-content, .wrapper, main, .post-content {
 
       <div class="ma-card" data-module="a2">
         <div class="ma-card-header">
-          <span class="ma-card-number">06</span>
+          <span class="ma-card-number">02</span>
           <h4>Determinanten</h4>
         </div>
         <p>Laplace-Entwicklung, Sarrus-Regel und Inverse Matrizen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/Matrizen_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_determinanten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('a2', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -704,12 +704,12 @@ body, html, .page-content, .wrapper, main, .post-content {
 
       <div class="ma-card" data-module="a3">
         <div class="ma-card-header">
-          <span class="ma-card-number">07</span>
+          <span class="ma-card-number">03</span>
           <h4>Matrizengleichungen</h4>
         </div>
         <p>Übungsaufgaben, Rangbestimmung und Gauß-Elimination</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_3-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/Matrizen_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <button class="ma-check" onclick="toggleModule('a3', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
           </button>
