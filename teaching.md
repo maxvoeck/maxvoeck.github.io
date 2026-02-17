@@ -459,67 +459,73 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-courses">
 
     <!-- Mathematik -->
-    <div class="ma-course ma-course--math">
-      <div class="ma-course-header">
-        <div class="ma-course-icon">📐</div>
-        <div class="ma-course-title-group">
-          <h2>Mathematik</h2>
-          <div class="ma-course-count">28 Module · 3 interaktive Tools</div>
+    <a href="/teaching/mathematik/" style="text-decoration: none; display: block;">
+      <div class="ma-course ma-course--math" style="cursor: pointer;">
+        <div class="ma-course-header">
+          <div class="ma-course-icon">📐</div>
+          <div class="ma-course-title-group">
+            <h2>Mathematik</h2>
+            <div class="ma-course-count">28 Module · 3 interaktive Tools</div>
+          </div>
+        </div>
+        <p class="ma-course-desc">Fundierte Vorbereitung auf Analysis und Lineare Algebra für technische Studiengänge – von Vektorrechnung bis Rotationsvolumen</p>
+        <div class="ma-tags">
+          <span class="ma-tag">Vektorrechnung</span>
+          <span class="ma-tag">Lineare Algebra</span>
+          <span class="ma-tag">Differentialrechnung</span>
+          <span class="ma-tag">Integralrechnung</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-4); font-size: 14px; font-weight: 500; color: var(--system-indigo);">
+          Öffnen <span style="font-size: 16px;">→</span>
         </div>
       </div>
-      <p class="ma-course-desc">Fundierte Vorbereitung auf Analysis und Lineare Algebra für technische Studiengänge – von Vektorrechnung bis Rotationsvolumen</p>
-      <div class="ma-tags">
-        <span class="ma-tag">Vektorrechnung</span>
-        <span class="ma-tag">Lineare Algebra</span>
-        <span class="ma-tag">Differentialrechnung</span>
-        <span class="ma-tag">Integralrechnung</span>
-      </div>
-      <div class="ma-course-actions">
-        <a href="/teaching/mathematik/" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Mathematik öffnen <span class="ma-btn-arrow">→</span></a>
-      </div>
-    </div>
+    </a>
 
     <!-- VWL -->
-    <div class="ma-course ma-course--econ">
-      <div class="ma-course-header">
-        <div class="ma-course-icon">📊</div>
-        <div class="ma-course-title-group">
-          <h2>Volkswirtschaftslehre</h2>
-          <div class="ma-course-count">13 Module · Mikro & Makro</div>
+    <a href="/teaching/vwl/" style="text-decoration: none; display: block;">
+      <div class="ma-course ma-course--econ" style="cursor: pointer;">
+        <div class="ma-course-header">
+          <div class="ma-course-icon">📊</div>
+          <div class="ma-course-title-group">
+            <h2>Volkswirtschaftslehre</h2>
+            <div class="ma-course-count">13 Module · Mikro & Makro</div>
+          </div>
+        </div>
+        <p class="ma-course-desc">Makro- und Mikroökonomie mit praxisnahen Beispielen – von Bedürfnissen bis zur Arbeitsmarktpolitik</p>
+        <div class="ma-tags">
+          <span class="ma-tag">Marktgleichgewicht</span>
+          <span class="ma-tag">Konsumentenrente</span>
+          <span class="ma-tag">BIP & Konjunktur</span>
+          <span class="ma-tag">Wirtschaftspolitik</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-4); font-size: 14px; font-weight: 500; color: var(--system-indigo);">
+          Öffnen <span style="font-size: 16px;">→</span>
         </div>
       </div>
-      <p class="ma-course-desc">Makro- und Mikroökonomie mit praxisnahen Beispielen – von Bedürfnissen bis zur Arbeitsmarktpolitik</p>
-      <div class="ma-tags">
-        <span class="ma-tag">Marktgleichgewicht</span>
-        <span class="ma-tag">Konsumentenrente</span>
-        <span class="ma-tag">BIP & Konjunktur</span>
-        <span class="ma-tag">Wirtschaftspolitik</span>
-      </div>
-      <div class="ma-course-actions">
-        <a href="/teaching/vwl/" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Lernpfad öffnen <span class="ma-btn-arrow">→</span></a>
-      </div>
-    </div>
+    </a>
 
     <!-- Informatik -->
-    <div class="ma-course ma-course--cs">
-      <div class="ma-course-header">
-        <div class="ma-course-icon">🐍</div>
-        <div class="ma-course-title-group">
-          <h2>Informatik</h2>
-          <div class="ma-course-count">5 Module · Python</div>
+    <a href="/teaching/informatik/" style="text-decoration: none; display: block;">
+      <div class="ma-course ma-course--cs" style="cursor: pointer;">
+        <div class="ma-course-header">
+          <div class="ma-course-icon">🐍</div>
+          <div class="ma-course-title-group">
+            <h2>Informatik</h2>
+            <div class="ma-course-count">5 Module · Python</div>
+          </div>
+        </div>
+        <p class="ma-course-desc">Grundlagen der Programmierung und algorithmisches Denken – von print() bis zu eigenen Funktionen</p>
+        <div class="ma-tags">
+          <span class="ma-tag">Python</span>
+          <span class="ma-tag">Kontrollstrukturen</span>
+          <span class="ma-tag">Listen</span>
+          <span class="ma-tag">Funktionen</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-4); font-size: 14px; font-weight: 500; color: var(--system-indigo);">
+          Öffnen <span style="font-size: 16px;">→</span>
         </div>
       </div>
-      <p class="ma-course-desc">Grundlagen der Programmierung und algorithmisches Denken – von print() bis zu eigenen Funktionen</p>
-      <div class="ma-tags">
-        <span class="ma-tag">Python</span>
-        <span class="ma-tag">Kontrollstrukturen</span>
-        <span class="ma-tag">Listen</span>
-        <span class="ma-tag">Funktionen</span>
-      </div>
-      <div class="ma-course-actions">
-        <a href="/teaching/informatik/" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Lernpfad öffnen <span class="ma-btn-arrow">→</span></a>
-      </div>
-    </div>
+    </a>
 
   </div>
 
