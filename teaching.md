@@ -475,8 +475,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <span class="ma-tag">Integralrechnung</span>
       </div>
       <div class="ma-course-actions">
-        <a href="/teaching/mathematik/" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Lernpfad öffnen <span class="ma-btn-arrow">→</span></a>
-        <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 Gesamtskript</a>
+        <a href="/teaching/mathematik/" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Mathematik öffnen <span class="ma-btn-arrow">→</span></a>
       </div>
     </div>
 
