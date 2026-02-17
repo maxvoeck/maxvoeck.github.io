@@ -648,7 +648,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-hero">
     <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
     <h1>Mathematik</h1>
-    <p class="ma-hero-subtitle">25 Module und interaktive Tools für Vektoren, Algebra, Analysis und Integralrechnung</p>
+    <p class="ma-hero-subtitle">Gesamtskript, 28 Module, interaktive Tools und Übungsgeneratoren für Vektoren, Algebra, Analysis und Integralrechnung</p>
     
     <div class="ma-progress-container">
       <div class="ma-progress-ring">
@@ -659,6 +659,83 @@ body, html, .page-content, .wrapper, main, .post-content {
         <div class="ma-progress-text" id="progressText">0%</div>
       </div>
       <div class="ma-progress-label"><span id="completedCount">0</span> von 28 abgeschlossen</div>
+    </div>
+  </div>
+
+  <!-- Gesamtskript & Vorlesungen -->
+  <div class="ma-section ma-section--tools">
+    <div class="ma-section-header">
+      <div class="ma-section-icon">📚</div>
+      <div class="ma-section-title-group">
+        <h2 class="ma-section-title">Gesamtskript & Vorlesungen</h2>
+        <p class="ma-section-subtitle">Komplettes Skript mit allen Themen als durchgehender Lernpfad</p>
+      </div>
+    </div>
+    <div class="ma-grid">
+      <div class="ma-card" style="grid-column: 1 / -1;">
+        <div style="display: flex; align-items: center; gap: var(--space-5);">
+          <div class="ma-tool-icon" style="width: 64px; height: 64px; font-size: 32px;">📖</div>
+          <div style="flex: 1;">
+            <h4 style="font-size: 21px; margin-bottom: var(--space-2);">Mathematik Gesamtskript</h4>
+            <p style="margin-bottom: var(--space-4);">Alle 28 Module als zusammenhängendes Dokument — perfekt zum durchgehenden Lernen oder als Nachschlagewerk</p>
+            <div class="ma-actions">
+              <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="padding: var(--space-3) var(--space-6);">
+                Gesamtskript öffnen (PDF)
+              </a>
+              <span style="font-size: 13px; color: var(--text-tertiary);">1.1 MB</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Übungsaufgaben & Generatoren -->
+  <div class="ma-section ma-section--tools">
+    <div class="ma-section-header">
+      <div class="ma-section-icon">🎯</div>
+      <div class="ma-section-title-group">
+        <h2 class="ma-section-title">Übungsaufgaben & Generatoren</h2>
+        <p class="ma-section-subtitle">Interaktive Quizzes und automatische Aufgabengeneratoren</p>
+      </div>
+    </div>
+    <div class="ma-grid">
+      <div class="ma-card">
+        <div class="ma-tool-icon">✍️</div>
+        <div class="ma-card-header" style="margin-bottom: var(--space-2);">
+          <h4>Alle Quizzes</h4>
+        </div>
+        <p>Zugriff auf alle interaktiven Quizzes zu den 28 Modulen — mit sofortiger Auswertung</p>
+        <div class="ma-actions">
+          <a href="#algebra" class="ma-btn ma-btn--primary" style="width: 100%; justify-content: center;">Zu den Quizzes</a>
+        </div>
+      </div>
+
+      <div class="ma-card">
+        <div class="ma-tool-icon">🎲</div>
+        <div class="ma-card-header" style="margin-bottom: var(--space-2);">
+          <h4>Aufgabengenerator</h4>
+        </div>
+        <p>Generiere zufällige Übungsaufgaben mit Lösungen — individuell nach Thema und Schwierigkeit</p>
+        <div class="ma-actions">
+          <button class="ma-btn ma-btn--secondary" style="width: 100%; justify-content: center; cursor: not-allowed; opacity: 0.6;" disabled>
+            In Entwicklung
+          </button>
+        </div>
+      </div>
+
+      <div class="ma-card">
+        <div class="ma-tool-icon">📝</div>
+        <div class="ma-card-header" style="margin-bottom: var(--space-2);">
+          <h4>Übungsblatt-Generator</h4>
+        </div>
+        <p>Erstelle personalisierte Übungsblätter zum Ausdrucken — wähle Themen und Schwierigkeitsgrad</p>
+        <div class="ma-actions">
+          <button class="ma-btn ma-btn--secondary" style="width: 100%; justify-content: center; cursor: not-allowed; opacity: 0.6;" disabled>
+            In Entwicklung
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
