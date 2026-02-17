@@ -413,9 +413,10 @@ body, html, .page-content, .wrapper, main, .post-content {
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
-.ma-course:nth-child(1) { animation-delay: 0.1s; }
-.ma-course:nth-child(2) { animation-delay: 0.2s; }
-.ma-course:nth-child(3) { animation-delay: 0.3s; }
+/* <a> tags are the direct grid children — target .ma-course through them */
+.ma-courses > a:nth-child(1) .ma-course { animation-delay: 0.1s; }
+.ma-courses > a:nth-child(2) .ma-course { animation-delay: 0.2s; }
+.ma-courses > a:nth-child(3) .ma-course { animation-delay: 0.3s; }
 
 /* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
@@ -426,7 +427,109 @@ body, html, .page-content, .wrapper, main, .post-content {
   }
 }
 
-/* ─── Touch Optimizations ─── */
+/* ─── Course CTA (Öffnen →) ─── */
+.ma-course-cta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--system-indigo);
+}
+
+/* ─── Mobile Optimierungen ─── */
+@media (max-width: 600px) {
+  /* Remove Minima theme's own side padding so we don't double up */
+  .wrapper, .page-content, .post-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .ma-container {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .ma-hero {
+    margin-bottom: var(--space-8);
+  }
+
+  .ma-hero h1 {
+    font-size: 30px;
+    letter-spacing: -0.02em;
+  }
+
+  .ma-hero-subtitle {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .ma-hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+  }
+
+  .ma-courses {
+    gap: var(--space-3);
+    margin-bottom: var(--space-10);
+  }
+
+  .ma-course {
+    padding: var(--space-5) var(--space-4);
+    border-radius: var(--radius-xl);
+  }
+
+  .ma-course-header {
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .ma-course-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    border-radius: var(--radius-md);
+  }
+
+  .ma-course h2 {
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    word-break: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  .ma-course-count {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .ma-course-desc {
+    font-size: 14px;
+    margin-bottom: var(--space-3);
+    line-height: 1.5;
+  }
+
+  .ma-tags {
+    gap: var(--space-1);
+    margin-bottom: var(--space-3);
+  }
+
+  .ma-tag {
+    font-size: 11px;
+    padding: 2px var(--space-2);
+  }
+
+  .ma-course-cta {
+    margin-top: var(--space-3);
+    font-size: 13px;
+  }
+}
+
 @media (hover: none) {
   .ma-course:hover {
     transform: none;
@@ -475,8 +578,8 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-tag">Differentialrechnung</span>
           <span class="ma-tag">Integralrechnung</span>
         </div>
-        <div style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-4); font-size: 14px; font-weight: 500; color: var(--system-indigo);">
-          Öffnen <span style="font-size: 16px;">→</span>
+        <div class="ma-course-cta">
+          Öffnen <span>→</span>
         </div>
       </div>
     </a>
@@ -498,8 +601,8 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-tag">BIP & Konjunktur</span>
           <span class="ma-tag">Wirtschaftspolitik</span>
         </div>
-        <div style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-4); font-size: 14px; font-weight: 500; color: var(--system-indigo);">
-          Öffnen <span style="font-size: 16px;">→</span>
+        <div class="ma-course-cta">
+          Öffnen <span>→</span>
         </div>
       </div>
     </a>
@@ -521,8 +624,8 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-tag">Listen</span>
           <span class="ma-tag">Funktionen</span>
         </div>
-        <div style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-4); font-size: 14px; font-weight: 500; color: var(--system-indigo);">
-          Öffnen <span style="font-size: 16px;">→</span>
+        <div class="ma-course-cta">
+          Öffnen <span>→</span>
         </div>
       </div>
     </a>
