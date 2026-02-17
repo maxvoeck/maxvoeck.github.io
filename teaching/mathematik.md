@@ -292,14 +292,80 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-section .ma-grid {
-  transition: opacity var(--transition-base), max-height var(--transition-base);
+  max-height: 5000px;
+  opacity: 1;
   overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.25s ease;
 }
 
 .ma-section.collapsed .ma-grid {
   max-height: 0;
   opacity: 0;
   pointer-events: none;
+}
+
+/* ─── Mobile Optimierungen ─── */
+@media (max-width: 600px) {
+  .ma-section-header {
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-3);
+    min-height: 60px;
+    align-items: center;
+  }
+
+  .ma-section-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .ma-section-title {
+    font-size: 20px;
+  }
+
+  .ma-section-subtitle {
+    font-size: 13px;
+  }
+
+  .ma-section-toggle {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .ma-card {
+    padding: var(--space-4);
+  }
+
+  .ma-btn {
+    padding: var(--space-3) var(--space-4);
+    font-size: 14px;
+    min-height: 44px;
+  }
+
+  .ma-check {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .ma-hero h1 {
+    font-size: 36px;
+  }
+
+  .ma-hero-subtitle {
+    font-size: 16px;
+  }
+
+  .ma-progress-ring {
+    width: 100px;
+    height: 100px;
+  }
+
+  .ma-progress-text {
+    font-size: 22px;
+  }
 }
 
 .ma-section-icon {
@@ -704,7 +770,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   </div>
 
   <!-- Algebra -->
-  <div class="ma-section ma-section--algebra">
+  <div class="ma-section ma-section--algebra collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">🔢</div>
       <div class="ma-section-title-group">
@@ -791,7 +857,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   </div>
 
   <!-- Vektorrechnung -->
-  <div class="ma-section ma-section--vektor">
+  <div class="ma-section ma-section--vektor collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">➡️</div>
       <div class="ma-section-title-group">
@@ -864,7 +930,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   </div>
 
   <!-- Differentialrechnung -->
-  <div class="ma-section ma-section--diff">
+  <div class="ma-section ma-section--diff collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">📈</div>
       <div class="ma-section-title-group">
@@ -1057,7 +1123,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   </div>
 
   <!-- Integralrechnung -->
-  <div class="ma-section ma-section--integral">
+  <div class="ma-section ma-section--integral collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">∫</div>
       <div class="ma-section-title-group">
@@ -1130,7 +1196,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   </div>
 
   <!-- Interaktive Tools -->
-  <div class="ma-section ma-section--tools" id="tools">
+  <div class="ma-section ma-section--tools collapsed" id="tools">
     <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">⚡</div>
       <div class="ma-section-title-group">
