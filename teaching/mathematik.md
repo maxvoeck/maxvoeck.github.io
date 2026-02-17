@@ -305,8 +305,74 @@ body, html, .page-content, .wrapper, main, .post-content {
   pointer-events: none;
 }
 
+/* ─── Quick Actions ─── */
+.ma-quick-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+}
+
 /* ─── Mobile Optimierungen ─── */
 @media (max-width: 600px) {
+  /* Fix Minima theme double-padding */
+  .wrapper, .page-content, .post-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .ma-container {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  /* ─ Hero ─ */
+  .ma-hero {
+    margin-bottom: var(--space-8);
+  }
+
+  .ma-hero h1 {
+    font-size: 32px;
+    margin-bottom: var(--space-2);
+  }
+
+  .ma-hero-subtitle {
+    font-size: 15px;
+    margin-bottom: var(--space-5);
+    line-height: 1.5;
+  }
+
+  .ma-progress-ring {
+    width: 96px;
+    height: 96px;
+  }
+
+  .ma-progress-text {
+    font-size: 20px;
+  }
+
+  .ma-progress-label {
+    font-size: 13px;
+  }
+
+  /* ─ Quick Actions: stapeln statt nebeneinander ─ */
+  .ma-quick-actions {
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: stretch;
+  }
+
+  .ma-quick-actions .ma-btn {
+    justify-content: center;
+    padding: var(--space-3) var(--space-4) !important;
+    font-size: 14px !important;
+  }
+
+  /* ─ Section Headers ─ */
   .ma-section-header {
     padding: var(--space-4) var(--space-3);
     gap: var(--space-3);
@@ -322,11 +388,12 @@ body, html, .page-content, .wrapper, main, .post-content {
   }
 
   .ma-section-title {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .ma-section-subtitle {
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 1.4;
   }
 
   .ma-section-toggle {
@@ -334,13 +401,24 @@ body, html, .page-content, .wrapper, main, .post-content {
     flex-shrink: 0;
   }
 
+  /* ─ Cards ─ */
   .ma-card {
     padding: var(--space-4);
   }
 
+  .ma-card h4 {
+    font-size: 15px;
+  }
+
+  .ma-card p {
+    font-size: 13px;
+    margin-bottom: var(--space-3);
+  }
+
+  /* ─ Buttons & Check ─ */
   .ma-btn {
-    padding: var(--space-3) var(--space-4);
-    font-size: 14px;
+    padding: var(--space-2) var(--space-3);
+    font-size: 13px;
     min-height: 44px;
   }
 
@@ -350,21 +428,11 @@ body, html, .page-content, .wrapper, main, .post-content {
     flex-shrink: 0;
   }
 
-  .ma-hero h1 {
-    font-size: 36px;
-  }
-
-  .ma-hero-subtitle {
-    font-size: 16px;
-  }
-
-  .ma-progress-ring {
-    width: 100px;
-    height: 100px;
-  }
-
-  .ma-progress-text {
-    font-size: 22px;
+  /* ─ Footer ─ */
+  .ma-footer {
+    margin-top: var(--space-12);
+    flex-direction: column;
+    text-align: center;
   }
 }
 
@@ -759,7 +827,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 
     <!-- Quick Actions -->
-    <div style="display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; margin-top: var(--space-6);">
+    <div class="ma-quick-actions">
       <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="padding: var(--space-3) var(--space-6); font-size: 15px;">
         📖 Gesamtskript (1.1 MB)
       </a>
