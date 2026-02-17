@@ -269,7 +269,37 @@ body, html, .page-content, .wrapper, main, .post-content {
   align-items: flex-start;
   gap: var(--space-4);
   margin-bottom: var(--space-6);
-  padding: 0 var(--space-2);
+  padding: var(--space-4);
+  cursor: pointer;
+  user-select: none;
+  border-radius: var(--radius-lg);
+  transition: background var(--transition-fast);
+}
+
+.ma-section-header:hover {
+  background: var(--bg-secondary);
+}
+
+.ma-section-toggle {
+  margin-left: auto;
+  font-size: 20px;
+  transition: transform var(--transition-base);
+  color: var(--text-tertiary);
+}
+
+.ma-section.collapsed .ma-section-toggle {
+  transform: rotate(-90deg);
+}
+
+.ma-section .ma-grid {
+  transition: opacity var(--transition-base), max-height var(--transition-base);
+  overflow: hidden;
+}
+
+.ma-section.collapsed .ma-grid {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .ma-section-icon {
@@ -675,12 +705,13 @@ body, html, .page-content, .wrapper, main, .post-content {
 
   <!-- Algebra -->
   <div class="ma-section ma-section--algebra">
-    <div class="ma-section-header">
+    <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">🔢</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Lineare Algebra</h2>
         <p class="ma-section-subtitle">5 Module · Matrizen, Determinanten & Gleichungssysteme</p>
       </div>
+      <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid">
       <div class="ma-card" data-module="a1" style="position: relative;">
@@ -761,12 +792,13 @@ body, html, .page-content, .wrapper, main, .post-content {
 
   <!-- Vektorrechnung -->
   <div class="ma-section ma-section--vektor">
-    <div class="ma-section-header">
+    <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">➡️</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Vektorrechnung</h2>
         <p class="ma-section-subtitle">4 Module · Vektor- & Spatprodukt, Geraden, Ebenen & Lagebeziehungen</p>
       </div>
+      <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid">
       <div class="ma-card" data-module="v1">
@@ -833,12 +865,13 @@ body, html, .page-content, .wrapper, main, .post-content {
 
   <!-- Differentialrechnung -->
   <div class="ma-section ma-section--diff">
-    <div class="ma-section-header">
+    <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">📈</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Differentialrechnung</h2>
         <p class="ma-section-subtitle">12 Module · Folgen, Grenzwerte, Ableitungen & Kurvendiskussion</p>
       </div>
+      <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid">
       <div class="ma-card" data-module="d1">
@@ -1025,12 +1058,13 @@ body, html, .page-content, .wrapper, main, .post-content {
 
   <!-- Integralrechnung -->
   <div class="ma-section ma-section--integral">
-    <div class="ma-section-header">
+    <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">∫</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Integralrechnung</h2>
         <p class="ma-section-subtitle">4 Module · Stammfunktionen, Integrationsmethoden & Flächenberechnung</p>
       </div>
+      <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid">
       <div class="ma-card" data-module="i1">
@@ -1097,12 +1131,13 @@ body, html, .page-content, .wrapper, main, .post-content {
 
   <!-- Interaktive Tools -->
   <div class="ma-section ma-section--tools" id="tools">
-    <div class="ma-section-header">
+    <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">⚡</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Interaktive Tools</h2>
         <p class="ma-section-subtitle">5 explorative Werkzeuge zum Visualisieren und Experimentieren</p>
       </div>
+      <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid ma-grid--tools">
       <div class="ma-card" data-module="t1">
@@ -1253,6 +1288,11 @@ function updateUI() {
       card.classList.remove('ma-card-complete');
     }
   });
+}
+
+function toggleSection(header) {
+  const section = header.parentElement;
+  section.classList.toggle('collapsed');
 }
 
 document.addEventListener('DOMContentLoaded', updateUI);
