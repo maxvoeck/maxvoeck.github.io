@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 
+title:
 permalink: /teaching/vwl/
 ---
 
@@ -11,7 +11,6 @@ permalink: /teaching/vwl/
 
 /* ─── Design Tokens ─── */
 :root {
-  /* iOS/macOS Farbsystem */
   --system-blue: #007AFF;
   --system-green: #34C759;
   --system-indigo: #5856D6;
@@ -21,12 +20,10 @@ permalink: /teaching/vwl/
   --system-red: #FF3B30;
   --system-teal: #5AC8FA;
   --system-yellow: #FFCC00;
-  
-  /* Semantische Farben */
+
   --mikro: #FF9500;
   --makro: #5AC8FA;
-  
-  /* Neutrale Palette */
+
   --gray-1: #F5F5F7;
   --gray-2: #E5E5EA;
   --gray-3: #D1D1D6;
@@ -39,8 +36,7 @@ permalink: /teaching/vwl/
   --gray-10: #2C2C2E;
   --gray-11: #1C1C1E;
   --gray-12: #000000;
-  
-  /* Dynamische Farben (Light/Dark Mode) */
+
   --bg-primary: #FFFFFF;
   --bg-secondary: #F5F5F7;
   --bg-tertiary: #FFFFFF;
@@ -49,12 +45,10 @@ permalink: /teaching/vwl/
   --text-tertiary: #8E8E93;
   --separator: rgba(0, 0, 0, 0.08);
   --separator-strong: rgba(0, 0, 0, 0.16);
-  
-  /* Typografie */
+
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
-  
-  /* Abstände (8-Punkt-Grid) */
+
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -66,29 +60,25 @@ permalink: /teaching/vwl/
   --space-12: 48px;
   --space-16: 64px;
   --space-20: 80px;
-  
-  /* Radien */
+
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 20px;
   --radius-2xl: 24px;
   --radius-full: 9999px;
-  
-  /* Schatten */
+
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
   --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
   --shadow-xl: 0 24px 48px rgba(0,0,0,0.16);
-  
-  /* Transitions */
+
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg-primary: #000000;
@@ -99,7 +89,6 @@ permalink: /teaching/vwl/
     --text-tertiary: #8E8E93;
     --separator: rgba(255, 255, 255, 0.12);
     --separator-strong: rgba(255, 255, 255, 0.24);
-    
     --shadow-sm: 0 1px 2px rgba(0,0,0,0.24);
     --shadow-md: 0 4px 12px rgba(0,0,0,0.32);
     --shadow-lg: 0 12px 24px rgba(0,0,0,0.48);
@@ -124,8 +113,8 @@ body, html, .page-content, .wrapper, main, .post-content {
   letter-spacing: -0.022em;
 }
 
-.post-header, .page-heading, header.post-header { 
-  display: none !important; 
+.post-header, .page-heading, header.post-header {
+  display: none !important;
 }
 
 /* ─── Container ─── */
@@ -197,7 +186,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   line-height: 1.381;
 }
 
-/* Progress Ring */
+/* ─── Progress Ring ─── */
 .ma-progress-container {
   display: inline-flex;
   flex-direction: column;
@@ -263,7 +252,42 @@ body, html, .page-content, .wrapper, main, .post-content {
   align-items: flex-start;
   gap: var(--space-4);
   margin-bottom: var(--space-6);
-  padding: 0 var(--space-2);
+  padding: var(--space-4);
+  cursor: pointer;
+  user-select: none;
+  border-radius: var(--radius-lg);
+  transition: background var(--transition-fast);
+}
+
+.ma-section-header:hover {
+  background: var(--bg-secondary);
+}
+
+.ma-section-toggle {
+  margin-left: auto;
+  font-size: 20px;
+  transition: transform var(--transition-base);
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.ma-section.collapsed .ma-section-toggle {
+  transform: rotate(-90deg);
+}
+
+/* ─── Collapsible Grid ─── */
+.ma-section .ma-grid {
+  max-height: 5000px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.25s ease;
+}
+
+.ma-section.collapsed .ma-grid {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .ma-section-icon {
@@ -283,12 +307,12 @@ body, html, .page-content, .wrapper, main, .post-content {
   transform: scale(1.1) rotate(-5deg);
 }
 
-.ma-section--mikro .ma-section-icon { 
-  background: rgba(255, 149, 0, 0.12); 
+.ma-section--mikro .ma-section-icon {
+  background: rgba(255, 149, 0, 0.12);
   color: var(--mikro);
 }
-.ma-section--makro .ma-section-icon { 
-  background: rgba(90, 200, 250, 0.12); 
+.ma-section--makro .ma-section-icon {
+  background: rgba(90, 200, 250, 0.12);
   color: var(--makro);
 }
 
@@ -565,14 +589,8 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 /* ─── Animations ─── */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ─── Reduced Motion ─── */
@@ -584,13 +602,114 @@ body, html, .page-content, .wrapper, main, .post-content {
   }
 }
 
+/* ─── Mobile Optimierungen ─── */
+@media (max-width: 600px) {
+  .wrapper, .page-content, .post-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  html, body {
+    overflow-x: hidden;
+  }
+
+  .ma-container {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .ma-hero {
+    margin-bottom: var(--space-8);
+  }
+
+  .ma-hero h1 {
+    font-size: 32px;
+    margin-bottom: var(--space-2);
+  }
+
+  .ma-hero-subtitle {
+    font-size: 15px;
+    margin-bottom: var(--space-5);
+    line-height: 1.5;
+  }
+
+  .ma-progress-ring {
+    width: 96px;
+    height: 96px;
+  }
+
+  .ma-progress-text {
+    font-size: 20px;
+  }
+
+  .ma-progress-label {
+    font-size: 13px;
+  }
+
+  .ma-section-header {
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-3);
+    min-height: 60px;
+    align-items: center;
+  }
+
+  .ma-section-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .ma-section-title {
+    font-size: 18px;
+  }
+
+  .ma-section-subtitle {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .ma-section-toggle {
+    font-size: 16px;
+  }
+
+  .ma-card {
+    padding: var(--space-4);
+  }
+
+  .ma-card h4 {
+    font-size: 15px;
+  }
+
+  .ma-card p {
+    font-size: 13px;
+    margin-bottom: var(--space-3);
+  }
+
+  .ma-btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: 13px;
+    min-height: 44px;
+  }
+
+  .ma-check {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .ma-footer {
+    margin-top: var(--space-12);
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
 /* ─── Touch Optimizations ─── */
 @media (hover: none) {
   .ma-card:hover {
     transform: none;
     box-shadow: var(--shadow-sm);
   }
-  
+
   .ma-card:active {
     transform: scale(0.98);
     background: var(--bg-tertiary);
@@ -610,8 +729,8 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-hero">
     <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
     <h1>Volkswirtschaftslehre</h1>
-    <p class="ma-hero-subtitle">13 Module für Mikroökonomie und Makroökonomie</p>
-    
+    <p class="ma-hero-subtitle">13 Module in Mikro- und Makroökonomie – von Marktgleichgewicht und Konsumentenrente bis Konjunkturzyklen und Wirtschaftspolitik</p>
+
     <div class="ma-progress-container">
       <div class="ma-progress-ring">
         <svg viewBox="0 0 120 120">
@@ -625,24 +744,26 @@ body, html, .page-content, .wrapper, main, .post-content {
   </div>
 
   <!-- Mikroökonomie -->
-  <div class="ma-section ma-section--mikro">
-    <div class="ma-section-header">
+  <div class="ma-section ma-section--mikro collapsed">
+    <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">📊</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Mikroökonomie</h2>
         <p class="ma-section-subtitle">8 Module · Vom Grundbegriff zum Marktmodell</p>
       </div>
+      <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid">
 
       <div class="ma-card" data-module="m1">
+        <div style="position: absolute; top: var(--space-3); right: var(--space-3); background: var(--system-green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 600;">START HIER</div>
         <div class="ma-card-header">
           <span class="ma-card-number">01</span>
           <h4>Bedürfnis, Bedarf und Nachfrage</h4>
         </div>
         <p>Grundkonzepte der Wirtschaft: Definition und Unterscheidung von Bedürfnis, Bedarf und Nachfrage, Bedürfnisarten, Maslows Bedürfnispyramide</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_1-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/WS_VWL_1-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m1', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -658,7 +779,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Freie und wirtschaftliche Güter, inferiore und superiore Güter, Einkommenselastizität, meritorische und demeritorische Güter</p>
         <p class="ma-card-prereq">Baut auf: Bedürfnis, Bedarf und Nachfrage</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_gueterarten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m2', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -674,7 +795,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Gesetz des Angebots, Angebotsfunktion, aggregiertes Marktangebot, Verschiebung vs. Bewegung auf der Kurve</p>
         <p class="ma-card-prereq">Baut auf: Güterarten</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_angebot.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m3', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -690,7 +811,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Gesetz der Nachfrage, Nachfragefunktion, aggregierte Marktnachfrage, Einflussfaktoren wie Einkommen und Präferenzen</p>
         <p class="ma-card-prereq">Baut auf: Angebot und Angebotskurve</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_nachfrage.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m4', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -706,7 +827,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Steuern und Subventionen</p>
         <p class="ma-card-prereq">Baut auf: Angebot und Nachfrage</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_marktgleichgewicht.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m5', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -722,7 +843,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Definition und Berechnung der Renten, ökonomische Wohlfahrt, Prohibitivpreis, graphische Darstellung</p>
         <p class="ma-card-prereq">Baut auf: Marktgleichgewicht</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_6.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/WS_VWL_6.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_renten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m6', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -738,7 +859,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Monopol, Oligopol, Polypol – Marktmacht, Marktstruktur, Vor- und Nachteile für Verbraucher</p>
         <p class="ma-card-prereq">Baut auf: Marktgleichgewicht</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_7.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/WS_VWL_7.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_marktformen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m7', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -754,7 +875,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Konsumentscheidungen: Budgetrestriktion, Gleichung und graphische Darstellung, Einkommens- und Preisänderungen, Opportunitätskosten</p>
         <p class="ma-card-prereq">Baut auf: Nachfrage und Güterarten</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_budgetgerade.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m8', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -766,13 +887,14 @@ body, html, .page-content, .wrapper, main, .post-content {
   </div>
 
   <!-- Makroökonomie -->
-  <div class="ma-section ma-section--makro">
-    <div class="ma-section-header">
+  <div class="ma-section ma-section--makro collapsed">
+    <div class="ma-section-header" onclick="toggleSection(this)">
       <div class="ma-section-icon">🌐</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Makroökonomie</h2>
         <p class="ma-section-subtitle">5 Module · Von der Gesamtrechnung zur Wirtschaftspolitik</p>
       </div>
+      <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid">
 
@@ -783,7 +905,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Definition und Ziele der VGR, Bruttoinlandsprodukt, drei Berechnungsmethoden, Inlandsprinzip vs. Inländerprinzip</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/VWL_11.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/VWL_11.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_vgr.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m9', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -799,7 +921,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>BIP-Deflator, BIP pro Kopf und Kaufkraftbereinigung, Grenzen des BIP, alternative Indikatoren (HDI, Gini-Koeffizient)</p>
         <p class="ma-card-prereq">Baut auf: Volkswirtschaftliche Gesamtrechnung</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/VWL_12.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/VWL_12.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_vgr2.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m10', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -815,7 +937,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Die 4 Konjunkturphasen, BIP-Berechnung, Wachstumsraten, Rezessionsdefinition, Früh- und Spätindikatoren</p>
         <p class="ma-card-prereq">Baut auf: Nominales vs. reales BIP</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_konjunktur.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m11', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -831,7 +953,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Grundprinzipien antizyklischer Politik, Fiskal- und Geldpolitik, expansive vs. restriktive Maßnahmen, Finanzkrise 2008</p>
         <p class="ma-card-prereq">Baut auf: Konjunkturzyklen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_konjunkturpolitik.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m12', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -847,7 +969,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Arbeitslosenquote, drei Arten der Arbeitslosigkeit, Okun's Gesetz, aktive vs. passive Arbeitsmarktpolitik</p>
         <p class="ma-card-prereq">Baut auf: Konjunktur und Konjunkturpolitik</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Vwl_13_Arbeitslosigkeit.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/pdfs/Vwl_13_Arbeitslosigkeit.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
           <a href="/assets/quizzes/quiz_arbeitslosigkeit.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m13', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -861,7 +983,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Footer -->
   <div class="ma-footer">
     <div class="ma-footer-text">
-      <strong>13 Module</strong> · Materialien für Bildungszwecke · Frei verwendbar
+      <strong>13 Module</strong> · Mikroökonomie & Makroökonomie
     </div>
     <div class="ma-footer-actions">
       <a href="/teaching/" class="ma-btn ma-btn--secondary">← Übersicht</a>
@@ -885,22 +1007,31 @@ function getProgress() {
 }
 
 function saveProgress(progress) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+  } catch {
+    console.warn('Failed to save progress to localStorage');
+  }
 }
 
 function updateUI() {
   const progress = getProgress();
   const completed = Object.keys(progress).length;
   const percentage = Math.round((completed / TOTAL_MODULES) * 100);
-  
-  const offset = CIRCUMFERENCE - (percentage / 100) * CIRCUMFERENCE;
-  document.getElementById('progressRing').style.strokeDashoffset = offset;
-  document.getElementById('progressText').textContent = percentage + '%';
-  document.getElementById('completedCount').textContent = completed;
-  
-  document.querySelectorAll('.ma-card').forEach(card => {
-    const moduleId = card.dataset.module;
-    if (progress[moduleId]) {
+
+  const ring = document.getElementById('progressRing');
+  const text = document.getElementById('progressText');
+  const count = document.getElementById('completedCount');
+
+  if (ring && text && count) {
+    const offset = CIRCUMFERENCE - (percentage / 100) * CIRCUMFERENCE;
+    ring.style.strokeDashoffset = offset;
+    text.textContent = percentage + '%';
+    count.textContent = completed;
+  }
+
+  document.querySelectorAll('[data-module]').forEach(card => {
+    if (progress[card.dataset.module]) {
       card.classList.add('ma-card-complete');
     } else {
       card.classList.remove('ma-card-complete');
@@ -908,20 +1039,28 @@ function updateUI() {
   });
 }
 
-function toggleModule(id, event) {
-  if (event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-  
+function toggleModule(moduleId, event) {
+  event.preventDefault();
+  event.stopPropagation();
+
   const progress = getProgress();
-  if (progress[id]) {
-    delete progress[id];
+  const card = event.target.closest('[data-module]');
+
+  if (progress[moduleId]) {
+    delete progress[moduleId];
+    if (card) card.classList.remove('ma-card-complete');
   } else {
-    progress[id] = Date.now();
+    progress[moduleId] = true;
+    if (card) card.classList.add('ma-card-complete');
   }
+
   saveProgress(progress);
   updateUI();
+}
+
+function toggleSection(header) {
+  const section = header.parentElement;
+  section.classList.toggle('collapsed');
 }
 
 function resetProgress() {
