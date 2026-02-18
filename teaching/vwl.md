@@ -754,9 +754,7 @@ body, html, .page-content, .wrapper, main, .post-content {
       <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid">
-
       <div class="ma-card" data-module="m1">
-        <div style="position: absolute; top: var(--space-3); right: var(--space-3); background: var(--system-green); color: white; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 600;">START HIER</div>
         <div class="ma-card-header">
           <span class="ma-card-number">01</span>
           <h4>Bedürfnis, Bedarf und Nachfrage</h4>
@@ -770,7 +768,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           </button>
         </div>
       </div>
-
       <div class="ma-card" data-module="m2">
         <div class="ma-card-header">
           <span class="ma-card-number">02</span>
