@@ -1294,7 +1294,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Visualisierung von Vektoren im dreidimensionalen Raum</p>
         <div class="ma-actions">
-          <a href="/assets/tools/vektor_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
+          <a href="/assets/interactive/vektor_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
           <button class="ma-check" onclick="toggleModule('t2', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
           </button>
@@ -1308,7 +1308,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>3D-Visualisierung von Geraden, Ebenen und Schnittpunkten</p>
         <div class="ma-actions">
-          <a href="/assets/tools/geraden_ebenen_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
+          <a href="/assets/interactive/geraden_ebenen_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
           <button class="ma-check" onclick="toggleModule('t3', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
           </button>
@@ -1322,7 +1322,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Interaktive Berechnung von Matrizenoperationen</p>
         <div class="ma-actions">
-          <a href="/assets/tools/matrizen_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
+          <a href="/assets/interactive/matrizen_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
           <button class="ma-check" onclick="toggleModule('t4', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
           </button>
@@ -1336,7 +1336,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Schnelle Berechnung von Determinanten mit Schritt-für-Schritt-Erklärung</p>
         <div class="ma-actions">
-          <a href="/assets/tools/determinanten_rechner.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
+          <a href="/assets/interactive/determinanten_rechner.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
           <button class="ma-check" onclick="toggleModule('t5', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
           </button>
