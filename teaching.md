@@ -184,38 +184,36 @@ body, html, .page-content, .wrapper, main, .post-content {
   margin-bottom: var(--space-16);
 }
 
+@media (min-width: 768px) {
+  .ma-courses {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Grid items: <a> tags fill the cell height */
+.ma-courses > a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none !important;
+}
+
 /* ─── Course Card ─── */
 .ma-course {
   background: var(--bg-secondary);
   border-radius: var(--radius-2xl);
-  padding: var(--space-8);
-  position: relative;
   overflow: hidden;
   transition: all var(--transition-base);
-  border: 2px solid transparent;
-  text-decoration: none !important;
-  display: block;
+  border: 1px solid var(--separator);
   color: inherit !important;
-}
-
-.ma-course::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity var(--transition-base);
+  text-decoration: none !important;
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* fill <a> height for equal-height cards */
 }
 
 .ma-course:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-  background: var(--bg-tertiary);
-  text-decoration: none !important;
-}
-
-.ma-course:hover::before {
-  opacity: 1;
+  transform: translateY(-4px);
+  border-color: transparent;
 }
 
 .ma-course:active {
@@ -223,22 +221,30 @@ body, html, .page-content, .wrapper, main, .post-content {
   transition-duration: var(--transition-fast);
 }
 
-.ma-course--math { border-left: 4px solid var(--math); }
-.ma-course--econ { border-left: 4px solid var(--econ); }
-.ma-course--cs { border-left: 4px solid var(--cs); }
+.ma-course--math:hover { box-shadow: 0 16px 40px rgba(255, 45, 85, 0.18); }
+.ma-course--econ:hover { box-shadow: 0 16px 40px rgba(255, 149, 0, 0.18); }
+.ma-course--cs:hover   { box-shadow: 0 16px 40px rgba(0, 122, 255, 0.18); }
 
-.ma-course--math:hover { box-shadow: 0 12px 32px rgba(255, 45, 85, 0.1); }
-.ma-course--econ:hover { box-shadow: 0 12px 32px rgba(255, 149, 0, 0.1); }
-.ma-course--cs:hover { box-shadow: 0 12px 32px rgba(0, 122, 255, 0.1); }
-
-/* ─── Course Header ─── */
-.ma-course-header {
+/* ─── Colored Top Stripe ─── */
+.ma-course-stripe {
+  height: 76px;
   display: flex;
   align-items: center;
-  gap: var(--space-4);
-  margin-bottom: var(--space-4);
+  padding: 0 var(--space-6);
+  flex-shrink: 0;
 }
 
+.ma-course--math .ma-course-stripe {
+  background: linear-gradient(135deg, rgba(255, 45, 85, 0.14) 0%, rgba(255, 45, 85, 0.04) 100%);
+}
+.ma-course--econ .ma-course-stripe {
+  background: linear-gradient(135deg, rgba(255, 149, 0, 0.14) 0%, rgba(255, 149, 0, 0.04) 100%);
+}
+.ma-course--cs .ma-course-stripe {
+  background: linear-gradient(135deg, rgba(0, 122, 255, 0.14) 0%, rgba(0, 122, 255, 0.04) 100%);
+}
+
+/* ─── Course Icon ─── */
 .ma-course-icon {
   width: 52px;
   height: 52px;
@@ -246,7 +252,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 26px;
   flex-shrink: 0;
   transition: transform var(--transition-spring);
 }
@@ -255,133 +261,62 @@ body, html, .page-content, .wrapper, main, .post-content {
   transform: scale(1.1) rotate(-5deg);
 }
 
-.ma-course--math .ma-course-icon { background: rgba(255, 45, 85, 0.12); }
-.ma-course--econ .ma-course-icon { background: rgba(255, 149, 0, 0.12); }
-.ma-course--cs .ma-course-icon { background: rgba(0, 122, 255, 0.12); }
+.ma-course--math .ma-course-icon { background: rgba(255, 45, 85, 0.15); }
+.ma-course--econ .ma-course-icon { background: rgba(255, 149, 0, 0.15); }
+.ma-course--cs   .ma-course-icon { background: rgba(0, 122, 255, 0.15); }
 
-.ma-course-title-group {
+/* ─── Course Body ─── */
+.ma-course-body {
+  padding: var(--space-5) var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
   flex: 1;
 }
 
 .ma-course h2 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.021em;
-  line-height: 1.14286;
+  line-height: 1.2;
   color: var(--text-primary);
   margin: 0 0 var(--space-1) 0;
 }
 
 .ma-course-count {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-tertiary);
   font-weight: 400;
+  margin-bottom: var(--space-4);
 }
 
 /* ─── Course Description ─── */
 .ma-course-desc {
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.55;
   color: var(--text-secondary);
-  margin-bottom: var(--space-5);
+  flex: 1;
+  margin-bottom: var(--space-4);
 }
 
 /* ─── Tags ─── */
 .ma-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-bottom: var(--space-6);
+  gap: var(--space-1);
 }
 
 .ma-tag {
-  padding: var(--space-1) var(--space-3);
+  padding: 3px var(--space-2);
   border-radius: var(--radius-sm);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.02em;
-  background: rgba(0, 0, 0, 0.04);
-  color: var(--text-tertiary);
   transition: all var(--transition-fast);
-}
-
-@media (prefers-color-scheme: dark) {
-  .ma-tag {
-    background: rgba(255, 255, 255, 0.06);
-  }
 }
 
 .ma-course--math .ma-tag { color: var(--math); background: rgba(255, 45, 85, 0.08); }
 .ma-course--econ .ma-tag { color: var(--econ); background: rgba(255, 149, 0, 0.08); }
-.ma-course--cs .ma-tag { color: var(--cs); background: rgba(0, 122, 255, 0.08); }
-
-/* ─── Course Actions ─── */
-.ma-course-actions {
-  display: flex;
-  gap: var(--space-3);
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 2;
-}
-
-.ma-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all var(--transition-fast);
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.ma-btn--primary {
-  background: var(--system-indigo);
-  color: white !important;
-}
-
-.ma-btn--primary:hover {
-  background: #0051D5;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
-}
-
-.ma-btn--secondary {
-  background: rgba(0, 0, 0, 0.05);
-  color: var(--text-primary) !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  .ma-btn--secondary {
-    background: rgba(255, 255, 255, 0.1);
-  }
-}
-
-.ma-btn--secondary:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-@media (prefers-color-scheme: dark) {
-  .ma-btn--secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-  }
-}
-
-.ma-btn-arrow {
-  font-size: 14px;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: all var(--transition-fast);
-}
-
-.ma-btn:hover .ma-btn-arrow {
-  opacity: 1;
-  transform: translateX(0);
-}
+.ma-course--cs   .ma-tag { color: var(--cs);   background: rgba(0, 122, 255, 0.08); }
 
 /* ─── Footer ─── */
 .ma-footer {
@@ -427,15 +362,29 @@ body, html, .page-content, .wrapper, main, .post-content {
   }
 }
 
-/* ─── Course CTA (Öffnen →) ─── */
+/* ─── Course CTA Footer ─── */
 .ma-course-cta {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  margin-top: var(--space-4);
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--separator);
   font-size: 14px;
-  font-weight: 500;
-  color: var(--system-indigo);
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+
+.ma-course--math .ma-course-cta { color: var(--math); }
+.ma-course--econ .ma-course-cta { color: var(--econ); }
+.ma-course--cs   .ma-course-cta { color: var(--cs);   }
+
+.ma-course-cta-arrow {
+  transition: transform var(--transition-base);
+}
+
+.ma-course:hover .ma-course-cta-arrow {
+  transform: translateX(4px);
 }
 
 /* ─── Mobile Optimierungen ─── */
@@ -478,14 +427,9 @@ body, html, .page-content, .wrapper, main, .post-content {
     margin-bottom: var(--space-10);
   }
 
-  .ma-course {
-    padding: var(--space-5) var(--space-4);
-    border-radius: var(--radius-xl);
-  }
-
-  .ma-course-header {
-    gap: var(--space-3);
-    margin-bottom: var(--space-3);
+  .ma-course-stripe {
+    height: 60px;
+    padding: 0 var(--space-4);
   }
 
   .ma-course-icon {
@@ -493,6 +437,10 @@ body, html, .page-content, .wrapper, main, .post-content {
     height: 44px;
     font-size: 20px;
     border-radius: var(--radius-md);
+  }
+
+  .ma-course-body {
+    padding: var(--space-4) var(--space-4) var(--space-4);
   }
 
   .ma-course h2 {
@@ -505,27 +453,16 @@ body, html, .page-content, .wrapper, main, .post-content {
 
   .ma-course-count {
     font-size: 12px;
-    line-height: 1.4;
+    margin-bottom: var(--space-3);
   }
 
   .ma-course-desc {
     font-size: 14px;
     margin-bottom: var(--space-3);
-    line-height: 1.5;
-  }
-
-  .ma-tags {
-    gap: var(--space-1);
-    margin-bottom: var(--space-3);
-  }
-
-  .ma-tag {
-    font-size: 11px;
-    padding: 2px var(--space-2);
   }
 
   .ma-course-cta {
-    margin-top: var(--space-3);
+    padding: var(--space-3) var(--space-4);
     font-size: 13px;
   }
 }
@@ -533,12 +470,12 @@ body, html, .page-content, .wrapper, main, .post-content {
 @media (hover: none) {
   .ma-course:hover {
     transform: none;
-    box-shadow: var(--shadow-sm);
+    box-shadow: none;
   }
 
   .ma-course:active {
     transform: scale(0.98);
-    background: var(--bg-tertiary);
+    opacity: 0.9;
   }
 }
 
@@ -562,70 +499,73 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-courses">
 
     <!-- Mathematik -->
-    <a href="/teaching/mathematik/" style="text-decoration: none; display: block;">
-      <div class="ma-course ma-course--math" style="cursor: pointer;">
-        <div class="ma-course-header">
+    <a href="/teaching/mathematik/">
+      <div class="ma-course ma-course--math">
+        <div class="ma-course-stripe">
           <div class="ma-course-icon">📐</div>
-          <div class="ma-course-title-group">
-            <h2>Mathematik</h2>
-            <div class="ma-course-count">28 Module · 3 interaktive Tools</div>
+        </div>
+        <div class="ma-course-body">
+          <h2>Mathematik</h2>
+          <div class="ma-course-count">28 Module · 3 interaktive Tools</div>
+          <p class="ma-course-desc">Fundierte Vorbereitung auf Analysis und Lineare Algebra – von Vektorrechnung und Matrizen bis zu Kurvendiskussion und Rotationsvolumen</p>
+          <div class="ma-tags">
+            <span class="ma-tag">Vektorrechnung</span>
+            <span class="ma-tag">Lineare Algebra</span>
+            <span class="ma-tag">Differentialrechnung</span>
+            <span class="ma-tag">Integralrechnung</span>
           </div>
         </div>
-        <p class="ma-course-desc">Fundierte Vorbereitung auf Analysis und Lineare Algebra für technische Studiengänge – von Vektorrechnung bis Rotationsvolumen</p>
-        <div class="ma-tags">
-          <span class="ma-tag">Vektorrechnung</span>
-          <span class="ma-tag">Lineare Algebra</span>
-          <span class="ma-tag">Differentialrechnung</span>
-          <span class="ma-tag">Integralrechnung</span>
-        </div>
         <div class="ma-course-cta">
-          Öffnen <span>→</span>
+          <span>Öffnen</span>
+          <span class="ma-course-cta-arrow">→</span>
         </div>
       </div>
     </a>
 
     <!-- VWL -->
-    <a href="/teaching/vwl/" style="text-decoration: none; display: block;">
-      <div class="ma-course ma-course--econ" style="cursor: pointer;">
-        <div class="ma-course-header">
+    <a href="/teaching/vwl/">
+      <div class="ma-course ma-course--econ">
+        <div class="ma-course-stripe">
           <div class="ma-course-icon">📊</div>
-          <div class="ma-course-title-group">
-            <h2>Volkswirtschaftslehre</h2>
-            <div class="ma-course-count">13 Module · Mikro & Makro</div>
+        </div>
+        <div class="ma-course-body">
+          <h2>Volkswirtschaftslehre</h2>
+          <div class="ma-course-count">13 Module · Mikro & Makro</div>
+          <p class="ma-course-desc">Makro- und Mikroökonomie mit praxisnahen Beispielen – von Bedürfnissen und Marktgleichgewicht bis zur Arbeitsmarktpolitik</p>
+          <div class="ma-tags">
+            <span class="ma-tag">Marktgleichgewicht</span>
+            <span class="ma-tag">Konsumentenrente</span>
+            <span class="ma-tag">BIP & Konjunktur</span>
+            <span class="ma-tag">Wirtschaftspolitik</span>
           </div>
         </div>
-        <p class="ma-course-desc">Makro- und Mikroökonomie mit praxisnahen Beispielen – von Bedürfnissen bis zur Arbeitsmarktpolitik</p>
-        <div class="ma-tags">
-          <span class="ma-tag">Marktgleichgewicht</span>
-          <span class="ma-tag">Konsumentenrente</span>
-          <span class="ma-tag">BIP & Konjunktur</span>
-          <span class="ma-tag">Wirtschaftspolitik</span>
-        </div>
         <div class="ma-course-cta">
-          Öffnen <span>→</span>
+          <span>Öffnen</span>
+          <span class="ma-course-cta-arrow">→</span>
         </div>
       </div>
     </a>
 
     <!-- Informatik -->
-    <a href="/teaching/informatik/" style="text-decoration: none; display: block;">
-      <div class="ma-course ma-course--cs" style="cursor: pointer;">
-        <div class="ma-course-header">
+    <a href="/teaching/informatik/">
+      <div class="ma-course ma-course--cs">
+        <div class="ma-course-stripe">
           <div class="ma-course-icon">🐍</div>
-          <div class="ma-course-title-group">
-            <h2>Informatik</h2>
-            <div class="ma-course-count">5 Module · Python</div>
+        </div>
+        <div class="ma-course-body">
+          <h2>Informatik</h2>
+          <div class="ma-course-count">5 Module · Python</div>
+          <p class="ma-course-desc">Grundlagen der Programmierung und algorithmisches Denken – von print() über Kontrollstrukturen bis zu eigenen Funktionen</p>
+          <div class="ma-tags">
+            <span class="ma-tag">Python</span>
+            <span class="ma-tag">Kontrollstrukturen</span>
+            <span class="ma-tag">Listen</span>
+            <span class="ma-tag">Funktionen</span>
           </div>
         </div>
-        <p class="ma-course-desc">Grundlagen der Programmierung und algorithmisches Denken – von print() bis zu eigenen Funktionen</p>
-        <div class="ma-tags">
-          <span class="ma-tag">Python</span>
-          <span class="ma-tag">Kontrollstrukturen</span>
-          <span class="ma-tag">Listen</span>
-          <span class="ma-tag">Funktionen</span>
-        </div>
         <div class="ma-course-cta">
-          Öffnen <span>→</span>
+          <span>Öffnen</span>
+          <span class="ma-course-cta-arrow">→</span>
         </div>
       </div>
     </a>
