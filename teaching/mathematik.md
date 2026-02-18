@@ -848,7 +848,8 @@ body, html, .page-content, .wrapper, main, .post-content {
       <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid">
-      <div class="ma-card" data-module="a1" style="position: relative;">
+      <div class="ma-card" data-module="a1">
+        <div class="ma-card-header">
           <span class="ma-card-number">01</span>
           <h4>Matrizen</h4>
         </div>
