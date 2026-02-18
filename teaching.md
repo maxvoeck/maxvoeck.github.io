@@ -506,7 +506,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <div class="ma-course-body">
           <h2>Mathematik</h2>
-          <div class="ma-course-count">28 Module · 3 interaktive Tools</div>
+          <div class="ma-course-count">28 Module · 5 interaktive Tools</div>
           <p class="ma-course-desc">Fundierte Vorbereitung auf Analysis und Lineare Algebra – von Vektorrechnung und Matrizen bis zu Kurvendiskussion und Rotationsvolumen</p>
           <div class="ma-tags">
             <span class="ma-tag">Vektorrechnung</span>
@@ -572,9 +572,6 @@ body, html, .page-content, .wrapper, main, .post-content {
 
   </div>
 
-  <!-- Footer -->
-  <div class="ma-footer">
-    <p class="ma-footer-text">Alle Materialien frei verwendbar für Bildungszwecke</p>
-  </div>
+  
 
 </div>
