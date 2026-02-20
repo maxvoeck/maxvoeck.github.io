@@ -263,6 +263,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   max-height: 5000px;
   opacity: 1;
   overflow: hidden;
+  padding-top: 4px; /* Verhindert dass hover-translateY oben abgeschnitten wird */
   transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.25s ease;
 }
