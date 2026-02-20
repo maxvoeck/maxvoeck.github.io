@@ -50,8 +50,6 @@ body, html, .page-content, .wrapper, main, .post-content {
   font-family: var(--font-stack);
   line-height: 1.47059;
   letter-spacing: -0.022em;
-  overflow-x: hidden;
-  max-width: 100%;
 }
 
 .post-header, .page-heading, header.post-header {

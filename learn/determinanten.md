@@ -23,12 +23,12 @@ permalink: /learn/determinanten/
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
 body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)!important;color:var(--text-primary);font-family:var(--font-stack);line-height:1.6;letter-spacing:-0.015em;}
-html,body{overflow-x:hidden;max-width:100%;}
-.ch-wrap{overflow-x:hidden;width:100%;box-sizing:border-box;}
-.cb,.math-block,.steps,.ch-section{max-width:100%;box-sizing:border-box;word-break:break-word;}
+.ch-wrap{width:100%;box-sizing:border-box;}
+.cb,.math-block,.steps,.ch-section{max-width:100%;box-sizing:border-box;}
 
 .post-header,.page-heading,header.post-header{display:none!important;}
 
+#chapter-content{min-width:0;overflow:hidden;}
 .ch-wrap{max-width:1100px;margin:0 auto;padding:var(--space-10) var(--space-5);display:grid;grid-template-columns:1fr 220px;gap:var(--space-12);align-items:start;}
 .katex-display{overflow-x:auto!important;overflow-y:hidden;padding-bottom:4px;}
 @media(max-width:860px){.ch-wrap{grid-template-columns:1fr;gap:var(--space-8);}.ch-toc{display:none;}}
