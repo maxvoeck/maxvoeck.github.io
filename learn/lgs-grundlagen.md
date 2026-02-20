@@ -43,7 +43,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .steps li{counter-increment:step;display:flex;gap:var(--space-3);margin-bottom:var(--space-4);font-size:15px;color:var(--text-secondary);line-height:1.65;}
 .steps li::before{content:counter(step);min-width:24px;height:24px;border-radius:50%;background:rgba(255,45,85,.15);color:var(--math);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .losbar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);margin:var(--space-5) 0;}
-@media(max-width:600px){.losbar-grid{grid-template-columns:1fr;}}
+}
 .losbar-card{background:var(--bg-secondary);border:1px solid var(--separator);border-radius:var(--radius-lg);padding:var(--space-5);}
 .losbar-card-icon{font-size:24px;margin-bottom:var(--space-2);}
 .losbar-card-title{font-size:14px;font-weight:700;margin-bottom:var(--space-2);}
@@ -65,6 +65,23 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .ch-nav-title{font-size:14px;font-weight:600;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .ch-main{animation:fadeIn .5s ease backwards;}
+@media(max-width:600px){
+.ch-wrap{padding:var(--space-6) var(--space-4);}
+.ch-header h1{font-size:26px;}
+.ch-eyebrow{font-size:11px;}
+.ch-section h2{font-size:18px;}
+.ch-section p,.ch-section li,.cb p{font-size:15px;}
+.math-block{padding:var(--space-4) var(--space-3);font-size:.88em;}
+.cb{padding:var(--space-4);}
+.ch-section,.math-block{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.ch-nav{flex-direction:column;gap:var(--space-3);}
+.ch-nav a{width:100%;justify-content:center;text-align:center;}
+.steps li{gap:var(--space-2);}
+.losbar-grid,.case-grid{grid-template-columns:1fr;}
+.rules-table,.param-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;}
+.rules-table th,.rules-table td,.param-table th,.param-table td{white-space:normal;min-width:90px;}
+.ch-nav-prev,.ch-nav-next{width:100%;justify-content:center;}
+}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;}}
 </style>
 

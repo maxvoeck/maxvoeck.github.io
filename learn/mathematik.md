@@ -137,7 +137,17 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .lm-pdf-hint:hover { border-color: rgba(255,255,255,.2); color: var(--text-secondary); }
 
 @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
-@media(max-width:600px){.lm-container{padding:var(--space-8) var(--space-4);} .lm-chapter{padding:var(--space-4);gap:var(--space-4);}}
+@media(max-width:600px){
+.lm-container{padding:var(--space-8) var(--space-4);}
+.lm-hero h1{font-size:32px;}
+.lm-hero-sub{font-size:15px;}
+.lm-chapter{padding:var(--space-4);gap:var(--space-3);}
+.lm-chapter-num{width:34px;height:34px;font-size:13px;}
+.lm-chapter-title{font-size:15px;}
+.lm-chapter-desc{font-size:12px;}
+.lm-chapter-badge{display:none;}
+.lm-pdf-hint{font-size:13px;}
+}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 </style>
 

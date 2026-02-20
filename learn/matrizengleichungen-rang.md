@@ -61,6 +61,23 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .ch-nav-title{font-size:14px;font-weight:600;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .ch-main{animation:fadeIn .5s ease backwards;}
+@media(max-width:600px){
+.ch-wrap{padding:var(--space-6) var(--space-4);}
+.ch-header h1{font-size:26px;}
+.ch-eyebrow{font-size:11px;}
+.ch-section h2{font-size:18px;}
+.ch-section p,.ch-section li,.cb p{font-size:15px;}
+.math-block{padding:var(--space-4) var(--space-3);font-size:.88em;}
+.cb{padding:var(--space-4);}
+.ch-section,.math-block{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.ch-nav{flex-direction:column;gap:var(--space-3);}
+.ch-nav a{width:100%;justify-content:center;text-align:center;}
+.steps li{gap:var(--space-2);}
+.losbar-grid,.case-grid{grid-template-columns:1fr;}
+.rules-table,.param-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;}
+.rules-table th,.rules-table td,.param-table th,.param-table td{white-space:normal;min-width:90px;}
+.ch-nav-prev,.ch-nav-next{width:100%;justify-content:center;}
+}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;}}
 </style>
 

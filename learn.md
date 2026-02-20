@@ -205,9 +205,13 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 @media (max-width: 600px) {
-  .ln-container { padding: var(--space-10) var(--space-4); }
-  .ln-preview { grid-template-columns: 1fr; }
+  .ln-container { padding: var(--space-8) var(--space-4); }
+  .ln-hero-title { font-size: 36px; }
+  .ln-hero-sub { font-size: 15px; }
+  .ln-preview { grid-template-columns: 1fr; gap: var(--space-3); }
+  .ln-preview-card { padding: var(--space-4); }
   .ln-soon { padding: var(--space-8) var(--space-5); }
+  .ln-soon-title { font-size: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
