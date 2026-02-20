@@ -45,7 +45,8 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .steps li::before{content:counter(step);min-width:24px;height:24px;border-radius:50%;background:rgba(255,45,85,.15);color:var(--math);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
 .rules-table{width:100%;border-collapse:collapse;margin:var(--space-4) 0;font-size:15px;}
 .rules-table th{background:var(--bg-secondary);color:var(--text-tertiary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--separator);}
-.rules-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(255,255,255,.05);color:var(--text-secondary);vertical-align:middle;}
+.rules-table tr{background:transparent!important;}
+.rules-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(255,255,255,.05);color:var(--text-secondary);vertical-align:middle;background:transparent!important;}
 .rules-table tr:last-child td{border-bottom:none;}
 .ch-toc{position:sticky;top:80px;background:var(--bg-secondary);border:1px solid var(--separator);border-radius:var(--radius-xl);padding:var(--space-5);}
 .ch-toc-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);margin-bottom:var(--space-4);}
