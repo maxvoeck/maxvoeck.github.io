@@ -280,25 +280,6 @@ body, html, .page-content, .wrapper, main, .post-content {
   margin-bottom: var(--space-4);
 }
 
-/* ─── Tags ─── */
-.ma-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1);
-}
-
-.ma-tag {
-  padding: 3px var(--space-2);
-  border-radius: var(--radius-sm);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  transition: all var(--transition-fast);
-}
-
-.ma-course--math .ma-tag { color: var(--math); background: rgba(255, 45, 85, 0.08); }
-.ma-course--econ .ma-tag { color: var(--econ); background: rgba(255, 149, 0, 0.08); }
-.ma-course--cs   .ma-tag { color: var(--cs);   background: rgba(0, 122, 255, 0.08); }
 
 /* ─── Footer ─── */
 .ma-footer {
@@ -490,12 +471,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <h2>Mathematik</h2>
           <div class="ma-course-count">28 Module · 5 interaktive Tools</div>
           <p class="ma-course-desc">Fundierte Vorbereitung auf Analysis und Lineare Algebra – von Vektorrechnung und Matrizen bis zu Kurvendiskussion und Rotationsvolumen</p>
-          <div class="ma-tags">
-            <span class="ma-tag">Vektorrechnung</span>
-            <span class="ma-tag">Lineare Algebra</span>
-            <span class="ma-tag">Differentialrechnung</span>
-            <span class="ma-tag">Integralrechnung</span>
-          </div>
         </div>
         <div class="ma-course-cta">
           <span>Öffnen</span>
@@ -514,12 +489,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <h2>Volkswirtschaftslehre</h2>
           <div class="ma-course-count">13 Module · Mikro & Makro</div>
           <p class="ma-course-desc">Makro- und Mikroökonomie mit praxisnahen Beispielen – von Bedürfnissen und Marktgleichgewicht bis zur Arbeitsmarktpolitik</p>
-          <div class="ma-tags">
-            <span class="ma-tag">Marktgleichgewicht</span>
-            <span class="ma-tag">Konsumentenrente</span>
-            <span class="ma-tag">BIP & Konjunktur</span>
-            <span class="ma-tag">Wirtschaftspolitik</span>
-          </div>
         </div>
         <div class="ma-course-cta">
           <span>Öffnen</span>
@@ -538,12 +507,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <h2>Informatik</h2>
           <div class="ma-course-count">5 Module · Python</div>
           <p class="ma-course-desc">Grundlagen der Programmierung und algorithmisches Denken – von print() über Kontrollstrukturen bis zu eigenen Funktionen</p>
-          <div class="ma-tags">
-            <span class="ma-tag">Python</span>
-            <span class="ma-tag">Kontrollstrukturen</span>
-            <span class="ma-tag">Listen</span>
-            <span class="ma-tag">Funktionen</span>
-          </div>
         </div>
         <div class="ma-course-cta">
           <span>Öffnen</span>
