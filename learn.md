@@ -229,7 +229,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     <a href="/learn/mathematik/" class="ln-preview-card ln-preview-card--math" style="text-decoration:none;color:inherit;opacity:1;cursor:pointer;transition:all 250ms cubic-bezier(0.4,0,0.2,1);" onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='rgba(255,45,85,0.4)'" onmouseout="this.style.transform='';this.style.borderColor=''">
       <div class="ln-preview-icon">📐</div>
       <div class="ln-preview-label">Mathematik</div>
-      <div class="ln-preview-count" style="color:#34C759;font-weight:500;">1 Kapitel verfügbar →</div>
+      <div class="ln-preview-count" style="color:#34C759;font-weight:500;">5 Kapitel verfügbar →</div>
     </a>
     <div class="ln-preview-card ln-preview-card--econ">
       <div class="ln-preview-icon">📊</div>

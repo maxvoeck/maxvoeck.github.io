@@ -537,7 +537,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   <!-- ─── Navigation ─── -->
   <div class="ch-nav">
     <a href="/learn/mathematik/" class="ch-nav-back">← Alle Kapitel</a>
-    <a href="#" class="ch-nav-next" style="opacity:.45;pointer-events:none;">
+    <a href="/learn/determinanten/" class="ch-nav-next">
       <div>
         <div class="ch-nav-next-label">Nächstes Kapitel</div>
         <div class="ch-nav-next-title">Determinanten →</div>

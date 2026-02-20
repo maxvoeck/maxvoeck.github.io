@@ -167,41 +167,45 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
       <span class="lm-chapter-arrow">→</span>
     </a>
 
-    <div class="lm-chapter lm-chapter--locked">
+    <a href="/learn/determinanten/" class="lm-chapter">
       <div class="lm-chapter-num">2</div>
       <div class="lm-chapter-body">
         <div class="lm-chapter-title">Determinanten</div>
         <div class="lm-chapter-desc">2×2, Regel von Sarrus, Laplace-Entwicklung, inverse Matrizen</div>
       </div>
-      <span class="lm-chapter-badge lm-chapter-badge--soon">Bald</span>
-    </div>
+      <span class="lm-chapter-badge lm-chapter-badge--new">Neu</span>
+      <span class="lm-chapter-arrow">→</span>
+    </a>
 
-    <div class="lm-chapter lm-chapter--locked">
+    <a href="/learn/matrizengleichungen-rang/" class="lm-chapter">
       <div class="lm-chapter-num">3</div>
       <div class="lm-chapter-body">
         <div class="lm-chapter-title">Matrizengleichungen & Rang</div>
         <div class="lm-chapter-desc">Gleichungen mit Matrizen lösen, Rang, Zeilenstufenform</div>
       </div>
-      <span class="lm-chapter-badge lm-chapter-badge--soon">Bald</span>
-    </div>
+      <span class="lm-chapter-badge lm-chapter-badge--new">Neu</span>
+      <span class="lm-chapter-arrow">→</span>
+    </a>
 
-    <div class="lm-chapter lm-chapter--locked">
+    <a href="/learn/lgs-grundlagen/" class="lm-chapter">
       <div class="lm-chapter-num">4</div>
       <div class="lm-chapter-body">
         <div class="lm-chapter-title">Lineare Gleichungssysteme</div>
         <div class="lm-chapter-desc">Ax = b, Gauß-Algorithmus, Lösbarkeit mit Rang-Kriterium</div>
       </div>
-      <span class="lm-chapter-badge lm-chapter-badge--soon">Bald</span>
-    </div>
+      <span class="lm-chapter-badge lm-chapter-badge--new">Neu</span>
+      <span class="lm-chapter-arrow">→</span>
+    </a>
 
-    <div class="lm-chapter lm-chapter--locked">
+    <a href="/learn/lgs-parameter/" class="lm-chapter">
       <div class="lm-chapter-num">5</div>
       <div class="lm-chapter-body">
         <div class="lm-chapter-title">LGS mit Parametern</div>
         <div class="lm-chapter-desc">Lösbarkeit in Abhängigkeit von λ, Fallunterscheidung, Determinantentest</div>
       </div>
-      <span class="lm-chapter-badge lm-chapter-badge--soon">Bald</span>
-    </div>
+      <span class="lm-chapter-badge lm-chapter-badge--new">Neu</span>
+      <span class="lm-chapter-arrow">→</span>
+    </a>
 
   </div>
 
