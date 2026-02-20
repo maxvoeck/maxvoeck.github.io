@@ -28,14 +28,14 @@ permalink: /teaching/
   --gray-1: #F5F5F7;
   --gray-6: #8E8E93;
 
-  --bg-primary: #FFFFFF;
-  --bg-secondary: #F5F5F7;
-  --bg-tertiary: #FFFFFF;
-  --text-primary: #000000;
-  --text-secondary: #3A3A3C;
+  --bg-primary: #000000;
+  --bg-secondary: #1C1C1E;
+  --bg-tertiary: #2C2C2E;
+  --text-primary: #FFFFFF;
+  --text-secondary: #EBEBF5;
   --text-tertiary: #8E8E93;
-  --separator: rgba(0, 0, 0, 0.08);
-  --separator-strong: rgba(0, 0, 0, 0.16);
+  --separator: rgba(255, 255, 255, 0.12);
+  --separator-strong: rgba(255, 255, 255, 0.24);
 
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
@@ -59,33 +59,15 @@ permalink: /teaching/
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
-  --shadow-xl: 0 24px 48px rgba(0,0,0,0.16);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.24);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.32);
+  --shadow-lg: 0 12px 24px rgba(0,0,0,0.48);
+  --shadow-xl: 0 24px 48px rgba(0,0,0,0.64);
 
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #000000;
-    --bg-secondary: #1C1C1E;
-    --bg-tertiary: #2C2C2E;
-    --text-primary: #FFFFFF;
-    --text-secondary: #EBEBF5;
-    --text-tertiary: #8E8E93;
-    --separator: rgba(255, 255, 255, 0.12);
-    --separator-strong: rgba(255, 255, 255, 0.24);
-
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.24);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.32);
-    --shadow-lg: 0 12px 24px rgba(0,0,0,0.48);
-    --shadow-xl: 0 24px 48px rgba(0,0,0,0.64);
-  }
 }
 
 /* ─── Reset & Base ─── */
