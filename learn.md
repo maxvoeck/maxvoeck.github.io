@@ -226,27 +226,27 @@ body, html, .page-content, .wrapper, main, .post-content {
   <p class="ln-subtitle">Mathematik, VWL und Informatik – direkt im Browser, kapitelweise erklärt. Kein Download, kein PDF.</p>
 
   <div class="ln-preview">
-    <div class="ln-preview-card ln-preview-card--math">
+    <a href="/learn/mathematik/" class="ln-preview-card ln-preview-card--math" style="text-decoration:none;color:inherit;opacity:1;cursor:pointer;transition:all 250ms cubic-bezier(0.4,0,0.2,1);" onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='rgba(255,45,85,0.4)'" onmouseout="this.style.transform='';this.style.borderColor=''">
       <div class="ln-preview-icon">📐</div>
       <div class="ln-preview-label">Mathematik</div>
-      <div class="ln-preview-count">Lineare Algebra · Analysis</div>
-    </div>
+      <div class="ln-preview-count" style="color:#34C759;font-weight:500;">1 Kapitel verfügbar →</div>
+    </a>
     <div class="ln-preview-card ln-preview-card--econ">
       <div class="ln-preview-icon">📊</div>
       <div class="ln-preview-label">VWL</div>
-      <div class="ln-preview-count">Mikro · Makro · Wirtschaftspolitik</div>
+      <div class="ln-preview-count">Demnächst</div>
     </div>
     <div class="ln-preview-card ln-preview-card--cs">
       <div class="ln-preview-icon">🐍</div>
       <div class="ln-preview-label">Informatik</div>
-      <div class="ln-preview-count">Python · Algorithmen</div>
+      <div class="ln-preview-count">Demnächst</div>
     </div>
   </div>
 
   <div class="ln-soon">
     <div class="ln-soon-icon">🛠️</div>
-    <div class="ln-soon-title">Wird gerade aufgebaut</div>
-    <p class="ln-soon-text">Die Inhalte entstehen aktuell. Schau bald wieder vorbei.</p>
+    <div class="ln-soon-title">Wird weiter ausgebaut</div>
+    <p class="ln-soon-text">Mathematik – Lineare Algebra ist bereits verfügbar. VWL und Informatik folgen.</p>
   </div>
 
 </div>
