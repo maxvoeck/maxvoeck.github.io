@@ -33,6 +33,10 @@ permalink: /learn/matrizen-grundlagen/
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
 body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)!important;color:var(--text-primary);font-family:var(--font-stack);line-height:1.6;letter-spacing:-0.015em;}
+html,body{overflow-x:hidden;max-width:100%;}
+.ch-wrap{overflow-x:hidden;width:100%;box-sizing:border-box;}
+.cb,.math-block,.steps,.ch-section{max-width:100%;box-sizing:border-box;word-break:break-word;}
+
 .post-header,.page-heading,header.post-header{display:none!important;}
 
 /* ─── Layout ─── */

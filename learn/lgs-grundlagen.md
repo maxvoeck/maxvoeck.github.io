@@ -13,6 +13,10 @@ permalink: /learn/lgs-grundlagen/
 :root{--math:#FF2D55;--system-indigo:#5856D6;--system-green:#34C759;--system-orange:#FF9500;--system-blue:#007AFF;--system-purple:#AF52DE;--bg-primary:#000000;--bg-secondary:#1C1C1E;--bg-tertiary:#2C2C2E;--text-primary:#FFFFFF;--text-secondary:#EBEBF5;--text-tertiary:#8E8E93;--separator:rgba(255,255,255,0.10);--font-stack:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:24px;--radius-full:9999px;--transition-base:250ms cubic-bezier(0.4,0,0.2,1);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
 body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)!important;color:var(--text-primary);font-family:var(--font-stack);line-height:1.6;letter-spacing:-0.015em;}
+html,body{overflow-x:hidden;max-width:100%;}
+.ch-wrap{overflow-x:hidden;width:100%;box-sizing:border-box;}
+.cb,.math-block,.steps,.ch-section{max-width:100%;box-sizing:border-box;word-break:break-word;}
+
 .post-header,.page-heading,header.post-header{display:none!important;}
 .ch-wrap{max-width:1100px;margin:0 auto;padding:var(--space-10) var(--space-5);display:grid;grid-template-columns:1fr 220px;gap:var(--space-12);align-items:start;}
 .katex-display{overflow-x:auto!important;overflow-y:hidden;padding-bottom:4px;}

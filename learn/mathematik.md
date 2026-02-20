@@ -30,7 +30,7 @@ permalink: /learn/mathematik/
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
-body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)!important;color:var(--text-primary);font-family:var(--font-stack);line-height:1.47059;letter-spacing:-0.022em;}
+body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)!important;color:var(--text-primary);font-family:var(--font-stack);line-height:1.47059;letter-spacing:-0.022em;overflow-x:hidden;max-width:100%;}
 .post-header,.page-heading,header.post-header{display:none!important;}
 
 .lm-container {
