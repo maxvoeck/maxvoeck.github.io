@@ -125,6 +125,23 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .lm-chapter-arrow { color: var(--text-tertiary); font-size: 16px; flex-shrink: 0; transition: transform var(--transition-base); }
 .lm-chapter:hover .lm-chapter-arrow { transform: translateX(3px); color: var(--text-primary); }
 
+/* Section headers */
+.lm-section { margin-bottom: var(--space-6); }
+.lm-section-header {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-4); padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--separator);
+}
+.lm-section-eyebrow {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; padding: 3px 10px; border-radius: var(--radius-full);
+}
+.lm-section-eyebrow--math { color: var(--math); background: rgba(255,45,85,.1); border: 1px solid rgba(255,45,85,.2); }
+.lm-section-eyebrow--geo { color: var(--system-blue); background: rgba(0,122,255,.1); border: 1px solid rgba(0,122,255,.2); }
+.lm-section-title { font-size: 18px; font-weight: 700; }
+/* Blue variant for Analytische Geometrie chapters */
+.lm-chapter--geo .lm-chapter-num { background: rgba(0,122,255,.12); color: var(--system-blue); }
+
 /* PDF hint */
 .lm-pdf-hint {
   margin-top: var(--space-10);
@@ -165,7 +182,13 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
     <p class="lm-hero-sub">Von Matrizen und Determinanten bis zu linearen Gleichungssystemen — Schritt für Schritt erklärt, direkt im Browser.</p>
   </div>
 
-  <div class="lm-chapters">
+  <!-- Lineare Algebra -->
+  <div class="lm-section">
+    <div class="lm-section-header">
+      <span class="lm-section-eyebrow lm-section-eyebrow--math">📐 Lineare Algebra</span>
+      <span class="lm-section-title">Matrizen & Gleichungssysteme</span>
+    </div>
+    <div class="lm-chapters">
 
     <a href="/learn/matrizen-grundlagen/" class="lm-chapter">
       <div class="lm-chapter-num">1</div>
@@ -217,7 +240,59 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
       <span class="lm-chapter-arrow">→</span>
     </a>
 
-  </div>
+    </div><!-- end lm-chapters Lineare Algebra -->
+  </div><!-- end lm-section -->
+
+  <!-- Analytische Geometrie -->
+  <div class="lm-section">
+    <div class="lm-section-header">
+      <span class="lm-section-eyebrow lm-section-eyebrow--geo">📍 Analytische Geometrie</span>
+      <span class="lm-section-title">Vektoren & Raum</span>
+    </div>
+    <div class="lm-chapters">
+
+      <a href="/learn/vektoren-grundlagen/" class="lm-chapter lm-chapter--geo">
+        <div class="lm-chapter-num">1</div>
+        <div class="lm-chapter-body">
+          <div class="lm-chapter-title">Vektoren – Grundlagen</div>
+          <div class="lm-chapter-desc">Betrag, Einheitsvektor, Addition, Skalarprodukt, Winkelberechnung</div>
+        </div>
+        <span class="lm-chapter-badge lm-chapter-badge--new">Neu</span>
+        <span class="lm-chapter-arrow">→</span>
+      </a>
+
+      <a href="/learn/vektorprodukt-spatprodukt/" class="lm-chapter lm-chapter--geo">
+        <div class="lm-chapter-num">2</div>
+        <div class="lm-chapter-body">
+          <div class="lm-chapter-title">Vektorprodukt & Spatprodukt</div>
+          <div class="lm-chapter-desc">Kreuzprodukt, Flächen, Volumen, geometrische Nachweise</div>
+        </div>
+        <span class="lm-chapter-badge lm-chapter-badge--new">Neu</span>
+        <span class="lm-chapter-arrow">→</span>
+      </a>
+
+      <a href="/learn/geraden-ebenen/" class="lm-chapter lm-chapter--geo">
+        <div class="lm-chapter-num">3</div>
+        <div class="lm-chapter-body">
+          <div class="lm-chapter-title">Geraden und Ebenen</div>
+          <div class="lm-chapter-desc">Parameterform, Normalenvektor, Koordinatenform, Lagebeziehungen</div>
+        </div>
+        <span class="lm-chapter-badge lm-chapter-badge--new">Neu</span>
+        <span class="lm-chapter-arrow">→</span>
+      </a>
+
+      <a href="/learn/lagebeziehungen-abstaende/" class="lm-chapter lm-chapter--geo">
+        <div class="lm-chapter-num">4</div>
+        <div class="lm-chapter-body">
+          <div class="lm-chapter-title">Lagebeziehungen & Abstände</div>
+          <div class="lm-chapter-desc">Ebene↔Ebene, Hesse-Formel, windschief, alle Abstands­fälle</div>
+        </div>
+        <span class="lm-chapter-badge lm-chapter-badge--new">Neu</span>
+        <span class="lm-chapter-arrow">→</span>
+      </a>
+
+    </div><!-- end lm-chapters Geo -->
+  </div><!-- end lm-section -->
 
   <a href="/assets/pdfs/Mathematik_Skript.pdf" class="lm-pdf-hint">
     📄 &nbsp;Lieber als PDF? Das vollständige Skript steht zum Download bereit.
