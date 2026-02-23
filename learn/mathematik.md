@@ -178,8 +178,8 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 
   <div class="lm-hero">
     <div class="lm-hero-eyebrow">📐 Mathematik</div>
-    <h1>Lineare Algebra</h1>
-    <p class="lm-hero-sub">Von Matrizen und Determinanten bis zu linearen Gleichungssystemen — Schritt für Schritt erklärt, direkt im Browser.</p>
+    <h1>Mathematik</h1>
+    <p class="lm-hero-sub">Von Matrizen und Determinanten über Vektoren bis zu Geraden und Ebenen — Schritt für Schritt erklärt, direkt im Browser.</p>
   </div>
 
   <!-- Lineare Algebra -->
