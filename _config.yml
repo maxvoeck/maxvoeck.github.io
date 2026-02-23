@@ -2,7 +2,7 @@
 title: 
 email: maximilian.voecklinghaus@teacher.rahn.education
 description: >-
-  Mathematik, Wirtschaft & Datenanalyse
+  Mathematik, Informatik & interaktives Lernen
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site
 
@@ -13,31 +13,9 @@ theme: minima
 # Header pages (navigation)
 header_pages:
   - about.md
-  - analysen.md
   - teaching.md
 
 # Social links
 github_username: maxvoeck
 linkedin_username: dein-linkedin
 
-# Collections
-collections:
-  projekte:
-    output: true
-    permalink: /projekte/:title/
-  analysen:
-    output: true
-    permalink: /analysen/:title/
-
-# Defaults
-defaults:
-  - scope:
-      path: ""
-      type: "projekte"
-    values:
-      layout: "post"
-  - scope:
-      path: ""
-      type: "analysen"
-    values:
-      layout: "post"

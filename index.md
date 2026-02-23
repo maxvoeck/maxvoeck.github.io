@@ -17,7 +17,7 @@ layout: default
   --system-teal: #5AC8FA;
 
   --about: #5856D6;
-  --analysen: #5AC8FA;
+  --learn: #007AFF;
   --teaching: #FF9500;
 
   --gray-6: #8E8E93;
@@ -183,11 +183,11 @@ body, html, .page-content, .wrapper, main {
 
 /* Card accent colors */
 .ma-card--about { border-top: 3px solid var(--about); }
-.ma-card--analysen { border-top: 3px solid var(--analysen); }
+.ma-card--learn { border-top: 3px solid var(--learn); }
 .ma-card--teaching { border-top: 3px solid var(--teaching); }
 
 .ma-card--about:hover { box-shadow: 0 12px 32px rgba(88, 86, 214, 0.1); }
-.ma-card--analysen:hover { box-shadow: 0 12px 32px rgba(90, 200, 250, 0.1); }
+.ma-card--learn:hover { box-shadow: 0 12px 32px rgba(0, 122, 255, 0.1); }
 .ma-card--teaching:hover { box-shadow: 0 12px 32px rgba(255, 149, 0, 0.1); }
 
 /* ─── Card Icon ─── */
@@ -208,7 +208,7 @@ body, html, .page-content, .wrapper, main {
 }
 
 .ma-card--about .ma-card-icon { background: rgba(88, 86, 214, 0.12); }
-.ma-card--analysen .ma-card-icon { background: rgba(90, 200, 250, 0.12); }
+.ma-card--learn .ma-card-icon { background: rgba(0, 122, 255, 0.12); }
 .ma-card--teaching .ma-card-icon { background: rgba(255, 149, 0, 0.12); }
 
 .ma-card-icon svg {
@@ -218,7 +218,7 @@ body, html, .page-content, .wrapper, main {
 }
 
 .ma-card--about .ma-card-icon svg { fill: var(--about); }
-.ma-card--analysen .ma-card-icon svg { fill: var(--analysen); }
+.ma-card--learn .ma-card-icon svg { fill: var(--learn); }
 .ma-card--teaching .ma-card-icon svg { fill: var(--teaching); }
 
 /* ─── Card Content ─── */
@@ -326,7 +326,7 @@ body, html, .page-content, .wrapper, main {
   <!-- Hero -->
   <div class="ma-hero">
     <h1></h1>
-    <p class="ma-hero-subtitle">Mathematik, Wirtschaft & Datenanalyse</p>
+    <p class="ma-hero-subtitle">Mathematik, Informatik & interaktives Lernen</p>
   </div>
 
   <!-- Cards -->
@@ -343,15 +343,15 @@ body, html, .page-content, .wrapper, main {
       <p>Hintergrund, Ausbildung und Schwerpunkte</p>
     </a>
 
-    <!-- Analysen -->
-    <a href="/analysen/" class="ma-card ma-card--analysen">
+    <!-- Learn -->
+    <a href="/learn/" class="ma-card ma-card--learn">
       <div class="ma-card-icon">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H7V10H9V17ZM13 17H11V7H13V17ZM17 17H15V13H17V17Z"/>
+          <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 15.99L12 18.72L7 15.99V12.27L12 15L17 12.27V15.99Z"/>
         </svg>
       </div>
-      <h2>Analysen</h2>
-      <p>Wirtschaftliche Betrachtungen und datengestützte Untersuchungen</p>
+      <h2>Learn</h2>
+      <p>Interaktive Lektionen in Mathematik, VWL und Informatik</p>
     </a>
 
     <!-- Unterrichtsmaterialien -->
