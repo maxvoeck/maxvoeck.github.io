@@ -35,19 +35,19 @@ permalink: /teaching/informatik/
   --gray-7: #636366;
   --gray-8: #48484A;
   --gray-9: #3A3A3C;
-  --gray-10: #3D3935;
-  --gray-11: #33302B;
-  --gray-12: #E8E4DC;
+  --gray-10: #303036;
+  --gray-11: #252529;
+  --gray-12: #e3e3e8;
   
   /* Dynamische Farben (Light/Dark Mode) */
-  --bg-primary: #292521;
-  --bg-secondary: #33302B;
-  --bg-tertiary: #3D3935;
-  --text-primary: #E8E4DC;
-  --text-secondary: #A39E94;
-  --text-tertiary: #7A756C;
-  --separator: rgba(232, 228, 220, 0.08);
-  --separator-strong: rgba(232, 228, 220, 0.15);
+  --bg-primary: #1a1a1e;
+  --bg-secondary: #252529;
+  --bg-tertiary: #303036;
+  --text-primary: #e3e3e8;
+  --text-secondary: #a0a0a8;
+  --text-tertiary: #6b6b74;
+  --separator: rgba(227, 227, 232, 0.08);
+  --separator-strong: rgba(227, 227, 232, 0.15);
   
   /* Typografie */
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -75,9 +75,9 @@ permalink: /teaching/informatik/
   --radius-full: 9999px;
   
   /* Schatten */
-  --shadow-sm: 0 1px 2px rgba(232,228,220,0.06);
-  --shadow-md: 0 4px 12px rgba(232,228,220,0.08);
-  --shadow-lg: 0 12px 24px rgba(232,228,220,0.12);
+  --shadow-sm: 0 1px 2px rgba(227,227,232,0.06);
+  --shadow-md: 0 4px 12px rgba(227,227,232,0.08);
+  --shadow-lg: 0 12px 24px rgba(227,227,232,0.12);
   --shadow-xl: 0 24px 48px rgba(0,0,0,0.64);
   
   /* Transitions */
@@ -314,7 +314,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(232,228,220,0.03) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(227,227,232,0.03) 0%, transparent 50%);
   opacity: 0;
   transition: opacity var(--transition-base);
 }

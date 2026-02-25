@@ -10,7 +10,7 @@ permalink: /learn/vektoren-grundlagen/
   onload="renderMathInElement(document.getElementById('chapter-content'),{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}]})"></script>
 
 <style>
-:root{--geo:#007AFF;--system-indigo:#5856D6;--system-green:#34C759;--system-orange:#FF9500;--system-blue:#007AFF;--system-purple:#AF52DE;--bg-primary:#292521;--bg-secondary:#33302B;--bg-tertiary:#3D3935;--text-primary:#E8E4DC;--text-secondary:#A39E94;--text-tertiary:#7A756C;--separator:rgba(232,228,220,0.08);--font-stack:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-full:9999px;--transition-base:250ms cubic-bezier(0.4,0,0.2,1);}
+:root{--geo:#007AFF;--system-indigo:#5856D6;--system-green:#34C759;--system-orange:#FF9500;--system-blue:#007AFF;--system-purple:#AF52DE;--bg-primary:#1a1a1e;--bg-secondary:#252529;--bg-tertiary:#303036;--text-primary:#e3e3e8;--text-secondary:#a0a0a8;--text-tertiary:#6b6b74;--separator:rgba(227,227,232,0.08);--font-stack:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-full:9999px;--transition-base:250ms cubic-bezier(0.4,0,0.2,1);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
 body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)!important;color:var(--text-primary);font-family:var(--font-stack);line-height:1.6;letter-spacing:-0.015em;}
 .post-header,.page-heading,header.post-header{display:none!important;}
@@ -53,7 +53,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .ch-toc a:hover{color:var(--text-primary);background:var(--bg-tertiary);}.ch-toc a.active{color:var(--geo);background:rgba(0,122,255,.1);}
 .ch-nav{margin-top:var(--space-12);padding-top:var(--space-8);border-top:1px solid var(--separator);display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap;}
 .ch-nav a{display:inline-flex;align-items:center;gap:var(--space-2);font-size:14px;font-weight:500;color:var(--text-tertiary);text-decoration:none;padding:var(--space-3) var(--space-4);border:1px solid var(--separator);border-radius:var(--radius-md);transition:all var(--transition-base);}
-.ch-nav a:hover{color:var(--text-primary);border-color:rgba(232,228,220,0.15);background:var(--bg-secondary);}
+.ch-nav a:hover{color:var(--text-primary);border-color:rgba(227,227,232,0.15);background:var(--bg-secondary);}
 .ch-nav a.primary{color:var(--geo);border-color:rgba(0,122,255,.3);background:rgba(0,122,255,.05);}
 .ch-nav a.primary:hover{background:rgba(0,122,255,.12);}
 @media(max-width:600px){

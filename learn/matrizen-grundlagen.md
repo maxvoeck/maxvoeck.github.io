@@ -16,13 +16,13 @@ permalink: /learn/matrizen-grundlagen/
   --system-green: #34C759;
   --system-orange: #FF9500;
   --system-blue: #007AFF;
-  --bg-primary: #292521;
-  --bg-secondary: #33302B;
-  --bg-tertiary: #3D3935;
-  --text-primary: #E8E4DC;
-  --text-secondary: #A39E94;
-  --text-tertiary: #7A756C;
-  --separator: rgba(232,228,220,0.08);
+  --bg-primary: #1a1a1e;
+  --bg-secondary: #252529;
+  --bg-tertiary: #303036;
+  --text-primary: #e3e3e8;
+  --text-secondary: #a0a0a8;
+  --text-tertiary: #6b6b74;
+  --separator: rgba(227,227,232,0.08);
   --font-stack: -apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
   --font-mono: "SF Mono",SFMono-Regular,ui-monospace,Menlo,Monaco,monospace;
   --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
@@ -227,7 +227,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   border-radius: var(--radius-xl); padding: var(--space-3) var(--space-5);
   text-decoration: none; color: inherit; transition: all var(--transition-base);
 }
-.ch-nav-next:hover { background: var(--bg-tertiary); border-color: rgba(232,228,220,0.12); transform: translateX(3px); }
+.ch-nav-next:hover { background: var(--bg-tertiary); border-color: rgba(227,227,232,0.12); transform: translateX(3px); }
 .ch-nav-next-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
 .ch-nav-next-title { font-size: 14px; font-weight: 600; }
 

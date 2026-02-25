@@ -10,7 +10,7 @@ permalink: /learn/matrizengleichungen-rang/
   onload="renderMathInElement(document.getElementById('chapter-content'),{delimiters:[{left:'\\(',right:'\\)',display:false},{left:'\\[',right:'\\]',display:true}]})"></script>
 
 <style>
-:root{--math:#FF2D55;--system-indigo:#5856D6;--system-green:#34C759;--system-orange:#FF9500;--system-blue:#007AFF;--bg-primary:#292521;--bg-secondary:#33302B;--bg-tertiary:#3D3935;--text-primary:#E8E4DC;--text-secondary:#A39E94;--text-tertiary:#7A756C;--separator:rgba(232,228,220,0.08);--font-stack:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:24px;--radius-full:9999px;--transition-base:250ms cubic-bezier(0.4,0,0.2,1);}
+:root{--math:#FF2D55;--system-indigo:#5856D6;--system-green:#34C759;--system-orange:#FF9500;--system-blue:#007AFF;--bg-primary:#1a1a1e;--bg-secondary:#252529;--bg-tertiary:#303036;--text-primary:#e3e3e8;--text-secondary:#a0a0a8;--text-tertiary:#6b6b74;--separator:rgba(227,227,232,0.08);--font-stack:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;--space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;--radius-sm:8px;--radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:24px;--radius-full:9999px;--transition-base:250ms cubic-bezier(0.4,0,0.2,1);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;}
 body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)!important;color:var(--text-primary);font-family:var(--font-stack);line-height:1.6;letter-spacing:-0.015em;}
 .ch-wrap{width:100%;box-sizing:border-box;}
@@ -51,7 +51,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .rules-table{width:100%;border-collapse:collapse;margin:var(--space-4) 0;font-size:15px;}
 .rules-table th{background:var(--bg-secondary);color:var(--text-tertiary);font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:var(--space-3) var(--space-4);text-align:left;border-bottom:1px solid var(--separator);}
 .rules-table tr{background:transparent!important;}
-.rules-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(232,228,220,0.06);color:var(--text-secondary);vertical-align:middle;background:transparent!important;}
+.rules-table td{padding:var(--space-3) var(--space-4);border-bottom:1px solid rgba(227,227,232,0.06);color:var(--text-secondary);vertical-align:middle;background:transparent!important;}
 .rules-table tr:last-child td{border-bottom:none;}
 .ch-toc{position:sticky;top:80px;background:var(--bg-secondary);border:1px solid var(--separator);border-radius:var(--radius-xl);padding:var(--space-5);}
 .ch-toc-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-tertiary);margin-bottom:var(--space-4);}
@@ -60,8 +60,8 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .ch-toc a:hover{color:var(--text-primary);background:var(--bg-tertiary);}.ch-toc a.active{color:var(--math);background:rgba(255,45,85,.1);}
 .ch-nav{margin-top:var(--space-12);padding-top:var(--space-8);border-top:1px solid var(--separator);display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);flex-wrap:wrap;}
 .ch-nav-prev,.ch-nav-next{display:flex;align-items:center;gap:var(--space-3);background:var(--bg-secondary);border:1px solid var(--separator);border-radius:var(--radius-xl);padding:var(--space-3) var(--space-5);text-decoration:none;color:inherit;transition:all var(--transition-base);}
-.ch-nav-prev:hover{background:var(--bg-tertiary);border-color:rgba(232,228,220,0.12);transform:translateX(-3px);}
-.ch-nav-next:hover{background:var(--bg-tertiary);border-color:rgba(232,228,220,0.12);transform:translateX(3px);}
+.ch-nav-prev:hover{background:var(--bg-tertiary);border-color:rgba(227,227,232,0.12);transform:translateX(-3px);}
+.ch-nav-next:hover{background:var(--bg-tertiary);border-color:rgba(227,227,232,0.12);transform:translateX(3px);}
 .ch-nav-label{font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
 .ch-nav-title{font-size:14px;font-weight:600;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
