@@ -12,17 +12,17 @@ permalink: /learn/
   --system-orange: #FF9500;
   --system-pink: #FF2D55;
 
-  --bg-primary: #000000;
-  --bg-secondary: #1C1C1E;
-  --bg-tertiary: #2C2C2E;
-  --text-primary: #FFFFFF;
-  --text-secondary: #EBEBF5;
-  --text-tertiary: #8E8E93;
-  --separator: rgba(255, 255, 255, 0.12);
-  --separator-strong: rgba(255, 255, 255, 0.24);
+  --bg-primary: #292521;
+  --bg-secondary: #33302B;
+  --bg-tertiary: #3D3935;
+  --text-primary: #E8E4DC;
+  --text-secondary: #A39E94;
+  --text-tertiary: #7A756C;
+  --separator: rgba(232, 228, 220, 0.08);
+  --separator-strong: rgba(232, 228, 220, 0.15);
 
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.32);
-  --shadow-lg: 0 12px 24px rgba(0,0,0,0.48);
+  --shadow-md: 0 4px 12px rgba(232,228,220,0.08);
+  --shadow-lg: 0 12px 24px rgba(232,228,220,0.12);
 
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -105,7 +105,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   letter-spacing: -0.025em;
   line-height: 1.05;
   margin-bottom: var(--space-6);
-  background: linear-gradient(135deg, #FFFFFF 40%, #8E8E93 100%);
+  background: linear-gradient(135deg, #E8E4DC 40%, #7A756C 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s backwards;

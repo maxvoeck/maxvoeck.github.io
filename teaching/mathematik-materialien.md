@@ -39,19 +39,19 @@ permalink: /teaching/mathematik-materialien/
   --gray-7: #636366;
   --gray-8: #48484A;
   --gray-9: #3A3A3C;
-  --gray-10: #2C2C2E;
-  --gray-11: #1C1C1E;
-  --gray-12: #000000;
+  --gray-10: #3D3935;
+  --gray-11: #33302B;
+  --gray-12: #E8E4DC;
 
   /* Dynamische Farben (Light/Dark Mode) */
-  --bg-primary: #000000;
-  --bg-secondary: #1C1C1E;
-  --bg-tertiary: #2C2C2E;
-  --text-primary: #FFFFFF;
-  --text-secondary: #EBEBF5;
-  --text-tertiary: #8E8E93;
-  --separator: rgba(255, 255, 255, 0.12);
-  --separator-strong: rgba(255, 255, 255, 0.24);
+  --bg-primary: #292521;
+  --bg-secondary: #33302B;
+  --bg-tertiary: #3D3935;
+  --text-primary: #E8E4DC;
+  --text-secondary: #A39E94;
+  --text-tertiary: #7A756C;
+  --separator: rgba(232, 228, 220, 0.08);
+  --separator-strong: rgba(232, 228, 220, 0.15);
 
   /* Typografie */
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -79,9 +79,9 @@ permalink: /teaching/mathematik-materialien/
   --radius-full: 9999px;
 
   /* Schatten */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.24);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.32);
-  --shadow-lg: 0 12px 24px rgba(0,0,0,0.48);
+  --shadow-sm: 0 1px 2px rgba(232,228,220,0.06);
+  --shadow-md: 0 4px 12px rgba(232,228,220,0.08);
+  --shadow-lg: 0 12px 24px rgba(232,228,220,0.12);
   --shadow-xl: 0 24px 48px rgba(0,0,0,0.64);
 
   /* Transitions */
@@ -282,7 +282,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(232,228,220,0.03) 0%, transparent 50%);
   opacity: 0;
   transition: opacity var(--transition-base);
 }

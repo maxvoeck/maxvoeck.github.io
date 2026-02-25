@@ -28,14 +28,14 @@ permalink: /teaching/
   --gray-1: #F5F5F7;
   --gray-6: #8E8E93;
 
-  --bg-primary: #000000;
-  --bg-secondary: #1C1C1E;
-  --bg-tertiary: #2C2C2E;
-  --text-primary: #FFFFFF;
-  --text-secondary: #EBEBF5;
-  --text-tertiary: #8E8E93;
-  --separator: rgba(255, 255, 255, 0.12);
-  --separator-strong: rgba(255, 255, 255, 0.24);
+  --bg-primary: #292521;
+  --bg-secondary: #33302B;
+  --bg-tertiary: #3D3935;
+  --text-primary: #E8E4DC;
+  --text-secondary: #A39E94;
+  --text-tertiary: #7A756C;
+  --separator: rgba(232, 228, 220, 0.08);
+  --separator-strong: rgba(232, 228, 220, 0.15);
 
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
@@ -59,9 +59,9 @@ permalink: /teaching/
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 1px 2px rgba(0,0,0,0.24);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.32);
-  --shadow-lg: 0 12px 24px rgba(0,0,0,0.48);
+  --shadow-sm: 0 1px 2px rgba(232,228,220,0.06);
+  --shadow-md: 0 4px 12px rgba(232,228,220,0.08);
+  --shadow-lg: 0 12px 24px rgba(232,228,220,0.12);
   --shadow-xl: 0 24px 48px rgba(0,0,0,0.64);
 
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);

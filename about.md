@@ -8,14 +8,14 @@ permalink: /about/
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
 
 :root {
-  --bg-deep: #0a0a0f;
-  --bg-card: rgba(255,255,255,0.06);
-  --bg-card-hover: rgba(255,255,255,0.09);
-  --border: rgba(255,255,255,0.08);
-  --border-hover: rgba(255,255,255,0.14);
-  --text-primary: rgba(255,255,255,0.92);
-  --text-secondary: rgba(255,255,255,0.55);
-  --text-muted: rgba(255,255,255,0.32);
+  --bg-deep: #292521;
+  --bg-card: rgba(232,228,220,0.04);
+  --bg-card-hover: rgba(232,228,220,0.06);
+  --border: rgba(232,228,220,0.06);
+  --border-hover: rgba(232,228,220,0.10);
+  --text-primary: rgba(232,228,220,0.92);
+  --text-secondary: rgba(232,228,220,0.60);
+  --text-muted: rgba(232,228,220,0.35);
   --accent-1: #6366f1;
   --accent-2: #8b5cf6;
   --accent-3: #a78bfa;
@@ -94,7 +94,7 @@ a:hover { color: #c4b5fd; text-decoration: none; }
 }
 .ab-hero::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+  background: linear-gradient(90deg, transparent, rgba(232,228,220,0.08), transparent);
 }
 .ab-hero-eyebrow {
   font-size: 0.72rem; font-weight: 500;
@@ -106,7 +106,7 @@ a:hover { color: #c4b5fd; text-decoration: none; }
   font-size: 2.5rem; font-weight: 600;
   letter-spacing: -0.03em; line-height: 1.1;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+  background: linear-gradient(135deg, #E8E4DC 0%, rgba(232,228,220,0.5) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .ab-hero-text {
@@ -132,7 +132,7 @@ a:hover { color: #c4b5fd; text-decoration: none; }
 }
 .ab-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  background: linear-gradient(90deg, transparent, rgba(232,228,220,0.06), transparent);
   opacity: 0; transition: opacity 0.3s ease;
 }
 .ab-card:hover {
