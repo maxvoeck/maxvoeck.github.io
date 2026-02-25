@@ -12,9 +12,9 @@ permalink: /learn/determinanten/
 <style>
 :root {
   --math:#FF2D55;--system-indigo:#5856D6;--system-green:#34C759;--system-orange:#FF9500;--system-blue:#007AFF;
-  --bg-primary:#1a1a1e;--bg-secondary:#252529;--bg-tertiary:#303036;
-  --text-primary:#e3e3e8;--text-secondary:#a0a0a8;--text-tertiary:#6b6b74;
-  --separator:rgba(227,227,232,0.08);
+  --bg-primary:#262624;--bg-secondary:#30302e;--bg-tertiary:#3a3a37;
+  --text-primary:#c1c0b6;--text-secondary:#908f87;--text-tertiary:#706f69;
+  --separator:rgba(var(--text-rgb),0.08);
   --font-stack:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
   --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
   --space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;
@@ -81,9 +81,9 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .ch-nav-back{font-size:14px;color:var(--text-tertiary);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color var(--transition-base);}
 .ch-nav-back:hover{color:var(--text-primary);}
 .ch-nav-next{display:flex;align-items:center;gap:var(--space-3);background:var(--bg-secondary);border:1px solid var(--separator);border-radius:var(--radius-xl);padding:var(--space-3) var(--space-5);text-decoration:none;color:inherit;transition:all var(--transition-base);}
-.ch-nav-next:hover{background:var(--bg-tertiary);border-color:rgba(227,227,232,0.12);transform:translateX(3px);}
+.ch-nav-next:hover{background:var(--bg-tertiary);border-color:rgba(var(--text-rgb),0.12);transform:translateX(3px);}
 .ch-nav-prev{display:flex;align-items:center;gap:var(--space-3);background:var(--bg-secondary);border:1px solid var(--separator);border-radius:var(--radius-xl);padding:var(--space-3) var(--space-5);text-decoration:none;color:inherit;transition:all var(--transition-base);}
-.ch-nav-prev:hover{background:var(--bg-tertiary);border-color:rgba(227,227,232,0.12);transform:translateX(-3px);}
+.ch-nav-prev:hover{background:var(--bg-tertiary);border-color:rgba(var(--text-rgb),0.12);transform:translateX(-3px);}
 .ch-nav-label{font-size:11px;color:var(--text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;}
 .ch-nav-title{font-size:14px;font-weight:600;}
 

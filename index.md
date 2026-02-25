@@ -22,14 +22,14 @@ layout: default
 
   --gray-6: #8E8E93;
 
-  --bg-primary: #1a1a1e;
-  --bg-secondary: #252529;
-  --bg-tertiary: #303036;
-  --text-primary: #e3e3e8;
-  --text-secondary: #a0a0a8;
-  --text-tertiary: #6b6b74;
-  --separator: rgba(227, 227, 232, 0.08);
-  --separator-strong: rgba(227, 227, 232, 0.15);
+  --bg-primary: #262624;
+  --bg-secondary: #30302e;
+  --bg-tertiary: #3a3a37;
+  --text-primary: #c1c0b6;
+  --text-secondary: #908f87;
+  --text-tertiary: #706f69;
+  --separator: rgba(var(--text-rgb), 0.08);
+  --separator-strong: rgba(var(--text-rgb), 0.15);
 
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -51,9 +51,9 @@ layout: default
   --radius-xl: 20px;
   --radius-2xl: 24px;
 
-  --shadow-sm: 0 1px 2px rgba(227,227,232,0.06);
-  --shadow-md: 0 4px 12px rgba(227,227,232,0.08);
-  --shadow-lg: 0 12px 24px rgba(227,227,232,0.12);
+  --shadow-sm: 0 1px 2px rgba(var(--text-rgb),0.06);
+  --shadow-md: 0 4px 12px rgba(var(--text-rgb),0.08);
+  --shadow-lg: 0 12px 24px rgba(var(--text-rgb),0.12);
 
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -160,7 +160,7 @@ body, html, .page-content, .wrapper, main {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(227,227,232,0.03) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(var(--text-rgb),0.03) 0%, transparent 50%);
   opacity: 0;
   transition: opacity var(--transition-base);
 }

@@ -8,14 +8,14 @@ permalink: /about/
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
 
 :root {
-  --bg-deep: #1a1a1e;
-  --bg-card: rgba(227,227,232,0.04);
-  --bg-card-hover: rgba(227,227,232,0.06);
-  --border: rgba(227,227,232,0.06);
-  --border-hover: rgba(227,227,232,0.10);
-  --text-primary: rgba(227,227,232,0.92);
-  --text-secondary: rgba(227,227,232,0.60);
-  --text-muted: rgba(227,227,232,0.35);
+  --bg-deep: #262624;
+  --bg-card: rgba(var(--text-rgb),0.04);
+  --bg-card-hover: rgba(var(--text-rgb),0.06);
+  --border: rgba(var(--text-rgb),0.06);
+  --border-hover: rgba(var(--text-rgb),0.10);
+  --text-primary: rgba(var(--text-rgb),0.92);
+  --text-secondary: rgba(var(--text-rgb),0.60);
+  --text-muted: rgba(var(--text-rgb),0.35);
   --accent-1: #6366f1;
   --accent-2: #8b5cf6;
   --accent-3: #a78bfa;
@@ -94,7 +94,7 @@ a:hover { color: #c4b5fd; text-decoration: none; }
 }
 .ab-hero::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(227,227,232,0.08), transparent);
+  background: linear-gradient(90deg, transparent, rgba(var(--text-rgb),0.08), transparent);
 }
 .ab-hero-eyebrow {
   font-size: 0.72rem; font-weight: 500;
@@ -106,7 +106,7 @@ a:hover { color: #c4b5fd; text-decoration: none; }
   font-size: 2.5rem; font-weight: 600;
   letter-spacing: -0.03em; line-height: 1.1;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #e3e3e8 0%, rgba(227,227,232,0.5) 100%);
+  background: linear-gradient(135deg, var(--text-primary) 0%, rgba(var(--text-rgb),0.5) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 .ab-hero-text {
@@ -132,7 +132,7 @@ a:hover { color: #c4b5fd; text-decoration: none; }
 }
 .ab-card::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(227,227,232,0.06), transparent);
+  background: linear-gradient(90deg, transparent, rgba(var(--text-rgb),0.06), transparent);
   opacity: 0; transition: opacity 0.3s ease;
 }
 .ab-card:hover {

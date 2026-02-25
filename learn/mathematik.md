@@ -13,13 +13,13 @@ permalink: /learn/mathematik/
   --system-pink: #FF2D55;
   --math: #FF2D55;
 
-  --bg-primary: #1a1a1e;
-  --bg-secondary: #252529;
-  --bg-tertiary: #303036;
-  --text-primary: #e3e3e8;
-  --text-secondary: #a0a0a8;
-  --text-tertiary: #6b6b74;
-  --separator: rgba(227, 227, 232, 0.08);
+  --bg-primary: #262624;
+  --bg-secondary: #30302e;
+  --bg-tertiary: #3a3a37;
+  --text-primary: #c1c0b6;
+  --text-secondary: #908f87;
+  --text-tertiary: #706f69;
+  --separator: rgba(var(--text-rgb), 0.08);
 
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
@@ -66,7 +66,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 .lm-hero h1 {
   font-size: clamp(36px,5vw,56px); font-weight: 700; letter-spacing: -.025em;
   line-height: 1.06; margin-bottom: var(--space-4);
-  background: linear-gradient(135deg, #e3e3e8 50%, #6b6b74 100%);
+  background: linear-gradient(135deg, var(--text-primary) 50%, var(--text-tertiary) 100%);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 .lm-hero-sub {
@@ -92,7 +92,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 
 .lm-chapter:hover {
   background: var(--bg-tertiary);
-  border-color: rgba(227,227,232,0.12);
+  border-color: rgba(var(--text-rgb),0.12);
   transform: translateX(4px);
 }
 .lm-chapter--locked { opacity: .45; cursor: not-allowed; pointer-events: none; }
@@ -151,7 +151,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   font-size: 14px; color: var(--text-tertiary); text-decoration: none;
   transition: all var(--transition-base);
 }
-.lm-pdf-hint:hover { border-color: rgba(227,227,232,0.12); color: var(--text-secondary); }
+.lm-pdf-hint:hover { border-color: rgba(var(--text-rgb),0.12); color: var(--text-secondary); }
 
 @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
 @media(max-width:600px){

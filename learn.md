@@ -12,17 +12,17 @@ permalink: /learn/
   --system-orange: #FF9500;
   --system-pink: #FF2D55;
 
-  --bg-primary: #1a1a1e;
-  --bg-secondary: #252529;
-  --bg-tertiary: #303036;
-  --text-primary: #e3e3e8;
-  --text-secondary: #a0a0a8;
-  --text-tertiary: #6b6b74;
-  --separator: rgba(227, 227, 232, 0.08);
-  --separator-strong: rgba(227, 227, 232, 0.15);
+  --bg-primary: #262624;
+  --bg-secondary: #30302e;
+  --bg-tertiary: #3a3a37;
+  --text-primary: #c1c0b6;
+  --text-secondary: #908f87;
+  --text-tertiary: #706f69;
+  --separator: rgba(var(--text-rgb), 0.08);
+  --separator-strong: rgba(var(--text-rgb), 0.15);
 
-  --shadow-md: 0 4px 12px rgba(227,227,232,0.08);
-  --shadow-lg: 0 12px 24px rgba(227,227,232,0.12);
+  --shadow-md: 0 4px 12px rgba(var(--text-rgb),0.08);
+  --shadow-lg: 0 12px 24px rgba(var(--text-rgb),0.12);
 
   --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
@@ -105,7 +105,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   letter-spacing: -0.025em;
   line-height: 1.05;
   margin-bottom: var(--space-6);
-  background: linear-gradient(135deg, #e3e3e8 40%, #6b6b74 100%);
+  background: linear-gradient(135deg, var(--text-primary) 40%, var(--text-tertiary) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s backwards;
