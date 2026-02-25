@@ -223,7 +223,6 @@ body, html, .page-content, .wrapper, main, .post-content {
 
   <div class="ln-badge">
     <span class="ln-badge-dot"></span>
-    In Arbeit
   </div>
 
   <h1 class="ln-title">Learn</h1>
