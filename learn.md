@@ -234,11 +234,11 @@ body, html, .page-content, .wrapper, main, .post-content {
       <div class="ln-preview-label">Mathematik</div>
       <div class="ln-preview-count" style="color:#34C759;font-weight:500;">5 Kapitel verfügbar →</div>
     </a>
-    <div class="ln-preview-card ln-preview-card--econ">
+    <a href="/learn/vwl/" class="ln-preview-card ln-preview-card--econ" style="text-decoration:none;color:inherit;opacity:1;cursor:pointer;transition:all 250ms cubic-bezier(0.4,0,0.2,1);" onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='rgba(255,149,0,0.4)'" onmouseout="this.style.transform='';this.style.borderColor=''">
       <div class="ln-preview-icon">📊</div>
       <div class="ln-preview-label">VWL</div>
-      <div class="ln-preview-count">Demnächst</div>
-    </div>
+      <div class="ln-preview-count" style="color:#34C759;font-weight:500;">4 Kapitel verfügbar →</div>
+    </a>
     <div class="ln-preview-card ln-preview-card--cs">
       <div class="ln-preview-icon">🐍</div>
       <div class="ln-preview-label">Informatik</div>
