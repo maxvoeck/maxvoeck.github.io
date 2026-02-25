@@ -247,10 +247,6 @@ body, html, .page-content, .wrapper, main, .post-content {
     </div>
   </div>
 
-  <div class="ln-soon">
-    <div class="ln-soon-icon">🛠️</div>
-    <div class="ln-soon-title">Wird weiter ausgebaut</div>
-    <p class="ln-soon-text">Mathematik – Lineare Algebra ist bereits verfügbar. VWL und Informatik folgen.</p>
-  </div>
+  
 
 </div>
