@@ -3,368 +3,92 @@ layout: default
 ---
 
 <style>
-/* ═══════════════════════════════════════════════════════════════
-   APPLE DESIGN SYSTEM – Startseite
-   ═══════════════════════════════════════════════════════════════ */
-
-:root {
-  --system-blue: #007AFF;
-  --system-green: #34C759;
-  --system-indigo: #5856D6;
-  --system-orange: #FF9500;
-  --system-pink: #FF2D55;
-  --system-purple: #AF52DE;
-  --system-teal: #5AC8FA;
-
-  --about: #5856D6;
-  --learn: #007AFF;
-  --teaching: #FF9500;
-
-  --gray-6: #8E8E93;
-
-  --bg-primary: #262624;
-  --bg-secondary: #30302e;
-  --bg-tertiary: #3a3a37;
-  --text-primary: #c1c0b6;
-  --text-secondary: #908f87;
-  --text-tertiary: #706f69;
-  --separator: rgba(var(--text-rgb), 0.08);
-  --separator-strong: rgba(var(--text-rgb), 0.15);
-
-  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-10: 40px;
-  --space-12: 48px;
-  --space-16: 64px;
-  --space-20: 80px;
-
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-2xl: 24px;
-
-  --shadow-sm: 0 1px 2px rgba(var(--text-rgb),0.06);
-  --shadow-md: 0 4px 12px rgba(var(--text-rgb),0.08);
-  --shadow-lg: 0 12px 24px rgba(var(--text-rgb),0.12);
-
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body, html, .page-content, .wrapper, main {
-  background: var(--bg-primary) !important;
-  color: var(--text-primary);
-  font-family: var(--font-stack);
-  line-height: 1.47059;
-  letter-spacing: -0.022em;
-}
-
-/* ─── Layout ─── */
-.ma-home {
-  max-width: 980px;
+.home {
+  max-width: 640px;
   margin: 0 auto;
-  padding: var(--space-8) var(--space-5);
+  padding: 5rem 1.5rem 4rem;
 }
 
-@media (min-width: 768px) {
-  .ma-home {
-    padding: var(--space-16) var(--space-8);
-  }
-}
-
-/* ─── Hero ─── */
-.ma-hero {
-  text-align: center;
-  margin-bottom: var(--space-16);
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.ma-hero h1 {
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: -0.003em;
-  line-height: 1.08349;
-  margin-bottom: var(--space-4);
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--gray-6) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@media (min-width: 768px) {
-  .ma-hero h1 {
-    font-size: 64px;
-  }
-}
-
-.ma-hero-subtitle {
-  font-size: 21px;
+.home-name {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
   font-weight: 400;
-  color: var(--text-secondary);
-  max-width: 500px;
-  margin: 0 auto;
-  line-height: 1.381;
-}
-
-/* ─── Cards Grid ─── */
-.ma-grid {
-  display: grid;
-  gap: var(--space-5);
-}
-
-@media (min-width: 768px) {
-  .ma-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Grid items: <a> tags fill the cell height */
-.ma-grid > a {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none !important;
-}
-
-/* ─── Section Card ─── */
-.ma-card {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-8) var(--space-6);
-  position: relative;
-  overflow: hidden;
-  transition: all var(--transition-base);
-  border: 2px solid transparent;
-  display: flex;
-  flex-direction: column;
-  text-decoration: none !important;
-  color: inherit !important;
-}
-
-.ma-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(var(--text-rgb),0.03) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity var(--transition-base);
-}
-
-.ma-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-lg);
-  background: var(--bg-tertiary);
-  text-decoration: none !important;
-}
-
-.ma-card:hover::before {
-  opacity: 1;
-}
-
-.ma-card:active {
-  transform: scale(0.98);
-  transition-duration: var(--transition-fast);
-}
-
-/* Card accent colors */
-.ma-card--about { border-top: 3px solid var(--about); }
-.ma-card--learn { border-top: 3px solid var(--learn); }
-.ma-card--teaching { border-top: 3px solid var(--teaching); }
-
-.ma-card--about:hover { box-shadow: 0 12px 32px rgba(88, 86, 214, 0.1); }
-.ma-card--learn:hover { box-shadow: 0 12px 32px rgba(0, 122, 255, 0.1); }
-.ma-card--teaching:hover { box-shadow: 0 12px 32px rgba(255, 149, 0, 0.1); }
-
-/* ─── Card Icon ─── */
-.ma-card-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-bottom: var(--space-5);
-  transition: transform var(--transition-spring);
-}
-
-.ma-card:hover .ma-card-icon {
-  transform: scale(1.1) rotate(-5deg);
-}
-
-.ma-card--about .ma-card-icon { background: rgba(88, 86, 214, 0.12); }
-.ma-card--learn .ma-card-icon { background: rgba(0, 122, 255, 0.12); }
-.ma-card--teaching .ma-card-icon { background: rgba(255, 149, 0, 0.12); }
-
-.ma-card-icon svg {
-  width: 24px;
-  height: 24px;
-  transition: fill var(--transition-fast);
-}
-
-.ma-card--about .ma-card-icon svg { fill: var(--about); }
-.ma-card--learn .ma-card-icon svg { fill: var(--learn); }
-.ma-card--teaching .ma-card-icon svg { fill: var(--teaching); }
-
-/* ─── Card Content ─── */
-.ma-card h2 {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.021em;
-  line-height: 1.2;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   color: var(--text-primary);
-  margin: 0 0 var(--space-3) 0;
+  margin-bottom: 1rem;
 }
 
-.ma-card p {
-  font-size: 15px;
-  line-height: 1.5;
+.home-intro {
+  font-size: 1.05rem;
   color: var(--text-secondary);
-  margin: 0 0 var(--space-6) 0;
-  flex-grow: 1;
+  line-height: 1.7;
+  margin-bottom: 3.5rem;
+  max-width: 480px;
 }
 
-/* ─── Button ─── */
-.ma-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  font-weight: 500;
+.home-nav {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--separator-strong);
+}
+
+.home-nav a {
+  display: block;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--separator);
   text-decoration: none;
-  transition: all var(--transition-fast);
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  position: relative;
-  z-index: 2;
-  background: var(--system-indigo);
-  color: white !important;
-  margin-top: auto;
-  align-self: flex-start;
+  transition: padding-left 0.2s ease;
 }
 
-.ma-btn:hover {
-  background: #0051D5;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+.home-nav a:hover {
+  padding-left: 0.5rem;
 }
 
-.ma-btn-arrow {
-  font-size: 14px;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: all var(--transition-fast);
+.home-nav-label {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+  transition: color 0.15s ease;
 }
 
-.ma-btn:hover .ma-btn-arrow {
-  opacity: 1;
-  transform: translateX(0);
+.home-nav a:hover .home-nav-label {
+  color: var(--accent, #b85c38);
 }
 
-/* ─── Animations ─── */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.home-nav-desc {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--text-tertiary);
 }
 
-.ma-card {
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-}
-
-.ma-grid > a:nth-child(1) .ma-card { animation-delay: 0.1s; }
-.ma-grid > a:nth-child(2) .ma-card { animation-delay: 0.2s; }
-.ma-grid > a:nth-child(3) .ma-card { animation-delay: 0.3s; }
-
-/* ─── Reduced Motion ─── */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+@media (max-width: 480px) {
+  .home {
+    padding: 3rem 1.25rem 3rem;
   }
-}
-
-/* ─── Touch ─── */
-@media (hover: none) {
-  .ma-card:hover {
-    transform: none;
-    box-shadow: var(--shadow-sm);
-  }
-  .ma-card:active {
-    transform: scale(0.98);
-    background: var(--bg-tertiary);
-  }
-}
-
-/* ─── Print ─── */
-@media print {
-  .ma-btn { display: none; }
-  .ma-card { break-inside: avoid; }
 }
 </style>
 
-<div class="ma-home">
+<div class="home">
 
-  <!-- Hero -->
-  <div class="ma-hero">
-    <h1></h1>
-    <p class="ma-hero-subtitle">Mathematik, Informatik & interaktives Lernen</p>
-  </div>
+  <h1 class="home-name">Maximilian<br>Vöcklinghaus</h1>
+  <p class="home-intro">Dozent am Studienkolleg der Rahn Education in Leipzig – Mathematik, Informatik & interaktives Lernen.</p>
 
-  <!-- Cards -->
-  <div class="ma-grid">
-
-    <!-- Über mich -->
-    <a href="/about/" class="ma-card ma-card--about">
-      <div class="ma-card-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z"/>
-        </svg>
-      </div>
-      <h2>Über mich</h2>
-      <p>Hintergrund, Ausbildung und Schwerpunkte</p>
+  <nav class="home-nav">
+    <a href="/about/">
+      <span class="home-nav-label">Über mich</span>
+      <span class="home-nav-desc">Hintergrund, Ausbildung und Schwerpunkte</span>
     </a>
-
-    <!-- Learn -->
-    <a href="/learn/" class="ma-card ma-card--learn">
-      <div class="ma-card-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3ZM18.82 9L12 12.72L5.18 9L12 5.28L18.82 9ZM17 15.99L12 18.72L7 15.99V12.27L12 15L17 12.27V15.99Z"/>
-        </svg>
-      </div>
-      <h2>Learn</h2>
-      <p>Interaktive Lektionen in Mathematik, VWL und Informatik</p>
+    <a href="/learn/">
+      <span class="home-nav-label">Learn</span>
+      <span class="home-nav-desc">Interaktive Lektionen in Mathematik, VWL und Informatik</span>
     </a>
-
-    <!-- Unterrichtsmaterialien -->
-    <a href="/teaching/" class="ma-card ma-card--teaching">
-      <div class="ma-card-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18ZM12 3L1 9L12 15L21 10.09V17H23V9L12 3Z"/>
-        </svg>
-      </div>
-      <h2>Unterrichtsmaterialien</h2>
-      <p>Mathematik, Volkswirtschaftslehre und Informatik</p>
+    <a href="/teaching/">
+      <span class="home-nav-label">Unterrichtsmaterialien</span>
+      <span class="home-nav-desc">Mathematik, Volkswirtschaftslehre und Informatik</span>
     </a>
-
-  </div>
+  </nav>
 
 </div>
