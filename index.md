@@ -4,15 +4,15 @@ layout: default
 
 <style>
 .home {
-  max-width: 640px;
+  max-width: 920px;
   margin: 0 auto;
   padding: 5rem 1.5rem 4rem;
 }
 
 .home-name {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; font-weight: 500;
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 6vw, 3.5rem);
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: -0.02em;
   line-height: 1.1;
   color: var(--text-primary);

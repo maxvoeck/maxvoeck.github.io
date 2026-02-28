@@ -6,22 +6,11 @@ permalink: /learn/vwl/
 
 <style>
 :root {
-  --system-indigo: #5856D6;
-  --system-blue: #007AFF;
-  --system-green: #34C759;
-  --system-orange: #FF9500;
-  --system-pink: #FF2D55;
-  --econ: #FF9500;
-
-  --bg-primary: #262624;
-  --bg-secondary: #30302e;
-  --bg-tertiary: #3a3a37;
-  --text-primary: #c1c0b6;
-  --text-secondary: #908f87;
-  --text-tertiary: #706f69;
-  --separator: rgba(var(--text-rgb), 0.08);
-
-  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --econ:#c49a6c;--sumi:#1a1a18;--kuro:#2c2c28;--hai:#3d3d38;--kinari:#f0ece4;--shiro:#f7f5f0;--kinu:#e8e3d8;--ishi:#b8b3a8;--sugi:#8a8578;--beni:#c45c3e;--matcha:#7a8c6e;--ai:#5b7a8c;--kitsune:#c49a6c;--sakura:#c4868a;
+  --bg-primary:#f7f5f0;--bg-secondary:#f0ece4;--bg-tertiary:#e8e3d8;
+  --text-primary:#1a1a18;--text-secondary:#8a8578;--text-tertiary:#b8b3a8;
+  --separator:rgba(26,26,24,0.08);
+  --font-stack:'DM Sans','Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;
   --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
   --space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;
   --radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:24px;--radius-full:9999px;
@@ -64,8 +53,8 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   margin-bottom: var(--space-5);
 }
 .lm-hero h1 {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; font-weight: 500;
-  font-size: clamp(36px,5vw,56px); font-weight: 400; letter-spacing: -.02em;
+  font-family: 'Cormorant Garamond','Noto Serif JP',Georgia,serif; font-weight: 300;
+  font-size: clamp(36px,5vw,56px); letter-spacing: -.02em;
   line-height: 1.06; margin-bottom: var(--space-4);
   color: var(--text-primary);
 }
@@ -111,7 +100,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   border-radius: var(--radius-full); flex-shrink: 0;
 }
 .lm-chapter-badge--new {
-  background: rgba(52,199,89,.12); color: var(--system-green);
+  background: rgba(122,140,110,.12); color: var(--matcha);
   border: 1px solid rgba(52,199,89,.2);
 }
 

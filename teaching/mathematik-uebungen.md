@@ -5,48 +5,42 @@ permalink: /teaching/mathematik-uebungen/
 ---
 
 <style>
-/* Same CSS as materialien page - reusing the Apple Design System */
+/* JAPANDI DESIGN SYSTEM */
 :root {
-  --system-blue: #007AFF;
-  --system-green: #34C759;
-  --system-indigo: #5856D6;
-  --system-orange: #FF9500;
-  --system-pink: #FF2D55;
-  --system-purple: #AF52DE;
-  --system-red: #FF3B30;
-  --system-teal: #5AC8FA;
-  --system-yellow: #FFCC00;
-  
-  --vektor: #FF9500;
-  --algebra: #5AC8FA;
-  --diff: #FF2D55;
-  --integral: #34C759;
-  --tools: #AF52DE;
-  
-  --gray-1: #F5F5F7;
-  --gray-2: #E5E5EA;
-  --gray-3: #D1D1D6;
-  --gray-4: #C7C7CC;
-  --gray-5: #AEAEB2;
-  --gray-6: #8E8E93;
-  --gray-7: #636366;
-  --gray-8: #48484A;
-  --gray-9: #3A3A3C;
-  --gray-10: #3a3a37;
-  --gray-11: #30302e;
-  --gray-12: #c1c0b6;
-  
-  --bg-primary: #262624;
-  --bg-secondary: #30302e;
-  --bg-tertiary: #3a3a37;
-  --text-primary: #c1c0b6;
-  --text-secondary: #908f87;
-  --text-tertiary: #706f69;
-  --separator: rgba(var(--text-rgb), 0.08);
-  --separator-strong: rgba(var(--text-rgb), 0.15);
-  
-  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+  /* Japandi Palette */
+  --sumi: #1a1a18;
+  --kuro: #2c2c28;
+  --hai: #3d3d38;
+  --kinari: #f0ece4;
+  --shiro: #f7f5f0;
+  --kinu: #e8e3d8;
+  --ishi: #b8b3a8;
+  --sugi: #8a8578;
+  --beni: #c45c3e;
+  --matcha: #7a8c6e;
+  --ai: #5b7a8c;
+  --kitsune: #c49a6c;
+  --sakura: #c4868a;
+
+  /* Semantische Farben */
+  --algebra: var(--ai);
+  --vektor: var(--kitsune);
+  --diff: var(--beni);
+  --integral: var(--matcha);
+  --tools: var(--sakura);
+
+  --bg-primary: var(--shiro);
+  --bg-secondary: var(--kinari);
+  --bg-tertiary: var(--kinu);
+  --text-primary: var(--sumi);
+  --text-secondary: var(--sugi);
+  --text-tertiary: var(--ishi);
+  --border: rgba(26, 26, 24, 0.08);
+  --border-strong: rgba(26, 26, 24, 0.15);
+
+  --font-display: 'Cormorant Garamond', 'Noto Serif JP', Georgia, serif;
+  --font-body: 'DM Sans', 'Noto Sans JP', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
   
   --space-1: 4px;
   --space-2: 8px;
@@ -89,7 +83,7 @@ permalink: /teaching/mathematik-uebungen/
 body, html, .page-content, .wrapper, main, .post-content {
   background: var(--bg-primary) !important;
   color: var(--text-primary);
-  font-family: var(--font-stack);
+  font-family: var(--font-body);
   line-height: 1.47059;
   letter-spacing: -0.022em;
 }
@@ -119,7 +113,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 .ma-hero-eyebrow {
   font-size: 17px;
   font-weight: 600;
-  color: var(--system-purple);
+  color: var(--tools);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: var(--space-3);
@@ -131,13 +125,12 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-hero h1 {
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.003em;
   line-height: 1.08349;
   margin-bottom: var(--space-3);
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; font-weight: 500;
-  font-weight: 400;
+  font-family: var(--font-display);
 }
 
 @media (min-width: 768px) {
@@ -195,23 +188,23 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-section--vektor .ma-section-icon {
-  background: rgba(255, 149, 0, 0.12);
+  background: rgba(196, 154, 108, 0.12);
   color: var(--vektor);
 }
 .ma-section--algebra .ma-section-icon {
-  background: rgba(90, 200, 250, 0.12);
+  background: rgba(91, 122, 140, 0.12);
   color: var(--algebra);
 }
 .ma-section--diff .ma-section-icon {
-  background: rgba(255, 45, 85, 0.12);
+  background: rgba(196, 92, 62, 0.12);
   color: var(--diff);
 }
 .ma-section--integral .ma-section-icon {
-  background: rgba(52, 199, 89, 0.12);
+  background: rgba(122, 140, 110, 0.12);
   color: var(--integral);
 }
 .ma-section--tools .ma-section-icon {
-  background: rgba(175, 82, 222, 0.12);
+  background: rgba(196, 134, 138, 0.12);
   color: var(--tools);
 }
 
@@ -221,11 +214,12 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-section-title {
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 300;
   letter-spacing: -0.021em;
   line-height: 1.14286;
   color: var(--text-primary);
   margin-bottom: var(--space-1);
+  font-family: var(--font-display);
 }
 
 .ma-section-subtitle {
@@ -310,11 +304,12 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-card h4 {
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--text-primary);
   letter-spacing: -0.022em;
   line-height: 1.23536;
   margin: 0;
+  font-family: var(--font-display);
 }
 
 .ma-card p {
@@ -342,14 +337,14 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-btn--primary {
-  background: var(--accent, #b85c38);
+  background: var(--beni);
   color: white !important;
 }
 
 .ma-btn--primary:hover {
-  background: #a0543a;
+  background: #b35032;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.3);
+  box-shadow: 0 4px 12px rgba(196, 92, 62, 0.3);
 }
 
 .ma-btn--secondary {
@@ -365,29 +360,29 @@ body, html, .page-content, .wrapper, main, .post-content {
   width: 40px;
   height: 40px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--tools) 0%, #BF5AF2 100%);
+  background: linear-gradient(135deg, var(--tools) 0%, #d4a5a9 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   margin-bottom: var(--space-3);
-  box-shadow: 0 4px 12px rgba(175, 82, 222, 0.3);
+  box-shadow: 0 4px 12px rgba(196, 134, 138, 0.3);
 }
 
 .ma-section--tools .ma-card {
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(175, 82, 222, 0.05) 100%);
-  border: 1px solid rgba(175, 82, 222, 0.1);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(196, 134, 138, 0.05) 100%);
+  border: 1px solid rgba(196, 134, 138, 0.1);
 }
 
 .ma-section--tools .ma-card:hover {
-  border-color: rgba(175, 82, 222, 0.2);
-  box-shadow: 0 8px 32px rgba(175, 82, 222, 0.15);
+  border-color: rgba(196, 134, 138, 0.2);
+  box-shadow: 0 8px 32px rgba(196, 134, 138, 0.15);
 }
 
 .ma-footer {
   margin-top: var(--space-20);
   padding-top: var(--space-8);
-  border-top: 1px solid var(--separator);
+  border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
@@ -788,7 +783,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     </div>
     <div class="ma-grid">
       <div class="ma-card" style="opacity: 0.6;">
-        <div class="ma-tool-icon" style="background: linear-gradient(135deg, var(--gray-6) 0%, var(--gray-7) 100%);"></div>
+        <div class="ma-tool-icon" style="background: linear-gradient(135deg, var(--sugi) 0%, var(--ishi) 100%);"></div>
         <div class="ma-card-header" style="margin-bottom: var(--space-2);">
           <h4>Zufallsaufgaben-Generator</h4>
         </div>
@@ -799,7 +794,7 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card" style="opacity: 0.6;">
-        <div class="ma-tool-icon" style="background: linear-gradient(135deg, var(--gray-6) 0%, var(--gray-7) 100%);"></div>
+        <div class="ma-tool-icon" style="background: linear-gradient(135deg, var(--sugi) 0%, var(--ishi) 100%);"></div>
         <div class="ma-card-header" style="margin-bottom: var(--space-2);">
           <h4>Übungsblatt-Generator</h4>
         </div>

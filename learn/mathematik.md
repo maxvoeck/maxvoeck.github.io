@@ -6,22 +6,11 @@ permalink: /learn/mathematik/
 
 <style>
 :root {
-  --system-indigo: #5856D6;
-  --system-blue: #007AFF;
-  --system-green: #34C759;
-  --system-orange: #FF9500;
-  --system-pink: #FF2D55;
-  --math: #FF2D55;
-
-  --bg-primary: #262624;
-  --bg-secondary: #30302e;
-  --bg-tertiary: #3a3a37;
-  --text-primary: #c1c0b6;
-  --text-secondary: #908f87;
-  --text-tertiary: #706f69;
-  --separator: rgba(var(--text-rgb), 0.08);
-
-  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --math:#c45c3e;--sumi:#1a1a18;--kuro:#2c2c28;--hai:#3d3d38;--kinari:#f0ece4;--shiro:#f7f5f0;--kinu:#e8e3d8;--ishi:#b8b3a8;--sugi:#8a8578;--beni:#c45c3e;--matcha:#7a8c6e;--ai:#5b7a8c;--kitsune:#c49a6c;--sakura:#c4868a;
+  --bg-primary:#f7f5f0;--bg-secondary:#f0ece4;--bg-tertiary:#e8e3d8;
+  --text-primary:#1a1a18;--text-secondary:#8a8578;--text-tertiary:#b8b3a8;
+  --separator:rgba(26,26,24,0.08);
+  --font-stack:'DM Sans','Noto Sans JP',-apple-system,BlinkMacSystemFont,sans-serif;
   --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:20px;
   --space-6:24px;--space-8:32px;--space-10:40px;--space-12:48px;--space-16:64px;
   --radius-md:12px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:24px;--radius-full:9999px;
@@ -64,8 +53,8 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   margin-bottom: var(--space-5);
 }
 .lm-hero h1 {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; font-weight: 500;
-  font-size: clamp(36px,5vw,56px); font-weight: 400; letter-spacing: -.02em;
+  font-family: 'Cormorant Garamond','Noto Serif JP',Georgia,serif; font-weight: 300;
+  font-size: clamp(36px,5vw,56px); letter-spacing: -.02em;
   line-height: 1.06; margin-bottom: var(--space-4);
   color: var(--text-primary);
 }
@@ -114,8 +103,8 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   border-radius: var(--radius-full); flex-shrink: 0;
 }
 .lm-chapter-badge--new {
-  background: rgba(52,199,89,.12); color: var(--system-green);
-  border: 1px solid rgba(52,199,89,.2);
+  background: rgba(122,140,110,.12); color: var(--matcha);
+  border: 1px solid rgba(122,140,110,.2);
 }
 .lm-chapter-badge--soon {
   background: var(--bg-tertiary); color: var(--text-tertiary);
@@ -137,10 +126,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   letter-spacing: .08em; padding: 3px 10px; border-radius: var(--radius-full);
 }
 .lm-section-eyebrow--math { color: var(--math); background: rgba(255,45,85,.1); border: 1px solid rgba(255,45,85,.2); }
-.lm-section-eyebrow--geo { color: var(--system-blue); background: rgba(0,122,255,.1); border: 1px solid rgba(0,122,255,.2); }
+.lm-section-eyebrow--geo { color: var(--ai); background: rgba(91,122,140,.1); border: 1px solid rgba(91,122,140,.2); }
 .lm-section-title { font-size: 18px; font-weight: 700; }
 /* Blue variant for Analytische Geometrie chapters */
-.lm-chapter--geo .lm-chapter-num { background: rgba(0,122,255,.12); color: var(--system-blue); }
+.lm-chapter--geo .lm-chapter-num { background: rgba(91,122,140,.12); color: var(--ai); }
 
 /* PDF hint */
 .lm-pdf-hint {

@@ -6,56 +6,46 @@ permalink: /teaching/mathematik-materialien/
 
 <style>
 /* ═══════════════════════════════════════════════════════════════
-   APPLE DESIGN SYSTEM – Mathematik für Studienkolleg
+   JAPANDI DESIGN SYSTEM – Mathematik für Studienkolleg
    ═══════════════════════════════════════════════════════════════ */
 
 /* ─── Design Tokens ─── */
 :root {
-  /* iOS/macOS Farbsystem */
-  --system-blue: #007AFF;
-  --system-green: #34C759;
-  --system-indigo: #5856D6;
-  --system-orange: #FF9500;
-  --system-pink: #FF2D55;
-  --system-purple: #AF52DE;
-  --system-red: #FF3B30;
-  --system-teal: #5AC8FA;
-  --system-yellow: #FFCC00;
+  /* Japandi Palette */
+  --sumi: #1a1a18;
+  --kuro: #2c2c28;
+  --hai: #3d3d38;
+  --kinari: #f0ece4;
+  --shiro: #f7f5f0;
+  --kinu: #e8e3d8;
+  --ishi: #b8b3a8;
+  --sugi: #8a8578;
+  --beni: #c45c3e;
+  --matcha: #7a8c6e;
+  --ai: #5b7a8c;
+  --kitsune: #c49a6c;
+  --sakura: #c4868a;
 
   /* Semantische Farben */
-  --vektor: #FF9500;
-  --algebra: #5AC8FA;
-  --diff: #FF2D55;
-  --integral: #34C759;
-  --tools: #AF52DE;
+  --algebra: var(--ai);
+  --vektor: var(--kitsune);
+  --diff: var(--beni);
+  --integral: var(--matcha);
+  --tools: var(--sakura);
 
-  /* Neutrale Palette */
-  --gray-1: #F5F5F7;
-  --gray-2: #E5E5EA;
-  --gray-3: #D1D1D6;
-  --gray-4: #C7C7CC;
-  --gray-5: #AEAEB2;
-  --gray-6: #8E8E93;
-  --gray-7: #636366;
-  --gray-8: #48484A;
-  --gray-9: #3A3A3C;
-  --gray-10: #3a3a37;
-  --gray-11: #30302e;
-  --gray-12: #c1c0b6;
-
-  /* Dynamische Farben (Light/Dark Mode) */
-  --bg-primary: #262624;
-  --bg-secondary: #30302e;
-  --bg-tertiary: #3a3a37;
-  --text-primary: #c1c0b6;
-  --text-secondary: #908f87;
-  --text-tertiary: #706f69;
-  --separator: rgba(var(--text-rgb), 0.08);
-  --separator-strong: rgba(var(--text-rgb), 0.15);
+  --bg-primary: var(--shiro);
+  --bg-secondary: var(--kinari);
+  --bg-tertiary: var(--kinu);
+  --text-primary: var(--sumi);
+  --text-secondary: var(--sugi);
+  --text-tertiary: var(--ishi);
+  --border: rgba(26, 26, 24, 0.08);
+  --border-strong: rgba(26, 26, 24, 0.15);
 
   /* Typografie */
-  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+  --font-display: 'Cormorant Garamond', 'Noto Serif JP', Georgia, serif;
+  --font-body: 'DM Sans', 'Noto Sans JP', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
 
   /* Abstände (8-Punkt-Grid) */
   --space-1: 4px;
@@ -103,7 +93,7 @@ permalink: /teaching/mathematik-materialien/
 body, html, .page-content, .wrapper, main, .post-content {
   background: var(--bg-primary) !important;
   color: var(--text-primary);
-  font-family: var(--font-stack);
+  font-family: var(--font-body);
   line-height: 1.47059;
   letter-spacing: -0.022em;
 }
@@ -135,7 +125,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 .ma-hero-eyebrow {
   font-size: 17px;
   font-weight: 600;
-  color: var(--system-indigo);
+  color: var(--ai);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: var(--space-3);
@@ -147,13 +137,12 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-hero h1 {
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.003em;
   line-height: 1.08349;
   margin-bottom: var(--space-3);
   color: var(--text-primary);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; font-weight: 500;
-  font-weight: 400;
+  font-family: var(--font-display);
 }
 
 @media (min-width: 768px) {
@@ -233,11 +222,12 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-section-title {
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 300;
   letter-spacing: -0.021em;
   line-height: 1.14286;
   color: var(--text-primary);
   margin-bottom: var(--space-1);
+  font-family: var(--font-display);
 }
 
 .ma-section-subtitle {
@@ -295,8 +285,8 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-card-complete {
-  border-color: var(--system-green);
-  background: linear-gradient(135deg, rgba(52, 199, 89, 0.05) 0%, var(--bg-secondary) 100%);
+  border-color: var(--integral);
+  background: linear-gradient(135deg, rgba(122, 140, 110, 0.05) 0%, var(--bg-secondary) 100%);
 }
 
 .ma-card-header {
@@ -395,7 +385,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   height: 32px;
   border-radius: var(--radius-full);
   background: transparent;
-  border: 2px solid var(--separator-strong);
+  border: 2px solid var(--border-strong);
   cursor: pointer;
   transition: all var(--transition-fast);
   position: relative;
@@ -404,8 +394,8 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-check:hover {
-  border-color: var(--system-green);
-  background: rgba(52, 199, 89, 0.05);
+  border-color: var(--integral);
+  background: rgba(122, 140, 110, 0.05);
 }
 
 .ma-check svg {
@@ -419,8 +409,8 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-card-complete .ma-check {
-  background: var(--system-green);
-  border-color: var(--system-green);
+  background: var(--integral);
+  border-color: var(--integral);
 }
 
 .ma-card-complete .ma-check svg {
@@ -432,7 +422,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 .ma-footer {
   margin-top: var(--space-20);
   padding-top: var(--space-8);
-  border-top: 1px solid var(--separator);
+  border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: var(--space-5);

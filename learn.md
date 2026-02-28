@@ -12,7 +12,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 .post-header, .page-heading, header.post-header { display: none !important; }
 
 .ln-container {
-  max-width: 640px;
+  max-width: 920px;
   margin: 0 auto;
   padding: 2rem 1.5rem 4rem;
 }
@@ -27,9 +27,9 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ln-title {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; font-weight: 500;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 5vw, 2.75rem);
-  font-weight: 400;
+  font-weight: 300;
   letter-spacing: -0.02em;
   line-height: 1.15;
   color: var(--text-primary);
