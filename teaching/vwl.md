@@ -140,7 +140,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   line-height: 1.08349;
   margin-bottom: var(--space-3);
   color: var(--text-primary);
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; font-weight: 500;
 }
 
 @media (min-width: 768px) {

@@ -64,7 +64,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   margin-bottom: var(--space-5);
 }
 .lm-hero h1 {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; font-weight: 500;
   font-size: clamp(36px,5vw,56px); font-weight: 400; letter-spacing: -.02em;
   line-height: 1.06; margin-bottom: var(--space-4);
   color: var(--text-primary);

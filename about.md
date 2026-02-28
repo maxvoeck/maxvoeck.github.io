@@ -27,7 +27,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ab-name {
-  font-family: 'Instrument Serif', Georgia, serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; font-weight: 500;
   font-size: clamp(2rem, 5vw, 2.75rem);
   font-weight: 400;
   letter-spacing: -0.02em;

@@ -313,7 +313,8 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 .post-content p, .post-content li { color: var(--text-secondary); }
 .post-list > li { border-bottom-color: var(--border); }
 .page-heading, .post-title {
-  font-family: 'Instrument Serif', Georgia, serif; letter-spacing: -0.02em; font-weight: 400;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+  letter-spacing: -0.03em; font-weight: 500;
 }
 
 /* ============================================
