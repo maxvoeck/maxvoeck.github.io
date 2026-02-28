@@ -135,7 +135,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 .ma-hero-eyebrow {
   font-size: 17px;
   font-weight: 600;
-  color: var(--system-indigo);
+  color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: var(--space-3);
@@ -145,23 +145,15 @@ body, html, .page-content, .wrapper, main, .post-content {
   gap: var(--space-2);
 }
 
-.ma-hero-eyebrow::before,
-.ma-hero-eyebrow::after {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--separator-strong);
-}
-
 .ma-hero h1 {
   font-size: 48px;
   font-weight: 700;
   letter-spacing: -0.003em;
   line-height: 1.08349;
   margin-bottom: var(--space-3);
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--gray-6) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
 }
 
 @media (min-width: 768px) {
@@ -209,7 +201,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-progress-ring-fill {
   fill: none;
-  stroke: var(--system-indigo);
+  stroke: var(--accent, #b85c38);
   stroke-width: 8;
   stroke-linecap: round;
   stroke-dasharray: 339.292;
@@ -512,6 +504,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   background: linear-gradient(135deg, rgba(var(--text-rgb),0.03) 0%, transparent 50%);
   opacity: 0;
   transition: opacity var(--transition-base);
+  display: none;
 }
 
 .ma-card:hover {
@@ -602,7 +595,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-btn--primary {
-  background: var(--system-indigo);
+  background: var(--accent, #b85c38);
   color: white !important;
 }
 
@@ -810,7 +803,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Algebra -->
   <div class="ma-section ma-section--algebra collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">🔢</div>
+      <div class="ma-section-icon">LA</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Lineare Algebra</h2>
         <p class="ma-section-subtitle">5 Module · Matrizen, Determinanten & Gleichungssysteme</p>
@@ -825,7 +818,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Addition, Multiplikation, Transponieren und spezielle Matrizen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Matrizen_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_matrizen_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('a1', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -840,7 +833,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Laplace-Entwicklung, Sarrus-Regel und Inverse Matrizen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Matrizen_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_determinanten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('a2', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -855,7 +848,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Übungsaufgaben, Rangbestimmung und Gauß-Elimination</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Matrizen_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <button class="ma-check" onclick="toggleModule('a3', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
           </button>
@@ -869,7 +862,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Matrixschreibweise, Gauß-Algorithmus und Lösbarkeitskriterien</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/LGS_2_1-5.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/LGS_2_1-5.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_lgs_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('a4', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -884,7 +877,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>LGS mit Parametern, Determinantentest und Fallunterscheidungen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/LGS_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/LGS_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <button class="ma-check" onclick="toggleModule('a5', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
           </button>
@@ -896,7 +889,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Vektorrechnung -->
   <div class="ma-section ma-section--vektor collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">➡️</div>
+      <div class="ma-section-icon">Ve</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Vektorrechnung</h2>
         <p class="ma-section-subtitle">4 Module · Vektor- & Spatprodukt, Geraden, Ebenen & Lagebeziehungen</p>
@@ -911,7 +904,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Vektoren im 2D & 3D, Betrag, Normalisierung und Rechenoperationen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_1-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Geo_2_1-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_vektorrechnung_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('v1', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -926,7 +919,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Skalarprodukt, Vektorprodukt, Spatprodukt und ihre Anwendungen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Geo_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_vektorprodukt.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('v2', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -941,7 +934,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Parametrische Formen, Normalenvektoren und Gleichungsarten</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Geo_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_geraden_ebenen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('v3', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -956,7 +949,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Punkt-Gerade, Gerade-Gerade, Winkel und Durchstoßpunkte</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Geo_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_lagebeziehungen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('v4', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -969,7 +962,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Differentialrechnung -->
   <div class="ma-section ma-section--diff collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">📈</div>
+      <div class="ma-section-icon">Di</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Differentialrechnung</h2>
         <p class="ma-section-subtitle">12 Module · Folgen, Grenzwerte, Ableitungen & Kurvendiskussion</p>
@@ -984,7 +977,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Monotonie, Beschränktheit, arithmetische und geometrische Folgen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Zahlenfolgen_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Zahlenfolgen_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_zahlenfolgen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d1', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -999,7 +992,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Konvergenz, Divergenz und epsilon-delta Kriterium</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_grenzwerte_folgen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d2', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1014,7 +1007,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Funktionsverhalten für x→∞, Asymptoten und Wachstumsordnung</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Funktion_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Funktion_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_grenzwerte_funktionen_1.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d3', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1029,7 +1022,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Stetigkeit, linksseitige und rechtsseitige Grenzwerte</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_grenzwerte_funktionen_2.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d4', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1044,7 +1037,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Vertikale, horizontale und schiefe Asymptoten</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Grenzwerte_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Grenzwerte_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_asymptoten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d5', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1059,7 +1052,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Differenzenquotient, h-Methode und Definition der Ableitung</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Funktion_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Funktion_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_ableitung_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d6', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1074,7 +1067,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Produkt-, Quotienten-, Ketten- und Potenzregel</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Funktion_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Funktion_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_ableitungsregeln.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d7', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1089,7 +1082,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Anwendung bei unbestimmten Formen 0/0 und ∞/∞</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Hospital_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Hospital_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_hospital.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d8', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1104,7 +1097,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Lokale und globale Extrema, Kriterien und Berechnung</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Extremwert_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Extremwert_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_extrempunkte.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d9', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1119,7 +1112,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Krümmung, Wendepunkte und Sattelpunkte</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Wendepunkt_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Wendepunkt_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_wendepunkte.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d10', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1134,7 +1127,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Systematische Analyse: Definitionsbereich, Symmetrie, Nullstellen, Extrema</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Kurvendiskusion_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Kurvendiskusion_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_kurvendiskussion.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d11', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1149,7 +1142,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Optimierungsprobleme, Nebendbedingungen und Anwendungsaufgaben</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Extrem_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Extrem_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_extremwertaufgaben.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('d12', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1162,7 +1155,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Integralrechnung -->
   <div class="ma-section ma-section--integral collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">∫</div>
+      <div class="ma-section-icon">In</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Integralrechnung</h2>
         <p class="ma-section-subtitle">4 Module · Stammfunktionen, Integrationsmethoden & Flächenberechnung</p>
@@ -1177,7 +1170,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Stammfunktionen, unbestimmte Integrale und Integrationsregeln</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Integral_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Integral_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_integral_einfuehrung.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('i1', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1192,7 +1185,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Substitution, partielle Integration und Partialbruchzerlegung</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Integral_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Integral_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_integrationsmethoden.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('i2', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1207,7 +1200,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Hauptsatz der Analysis, bestimmte Integrale und Flächenberechnung</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Integral_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Integral_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_hauptsatz_flaechen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('i3', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1222,7 +1215,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Volumenberechnung durch Rotation und Funktionsgraphen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Intergal_2_4-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Intergal_2_4-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_rotationsvolumen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('i4', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -1235,7 +1228,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Interaktive Tools -->
   <div class="ma-section ma-section--tools collapsed" id="tools">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">⚡</div>
+      <div class="ma-section-icon">To</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Interaktive Tools</h2>
         <p class="ma-section-subtitle">5 explorative Werkzeuge zum Visualisieren und Experimentieren</p>

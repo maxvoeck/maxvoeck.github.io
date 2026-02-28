@@ -85,10 +85,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="ch-header">
-    <div class="ch-eyebrow">📊 VWL · Kapitel 1</div>
+    <div class="ch-eyebrow">VWL · Kapitel 1</div>
     <h1>Bedürfnis, Bedarf und Nachfrage in der Wirtschaft</h1>
     <div class="ch-header-meta">
-      <span>⏱ ca. 15 min</span><span>·</span>
+      <span>ca. 15 min</span><span>·</span>
       <span>Grundlagen · Bedürfnisarten · Maslowsche Pyramide</span>
     </div>
   </div>

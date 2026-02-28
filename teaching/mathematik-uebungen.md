@@ -129,23 +129,15 @@ body, html, .page-content, .wrapper, main, .post-content {
   gap: var(--space-2);
 }
 
-.ma-hero-eyebrow::before,
-.ma-hero-eyebrow::after {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--separator-strong);
-}
-
 .ma-hero h1 {
   font-size: 48px;
   font-weight: 700;
   letter-spacing: -0.003em;
   line-height: 1.08349;
   margin-bottom: var(--space-3);
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--gray-6) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
 }
 
 @media (min-width: 768px) {
@@ -350,14 +342,14 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-btn--primary {
-  background: var(--system-purple);
+  background: var(--accent, #b85c38);
   color: white !important;
 }
 
 .ma-btn--primary:hover {
-  background: #9333ea;
+  background: #a0543a;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(175, 82, 222, 0.3);
+  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.3);
 }
 
 .ma-btn--secondary {
@@ -471,7 +463,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Quizzes Algebra -->
   <div class="ma-section ma-section--algebra">
     <div class="ma-section-header">
-      <div class="ma-section-icon">🔢</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Algebra Quizzes</h2>
         <p class="ma-section-subtitle">3 Quizzes · Matrizen, Determinanten & LGS</p>
@@ -510,7 +502,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Quizzes Vektoren -->
   <div class="ma-section ma-section--vektor">
     <div class="ma-section-header">
-      <div class="ma-section-icon">📐</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Vektor Quizzes</h2>
         <p class="ma-section-subtitle">4 Quizzes · Von Grundlagen bis Raumgeometrie</p>
@@ -558,7 +550,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Quizzes Differentialrechnung -->
   <div class="ma-section ma-section--diff">
     <div class="ma-section-header">
-      <div class="ma-section-icon">📉</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Analysis Quizzes</h2>
         <p class="ma-section-subtitle">12 Quizzes · Folgen, Grenzwerte & Ableitungen</p>
@@ -678,7 +670,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Quizzes Integralrechnung -->
   <div class="ma-section ma-section--integral">
     <div class="ma-section-header">
-      <div class="ma-section-icon">∫</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Integral Quizzes</h2>
         <p class="ma-section-subtitle">4 Quizzes · Stammfunktionen bis Rotationsvolumen</p>
@@ -726,7 +718,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Interaktive Tools -->
   <div class="ma-section ma-section--tools">
     <div class="ma-section-header">
-      <div class="ma-section-icon">⚡</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Interaktive Tools</h2>
         <p class="ma-section-subtitle">5 Tools · Hands-on Mathematik</p>
@@ -734,7 +726,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     </div>
     <div class="ma-grid ma-grid--tools">
       <div class="ma-card">
-        <div class="ma-tool-icon">📐</div>
+        <div class="ma-tool-icon"></div>
         <div class="ma-card-header" style="margin-bottom: var(--space-2);">
           <span class="ma-card-number">T1</span>
           <h4>Tangenten-Explorer</h4>
@@ -744,7 +736,7 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card">
-        <div class="ma-tool-icon">🔷</div>
+        <div class="ma-tool-icon"></div>
         <div class="ma-card-header" style="margin-bottom: var(--space-2);">
           <span class="ma-card-number">T2</span>
           <h4>3D-Vektor-Explorer</h4>
@@ -754,7 +746,7 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card">
-        <div class="ma-tool-icon">🎯</div>
+        <div class="ma-tool-icon"></div>
         <div class="ma-card-header" style="margin-bottom: var(--space-2);">
           <span class="ma-card-number">T3</span>
           <h4>Geraden & Ebenen</h4>
@@ -764,7 +756,7 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card">
-        <div class="ma-tool-icon">🔲</div>
+        <div class="ma-tool-icon"></div>
         <div class="ma-card-header" style="margin-bottom: var(--space-2);">
           <span class="ma-card-number">T4</span>
           <h4>Matrizen-Explorer</h4>
@@ -774,7 +766,7 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card">
-        <div class="ma-tool-icon">🧮</div>
+        <div class="ma-tool-icon"></div>
         <div class="ma-card-header" style="margin-bottom: var(--space-2);">
           <span class="ma-card-number">T5</span>
           <h4>Determinanten-Rechner</h4>
@@ -788,7 +780,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Aufgabengeneratoren (Coming Soon) -->
   <div class="ma-section ma-section--tools">
     <div class="ma-section-header">
-      <div class="ma-section-icon">🎲</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Aufgabengeneratoren</h2>
         <p class="ma-section-subtitle">Bald verfügbar · Zufällige Aufgaben mit Lösungen</p>
@@ -796,7 +788,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     </div>
     <div class="ma-grid">
       <div class="ma-card" style="opacity: 0.6;">
-        <div class="ma-tool-icon" style="background: linear-gradient(135deg, var(--gray-6) 0%, var(--gray-7) 100%);">🎲</div>
+        <div class="ma-tool-icon" style="background: linear-gradient(135deg, var(--gray-6) 0%, var(--gray-7) 100%);"></div>
         <div class="ma-card-header" style="margin-bottom: var(--space-2);">
           <h4>Zufallsaufgaben-Generator</h4>
         </div>
@@ -807,7 +799,7 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card" style="opacity: 0.6;">
-        <div class="ma-tool-icon" style="background: linear-gradient(135deg, var(--gray-6) 0%, var(--gray-7) 100%);">📝</div>
+        <div class="ma-tool-icon" style="background: linear-gradient(135deg, var(--gray-6) 0%, var(--gray-7) 100%);"></div>
         <div class="ma-card-header" style="margin-bottom: var(--space-2);">
           <h4>Übungsblatt-Generator</h4>
         </div>

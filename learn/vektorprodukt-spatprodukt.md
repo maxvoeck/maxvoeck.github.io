@@ -102,10 +102,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="ch-header">
-    <div class="ch-eyebrow">📍 Analytische Geometrie · Kapitel 2 von 4</div>
+    <div class="ch-eyebrow">Analytische Geometrie · Kapitel 2 von 4</div>
     <h1>Vektorprodukt & Spatprodukt</h1>
     <div class="ch-header-meta">
-      <span>⏱ ca. 30 min</span><span>·</span>
+      <span>ca. 30 min</span><span>·</span>
       <span>Kreuzprodukt · Flächen · Volumen · Geometrische Nachweise</span>
     </div>
   </div>
@@ -172,10 +172,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 
     <p>Das Spatprodukt liefert das Volumen verschiedener Körper:</p>
     <div class="vol-grid">
-      <div class="vol-card"><div class="vol-card-icon">📦</div><div class="vol-card-name">Spat</div><div class="vol-card-formula">\(V = |[a,b,c]|\)</div></div>
-      <div class="vol-card"><div class="vol-card-icon">🔷</div><div class="vol-card-name">Prisma</div><div class="vol-card-formula">\(V = \tfrac{1}{2}|[a,b,c]|\)</div></div>
-      <div class="vol-card"><div class="vol-card-icon">🔺</div><div class="vol-card-name">Pyramide</div><div class="vol-card-formula">\(V = \tfrac{1}{3}|[a,b,c]|\)</div></div>
-      <div class="vol-card"><div class="vol-card-icon">🔻</div><div class="vol-card-name">Tetraeder</div><div class="vol-card-formula">\(V = \tfrac{1}{6}|[a,b,c]|\)</div></div>
+      <div class="vol-card"><div class="vol-card-icon"></div><div class="vol-card-name">Spat</div><div class="vol-card-formula">\(V = |[a,b,c]|\)</div></div>
+      <div class="vol-card"><div class="vol-card-icon"></div><div class="vol-card-name">Prisma</div><div class="vol-card-formula">\(V = \tfrac{1}{2}|[a,b,c]|\)</div></div>
+      <div class="vol-card"><div class="vol-card-icon"></div><div class="vol-card-name">Pyramide</div><div class="vol-card-formula">\(V = \tfrac{1}{3}|[a,b,c]|\)</div></div>
+      <div class="vol-card"><div class="vol-card-icon"></div><div class="vol-card-name">Tetraeder</div><div class="vol-card-formula">\(V = \tfrac{1}{6}|[a,b,c]|\)</div></div>
     </div>
 
     <div class="cb cb-ex">

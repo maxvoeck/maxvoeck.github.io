@@ -285,12 +285,12 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="ch-header">
-    <div class="ch-eyebrow">📐 Kapitel 1</div>
+    <div class="ch-eyebrow">Kapitel 1</div>
     <h1>Matrizen – Grundlagen</h1>
     <div class="ch-header-meta">
-      <span>📄 Basiert auf Matrizen_2_1</span>
-      <span>⏱ ca. 20 Min</span>
-      <span>🎯 Lineare Algebra</span>
+      <span>Basiert auf Matrizen_2_1</span>
+      <span>ca. 20 Min</span>
+      <span>Lineare Algebra</span>
     </div>
   </div>
 

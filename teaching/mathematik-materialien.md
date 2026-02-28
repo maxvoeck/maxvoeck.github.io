@@ -145,23 +145,15 @@ body, html, .page-content, .wrapper, main, .post-content {
   gap: var(--space-2);
 }
 
-.ma-hero-eyebrow::before,
-.ma-hero-eyebrow::after {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--separator-strong);
-}
-
 .ma-hero h1 {
   font-size: 48px;
   font-weight: 700;
   letter-spacing: -0.003em;
   line-height: 1.08349;
   margin-bottom: var(--space-3);
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--gray-6) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-weight: 400;
 }
 
 @media (min-width: 768px) {
@@ -374,14 +366,14 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-btn--primary {
-  background: var(--system-indigo);
+  background: var(--accent, #b85c38);
   color: white !important;
 }
 
 .ma-btn--primary:hover {
-  background: #0051D5;
+  background: #a0543a;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.3);
 }
 
 .ma-btn--secondary {
@@ -527,7 +519,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     <div class="ma-grid">
       <div class="ma-card" style="grid-column: 1 / -1; padding: var(--space-8);">
         <div style="display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap;">
-          <div style="width: 80px; height: 80px; border-radius: var(--radius-xl); background: linear-gradient(135deg, var(--system-indigo) 0%, var(--system-purple) 100%); display: flex; align-items: center; justify-content: center; font-size: 40px; box-shadow: var(--shadow-lg);">📖</div>
+          <div style="width: 80px; height: 80px; border-radius: var(--radius-xl); background: linear-gradient(135deg, var(--accent, #b85c38) 0%, #8b5a3c 100%); display: flex; align-items: center; justify-content: center; font-size: 40px; box-shadow: var(--shadow-lg);"></div>
           <div style="flex: 1; min-width: 300px;">
             <h3 style="font-size: 24px; font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-2);">Mathematik Gesamtskript</h3>
             <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: var(--space-4);">Alle 25 Module als zusammenhängendes Dokument — perfekt zum durchgehenden Lernen oder als Nachschlagewerk</p>
@@ -543,7 +535,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Algebra -->
   <div class="ma-section ma-section--algebra">
     <div class="ma-section-header">
-      <div class="ma-section-icon">🔢</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Lineare Algebra</h2>
         <p class="ma-section-subtitle">5 Module · Matrizen, Determinanten & Gleichungssysteme</p>
@@ -625,7 +617,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Vektorrechnung -->
   <div class="ma-section ma-section--vektor">
     <div class="ma-section-header">
-      <div class="ma-section-icon">📐</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Vektorrechnung</h2>
         <p class="ma-section-subtitle">4 Module · Grundlagen bis Raumgeometrie</p>
@@ -693,7 +685,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Differentialrechnung -->
   <div class="ma-section ma-section--diff">
     <div class="ma-section-header">
-      <div class="ma-section-icon">📉</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Differentialrechnung</h2>
         <p class="ma-section-subtitle">12 Module · Von Folgen bis Kurvendiskussion</p>
@@ -802,7 +794,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Integralrechnung -->
   <div class="ma-section ma-section--integral">
     <div class="ma-section-header">
-      <div class="ma-section-icon">∫</div>
+      <div class="ma-section-icon"></div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Integralrechnung</h2>
         <p class="ma-section-subtitle">4 Module · Stammfunktionen bis Rotationsvolumen</p>

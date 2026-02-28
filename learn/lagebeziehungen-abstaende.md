@@ -90,10 +90,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="ch-header">
-    <div class="ch-eyebrow">📍 Analytische Geometrie · Kapitel 4 von 4</div>
+    <div class="ch-eyebrow">Analytische Geometrie · Kapitel 4 von 4</div>
     <h1>Lagebeziehungen & Abstände</h1>
     <div class="ch-header-meta">
-      <span>⏱ ca. 45 min</span><span>·</span>
+      <span>ca. 45 min</span><span>·</span>
       <span>Ebene↔Ebene · Gerade↔Gerade · Hesse-Formel · Abstandsberechnungen</span>
     </div>
   </div>

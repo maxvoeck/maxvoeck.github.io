@@ -90,10 +90,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="ch-header">
-    <div class="ch-eyebrow">📍 Analytische Geometrie · Kapitel 1 von 4</div>
+    <div class="ch-eyebrow">Analytische Geometrie · Kapitel 1 von 4</div>
     <h1>Vektoren – Grundlagen</h1>
     <div class="ch-header-meta">
-      <span>⏱ ca. 35 min</span><span>·</span>
+      <span>ca. 35 min</span><span>·</span>
       <span>Koordinatensystem · Betrag · Skalarprodukt · Winkelberechnung</span>
     </div>
   </div>

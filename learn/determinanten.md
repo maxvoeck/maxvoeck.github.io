@@ -137,12 +137,12 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="ch-header">
-    <div class="ch-eyebrow">📐 Kapitel 2</div>
+    <div class="ch-eyebrow">Kapitel 2</div>
     <h1>Determinanten</h1>
     <div class="ch-header-meta">
-      <span>📄 Basiert auf Matrizen_2_2</span>
-      <span>⏱ ca. 25 Min</span>
-      <span>🎯 Lineare Algebra</span>
+      <span>Basiert auf Matrizen_2_2</span>
+      <span>ca. 25 Min</span>
+      <span>Lineare Algebra</span>
     </div>
   </div>
 

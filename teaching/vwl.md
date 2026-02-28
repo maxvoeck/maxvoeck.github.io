@@ -123,7 +123,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 .ma-hero-eyebrow {
   font-size: 17px;
   font-weight: 600;
-  color: var(--system-indigo);
+  color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: var(--space-3);
@@ -133,23 +133,14 @@ body, html, .page-content, .wrapper, main, .post-content {
   gap: var(--space-2);
 }
 
-.ma-hero-eyebrow::before,
-.ma-hero-eyebrow::after {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--separator-strong);
-}
-
 .ma-hero h1 {
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.003em;
   line-height: 1.08349;
   margin-bottom: var(--space-3);
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--gray-6) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
+  font-family: 'Instrument Serif', Georgia, serif;
 }
 
 @media (min-width: 768px) {
@@ -197,7 +188,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-progress-ring-fill {
   fill: none;
-  stroke: var(--system-indigo);
+  stroke: var(--accent, #b85c38);
   stroke-width: 8;
   stroke-linecap: round;
   stroke-dasharray: 339.292;
@@ -350,6 +341,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   background: linear-gradient(135deg, rgba(var(--text-rgb),0.03) 0%, transparent 50%);
   opacity: 0;
   transition: opacity var(--transition-base);
+  display: none;
 }
 
 .ma-card:hover {
@@ -421,7 +413,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-card-prereq::before {
   content: '↗ ';
-  color: var(--system-indigo);
+  color: var(--accent, #b85c38);
 }
 
 /* ─── Actions ─── */
@@ -450,7 +442,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-btn--primary {
-  background: var(--system-indigo);
+  background: var(--accent, #b85c38);
   color: white !important;
 }
 
@@ -718,7 +710,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Mikroökonomie -->
   <div class="ma-section ma-section--mikro collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">📊</div>
+      <div class="ma-section-icon">Mi</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Mikroökonomie</h2>
         <p class="ma-section-subtitle">8 Module · Vom Grundbegriff zum Marktmodell</p>
@@ -733,7 +725,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Grundkonzepte der Wirtschaft: Definition und Unterscheidung von Bedürfnis, Bedarf und Nachfrage, Bedürfnisarten, Maslows Bedürfnispyramide</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_1-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/WS_VWL_1-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m1', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -748,7 +740,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Freie und wirtschaftliche Güter, inferiore und superiore Güter, Einkommenselastizität, meritorische und demeritorische Güter</p>
         <p class="ma-card-prereq">Baut auf: Bedürfnis, Bedarf und Nachfrage</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_gueterarten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m2', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -764,7 +756,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Gesetz des Angebots, Angebotsfunktion, aggregiertes Marktangebot, Verschiebung vs. Bewegung auf der Kurve</p>
         <p class="ma-card-prereq">Baut auf: Güterarten</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_angebot.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m3', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -780,7 +772,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Gesetz der Nachfrage, Nachfragefunktion, aggregierte Marktnachfrage, Einflussfaktoren wie Einkommen und Präferenzen</p>
         <p class="ma-card-prereq">Baut auf: Angebot und Angebotskurve</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_nachfrage.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m4', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -796,7 +788,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Steuern und Subventionen</p>
         <p class="ma-card-prereq">Baut auf: Angebot und Nachfrage</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_marktgleichgewicht.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m5', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -812,7 +804,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Definition und Berechnung der Renten, ökonomische Wohlfahrt, Prohibitivpreis, graphische Darstellung</p>
         <p class="ma-card-prereq">Baut auf: Marktgleichgewicht</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_6.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/WS_VWL_6.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_renten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m6', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -828,7 +820,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Monopol, Oligopol, Polypol – Marktmacht, Marktstruktur, Vor- und Nachteile für Verbraucher</p>
         <p class="ma-card-prereq">Baut auf: Marktgleichgewicht</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_7.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/WS_VWL_7.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_marktformen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m7', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -844,7 +836,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Konsumentscheidungen: Budgetrestriktion, Gleichung und graphische Darstellung, Einkommens- und Preisänderungen, Opportunitätskosten</p>
         <p class="ma-card-prereq">Baut auf: Nachfrage und Güterarten</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_budgetgerade.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m8', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -858,7 +850,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Makroökonomie -->
   <div class="ma-section ma-section--makro collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">🌐</div>
+      <div class="ma-section-icon">Ma</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Makroökonomie</h2>
         <p class="ma-section-subtitle">5 Module · Von der Gesamtrechnung zur Wirtschaftspolitik</p>
@@ -874,7 +866,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
         <p>Definition und Ziele der VGR, Bruttoinlandsprodukt, drei Berechnungsmethoden, Inlandsprinzip vs. Inländerprinzip</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/VWL_11.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/VWL_11.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_vgr.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m9', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -890,7 +882,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>BIP-Deflator, BIP pro Kopf und Kaufkraftbereinigung, Grenzen des BIP, alternative Indikatoren (HDI, Gini-Koeffizient)</p>
         <p class="ma-card-prereq">Baut auf: Volkswirtschaftliche Gesamtrechnung</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/VWL_12.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/VWL_12.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_vgr2.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m10', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -906,7 +898,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Die 4 Konjunkturphasen, BIP-Berechnung, Wachstumsraten, Rezessionsdefinition, Früh- und Spätindikatoren</p>
         <p class="ma-card-prereq">Baut auf: Nominales vs. reales BIP</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_konjunktur.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m11', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -922,7 +914,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Grundprinzipien antizyklischer Politik, Fiskal- und Geldpolitik, expansive vs. restriktive Maßnahmen, Finanzkrise 2008</p>
         <p class="ma-card-prereq">Baut auf: Konjunkturzyklen</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_konjunkturpolitik.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m12', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
@@ -938,7 +930,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <p>Arbeitslosenquote, drei Arten der Arbeitslosigkeit, Okun's Gesetz, aktive vs. passive Arbeitsmarktpolitik</p>
         <p class="ma-card-prereq">Baut auf: Konjunktur und Konjunkturpolitik</p>
         <div class="ma-actions">
-          <a href="/assets/pdfs/Vwl_13_Arbeitslosigkeit.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">📄 PDF</a>
+          <a href="/assets/pdfs/Vwl_13_Arbeitslosigkeit.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_arbeitslosigkeit.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
           <button class="ma-check" onclick="toggleModule('m13', event)" aria-label="Als erledigt markieren">
             <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>

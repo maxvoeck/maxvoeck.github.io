@@ -90,10 +90,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
     </div>
 
     <div class="ch-header">
-      <div class="ch-eyebrow">📊 VWL · Kapitel 4</div>
+      <div class="ch-eyebrow">VWL · Kapitel 4</div>
       <h1>Die Nachfragekurve</h1>
       <div class="ch-header-meta">
-        <span>⏱ ca. 25 min</span>
+        <span>ca. 25 min</span>
         <span>·</span>
         <span>Gesetz der Nachfrage</span>
         <span>·</span>

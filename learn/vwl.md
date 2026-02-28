@@ -64,10 +64,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   margin-bottom: var(--space-5);
 }
 .lm-hero h1 {
-  font-size: clamp(36px,5vw,56px); font-weight: 700; letter-spacing: -.025em;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(36px,5vw,56px); font-weight: 400; letter-spacing: -.02em;
   line-height: 1.06; margin-bottom: var(--space-4);
-  background: linear-gradient(135deg, var(--text-primary) 50%, var(--text-tertiary) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
 }
 .lm-hero-sub {
   font-size: 17px; color: var(--text-tertiary); line-height: 1.6; max-width: 560px;
@@ -141,7 +141,7 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="lm-hero">
-    <div class="lm-hero-eyebrow">📊 Volkswirtschaftslehre</div>
+    <div class="lm-hero-eyebrow">Volkswirtschaftslehre</div>
     <h1>VWL</h1>
     <p class="lm-hero-sub">Von Bedürfnissen über Güterarten bis zu Angebots- und Nachfragekurven — mikroökonomische Grundlagen Schritt für Schritt erklärt.</p>
   </div>

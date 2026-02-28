@@ -90,10 +90,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
     </div>
 
     <div class="ch-header">
-      <div class="ch-eyebrow">📊 VWL · Kapitel 2</div>
+      <div class="ch-eyebrow">VWL · Kapitel 2</div>
       <h1>Güterarten in der Wirtschaft</h1>
       <div class="ch-header-meta">
-        <span>⏱ ca. 20 min</span>
+        <span>ca. 20 min</span>
         <span>·</span>
         <span>Freie Güter</span>
         <span>·</span>

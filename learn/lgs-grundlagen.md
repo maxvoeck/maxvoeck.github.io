@@ -118,12 +118,12 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="ch-header">
-    <div class="ch-eyebrow">📐 Kapitel 4</div>
+    <div class="ch-eyebrow">Kapitel 4</div>
     <h1>Lineare Gleichungssysteme</h1>
     <div class="ch-header-meta">
-      <span>📄 Basiert auf LGS_2_1-5</span>
-      <span>⏱ ca. 30 Min</span>
-      <span>🎯 Lineare Algebra</span>
+      <span>Basiert auf LGS_2_1-5</span>
+      <span>ca. 30 Min</span>
+      <span>Lineare Algebra</span>
     </div>
   </div>
 

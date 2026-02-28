@@ -124,10 +124,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
 
   <!-- Header -->
   <div class="ch-header">
-    <div class="ch-eyebrow">📐 Lineare Algebra · Kapitel 5 von 5</div>
+    <div class="ch-eyebrow">Lineare Algebra · Kapitel 5 von 5</div>
     <h1>LGS mit Parametern</h1>
     <div class="ch-header-meta">
-      <span>⏱ ca. 30 min</span>
+      <span>ca. 30 min</span>
       <span>·</span>
       <span>Fallunterscheidung · Determinantentest · Gauß mit Parametern</span>
     </div>

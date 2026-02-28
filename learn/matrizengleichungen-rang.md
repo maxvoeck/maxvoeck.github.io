@@ -114,12 +114,12 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="ch-header">
-    <div class="ch-eyebrow">📐 Kapitel 3</div>
+    <div class="ch-eyebrow">Kapitel 3</div>
     <h1>Matrizengleichungen & Rang</h1>
     <div class="ch-header-meta">
-      <span>📄 Basiert auf Matrizen_2_3</span>
-      <span>⏱ ca. 25 Min</span>
-      <span>🎯 Lineare Algebra</span>
+      <span>Basiert auf Matrizen_2_3</span>
+      <span>ca. 25 Min</span>
+      <span>Lineare Algebra</span>
     </div>
   </div>
 

@@ -131,7 +131,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 .ma-hero-eyebrow {
   font-size: 17px;
   font-weight: 600;
-  color: var(--system-indigo);
+  color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: var(--space-3);
@@ -143,21 +143,17 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-hero-eyebrow::before,
 .ma-hero-eyebrow::after {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--separator-strong);
+  display: none;
 }
 
 .ma-hero h1 {
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: -0.003em;
   line-height: 1.08349;
   margin-bottom: var(--space-3);
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--gray-6) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text-primary);
+  font-family: 'Instrument Serif', Georgia, serif;
 }
 
 @media (min-width: 768px) {
@@ -205,7 +201,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-progress-ring-fill {
   fill: none;
-  stroke: var(--system-indigo);
+  stroke: var(--accent, #b85c38);
   stroke-width: 8;
   stroke-linecap: round;
   stroke-dasharray: 339.292;
@@ -311,12 +307,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(var(--text-rgb),0.03) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity var(--transition-base);
+  display: none;
 }
 
 .ma-card:hover {
@@ -387,7 +378,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ma-card-prereq::before {
   content: '↗ ';
-  color: var(--system-indigo);
+  color: var(--accent, #b85c38);
 }
 
 /* ─── Actions ─── */
@@ -416,7 +407,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 }
 
 .ma-btn--primary {
-  background: var(--system-indigo);
+  background: var(--accent, #b85c38);
   color: white !important;
 }
 
@@ -589,7 +580,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Python -->
   <div class="ma-section ma-section--python">
     <div class="ma-section-header">
-      <div class="ma-section-icon">🐍</div>
+      <div class="ma-section-icon">Py</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Python</h2>
         <p class="ma-section-subtitle">5 Module · Von print() bis Funktionen</p>

@@ -90,10 +90,10 @@ body,html,.page-content,.wrapper,main,.post-content{background:var(--bg-primary)
   </div>
 
   <div class="ch-header">
-    <div class="ch-eyebrow">📍 Analytische Geometrie · Kapitel 3 von 4</div>
+    <div class="ch-eyebrow">Analytische Geometrie · Kapitel 3 von 4</div>
     <h1>Geraden und Ebenen</h1>
     <div class="ch-header-meta">
-      <span>⏱ ca. 40 min</span><span>·</span>
+      <span>ca. 40 min</span><span>·</span>
       <span>Parameterform · Normalenvektor · Koordinatenform · Spurpunkte</span>
     </div>
   </div>
