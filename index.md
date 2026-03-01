@@ -78,8 +78,8 @@ layout: default
 
   <nav class="home-nav">
     <a href="/about/">
-      <span class="home-nav-label">Über mich</span>
-      <span class="home-nav-desc">Hintergrund, Ausbildung und Schwerpunkte</span>
+      <span class="home-nav-label">Hinweise zum Studium</span>
+      <span class="home-nav-desc">Wie das Studienkolleg funktioniert, wie viel ihr lernen müsst, wie ihr die Materialien nutzt</span>
     </a>
     <a href="/learn/">
       <span class="home-nav-label">Learn</span>
