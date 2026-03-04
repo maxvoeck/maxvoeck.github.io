@@ -40,7 +40,7 @@ permalink: /teaching/informatik/
 
   /* Typografie */
   --font-display: 'Cormorant Garamond', 'Noto Serif JP', Georgia, serif;
-  --font-body: 'DM Sans', 'Noto Sans JP', sans-serif;
+  --font-body: 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans SC', 'Noto Sans KR', 'Noto Sans JP', system-ui, sans-serif;
   --font-mono: 'SF Mono', 'Fira Code', monospace;
   
   /* Abstände (8-Punkt-Grid) */
