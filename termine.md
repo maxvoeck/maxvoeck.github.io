@@ -129,7 +129,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <span class="tr-kurs">25w-T1</span>
         <span class="tr-themen">Themen 1–3</span>
       </div>
-      <span class="tr-datum">4. März 2026</span>
+      <span class="tr-datum">5. März 2026</span>
     </div>
 
     <div class="tr-row">
