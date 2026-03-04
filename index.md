@@ -81,10 +81,6 @@ layout: default
       <span class="home-nav-label">Hinweise zum Studium</span>
       <span class="home-nav-desc">Wie das Studienkolleg funktioniert, wie viel ihr lernen müsst, wie ihr die Materialien nutzt</span>
     </a>
-    <a href="/learn/">
-      <span class="home-nav-label">Learn</span>
-      <span class="home-nav-desc">Interaktive Lektionen in Mathematik, VWL und Informatik</span>
-    </a>
     <a href="/teaching/">
       <span class="home-nav-label">Unterrichtsmaterialien</span>
       <span class="home-nav-desc">Mathematik, Volkswirtschaftslehre und Informatik</span>
