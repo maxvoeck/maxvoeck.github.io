@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: NumPy – Kurvendiskussion & Ableitungen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            position: relative;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .question-container {
+            display: none;
+        }
+
+        .question-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #1f2937;
+            overflow-x: auto;
+            white-space: pre;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .option:hover {
+            background: #f0f1f3;
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .option.selected {
+            background: #e8eaf6;
+            border-color: #667eea;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.correct .option-letter {
+            background: #28a745;
+        }
+
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .option.incorrect .option-letter {
+            background: #dc3545;
+        }
+
+        .option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .feedback.correct {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .feedback.incorrect {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .controls {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #374151;
+            border: 2px solid #e0e0e0;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: #e9ecef;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result-stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .quiz-header h1 {
+                font-size: 1.4rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>NumPy Quiz</h1>
+            <p>Kurvendiskussion & Ableitungen mit Python</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="quiz-content">
+            <div id="questionsContainer"></div>
+
+            <div class="results-container" id="resultsContainer">
+                <div class="result-message" id="resultMessage"></div>
+                <div class="score-circle">
+                    <div class="score-number" id="scoreNumber">0%</div>
+                    <div class="score-label">Erreicht</div>
+                </div>
+                <div class="result-details">
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="correctCount">0</div>
+                        <div class="result-stat-label">Richtig</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="incorrectCount">0</div>
+                        <div class="result-stat-label">Falsch</div>
+                    </div>
+                    <div class="result-stat">
+                        <div class="result-stat-number" id="totalCount">0</div>
+                        <div class="result-stat-label">Gesamt</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="restartQuiz()">Quiz wiederholen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "Wie importiert man NumPy korrekt?",
+                code: null,
+                options: [
+                    "import numpy",
+                    "import numpy as np",
+                    "from numpy import *",
+                    "Alle drei sind korrekt"
+                ],
+                correct: 3,
+                explanation: "Alle drei Varianten funktionieren. Die Konvention ist 'import numpy as np', aber die anderen sind ebenfalls gueltig."
+            },
+            {
+                question: "Wie erstellt man ein NumPy-Array mit den Werten 1, 2, 3?",
+                code: "import numpy as np",
+                options: [
+                    "np.array(1, 2, 3)",
+                    "np.array([1, 2, 3])",
+                    "np.list([1, 2, 3])",
+                    "np.create(1, 2, 3)"
+                ],
+                correct: 1,
+                explanation: "np.array() erwartet eine Liste als Argument. Also: np.array([1, 2, 3])."
+            },
+            {
+                question: "Was macht np.linspace(0, 10, 100)?",
+                code: null,
+                options: [
+                    "Erstellt 100 zufaellige Zahlen zwischen 0 und 10",
+                    "Erstellt 100 gleichmaessig verteilte Zahlen von 0 bis 10",
+                    "Erstellt ein Array von 0 bis 100 in 10er-Schritten",
+                    "Erstellt 10 Zahlen zwischen 0 und 100"
+                ],
+                correct: 1,
+                explanation: "np.linspace(start, stop, anzahl) erzeugt gleichmaessig verteilte Werte. Hier: 100 Werte von 0 bis 10."
+            },
+            {
+                question: "Wie berechnet man mit NumPy die Ableitung numerisch?",
+                code: "x = np.linspace(-5, 5, 1000)\ny = x**3 - 3*x",
+                options: [
+                    "np.derivative(y, x)",
+                    "np.diff(y) / np.diff(x)",
+                    "np.ableitung(y)",
+                    "y.derivative()"
+                ],
+                correct: 1,
+                explanation: "Die numerische Ableitung wird mit np.diff(y) / np.diff(x) berechnet (Differenzenquotient)."
+            },
+            {
+                question: "Was gibt dieser Code zurueck?",
+                code: "import numpy as np\na = np.array([1, 2, 3])\nb = np.array([4, 5, 6])\nprint(a + b)",
+                options: [
+                    "[1, 2, 3, 4, 5, 6]",
+                    "[5, 7, 9]",
+                    "Fehler: Arrays kann man nicht addieren",
+                    "15"
+                ],
+                correct: 1,
+                explanation: "NumPy fuehrt elementweise Operationen durch: [1+4, 2+5, 3+6] = [5, 7, 9]."
+            },
+            {
+                question: "Welche Funktion zeichnet einen Graphen mit Matplotlib?",
+                code: "import matplotlib.pyplot as plt",
+                options: [
+                    "plt.draw(x, y)",
+                    "plt.graph(x, y)",
+                    "plt.plot(x, y)",
+                    "plt.line(x, y)"
+                ],
+                correct: 2,
+                explanation: "plt.plot(x, y) zeichnet einen Liniengraphen. Mit plt.show() wird er angezeigt."
+            },
+            {
+                question: "Was ist eine 2D-Matrix in NumPy?",
+                code: "m = np.array([[1, 2], [3, 4]])",
+                options: [
+                    "Ein Array mit zwei Listen",
+                    "Ein zweidimensionales Array (2 Zeilen, 2 Spalten)",
+                    "Zwei separate Arrays",
+                    "Ein Fehler, da Listen nicht verschachtelt sein duerfen"
+                ],
+                correct: 1,
+                explanation: "Verschachtelte Listen erzeugen eine Matrix. Hier: 2x2-Matrix mit 2 Zeilen und 2 Spalten."
+            },
+            {
+                question: "Wie findet man Nullstellen einer Funktion f(x) = x^2 - 4 graphisch?",
+                code: null,
+                options: [
+                    "Wo der Graph die y-Achse schneidet",
+                    "Wo der Graph die x-Achse schneidet (y = 0)",
+                    "Am hoechsten Punkt des Graphen",
+                    "Wo die Steigung 0 ist"
+                ],
+                correct: 1,
+                explanation: "Nullstellen sind die x-Werte, bei denen f(x) = 0 ist, also wo der Graph die x-Achse schneidet."
+            },
+            {
+                question: "Was ergibt np.array([1, 2, 3]) * 2?",
+                code: null,
+                options: [
+                    "[1, 2, 3, 1, 2, 3]",
+                    "[2, 4, 6]",
+                    "Fehler",
+                    "6"
+                ],
+                correct: 1,
+                explanation: "NumPy multipliziert elementweise: jedes Element wird mit 2 multipliziert. Ergebnis: [2, 4, 6]."
+            },
+            {
+                question: "Was beschreibt die erste Ableitung f'(x) einer Funktion?",
+                code: null,
+                options: [
+                    "Den Flaecheninhalt unter dem Graphen",
+                    "Die Steigung der Funktion an jedem Punkt",
+                    "Den y-Achsenabschnitt",
+                    "Die Symmetrie der Funktion"
+                ],
+                correct: 1,
+                explanation: "Die erste Ableitung f'(x) gibt die Steigung (Aenderungsrate) der Funktion an jedem Punkt an."
+            },
+            {
+                question: "Wie erstellt man mit NumPy ein Array von 0 bis 9?",
+                code: null,
+                options: [
+                    "np.range(10)",
+                    "np.arange(10)",
+                    "np.array(range(0, 9))",
+                    "np.zeros(10)"
+                ],
+                correct: 1,
+                explanation: "np.arange(10) erzeugt ein Array [0, 1, 2, ..., 9]. Aehnlich wie range(), aber als NumPy-Array."
+            },
+            {
+                question: "Was zeigt plt.xlabel('x-Werte') an?",
+                code: null,
+                options: [
+                    "Den Titel des Graphen",
+                    "Die Beschriftung der x-Achse",
+                    "Eine Legende",
+                    "Einen Datenpunkt bei x"
+                ],
+                correct: 1,
+                explanation: "plt.xlabel() beschriftet die x-Achse. Analog dazu beschriftet plt.ylabel() die y-Achse."
+            },
+            {
+                question: "Was ist der Unterschied zwischen np.diff() und einer analytischen Ableitung?",
+                code: null,
+                options: [
+                    "Es gibt keinen Unterschied",
+                    "np.diff() ist exakt, die analytische ist eine Naeherung",
+                    "np.diff() ist eine numerische Naeherung, die analytische ist exakt",
+                    "np.diff() funktioniert nur fuer lineare Funktionen"
+                ],
+                correct: 2,
+                explanation: "np.diff() berechnet Differenzen zwischen benachbarten Werten (numerische Naeherung). Die analytische Ableitung liefert die exakte Formel."
+            },
+            {
+                question: "Was passiert bei einer Kurvendiskussion mit Python?",
+                code: null,
+                options: [
+                    "Man berechnet nur die Nullstellen",
+                    "Man analysiert Nullstellen, Extrempunkte, Wendepunkte und zeichnet den Graphen",
+                    "Man zeichnet nur den Graphen ohne Analyse",
+                    "Man berechnet nur das Integral"
+                ],
+                correct: 1,
+                explanation: "Eine Kurvendiskussion umfasst die Analyse von Nullstellen, Extrempunkten (f'(x)=0), Wendepunkten (f''(x)=0) und die graphische Darstellung."
+            },
+            {
+                question: "Was gibt m.shape zurueck fuer m = np.array([[1,2,3],[4,5,6]])?",
+                code: null,
+                options: [
+                    "(6,)",
+                    "(2, 3)",
+                    "(3, 2)",
+                    "6"
+                ],
+                correct: 1,
+                explanation: "m.shape gibt die Dimensionen zurueck: 2 Zeilen und 3 Spalten, also (2, 3)."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answers = [];
+
+        function initQuiz() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-container';
+                if (index === 0) questionDiv.classList.add('active');
+
+                let codeBlock = q.code ? `<div class="code-block">${q.code}</div>` : '';
+
+                questionDiv.innerHTML = `
+                    <div class="question-number">Frage ${index + 1} von ${questions.length}</div>
+                    <div class="question-text">${q.question}</div>
+                    ${codeBlock}
+                    <div class="options" id="options-${index}">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption(${index}, ${i})">
+                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                <div class="option-text">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-${index}">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-secondary" onclick="previousQuestion()" ${index === 0 ? 'style="visibility: hidden;"' : ''}>
+                            Zurueck
+                        </button>
+                        <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
+                            ${index === questions.length - 1 ? 'Auswertung anzeigen' : 'Weiter'}
+                        </button>
+                    </div>
+                `;
+
+                container.appendChild(questionDiv);
+            });
+
+            updateProgress();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            if (answers[questionIndex] !== undefined) return;
+
+            const optionsContainer = document.getElementById(`options-${questionIndex}`);
+            const options = optionsContainer.querySelectorAll('.option');
+            const correct = questions[questionIndex].correct;
+
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
+
+            options.forEach(opt => opt.classList.add('disabled'));
+
+            answers[questionIndex] = optionIndex;
+            if (optionIndex === correct) score++;
+
+            const feedback = document.getElementById(`feedback-${questionIndex}`);
+            feedback.classList.add('show');
+            feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            feedback.querySelector('.feedback-title').textContent =
+                optionIndex === correct ? 'Richtig!' : 'Leider falsch';
+            feedback.querySelector('.feedback-text').textContent = questions[questionIndex].explanation;
+
+            document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion++;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            } else {
+                showResults();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
+                currentQuestion--;
+                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('questionsContainer').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            const percentage = Math.round((score / questions.length) * 100);
+            document.getElementById('scoreNumber').textContent = percentage + '%';
+            document.getElementById('correctCount').textContent = score;
+            document.getElementById('incorrectCount').textContent = questions.length - score;
+            document.getElementById('totalCount').textContent = questions.length;
+
+            let message = '';
+            if (percentage >= 90) {
+                message = 'Hervorragend! Du beherrschst NumPy und Kurvendiskussion!';
+            } else if (percentage >= 70) {
+                message = 'Sehr gut! Du verstehst Arrays, Plots und Ableitungen!';
+            } else if (percentage >= 50) {
+                message = 'Gut! Wiederhole noch einmal NumPy-Grundlagen und Matplotlib.';
+            } else {
+                message = 'Uebe weiter! Schau dir Arrays, Plots und np.diff() nochmal an.';
+            }
+
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answers = [];
+            document.getElementById('resultsContainer').classList.remove('show');
+            document.getElementById('questionsContainer').style.display = 'block';
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
