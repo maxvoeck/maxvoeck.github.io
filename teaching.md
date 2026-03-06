@@ -89,7 +89,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     </a>
     <a href="/teaching/informatik/" class="te-card">
       <span class="te-card-label">Informatik</span>
-      <span class="te-card-meta">5 Module · Python</span>
+      <span class="te-card-meta">6 Module · Python</span>
     </a>
   </div>
 

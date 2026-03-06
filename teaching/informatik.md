@@ -554,7 +554,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-hero">
     <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
     <h1>Informatik</h1>
-    <p class="ma-hero-subtitle">5 Module · Python-Programmierung von Grund auf</p>
+    <p class="ma-hero-subtitle">6 Module · Python-Programmierung von Grund auf</p>
     
     <div class="ma-progress-container">
       <div class="ma-progress-ring">
@@ -564,7 +564,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </svg>
         <div class="ma-progress-text" id="progressText">0%</div>
       </div>
-      <div class="ma-progress-label"><span id="completedCount">0</span> von 5 abgeschlossen</div>
+      <div class="ma-progress-label"><span id="completedCount">0</span> von 6 abgeschlossen</div>
     </div>
   </div>
 
@@ -574,7 +574,7 @@ body, html, .page-content, .wrapper, main, .post-content {
       <div class="ma-section-icon">Py</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Python</h2>
-        <p class="ma-section-subtitle">5 Module · Von print() bis Funktionen</p>
+        <p class="ma-section-subtitle">6 Module · Von print() bis NumPy</p>
       </div>
     </div>
     <div class="ma-grid">
@@ -658,13 +658,28 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
       </div>
 
+      <div class="ma-card" data-module="p6">
+        <div class="ma-card-header">
+          <span class="ma-card-number">06</span>
+          <h4>NumPy – Kurvendiskussion & Ableitungen</h4>
+        </div>
+        <p>Einführung in NumPy: Arrays und Matrizen, mathematische Funktionen visualisieren mit Matplotlib, Kurvendiskussion und Ableitungen mit Python</p>
+        <p class="ma-card-prereq">Baut auf: Funktionen in Python</p>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/Info_6.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <button class="ma-check" onclick="toggleModule('p6', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <!-- Footer -->
   <div class="ma-footer">
     <div class="ma-footer-text">
-      <strong>5 Module</strong> · Materialien für Bildungszwecke · Frei verwendbar
+      <strong>6 Module</strong> · Materialien für Bildungszwecke · Frei verwendbar
     </div>
     <div class="ma-footer-actions">
       <a href="/teaching/" class="ma-btn ma-btn--secondary">← Übersicht</a>
@@ -676,7 +691,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 <script>
 const STORAGE_KEY = 'info-progress';
-const TOTAL_MODULES = 5;
+const TOTAL_MODULES = 6;
 const CIRCUMFERENCE = 339.292;
 
 function getProgress() {
