@@ -688,7 +688,6 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-hero">
     <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
     <h1>Volkswirtschaftslehre</h1>
-    <p class="ma-hero-subtitle">13 Module in Mikro- und Makroökonomie – von Marktgleichgewicht und Konsumentenrente bis Konjunkturzyklen und Wirtschaftspolitik</p>
 
     <div class="ma-progress-container">
       <div class="ma-progress-ring">
@@ -705,10 +704,8 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Mikroökonomie -->
   <div class="ma-section ma-section--mikro collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">Mi</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Mikroökonomie</h2>
-        <p class="ma-section-subtitle">8 Module · Vom Grundbegriff zum Marktmodell</p>
       </div>
       <div class="ma-section-toggle">▼</div>
     </div>
@@ -718,7 +715,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">01</span>
           <h4>Bedürfnis, Bedarf und Nachfrage</h4>
         </div>
-        <p>Grundkonzepte der Wirtschaft: Definition und Unterscheidung von Bedürfnis, Bedarf und Nachfrage, Bedürfnisarten, Maslows Bedürfnispyramide</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/WS_VWL_1-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -732,8 +728,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">02</span>
           <h4>Güterarten in der Wirtschaft</h4>
         </div>
-        <p>Freie und wirtschaftliche Güter, inferiore und superiore Güter, Einkommenselastizität, meritorische und demeritorische Güter</p>
-        <p class="ma-card-prereq">Baut auf: Bedürfnis, Bedarf und Nachfrage</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/WS_VWL_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_gueterarten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -748,8 +742,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">03</span>
           <h4>Angebot und Angebotskurve</h4>
         </div>
-        <p>Gesetz des Angebots, Angebotsfunktion, aggregiertes Marktangebot, Verschiebung vs. Bewegung auf der Kurve</p>
-        <p class="ma-card-prereq">Baut auf: Güterarten</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/WS_VWL_3-4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_angebot.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -764,8 +756,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">04</span>
           <h4>Nachfrage und Nachfragekurve</h4>
         </div>
-        <p>Gesetz der Nachfrage, Nachfragefunktion, aggregierte Marktnachfrage, Einflussfaktoren wie Einkommen und Präferenzen</p>
-        <p class="ma-card-prereq">Baut auf: Angebot und Angebotskurve</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/WS_VWL_4-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_nachfrage.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -780,8 +770,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">05</span>
           <h4>Marktgleichgewicht</h4>
         </div>
-        <p>Gleichgewichtspreis und -menge, Angebots- und Nachfrageüberhang, Anpassungsprozesse, Steuern und Subventionen</p>
-        <p class="ma-card-prereq">Baut auf: Angebot und Nachfrage</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/WS_VWL_5-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_marktgleichgewicht.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -796,8 +784,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">06</span>
           <h4>Konsumenten- und Produzentenrente</h4>
         </div>
-        <p>Definition und Berechnung der Renten, ökonomische Wohlfahrt, Prohibitivpreis, graphische Darstellung</p>
-        <p class="ma-card-prereq">Baut auf: Marktgleichgewicht</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/WS_VWL_6.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_renten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -812,8 +798,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">07</span>
           <h4>Marktformen</h4>
         </div>
-        <p>Monopol, Oligopol, Polypol – Marktmacht, Marktstruktur, Vor- und Nachteile für Verbraucher</p>
-        <p class="ma-card-prereq">Baut auf: Marktgleichgewicht</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/WS_VWL_7.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_marktformen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -828,8 +812,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">08</span>
           <h4>Budgetgerade</h4>
         </div>
-        <p>Konsumentscheidungen: Budgetrestriktion, Gleichung und graphische Darstellung, Einkommens- und Preisänderungen, Opportunitätskosten</p>
-        <p class="ma-card-prereq">Baut auf: Nachfrage und Güterarten</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/WS_VWL_8-3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_budgetgerade.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -845,10 +827,8 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Makroökonomie -->
   <div class="ma-section ma-section--makro collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">Ma</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Makroökonomie</h2>
-        <p class="ma-section-subtitle">5 Module · Von der Gesamtrechnung zur Wirtschaftspolitik</p>
       </div>
       <div class="ma-section-toggle">▼</div>
     </div>
@@ -859,7 +839,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">09</span>
           <h4>Volkswirtschaftliche Gesamtrechnung</h4>
         </div>
-        <p>Definition und Ziele der VGR, Bruttoinlandsprodukt, drei Berechnungsmethoden, Inlandsprinzip vs. Inländerprinzip</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/VWL_11.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_vgr.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -874,8 +853,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">10</span>
           <h4>Nominales vs. reales BIP</h4>
         </div>
-        <p>BIP-Deflator, BIP pro Kopf und Kaufkraftbereinigung, Grenzen des BIP, alternative Indikatoren (HDI, Gini-Koeffizient)</p>
-        <p class="ma-card-prereq">Baut auf: Volkswirtschaftliche Gesamtrechnung</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/VWL_12.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_vgr2.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -890,8 +867,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">11</span>
           <h4>Konjunktur & Konjunkturzyklen</h4>
         </div>
-        <p>Die 4 Konjunkturphasen, BIP-Berechnung, Wachstumsraten, Rezessionsdefinition, Früh- und Spätindikatoren</p>
-        <p class="ma-card-prereq">Baut auf: Nominales vs. reales BIP</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/VWL_11_Konjunktur.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_konjunktur.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -906,8 +881,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">12</span>
           <h4>Antizyklische Konjunkturpolitik</h4>
         </div>
-        <p>Grundprinzipien antizyklischer Politik, Fiskal- und Geldpolitik, expansive vs. restriktive Maßnahmen, Finanzkrise 2008</p>
-        <p class="ma-card-prereq">Baut auf: Konjunkturzyklen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/VWL_12_Konjunkturpolitik.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_konjunkturpolitik.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -922,8 +895,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">13</span>
           <h4>Arbeitslosigkeit & Arbeitsmarktpolitik</h4>
         </div>
-        <p>Arbeitslosenquote, drei Arten der Arbeitslosigkeit, Okun's Gesetz, aktive vs. passive Arbeitsmarktpolitik</p>
-        <p class="ma-card-prereq">Baut auf: Konjunktur und Konjunkturpolitik</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Vwl_13_Arbeitslosigkeit.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_arbeitslosigkeit.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>

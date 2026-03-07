@@ -554,8 +554,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-hero">
     <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
     <h1>Informatik</h1>
-    <p class="ma-hero-subtitle">6 Module · Python-Programmierung von Grund auf</p>
-    
+
     <div class="ma-progress-container">
       <div class="ma-progress-ring">
         <svg viewBox="0 0 120 120">
@@ -569,22 +568,13 @@ body, html, .page-content, .wrapper, main, .post-content {
   </div>
 
   <!-- Python -->
-  <div class="ma-section ma-section--python">
-    <div class="ma-section-header">
-      <div class="ma-section-icon">Py</div>
-      <div class="ma-section-title-group">
-        <h2 class="ma-section-title">Python</h2>
-        <p class="ma-section-subtitle">6 Module · Von print() bis NumPy</p>
-      </div>
-    </div>
-    <div class="ma-grid">
+  <div class="ma-grid">
 
       <div class="ma-card" data-module="p1">
         <div class="ma-card-header">
           <span class="ma-card-number">01</span>
           <h4>Python Grundlagen – print() und input()</h4>
         </div>
-        <p>Einführung in Python: Die print()-Funktion zur Ausgabe von Text und Zahlen, Parameter sep und end, input() für Benutzereingaben, Datentypen und Umwandlung</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Info_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_python_grundlage.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -599,8 +589,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">02</span>
           <h4>Variablen und Datentypen</h4>
         </div>
-        <p>Variablen erstellen und verwenden, Datentypen unterscheiden (str, int, float, bool), Rechenoperationen, Typkonvertierung, Namenskonventionen</p>
-        <p class="ma-card-prereq">Baut auf: print() und input()</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Info_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_variablen_datentypen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -615,8 +603,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">03</span>
           <h4>Listen und Datenstrukturen</h4>
         </div>
-        <p>Erstellen und Verstehen von Listen, Zugriff über Index und Slicing, mutable Listen, append(), insert(), remove(), pop(), sort(), reverse()</p>
-        <p class="ma-card-prereq">Baut auf: Variablen und Datentypen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Info_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_listen_datenstrukturen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -631,8 +617,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">04</span>
           <h4>Kontrollstrukturen – if, for, while</h4>
         </div>
-        <p>Bedingte Anweisungen mit if/elif/else, Vergleichs- und logische Operatoren, for-Schleifen, while-Schleifen, break und continue</p>
-        <p class="ma-card-prereq">Baut auf: Listen und Datenstrukturen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Info_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_kontrollstrukturen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -647,8 +631,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">05</span>
           <h4>Funktionen in Python</h4>
         </div>
-        <p>Funktionen definieren mit def, Parameter und Rückgabewerte, print vs. return, benannte Parameter und Standardwerte, Funktionen kombinieren</p>
-        <p class="ma-card-prereq">Baut auf: Kontrollstrukturen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Info_5.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_funktionen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -663,8 +645,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">06</span>
           <h4>NumPy – Kurvendiskussion & Ableitungen</h4>
         </div>
-        <p>Einführung in NumPy: Arrays und Matrizen, mathematische Funktionen visualisieren mit Matplotlib, Kurvendiskussion und Ableitungen mit Python</p>
-        <p class="ma-card-prereq">Baut auf: Funktionen in Python</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Info_6.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_numpy_kurvendiskussion.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -675,7 +655,6 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
     </div>
-  </div>
 
   <!-- Footer -->
   <div class="ma-footer">

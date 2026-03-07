@@ -769,8 +769,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-hero">
     <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
     <h1>Mathematik</h1>
-    <p class="ma-hero-subtitle">Gesamtskript, 30 Module, 5 interaktive Tools und Übungsgeneratoren für Algebra, Vektoren, Analysis und Integralrechnung</p>
-    
+
     <div class="ma-progress-container">
       <div class="ma-progress-ring">
         <svg viewBox="0 0 120 120">
@@ -781,26 +780,13 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
       <div class="ma-progress-label"><span id="completedCount">0</span> von 30 abgeschlossen</div>
     </div>
-
-
-    <!-- Quick Actions -->
-    <div class="ma-quick-actions">
-      <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="padding: var(--space-3) var(--space-6); font-size: 15px;">
-        📖 Gesamtskript (1.1 MB)
-      </a>
-      <a href="#tools" class="ma-btn ma-btn--secondary" style="padding: var(--space-3) var(--space-6); font-size: 15px;">
-        ⚡ Interaktive Tools
-      </a>
-    </div>
   </div>
 
   <!-- Algebra -->
   <div class="ma-section ma-section--algebra collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">LA</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Lineare Algebra</h2>
-        <p class="ma-section-subtitle">5 Module · Matrizen, Determinanten & Gleichungssysteme</p>
       </div>
       <div class="ma-section-toggle">▼</div>
     </div>
@@ -810,7 +796,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">01</span>
           <h4>Matrizen</h4>
         </div>
-        <p>Addition, Multiplikation, Transponieren und spezielle Matrizen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Matrizen_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_matrizen_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -825,7 +810,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">02</span>
           <h4>Determinanten</h4>
         </div>
-        <p>Laplace-Entwicklung, Sarrus-Regel und Inverse Matrizen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Matrizen_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_determinanten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -840,7 +824,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">03</span>
           <h4>Matrizengleichungen</h4>
         </div>
-        <p>Übungsaufgaben, Rangbestimmung und Gauß-Elimination</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Matrizen_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <button class="ma-check" onclick="toggleModule('a3', event)" aria-label="Als erledigt markieren">
@@ -854,7 +837,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">04</span>
           <h4>Lineare Gleichungssysteme</h4>
         </div>
-        <p>Matrixschreibweise, Gauß-Algorithmus und Lösbarkeitskriterien</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/LGS_2_1-5.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_lgs_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -869,7 +851,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">05</span>
           <h4>Parameterabhängigkeit</h4>
         </div>
-        <p>LGS mit Parametern, Determinantentest und Fallunterscheidungen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/LGS_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <button class="ma-check" onclick="toggleModule('a5', event)" aria-label="Als erledigt markieren">
@@ -883,10 +864,8 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Vektorrechnung -->
   <div class="ma-section ma-section--vektor collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">Ve</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Vektorrechnung</h2>
-        <p class="ma-section-subtitle">4 Module · Vektor- & Spatprodukt, Geraden, Ebenen & Lagebeziehungen</p>
       </div>
       <div class="ma-section-toggle">▼</div>
     </div>
@@ -896,7 +875,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">06</span>
           <h4>Grundlagen</h4>
         </div>
-        <p>Vektoren im 2D & 3D, Betrag, Normalisierung und Rechenoperationen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Geo_2_1-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_vektorrechnung_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -911,7 +889,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">07</span>
           <h4>Vektor- & Spatprodukt</h4>
         </div>
-        <p>Skalarprodukt, Vektorprodukt, Spatprodukt und ihre Anwendungen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Geo_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_vektorprodukt.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -926,7 +903,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">08</span>
           <h4>Geraden und Ebenen</h4>
         </div>
-        <p>Parametrische Formen, Normalenvektoren und Gleichungsarten</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Geo_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_geraden_ebenen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -941,7 +917,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">09</span>
           <h4>Abstände und Lagen</h4>
         </div>
-        <p>Punkt-Gerade, Gerade-Gerade, Winkel und Durchstoßpunkte</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Geo_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_lagebeziehungen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -956,10 +931,8 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Differentialrechnung -->
   <div class="ma-section ma-section--diff collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">Di</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Differentialrechnung</h2>
-        <p class="ma-section-subtitle">12 Module · Folgen, Grenzwerte, Ableitungen & Kurvendiskussion</p>
       </div>
       <div class="ma-section-toggle">▼</div>
     </div>
@@ -969,7 +942,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">10</span>
           <h4>Zahlenfolgen</h4>
         </div>
-        <p>Monotonie, Beschränktheit, arithmetische und geometrische Folgen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Zahlenfolgen_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_zahlenfolgen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -984,7 +956,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">11</span>
           <h4>Grenzwerte von Folgen</h4>
         </div>
-        <p>Konvergenz, Divergenz und epsilon-delta Kriterium</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_grenzwerte_folgen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -999,7 +970,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">12</span>
           <h4>Grenzwerte im Unendlichen</h4>
         </div>
-        <p>Funktionsverhalten für x→∞, Asymptoten und Wachstumsordnung</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Funktion_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_grenzwerte_funktionen_1.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1014,7 +984,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">13</span>
           <h4>Grenzwerte an einer Stelle</h4>
         </div>
-        <p>Stetigkeit, linksseitige und rechtsseitige Grenzwerte</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_grenzwerte_funktionen_2.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1029,7 +998,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">14</span>
           <h4>Asymptoten</h4>
         </div>
-        <p>Vertikale, horizontale und schiefe Asymptoten</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Grenzwerte_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_asymptoten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1044,7 +1012,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">15</span>
           <h4>Steigung und Ableitung</h4>
         </div>
-        <p>Differenzenquotient, h-Methode und Definition der Ableitung</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Funktion_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_ableitung_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1059,7 +1026,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">16</span>
           <h4>Ableitungsregeln</h4>
         </div>
-        <p>Produkt-, Quotienten-, Ketten- und Potenzregel</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Funktion_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_ableitungsregeln.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1074,7 +1040,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">17</span>
           <h4>Regel von de L'Hôpital</h4>
         </div>
-        <p>Anwendung bei unbestimmten Formen 0/0 und ∞/∞</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Hospital_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_hospital.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1089,7 +1054,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">18</span>
           <h4>Extrempunkte</h4>
         </div>
-        <p>Lokale und globale Extrema, Kriterien und Berechnung</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Extremwert_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_extrempunkte.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1104,7 +1068,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">19</span>
           <h4>Wendepunkte</h4>
         </div>
-        <p>Krümmung, Wendepunkte und Sattelpunkte</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Wendepunkt_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_wendepunkte.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1119,7 +1082,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">20</span>
           <h4>Kurvendiskussion</h4>
         </div>
-        <p>Systematische Analyse: Definitionsbereich, Symmetrie, Nullstellen, Extrema</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Kurvendiskusion_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_kurvendiskussion.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1134,7 +1096,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">21</span>
           <h4>Extremwertaufgaben</h4>
         </div>
-        <p>Optimierungsprobleme, Nebendbedingungen und Anwendungsaufgaben</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Extrem_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_extremwertaufgaben.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1149,10 +1110,8 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Integralrechnung -->
   <div class="ma-section ma-section--integral collapsed">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">In</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Integralrechnung</h2>
-        <p class="ma-section-subtitle">4 Module · Stammfunktionen, Integrationsmethoden & Flächenberechnung</p>
       </div>
       <div class="ma-section-toggle">▼</div>
     </div>
@@ -1162,7 +1121,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">22</span>
           <h4>Einführung</h4>
         </div>
-        <p>Stammfunktionen, unbestimmte Integrale und Integrationsregeln</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Integral_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_integral_einfuehrung.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1177,7 +1135,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">23</span>
           <h4>Integrationsmethoden</h4>
         </div>
-        <p>Substitution, partielle Integration und Partialbruchzerlegung</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Integral_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_integrationsmethoden.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1192,7 +1149,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">24</span>
           <h4>Hauptsatz & Flächen</h4>
         </div>
-        <p>Hauptsatz der Analysis, bestimmte Integrale und Flächenberechnung</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Integral_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_hauptsatz_flaechen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1207,7 +1163,6 @@ body, html, .page-content, .wrapper, main, .post-content {
           <span class="ma-card-number">25</span>
           <h4>Rotationsvolumen</h4>
         </div>
-        <p>Volumenberechnung durch Rotation und Funktionsgraphen</p>
         <div class="ma-actions">
           <a href="/assets/pdfs/Intergal_2_4-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
           <a href="/assets/quizzes/quiz_rotationsvolumen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
@@ -1222,20 +1177,16 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Interaktive Tools -->
   <div class="ma-section ma-section--tools collapsed" id="tools">
     <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-icon">To</div>
       <div class="ma-section-title-group">
         <h2 class="ma-section-title">Interaktive Tools</h2>
-        <p class="ma-section-subtitle">5 explorative Werkzeuge zum Visualisieren und Experimentieren</p>
       </div>
       <div class="ma-section-toggle">▼</div>
     </div>
     <div class="ma-grid ma-grid--tools">
       <div class="ma-card" data-module="t1">
-        <div class="ma-tool-icon">📏</div>
         <div class="ma-card-header">
           <h4>Tangenten-Explorer</h4>
         </div>
-        <p>Interaktives Erkunden von Tangenten an Funktionsgraphen</p>
         <div class="ma-actions">
           <a href="/assets/interactive/tangenten_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
           <button class="ma-check" onclick="toggleModule('t1', event)" aria-label="Als erledigt markieren">
@@ -1245,11 +1196,9 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card" data-module="t2">
-        <div class="ma-tool-icon">📐</div>
         <div class="ma-card-header">
           <h4>3D-Vektor-Explorer</h4>
         </div>
-        <p>Visualisierung von Vektoren im dreidimensionalen Raum</p>
         <div class="ma-actions">
           <a href="/assets/interactive/vektor_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
           <button class="ma-check" onclick="toggleModule('t2', event)" aria-label="Als erledigt markieren">
@@ -1259,11 +1208,9 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card" data-module="t3">
-        <div class="ma-tool-icon">🔲</div>
         <div class="ma-card-header">
           <h4>Geraden & Ebenen</h4>
         </div>
-        <p>3D-Visualisierung von Geraden, Ebenen und Schnittpunkten</p>
         <div class="ma-actions">
           <a href="/assets/interactive/geraden_ebenen_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
           <button class="ma-check" onclick="toggleModule('t3', event)" aria-label="Als erledigt markieren">
@@ -1273,11 +1220,9 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card" data-module="t4">
-        <div class="ma-tool-icon">⬜</div>
         <div class="ma-card-header">
           <h4>Matrizen-Explorer</h4>
         </div>
-        <p>Interaktive Berechnung von Matrizenoperationen</p>
         <div class="ma-actions">
           <a href="/assets/interactive/matrizen_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
           <button class="ma-check" onclick="toggleModule('t4', event)" aria-label="Als erledigt markieren">
@@ -1287,11 +1232,9 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
 
       <div class="ma-card" data-module="t5">
-        <div class="ma-tool-icon">🔢</div>
         <div class="ma-card-header">
           <h4>Determinanten-Rechner</h4>
         </div>
-        <p>Schnelle Berechnung von Determinanten mit Schritt-für-Schritt-Erklärung</p>
         <div class="ma-actions">
           <a href="/assets/interactive/determinanten_rechner.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex: 1;">→ Öffnen</a>
           <button class="ma-check" onclick="toggleModule('t5', event)" aria-label="Als erledigt markieren">
