@@ -9,7 +9,7 @@ title: Chatbot
     display: none !important;
   }
 
-  * {
+  .chatbot-wrap {
     --sumi: #1a1a18;
     --kuro: #2c2c28;
     --hai: #3d3d38;
@@ -23,35 +23,46 @@ title: Chatbot
     --ai: #5b7a8c;
     --font-display: 'Cormorant Garamond', Georgia, serif;
     --font-body: 'Noto Sans', system-ui, sans-serif;
-  }
-
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: var(--shiro);
-    color: var(--sumi);
     font-family: var(--font-body);
-  }
-
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-  }
-
-  .chatbot-container {
-    width: 100%;
-    height: 100vh;
+    color: var(--sumi);
+    max-width: 720px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    background-color: var(--shiro);
-    max-width: 720px;
-    box-sizing: border-box;
+    height: calc(100vh - 80px);
   }
 
-  .messages-area {
+  html[data-theme="dark"] .chatbot-wrap {
+    --sumi: #f0ece4;
+    --kuro: #e8e3d8;
+    --hai: #b8b3a8;
+    --kinari: #2c2c28;
+    --shiro: #1a1a18;
+    --kinu: #3d3d38;
+    --ishi: #5a5750;
+    --sugi: #8a8578;
+  }
+
+  .chat-header {
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid var(--kinu);
+  }
+
+  .chat-header h1 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin: 0 0 4px;
+    color: var(--sumi);
+  }
+
+  .chat-header p {
+    font-size: 0.85rem;
+    color: var(--sugi);
+    margin: 0;
+  }
+
+  .messages {
     flex: 1;
     overflow-y: auto;
     padding: 24px;
@@ -60,412 +71,303 @@ title: Chatbot
     gap: 16px;
   }
 
-  .messages-area::-webkit-scrollbar {
-    width: 6px;
-  }
+  .messages::-webkit-scrollbar { width: 5px; }
+  .messages::-webkit-scrollbar-track { background: transparent; }
+  .messages::-webkit-scrollbar-thumb { background: var(--ishi); border-radius: 3px; }
 
-  .messages-area::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .messages-area::-webkit-scrollbar-thumb {
-    background: var(--ishi);
-    border-radius: 3px;
-  }
-
-  .message {
+  .msg {
     display: flex;
-    gap: 12px;
-    animation: slideIn 0.3s ease-out;
+    gap: 10px;
+    animation: fadeIn 0.3s ease;
   }
 
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  .msg.user { flex-direction: row-reverse; }
 
-  .message.user {
-    justify-content: flex-end;
-  }
-
-  .message.bot {
-    justify-content: flex-start;
-  }
-
-  .message-content {
-    max-width: 85%;
-    padding: 12px 16px;
-    border-radius: 8px;
-    line-height: 1.5;
-    font-size: 14px;
-  }
-
-  .message.bot .message-content {
-    background-color: var(--kinari);
-    color: var(--sumi);
-    border: 1px solid var(--kinu);
-  }
-
-  .message.user .message-content {
-    background-color: var(--beni);
-    color: var(--shiro);
-    border: 1px solid var(--beni);
-  }
-
-  .chips-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
-  }
-
-  .chip {
-    padding: 8px 14px;
-    border: 1px solid var(--ishi);
-    border-radius: 20px;
-    background-color: transparent;
-    color: var(--sumi);
-    font-size: 13px;
-    cursor: pointer;
-    font-family: var(--font-body);
-    transition: all 0.2s ease;
-  }
-
-  .chip:hover {
-    background-color: var(--kinu);
-    border-color: var(--sugi);
-  }
-
-  .typing-indicator {
-    display: flex;
-    gap: 4px;
-    padding: 12px 16px;
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
+  .msg-avatar {
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background-color: var(--ishi);
-    animation: bounce 1.4s infinite;
-  }
-
-  .dot:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-
-  .dot:nth-child(3) {
-    animation-delay: 0.4s;
-  }
-
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(0);
-      opacity: 0.6;
-    }
-    50% {
-      transform: translateY(-6px);
-      opacity: 1;
-    }
-  }
-
-  .input-area {
     display: flex;
-    gap: 8px;
-    padding: 16px 24px;
-    border-top: 1px solid var(--kinu);
-    background-color: var(--shiro);
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    font-weight: 600;
   }
 
-  .input-field {
-    flex: 1;
-    padding: 10px 14px;
-    border: 1px solid var(--ishi);
-    border-radius: 6px;
-    font-family: var(--font-body);
-    font-size: 14px;
-    color: var(--sumi);
-    background-color: var(--kinari);
-  }
-
-  .input-field::placeholder {
+  .msg.bot .msg-avatar {
+    background: var(--kinu);
     color: var(--sugi);
   }
 
-  .input-field:focus {
-    outline: none;
-    border-color: var(--ai);
-    background-color: var(--shiro);
+  .msg.user .msg-avatar {
+    background: var(--ai);
+    color: white;
   }
 
-  .send-button {
-    padding: 10px 18px;
-    background-color: var(--beni);
-    color: var(--shiro);
-    border: none;
-    border-radius: 6px;
-    font-family: var(--font-body);
-    font-size: 14px;
+  .msg-bubble {
+    padding: 12px 16px;
+    border-radius: 16px;
+    max-width: 80%;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .msg.bot .msg-bubble {
+    background: var(--kinu);
+    color: var(--sumi);
+    border-bottom-left-radius: 4px;
+  }
+
+  .msg.user .msg-bubble {
+    background: var(--ai);
+    color: white;
+    border-bottom-right-radius: 4px;
+  }
+
+  .msg-bubble p { margin: 0 0 8px; }
+  .msg-bubble p:last-child { margin: 0; }
+  .msg-bubble ul, .msg-bubble ol { margin: 4px 0; padding-left: 20px; }
+  .msg-bubble li { margin: 2px 0; }
+  .msg-bubble strong { font-weight: 600; }
+  .msg-bubble a { color: inherit; text-decoration: underline; }
+
+  .typing {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px;
+    align-items: center;
+  }
+
+  .typing span {
+    width: 6px;
+    height: 6px;
+    background: var(--ishi);
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+  }
+
+  .typing span:nth-child(2) { animation-delay: 0.15s; }
+  .typing span:nth-child(3) { animation-delay: 0.3s; }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 24px 12px;
+  }
+
+  .chip {
+    padding: 8px 16px;
+    border: 1px solid var(--kinu);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--sugi);
+    font-size: 0.82rem;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    font-family: var(--font-body);
+    transition: all 0.2s;
   }
 
-  .send-button:hover {
-    background-color: #b04d31;
+  .chip:hover {
+    background: var(--kinu);
+    color: var(--sumi);
   }
 
-  .send-button:active {
-    background-color: #9a3f28;
+  .input-area {
+    padding: 16px 24px 24px;
+    border-top: 1px solid var(--kinu);
+    display: flex;
+    gap: 10px;
   }
 
-  @media (max-width: 768px) {
-    .chatbot-container {
-      max-width: 100%;
-    }
+  .input-area input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid var(--kinu);
+    border-radius: 24px;
+    background: var(--kinari);
+    color: var(--sumi);
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color 0.2s;
+  }
 
-    .message-content {
-      max-width: 90%;
-    }
+  .input-area input:focus {
+    border-color: var(--ai);
+  }
 
-    .messages-area {
-      padding: 16px;
-    }
+  .input-area input::placeholder {
+    color: var(--ishi);
+  }
 
-    .input-area {
-      padding: 12px 16px;
-    }
+  .input-area button {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: var(--ai);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s;
+  }
+
+  .input-area button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .input-area button:hover:not(:disabled) {
+    opacity: 0.85;
+  }
+
+  .error-note {
+    text-align: center;
+    padding: 8px;
+    font-size: 0.8rem;
+    color: var(--beni);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes bounce {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-6px); }
   }
 </style>
 
-<div class="chatbot-container">
-  <div class="messages-area" id="messagesArea"></div>
+<div class="chatbot-wrap">
+  <div class="chat-header">
+    <h1>Schulassistent</h1>
+    <p>Studienkolleg Leipzig</p>
+  </div>
+
+  <div class="messages" id="messages">
+    <div class="msg bot">
+      <div class="msg-avatar">STK</div>
+      <div class="msg-bubble">
+        <p>Hallo! Ich bin der Schulassistent des Studienkolleg Leipzig. Wie kann ich dir helfen?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="chips" id="chips">
+    <button class="chip" onclick="ask('Wie kann ich mich anmelden?')">Anmeldung</button>
+    <button class="chip" onclick="ask('Was kostet das Studienkolleg?')">Kosten</button>
+    <button class="chip" onclick="ask('Was ist die FSP?')">FSP</button>
+    <button class="chip" onclick="ask('Welche Kurse gibt es?')">Kurse</button>
+    <button class="chip" onclick="ask('Wann beginnt das Semester?')">Termine</button>
+  </div>
+
   <div class="input-area">
-    <input
-      type="text"
-      class="input-field"
-      id="userInput"
-      placeholder="Type your question..."
-      autocomplete="off"
-    />
-    <button class="send-button" id="sendButton">Send</button>
+    <input type="text" id="userInput" placeholder="Frage stellen..." autocomplete="off">
+    <button id="sendBtn" onclick="send()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
   </div>
 </div>
 
 <script>
-  const faqData = [
-    {"id":1,"category":"General","tags":["studienkolleg","what is","was ist","purpose","zweck","general","allgemein","who","wer"],"question_de":"Was ist ein Studienkolleg und wer muss es besuchen?","question_en":"What is a Studienkolleg and who has to attend it?","answer_de":"Ausländische Studienbewerber, die ein Studium an einer deutschen Hochschule aufnehmen möchten und für die kein direkter Hochschulzugang möglich ist, müssen die Feststellungsprüfung (FSP) bestehen. Das Studienkolleg bereitet Studierende gezielt auf diese Prüfung vor. Die FSP ist in ganz Deutschland anerkannt. Die Kursdauer beträgt 10 Monate.","answer_en":"International students who want to study at a German university but don't have direct university access must pass the Feststellungsprüfung (FSP). The Studienkolleg prepares students for this exam and for studies at German Fachhochschulen. The FSP is recognized throughout Germany. The course duration is 10 months."},
-    {"id":2,"category":"General","tags":["how long","wie lange","duration","dauer","months","monate","kursdauer"],"question_de":"Wie lange dauert das Studienkolleg?","question_en":"How long does the Studienkolleg last?","answer_de":"Das Studienkolleg dauert 10 Monate (2 Semester à 5 Monate). Es gibt 30 Unterrichtsstunden pro Woche.","answer_en":"The Studienkolleg lasts 10 months (2 semesters of 5 months each). There are 30 teaching hours per week."},
-    {"id":3,"category":"General","tags":["recognition","anerkennung","staatlich anerkannt","state recognized","official","offiziell"],"question_de":"Ist das Studienkolleg staatlich anerkannt?","question_en":"Is the Studienkolleg state-recognized?","answer_de":"Ja. Das Sächsische Ministerium für Wissenschaft und Kunst (SMWK) sprach im Jahr 2005 die staatliche Anerkennung aus. Die FSP-Prüfung wird in Hoheit der Hochschule Zittau/Görlitz durchgeführt, was höchste Objektivität und Qualität garantiert.","answer_en":"Yes. The Saxon Ministry of Science and Arts (SMWK) granted official state recognition in 2005. The FSP is conducted under the authority of Hochschule Zittau/Görlitz, ensuring full objectivity and quality standards."},
-    {"id":4,"category":"General","tags":["success rate","erfolgsquote","bestehen","pass rate","wie viele bestehen","prozent"],"question_de":"Wie hoch ist die Erfolgsquote bei der FSP?","question_en":"What is the FSP pass rate?","answer_de":"Mehr als 60% der zur FSP zugelassenen Studierenden bestehen diese erfolgreich. Das Studienkolleg bietet kostenlose Nachhilfe und unterstützt aktiv alle Studierenden.","answer_en":"More than 60% of students admitted to the FSP pass it successfully. The Studienkolleg offers free tutoring and actively supports all students."},
-    {"id":5,"category":"Enrollment","tags":["anmeldung","enrollment","how to apply","bewerbung","schritte","steps","process","ablauf"],"question_de":"Wie läuft die Anmeldung ab?","question_en":"How does the enrollment process work?","answer_de":"Die Anmeldung erfolgt in 6 Schritten: (1) Online-Anmeldung ausfüllen, (2) innerhalb 48h Bestätigung per E-Mail, (3) Unterlagen vollständig einreichen, (4) Aufnahmeantrag erhalten, (5) Studiengebühr zahlen, (6) Einschreibebestätigung erhalten. Empfehlung: 4 Monate vor Semesterstart anmelden. Deadline: spätestens 4 Wochen vor Semesterstart.","answer_en":"Enrollment has 6 steps: (1) Fill out the online application, (2) receive confirmation within 48 hours by email, (3) submit all required documents, (4) receive the admission form, (5) pay tuition, (6) receive enrollment confirmation. Apply 4 months before the semester start. Deadline: at least 4 weeks before semester start."},
-    {"id":6,"category":"Enrollment","tags":["documents","unterlagen","dokumente","what do i need","was brauche ich","requirements","voraussetzungen"],"question_de":"Welche Unterlagen brauche ich für die Anmeldung?","question_en":"What documents do I need for enrollment?","answer_de":"Benötigte Unterlagen: (1) Abitur-Zeugnis, (2) B1-Deutschnachweis, (3) VPD oder Vorzulassung von uni-assist, (4) gültiges Studienvorbereitungsvisum, (5) Krankenversicherung, (6) APS-Bescheinigung (nur Indien, Vietnam, China).","answer_en":"Required documents: (1) School leaving certificate, (2) German B1 language proof, (3) VPD or pre-admission from uni-assist, (4) valid study preparation visa, (5) health insurance, (6) APS certificate (only for India, Vietnam, China)."},
-    {"id":7,"category":"Enrollment","tags":["entrance exam","aufnahmeprüfung","test required","test needed","do i need a test"],"question_de":"Muss ich eine Aufnahmeprüfung bestehen?","question_en":"Do I need to pass an entrance exam?","answer_de":"Nein. Eine Aufnahmeprüfung ist nicht erforderlich. Die Zulassung basiert ausschließlich auf den eingereichten Unterlagen.","answer_en":"No. An entrance exam is not required. Admission is based entirely on the submitted documents."},
-    {"id":8,"category":"Enrollment","tags":["deadline","bewerbungsfrist","last date","zu spät","too late","wann bewerben","when to apply"],"question_de":"Bis wann muss ich mich bewerben?","question_en":"What is the application deadline?","answer_de":"Die Deadline ist spätestens 4 Wochen vor Semesterstart. Wir empfehlen aber, sich mindestens 4 Monate im Voraus zu bewerben, da die Visabearbeitung 8–12 Wochen dauern kann und die Plätze begrenzt sind.","answer_en":"The deadline is at least 4 weeks before the semester start. We strongly recommend applying at least 4 months in advance, as visa processing takes 8–12 weeks and places are limited."},
-    {"id":9,"category":"Enrollment","tags":["visa","visum","type","art","which visa","welches visum"],"question_de":"Welches Visum brauche ich?","question_en":"What visa do I need?","answer_de":"Sie benötigen ein gültiges Visum für Studiumsvorbereitung (Studienvorbereitungsvisum). Da die Visabearbeitung 8–12 Wochen dauern kann, sollten Sie sich so früh wie möglich bewerben.","answer_en":"You need a valid visa for study preparation (Studienvorbereitungsvisum). Since visa processing can take 8–12 weeks, you should apply as early as possible."},
-    {"id":10,"category":"Enrollment","tags":["uni-assist","vpd","vorzulassung","what is uni-assist","was ist uni-assist"],"question_de":"Was ist uni-assist und warum brauche ich das?","question_en":"What is uni-assist and why do I need it?","answer_de":"uni-assist ist die zentrale Anlaufstelle für die Vorprüfung internationaler Bewerbungen in Deutschland. Sie benötigen entweder eine Vorprüfungsdokumentation (VPD) von uni-assist oder eine bedingte Vorzulassung / Zulassung einer deutschen Hochschule. Weitere Infos unter www.uni-assist.de.","answer_en":"uni-assist is the central service for pre-evaluating international applications in Germany. You need either a pre-evaluation document (VPD) from uni-assist or a conditional pre-admission from a German university. More info at www.uni-assist.de."},
-    {"id":11,"category":"Enrollment","tags":["check school leaving","hochschulzugang prüfen","anabin","schulabschluss","qualify","berechtigt"],"question_de":"Wie prüfe ich, ob mein Schulabschluss zum Studium in Deutschland berechtigt?","question_en":"How do I check if my school qualification is recognized in Germany?","answer_de":"Nutzen Sie die Anabin-Datenbank der Kultusministerkonferenz: https://anabin.kmk.org/db/schulabschluesse-mit-hochschulzugang","answer_en":"Use the Anabin database of the German Standing Conference of the Ministers of Education: https://anabin.kmk.org/db/schulabschluesse-mit-hochschulzugang"},
-    {"id":12,"category":"Semester Dates","tags":["semester start","semesterbeginn","start date","when","wann","begin","anfang"],"question_de":"Wann beginnt das Semester?","question_en":"When does the semester start?","answer_de":"Sommersemester: 1. April. Wintersemester: 1. Oktober.","answer_en":"Summer semester: April 1st. Winter semester: October 1st."},
-    {"id":13,"category":"Semester Dates","tags":["kalender","calendar","termine","2026","dates","ferien","holidays","wichtige termine"],"question_de":"Was sind die wichtigsten Termine 2026?","question_en":"What are the key dates in 2026?","answer_de":"Wichtige Termine 2026: SS 2. Semester: 09.02.2026 | SS 1. Semester: 01.04.2026 | Schriftliche FSP (SS): 26.–30.05.2026 | Mündliche FSP (SS): 02.–08.07.2026 | Zeugnisausgabe (SS): 13.07.2026 | Sommerferien: 27.07.–07.08.2026 | WS 2. Semester: 17.08.2026 | WS 1. Semester: 01.10.2026 | Schriftliche FSP (WS): 14.–18.12.2026 | Weihnachtsferien: 23.12.2026–01.01.2027.","answer_en":"Key dates 2026: SS 2nd semester: 09.02.2026 | SS 1st semester: 01.04.2026 | Written FSP (SS): 26–30.05.2026 | Oral FSP (SS): 02–08.07.2026 | Certificate day (SS): 13.07.2026 | Summer break: 27.07–07.08.2026 | WS 2nd semester: 17.08.2026 | WS 1st semester: 01.10.2026 | Written FSP (WS): 14–18.12.2026 | Christmas break: 23.12.2026–01.01.2027."},
-    {"id":14,"category":"Courses","tags":["kurse","courses","which course","welcher kurs","kurstypen","ti","ww","technik","wirtschaft","options"],"question_de":"Welche Kurse werden angeboten?","question_en":"Which courses are offered?","answer_de":"Es gibt zwei Kurse: (1) TI-Kurs (Technik/Ingenieurwissenschaften) – für technische, naturwissenschaftliche und mathematische Studiengänge. (2) WW-Kurs (Wirtschaftswissenschaften) – für wirtschafts- und sozialwissenschaftliche Studiengänge. Beide dauern 10 Monate mit 30 Stunden pro Woche.","answer_en":"There are two courses: (1) TI course (Technology/Engineering) – for technical, scientific, and mathematical programs. (2) WW course (Economics) – for business and social science programs. Both last 10 months with 30 hours per week."},
-    {"id":15,"category":"Courses","tags":["ti kurs","ti course","fächer ti","subjects ti","engineering subjects","technik fächer"],"question_de":"Was sind die Fächer im TI-Kurs?","question_en":"What subjects are taught in the TI course?","answer_de":"Fächer im TI-Kurs: Deutsch, Mathematik, Physik, Technisches Zeichnen & CAD, Excel/Word/PowerPoint, Englisch. Mögliche Studiengänge nach der FSP: Elektrotechnik, Informatik, Maschinenbau, Wirtschaftsingenieurwesen, Chemie, Medizintechnik, Robotik, Molekulare Biotechnologie, Physik, Mathematik, Ökologie und weitere.","answer_en":"TI course subjects: German, Mathematics, Physics, Technical Drawing & CAD, Excel/Word/PowerPoint, English. Degree programs accessible after FSP: Electrical Engineering, Computer Science, Mechanical Engineering, Industrial Engineering, Chemistry, Medical Technology, Robotics, Molecular Biotechnology, Physics, Mathematics, Ecology, and more."},
-    {"id":16,"category":"Courses","tags":["ww kurs","ww course","fächer ww","subjects ww","wirtschaft fächer","business subjects"],"question_de":"Was sind die Fächer im WW-Kurs?","question_en":"What subjects are taught in the WW course?","answer_de":"Fächer im WW-Kurs: Deutsch, Mathematik, BWL/VWL, Wirtschaftsstatistik, Excel/Word/PowerPoint, Englisch. Mögliche Studiengänge: International Business, BWL, VWL, Bank- und Finanzwesen, Wirtschaftspädagogik, Logistik, Tourismusmanagement, Wirtschaftsinformatik, Versicherungswesen und weitere.","answer_en":"WW course subjects: German, Mathematics, Business & Economics (BWL/VWL), Business Statistics, Excel/Word/PowerPoint, English. Possible degree programs: International Business, Business Administration, Economics, Banking & Finance, Business Education, Logistics, Tourism Management, Business Informatics, Insurance, and more."},
-    {"id":17,"category":"Courses","tags":["which course for me","welcher kurs für mich","course choice","kurswahl","choose","wählen","computer science","informatik","medicine","medizin"],"question_de":"Welchen Kurs soll ich wählen – TI oder WW?","question_en":"Which course should I choose – TI or WW?","answer_de":"Wenn Sie Technik, Ingenieurwesen, Informatik, Naturwissenschaften oder Mathematik studieren möchten, wählen Sie den TI-Kurs. Wenn Sie BWL, VWL, International Business, Logistik, Wirtschaftsinformatik oder ähnliches anstreben, wählen Sie den WW-Kurs. Im Zweifel berät Sie das Sekretariat gerne.","answer_en":"Choose the TI course if you plan to study engineering, computer science, natural sciences, or mathematics. Choose the WW course if you plan to study business administration, economics, international business, logistics, or similar fields. If unsure, the secretariat will be happy to advise you."},
-    {"id":18,"category":"Timetable","tags":["unterrichtszeiten","class times","timetable","stundenplan","uhrzeit","hours","when are classes","wann unterricht"],"question_de":"Wie sind die Unterrichtszeiten?","question_en":"What are the class times?","answer_de":"Unterricht findet in 2-Stunden-Blöcken statt: 08:00–09:30, 09:45–11:15, 12:00–13:30, 13:45–15:15, 15:30–17:00, 17:15–18:45 Uhr.","answer_en":"Classes are in 2-hour blocks: 08:00–09:30, 09:45–11:15, 12:00–13:30, 13:45–15:15, 15:30–17:00, 17:15–18:45."},
-    {"id":19,"category":"Timetable","tags":["how many hours","wie viele stunden","weekly hours","wochenstunden","30 stunden","30 hours"],"question_de":"Wie viele Stunden Unterricht gibt es pro Woche?","question_en":"How many teaching hours are there per week?","answer_de":"Es gibt 30 Unterrichtsstunden pro Woche, aufgeteilt auf Montag bis Freitag.","answer_en":"There are 30 teaching hours per week, spread across Monday to Friday."},
-    {"id":20,"category":"Fees","tags":["gebühren","fees","kosten","cost","preis","price","wie viel kostet","how much","studiengebühr","tuition"],"question_de":"Was kostet das Studienkolleg?","question_en":"What does the Studienkolleg cost?","answer_de":"Anmeldegebühr: 800 €. Studiengebühr gesamt (1. + 2. Semester): 4.400 € (oder 2.200 € pro Semester). Wiederholung 2. Semester: 2.600 €. FSP-Prüfungsgebühr: 300 €.","answer_en":"Registration fee: €800. Total tuition (semesters 1 + 2): €4,400 (or €2,200 per semester). Repeat of 2nd semester: €2,600. FSP exam fee: €300."},
-    {"id":21,"category":"Fees","tags":["payment","zahlung","how to pay","wie bezahlen","installment","rate","teilzahlung","wann zahlen"],"question_de":"Wie und wann zahle ich die Studiengebühren?","question_en":"How and when do I pay the tuition fees?","answer_de":"Die Studiengebühr kann entweder als Gesamtbetrag (4.400 €) oder semesterweise (je 2.200 €) gezahlt werden. Die Zahlung erfolgt nach Erhalt des Aufnahmeantrags, also vor der Einschreibebestätigung.","answer_en":"Tuition can be paid either as a full amount (€4,400) or per semester (€2,200 each). Payment is made after receiving the admission form, before the enrollment confirmation."},
-    {"id":22,"category":"Fees","tags":["cheapest","günstigste","affordable","bezahlbar","preiswert","cheap","germany comparison","vergleich deutschland"],"question_de":"Ist das Studienkolleg Leipzig günstig im Vergleich zu anderen?","question_en":"Is the Studienkolleg Leipzig affordable compared to others?","answer_de":"Ja. Das Private Studienkolleg Leipzig gilt als eines der günstigsten Studienkollegs in Deutschland. Viele Absolventinnen und Absolventen betonen dies ausdrücklich.","answer_en":"Yes. The Private Studienkolleg Leipzig is considered one of the most affordable Studienkollegs in Germany. Many alumni have explicitly highlighted this."},
-    {"id":23,"category":"FSP Exam","tags":["fsp","feststellungsprüfung","what is","was ist","exam","prüfung","assessment"],"question_de":"Was ist die Feststellungsprüfung (FSP)?","question_en":"What is the Feststellungsprüfung (FSP)?","answer_de":"Die FSP ermöglicht den Zugang zum Studium an einer deutschen Hochschule. Sie wird in Hoheit der Hochschule Zittau/Görlitz durchgeführt – die Prüfer kommen dafür nach Leipzig. Das FSP-Zeugnis ist deutschlandweit für alle Fachhochschulen und viele Technische Universitäten anerkannt.","answer_en":"The FSP grants access to studies at German universities. It is conducted under the authority of Hochschule Zittau/Görlitz – examiners travel to Leipzig for this. The FSP certificate is recognized nationwide at all Fachhochschulen and many Technical Universities."},
-    {"id":24,"category":"FSP Exam","tags":["vornoten","pre-grades","admission to fsp","zulassung fsp","minimum grade","mindesnote","note 4","note 5"],"question_de":"Welche Vornoten brauche ich für die Zulassung zur FSP?","question_en":"What pre-grades do I need to be admitted to the FSP?","answer_de":"Für die FSP-Zulassung brauchen Sie in allen Fächern mindestens Note 4, und maximal in einem Fach die Note 5. Die Vornoten der Hauptfächer entstehen aus dem Durchschnitt von 3 Klausuren.","answer_en":"To be admitted to the FSP, you need at least grade 4 in all subjects, with a maximum of one grade 5 allowed. Main subject pre-grades are calculated from the average of 3 written tests."},
-    {"id":25,"category":"FSP Exam","tags":["exam duration","prüfungsdauer","how long exam","wie lange prüfung","minutes","minuten","hours exam"],"question_de":"Wie lange dauern die FSP-Prüfungen?","question_en":"How long do the FSP exams last?","answer_de":"Deutsch: 240 Minuten | Mathematik: 180 Minuten | Physik (nur TI): 180 Minuten | VWL/BWL (nur WW): 180 Minuten | Mündlich: 30 Minuten.","answer_en":"German: 240 minutes | Mathematics: 180 minutes | Physics (TI only): 180 minutes | Economics (WW only): 180 minutes | Oral exam: 30 minutes."},
-    {"id":26,"category":"FSP Exam","tags":["oral exam","mündliche prüfung","when mandatory","wann pflicht","must i","muss ich","oral required"],"question_de":"Wann muss ich eine mündliche Prüfung ablegen?","question_en":"When is an oral exam required?","answer_de":"Mindestens 1 mündliche Prüfung ist Pflicht, maximal 3. Eine mündliche Prüfung ist nötig, wenn der Durchschnitt aus Vornote + schriftlicher Note keine ganze Zahl ergibt (z.B. Vornote 2 + Note 3 = Ø 2,5 → mündlich nötig). Ergibt sich keine Pflicht, können Sie im Fach Ihrer Wahl freiwillig antreten.","answer_en":"At least 1 oral exam is mandatory (maximum 3). An oral exam is required when the average of pre-grade + written exam grade is not a whole number (e.g., pre-grade 2 + grade 3 = avg 2.5 → oral required). If no oral is required, you may choose one subject voluntarily."},
-    {"id":27,"category":"FSP Exam","tags":["where is fsp","wo findet statt","location exam","prüfungsort","zittau","görlitz","leipzig"],"question_de":"Wo findet die FSP statt?","question_en":"Where does the FSP take place?","answer_de":"Sowohl die schriftlichen als auch die mündlichen Prüfungen finden am Studienkolleg in Leipzig statt. Die Prüfer der Hochschule Zittau/Görlitz kommen eigens nach Leipzig.","answer_en":"Both written and oral exams take place at the Studienkolleg in Leipzig. Examiners from Hochschule Zittau/Görlitz travel to Leipzig for the exams."},
-    {"id":28,"category":"FSP Exam","tags":["fail fsp","nicht bestanden","repeat","wiederholen","second chance","zweite chance","what if fail"],"question_de":"Was passiert, wenn ich die FSP nicht bestehe?","question_en":"What happens if I fail the FSP?","answer_de":"Sie können die FSP einmal wiederholen (neue Zulassung erforderlich). Sie können sich von den Fächern befreien lassen, in denen Sie Note 1–3 hatten – ohne Mehrkosten. So konzentrieren Sie sich auf Ihr Problemfach und können kostenlose Nachhilfe nutzen sowie Unterricht doppelt besuchen.","answer_en":"You can repeat the FSP once (new admission required). You can be exempt from subjects where you scored grades 1–3 – at no extra cost. This lets you focus on your weak subjects, use free tutoring, and attend classes twice."},
-    {"id":29,"category":"FSP Exam","tags":["certificate","zeugnis","when receive","wann zeugnis","how long after","results","ergebnis"],"question_de":"Wann bekomme ich mein FSP-Zeugnis?","question_en":"When do I receive my FSP certificate?","answer_de":"Das Zeugnis der Hochschule Zittau/Görlitz erhalten Sie nach den mündlichen Prüfungen, spätestens drei Tage vor Ende der Bewerbungsfrist an einer deutschen Hochschule.","answer_en":"You receive the certificate from Hochschule Zittau/Görlitz after the oral exams, no later than three days before the university application deadline."},
-    {"id":30,"category":"FSP Exam","tags":["consultation","konsultation","before exam","vor prüfung","preparation session","what happens before"],"question_de":"Was ist eine Konsultation vor der Prüfung?","question_en":"What is a consultation session before the exam?","answer_de":"Vor jeder Hauptfachprüfung findet eine Konsultation (Vorbereitungsstunde) statt, in der die Lehrkräfte noch einmal wichtige Themen besprechen und letzte Fragen klären.","answer_en":"Before each main subject exam there is a consultation session where teachers review key topics and answer final questions."},
-    {"id":31,"category":"After FSP","tags":["after fsp","nach fsp","what next","was dann","university","hochschule","study options","studiengänge"],"question_de":"Was kann ich nach der FSP studieren?","question_en":"What can I study after passing the FSP?","answer_de":"Mit dem FSP-Zeugnis erhalten Sie Zugang zu allen deutschen Fachhochschulen. Es gibt 242 Fachhochschulen und über 5.600 Studiengänge in Deutschland. Das Zeugnis ist auch an vielen Technischen Universitäten anerkannt. Das Studienkolleg unterstützt Sie bei der Bewerbung.","answer_en":"With the FSP certificate you can access all German Fachhochschulen. There are 242 Fachhochschulen and over 5,600 degree programs in Germany. The certificate is also recognized at many Technical Universities. The Studienkolleg supports you with applications."},
-    {"id":32,"category":"After FSP","tags":["no study","kein studium","apprenticeship","ausbildung","career","job","beruf","not study"],"question_de":"Was ist, wenn ich nach der FSP nicht studieren möchte?","question_en":"What if I don't want to study after the FSP?","answer_de":"Das Studienkolleg unterstützt Sie bei der Auswahl geeigneter Berufe und der Vorbereitung Ihrer Bewerbungsunterlagen. In Deutschland gibt es 326 anerkannte Ausbildungsberufe.","answer_en":"The Studienkolleg will help you find suitable professions and prepare your application documents. Germany offers 326 recognized apprenticeship and training occupations."},
-    {"id":33,"category":"Language Course","tags":["sprachkurs","language course","german course","deutschkurs","a2","b1","beginner","anfänger"],"question_de":"Gibt es einen Deutschkurs für Bewerber ohne B1?","question_en":"Is there a German language course for applicants without B1?","answer_de":"Ja. Es gibt einen intensiven Deutschkurs von A2 nach B1 (Voraussetzung: A1-Niveau). Dauer: 3 Monate / 300 Stunden, Mo–Fr morgens. Nächster Start: 01.07.2026. Gesamtkosten: 2.250 € (Anmeldegebühr 200 €, Kursgebühr 2.000 €, Materialien 50 €).","answer_en":"Yes. There is an intensive German course from A2 to B1 (prerequisite: A1 level). Duration: 3 months / 300 hours, Mon–Fri mornings. Next start: 01.07.2026. Total cost: €2,250 (registration €200, course fee €2,000, materials €50)."},
-    {"id":34,"category":"Language Course","tags":["after language course","nach sprachkurs","then what","dann was","enroll after","einschreiben danach"],"question_de":"Kann ich nach dem Sprachkurs direkt ins Studienkolleg?","question_en":"Can I enroll at the Studienkolleg directly after the language course?","answer_de":"Ja. Nach erfolgreichem Abschluss des Sprachkurses (B1) sind Sie berechtigt, das Studienkolleg Leipzig oder das Rahn Education Studienkolleg in Halle zu besuchen.","answer_en":"Yes. After successfully completing the language course (B1), you are eligible to attend the Studienkolleg Leipzig or the Rahn Education Studienkolleg in Halle."},
-    {"id":35,"category":"Tutoring","tags":["nachhilfe","tutoring","free help","kostenlos","extra help","support","math help","mathe hilfe"],"question_de":"Gibt es kostenlose Nachhilfe?","question_en":"Is there free tutoring?","answer_de":"Ja. Das Studienkolleg bietet kostenlose Nachhilfe in Deutsch (Grammatik und Phonetik), Mathematik und Physik. Bei schlechten Leistungen können alle Nachhilfekurse belegt werden – Sie können sogar Unterricht doppelt besuchen.","answer_en":"Yes. The Studienkolleg offers free tutoring in German (grammar and phonetics), Mathematics, and Physics. Students with weak performance can attend all tutoring sessions and even take regular classes twice."},
-    {"id":36,"category":"Tutoring","tags":["how to pass","wie bestehen","tips","tipps","advice","ratschlag","study tips","lerntipps"],"question_de":"Wie kann ich die FSP sicher bestehen?","question_en":"How can I make sure I pass the FSP?","answer_de":"Die wichtigsten Faktoren: regelmäßige Anwesenheit im Unterricht, Hausaufgaben erledigen, kostenlose Nachhilfe nutzen. Das Studienkolleg unterstützt Sie aktiv. Nur Lernen und Wissen geben echte Sicherheit!","answer_en":"The key factors are: attending classes regularly, completing homework, and making use of free tutoring. The Studienkolleg actively supports you. Only learning and knowledge give you real confidence!"},
-    {"id":37,"category":"Accommodation","tags":["wohnung","accommodation","housing","room","zimmer","where to live","wo wohnen","help finding","suche"],"question_de":"Helft ihr bei der Wohnungssuche?","question_en":"Do you help with finding accommodation?","answer_de":"Ja. Das Studienkolleg unterstützt bei der Wohnungssuche. Partner-WGs und Wohnheime mit Preisen ab ca. 350–650 €/Monat stehen zur Verfügung. Wir empfehlen frühzeitig zu suchen, da die Nachfrage zu Semesterstart hoch ist.","answer_en":"Yes. The Studienkolleg supports accommodation searches. Partner shared apartments and student residences are available from approximately €350–€650/month. We recommend starting your search early, as demand is high at semester start."},
-    {"id":38,"category":"Accommodation","tags":["cheapest room","günstig zimmer","affordable housing","günstige unterkunft","350","wg","shared flat"],"question_de":"Was sind die günstigsten Wohnmöglichkeiten in Leipzig?","question_en":"What are the most affordable housing options in Leipzig?","answer_de":"Die günstigsten Optionen: Karg Consulting WG (ab 350 €/Monat, alle Kosten inklusive), Krabbes WG (ab 366,83 €/Monat inkl.), WGs über wg-gesucht.de oder studenten-wg.de (ab ca. 350 €/Monat). Zur Überbrückung: Hostels ab ca. 20 €/Nacht.","answer_en":"Most affordable options: Karg Consulting shared flat (from €350/month all-inclusive), Krabbes shared flat (from €366.83/month all-inclusive), shared flats via wg-gesucht.de or studenten-wg.de (from approx. €350/month). For temporary stays: hostels from approx. €20/night."},
-    {"id":39,"category":"Accommodation","tags":["krabbes","partner wohnheim","partner housing","how to contact","kontakt wohnung"],"question_de":"Wie kontaktiere ich Krabbes für ein Zimmer?","question_en":"How do I contact Krabbes for a room?","answer_de":"Senden Sie eine E-Mail an studentenzimmer@krabbes-leipzig.de mit Ihrem vollständigen Namen und einer Kopie Ihrer Immatrikulationsbescheinigung des Studienkollegs. Zimmer: 17–31 m², ab 366,83 €/Monat, 30 min vom Kolleg.","answer_en":"Send an email to studentenzimmer@krabbes-leipzig.de with your full name and a copy of your enrollment certificate from the Studienkolleg. Rooms: 17–31 m², from €366.83/month, 30 min from campus."},
-    {"id":40,"category":"Health Insurance","tags":["krankenversicherung","health insurance","required","pflicht","mandatory","need insurance","versicherung"],"question_de":"Brauche ich eine Krankenversicherung?","question_en":"Do I need health insurance?","answer_de":"Ja, Pflicht. Für das Studienkolleg empfiehlt sich EDUCARE24 (privat, erfüllt Visaanforderungen). Für das spätere Hochschulstudium ist eine gesetzliche Krankenversicherung (z.B. BARMER oder TK) vorgeschrieben.","answer_en":"Yes, it is mandatory. For the Studienkolleg, EDUCARE24 is recommended (private, meets visa requirements). For later university studies, statutory health insurance (e.g. BARMER or TK) is required."},
-    {"id":41,"category":"Health Insurance","tags":["barmer","techniker krankenkasse","tk","statutory","gesetzlich","contact insurance","versicherung kontakt"],"question_de":"Wie kontaktiere ich BARMER oder TK für Krankenversicherung?","question_en":"How do I contact BARMER or TK for health insurance?","answer_de":"BARMER: Mario Linack, mario.linack@barmer.de, +49 160 90456629. Techniker Krankenkasse (TK): Dominik Moch, dominik.moch@tk.de, +49 160 482 6545.","answer_en":"BARMER: Mario Linack, mario.linack@barmer.de, +49 160 90456629. Techniker Krankenkasse (TK): Dominik Moch, dominik.moch@tk.de, +49 160 482 6545."},
-    {"id":42,"category":"Scholarship","tags":["stipendium","scholarship","free","kostenlos","funding","förderung","full scholarship","vollstipendium"],"question_de":"Gibt es Stipendien?","question_en":"Are there scholarships available?","answer_de":"Ja. Es gibt ein Vollstipendium für ein Jahr an der Hochschule Zittau/Görlitz (Semestergebühren + Unterkunft). Voraussetzungen: FSP-Note 2,5 oder besser, regelmäßige Teilnahme, gute Semesternoten (2,5+). Bewerbung bis Ende Juni mit Anschreiben, Lebenslauf und persönlichem Auswahlgespräch.","answer_en":"Yes. There is a full scholarship for one year at Hochschule Zittau/Görlitz (semester fees + accommodation). Requirements: FSP grade 2.5 or better, regular attendance, good semester grades (2.5+). Apply by end of June with cover letter, CV, and personal interview."},
-    {"id":43,"category":"Financial Support","tags":["bafög","financial aid","finanzielle unterstützung","refugee","asyl","flüchtling","support money"],"question_de":"Kann ich BAföG beantragen?","question_en":"Can I apply for BAföG financial aid?","answer_de":"Ja – für anerkannte Asylberechtigte, Flüchtlinge nach der Genfer Konvention und subsidiär Schutzberechtigte. Der Antrag wird beim Amt für Ausbildungsförderung Leipzig gestellt. Das Studienkolleg stellt die nötige Einschreibbestätigung aus.","answer_en":"Yes – for recognized asylum seekers, Geneva Convention refugees, and those with subsidiary protection. Applications are filed with the Leipzig educational support office. The Studienkolleg provides the required enrollment certificate."},
-    {"id":44,"category":"APS","tags":["aps","aps certificate","china","india","vietnam","indien","who needs aps","wer braucht aps"],"question_de":"Wer braucht eine APS-Bescheinigung?","question_en":"Who needs an APS certificate?","answer_de":"Nur Bewerber aus Indien, Vietnam und China benötigen eine APS-Bescheinigung. Alle anderen Nationalitäten brauchen diese in der Regel nicht.","answer_en":"Only applicants from India, Vietnam, and China need an APS certificate. All other nationalities generally do not require one."},
-    {"id":45,"category":"Partner University","tags":["partner hochschule","partner university","zittau","görlitz","hszg","study after kolleg","studieren danach"],"question_de":"Was ist die Partner-Hochschule Zittau/Görlitz?","question_en":"What is the partner university Zittau/Görlitz?","answer_de":"Die Hochschule Zittau/Görlitz (HSZG) ist An-Institutshochschule des Studienkollegs. Sie liegt im Dreiländereck Deutschland–Polen–Tschechien und bietet über 40 Bachelor-, Diplom- und Masterstudiengänge in Technik und Wirtschaft. Über 120 Hochschulpartnerschaften weltweit. Wintersemesterbewerbung direkt über das Studienkolleg möglich.","answer_en":"Hochschule Zittau/Görlitz (HSZG) is the affiliated partner university. Located in the tripoint region of Germany, Poland, and Czech Republic, it offers 40+ Bachelor, Diploma, and Master programs in engineering and economics with 120+ global university partnerships. Winter semester applications can be handled directly through the Studienkolleg."},
-    {"id":46,"category":"Team","tags":["team","teachers","lehrer","dozenten","staff","who teaches","wer unterrichtet","personal"],"question_de":"Wer unterrichtet am Studienkolleg?","question_en":"Who teaches at the Studienkolleg?","answer_de":"Das Kolleg hat ein erfahrenes Team: Mathematik: Stefan Gerlach, Dr. Heinz-Josef Juniel, Anke-Regina Fröb, Jan Kremkow, Max Vöcklinghaus. Physik: Christine Fischer, Jan Kremkow. Deutsch: Siri Raschke (Fachbereichsleiterin), Jessica Reuter, Sylvia Schaaf. Englisch: Siri Raschke. BWL/VWL: Dr. Juniel, Max Vöcklinghaus. Informatik: Steffen Kutscha, Max Vöcklinghaus. TZ/CAD: Anke-Regina Fröb. Sekretariat: Katrin Tondera.","answer_en":"The college has an experienced team: Mathematics: Stefan Gerlach, Dr. Heinz-Josef Juniel, Anke-Regina Fröb, Jan Kremkow, Max Vöcklinghaus. Physics: Christine Fischer, Jan Kremkow. German: Siri Raschke (head), Jessica Reuter, Sylvia Schaaf. English: Siri Raschke. Economics: Dr. Juniel, Max Vöcklinghaus. Computer Science: Steffen Kutscha, Max Vöcklinghaus. Technical Drawing/CAD: Anke-Regina Fröb. Secretary: Katrin Tondera."},
-    {"id":47,"category":"Contact","tags":["kontakt","contact","address","adresse","phone","telefon","email","whatsapp","office hours","öffnungszeiten"],"question_de":"Wie kann ich das Studienkolleg kontaktieren?","question_en":"How can I contact the Studienkolleg?","answer_de":"Adresse: Ludwig-Erhard-Str. 57a, 04103 Leipzig. Telefon: +49 341 3939-5310. WhatsApp: +49 162 262-8173. E-Mail: studienkolleg.leipzig@rahn.education. Öffnungszeiten: Mo–Fr 08:00–15:30 Uhr.","answer_en":"Address: Ludwig-Erhard-Str. 57a, 04103 Leipzig. Phone: +49 341 3939-5310. WhatsApp: +49 162 262-8173. Email: studienkolleg.leipzig@rahn.education. Office hours: Mon–Fri 08:00–15:30."},
-    {"id":48,"category":"Leipzig","tags":["leipzig","city","stadt","why leipzig","warum leipzig","leben","life","student city","studentenstadt"],"question_de":"Warum Leipzig?","question_en":"Why Leipzig?","answer_de":"Leipzig ist eine junge und lebenswerte Studentenstadt mit vielen Freizeitangeboten, moderaten Lebenshaltungskosten und günstigen Mietpreisen. Das Studienkolleg liegt nur 10 Gehminuten vom Stadtzentrum entfernt und ist sehr gut mit öffentlichen Verkehrsmitteln erschlossen.","answer_en":"Leipzig is a young, vibrant student city with many leisure activities, moderate living costs, and affordable rents. The Studienkolleg is just a 10-minute walk from the city center and is very well connected by public transport."},
-    {"id":49,"category":"Leipzig","tags":["how to get","how to reach","anfahrt","directions","public transport","öpnv","tram","straßenbahn","bus"],"question_de":"Wie komme ich zum Studienkolleg?","question_en":"How do I get to the Studienkolleg?","answer_de":"Das Studienkolleg befindet sich in der Ludwig-Erhard-Str. 57a, 04103 Leipzig – ca. 10 Gehminuten vom Hauptbahnhof Leipzig und vom Stadtzentrum entfernt. Sehr gute Anbindung an öffentliche Verkehrsmittel.","answer_en":"The Studienkolleg is located at Ludwig-Erhard-Str. 57a, 04103 Leipzig – approximately 10 minutes on foot from Leipzig Hauptbahnhof and the city center. Excellent public transport connections."},
-    {"id":50,"category":"Room Rental","tags":["raumvermietung","room rental","seminar room","event","veranstaltung","weekend","wochenende","rent room"],"question_de":"Können externe Gruppen Seminarräume mieten?","question_en":"Can external groups rent seminar rooms?","answer_de":"Ja, am Wochenende sind die Seminarräume mietbar. Preise: Hörsaal (60 Personen): 300 €/Tag | Raum 2–3 (30 Personen): 150 €/Tag | Raum 4 (40 Personen): 250 €/Tag | Raum 5 (30 Personen): 200 €/Tag. Alle Räume mit Beamer und Kreidetafel, digitale Tafel auf Wunsch. Kontakt: +49 341 3939-5311 oder studienkolleg.leipzig@rahn.education.","answer_en":"Yes, seminar rooms are available for external rental on weekends. Prices: Lecture hall (60 people): €300/day | Rooms 2–3 (30 people): €150/day | Room 4 (40 people): €250/day | Room 5 (30 people): €200/day. All rooms have a projector and chalkboard; digital board available on request. Contact: +49 341 3939-5311 or studienkolleg.leipzig@rahn.education."},
-    {"id":51,"category":"Culture & Values","tags":["values","werte","international","diversity","vielfalt","tolerance","toleranz","atmosphere","atmosphäre"],"question_de":"Welche Werte pflegt das Studienkolleg?","question_en":"What values does the Studienkolleg stand for?","answer_de":"Das Studienkolleg steht für Internationalität, Toleranz, Fairness und humanistische Werte. Das Team setzt sich aus verschiedenen Nationalitäten zusammen. Alle Studierenden unabhängig von Nationalität, Religion und Weltanschauung sind herzlich willkommen. Das Motto: 'Jeder bekommt seine Chance!'","answer_en":"The Studienkolleg stands for internationality, tolerance, fairness, and humanistic values. The team consists of multiple nationalities. All students regardless of nationality, religion, or worldview are warmly welcome. The motto: 'Everyone gets their chance!'"},
-    {"id":52,"category":"Abbreviations","tags":["abkürzungen","abbreviations","kürzel","kurs code","was bedeutet","what does mean","l-sk","ti1","ww2"],"question_de":"Was bedeuten die Kurs-Abkürzungen wie 'L-SK 24S – T1'?","question_en":"What do course abbreviations like 'L-SK 24S – T1' mean?","answer_de":"L = Leipzig, SK = Studienkolleg, 24 = Startjahr 2025 (Jahreszahl), S = Sommer (oder W = Winter), T1 = Technik einjährig (oder T2 = halbjährig, W1 = Wirtschaft einjährig, W2 = halbjährig). Beispiel: L-SK 24S – T1 = 1. Semester Technik-Kurs, Start Sommer 2025 in Leipzig.","answer_en":"L = Leipzig, SK = Studienkolleg, 24 = start year 2025, S = Summer (W = Winter), T1 = Technology one-year (T2 = half-year, W1 = Economics one-year, W2 = half-year). Example: L-SK 24S – T1 = 1st semester Technology course, summer 2025 start in Leipzig."}
-  ];
+  const WORKER_URL = 'https://stk-chatbot.maksheinrich.workers.dev/';
+  const messagesEl = document.getElementById('messages');
+  const inputEl = document.getElementById('userInput');
+  const sendBtn = document.getElementById('sendBtn');
+  const chipsEl = document.getElementById('chips');
+  let history = [];
+  let sending = false;
 
-  const quickReplyChips = [
-    { de: "Anmeldung", en: "Enrollment" },
-    { de: "Kosten", en: "Fees" },
-    { de: "FSP", en: "FSP Exam" },
-    { de: "Kurse", en: "Courses" },
-    { de: "Termine", en: "Dates" }
-  ];
+  inputEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !sending) send();
+  });
 
-  const messagesArea = document.getElementById("messagesArea");
-  const userInput = document.getElementById("userInput");
-  const sendButton = document.getElementById("sendButton");
-
-  let isGerman = null;
-  let hasShownWelcome = false;
-
-  function detectLanguage(text) {
-    const germanWords = ["ist", "was", "wie", "wann", "wo", "welch", "brauche", "kosten", "kontakt", "die", "das", "ein", "zu", "von"];
-    const englishWords = ["is", "what", "how", "when", "where", "which", "need", "cost", "contact", "the", "a", "to", "of"];
-
-    const textLower = text.toLowerCase();
-    const germanCount = germanWords.filter(w => textLower.includes(w)).length;
-    const englishCount = englishWords.filter(w => textLower.includes(w)).length;
-
-    if (germanCount > englishCount) return "de";
-    if (englishCount > germanCount) return "en";
-    return isGerman ? "de" : "en";
+  function ask(text) {
+    inputEl.value = text;
+    send();
   }
 
-  function tokenize(text) {
-    return text.toLowerCase().split(/\s+/).filter(t => t.length > 0);
+  function addMsg(role, text) {
+    const div = document.createElement('div');
+    div.className = `msg ${role}`;
+    const avatar = role === 'bot' ? 'STK' : 'Du';
+    div.innerHTML = `
+      <div class="msg-avatar">${avatar}</div>
+      <div class="msg-bubble">${formatText(text)}</div>
+    `;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 
-  function findBestMatch(userText) {
-    const tokens = tokenize(userText);
-    let bestMatch = null;
-    let bestScore = 0;
-
-    for (const faq of faqData) {
-      let matchCount = 0;
-      for (const tag of faq.tags) {
-        if (tokens.some(token => tag.includes(token) || token.includes(tag))) {
-          matchCount++;
-        }
-      }
-
-      if (matchCount > bestScore) {
-        bestScore = matchCount;
-        bestMatch = faq;
-      }
-    }
-
-    return bestScore > 0 ? bestMatch : null;
+  function formatText(text) {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/\n- /g, '<li>')
+      .replace(/\n(\d+)\. /g, '<li>')
+      .replace(/\n/g, '<br>')
+      .replace(/^/, '<p>')
+      .replace(/$/, '</p>');
   }
 
-  function showWelcome() {
-    const welcomeText = isGerman
-      ? "Willkommen! Ich bin der Studienkolleg-Assistent. Stellen Sie mir eine Frage zu Anmeldung, Kursen, Gebühren oder der FSP."
-      : "Welcome! I'm the Studienkolleg assistant. Ask me about enrollment, courses, fees, or the FSP.";
+  function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'msg bot';
+    div.id = 'typing';
+    div.innerHTML = `
+      <div class="msg-avatar">STK</div>
+      <div class="typing"><span></span><span></span><span></span></div>
+    `;
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
 
-    const messageDiv = document.createElement("div");
-    messageDiv.className = "message bot";
-    messageDiv.innerHTML = `<div class="message-content">${welcomeText}</div>`;
-    messagesArea.appendChild(messageDiv);
+  function hideTyping() {
+    const el = document.getElementById('typing');
+    if (el) el.remove();
+  }
 
-    const chipsContainer = document.createElement("div");
-    chipsContainer.className = "chips-container";
-    quickReplyChips.forEach(chip => {
-      const chipBtn = document.createElement("button");
-      chipBtn.className = "chip";
-      chipBtn.textContent = isGerman ? chip.de : chip.en;
-      chipBtn.addEventListener("click", () => {
-        userInput.value = chipBtn.textContent;
-        handleSend();
+  async function send() {
+    const text = inputEl.value.trim();
+    if (!text || sending) return;
+
+    sending = true;
+    sendBtn.disabled = true;
+    inputEl.value = '';
+
+    if (chipsEl) chipsEl.style.display = 'none';
+
+    addMsg('user', text);
+    showTyping();
+
+    history.push({ role: 'user', parts: [{ text }] });
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history: history.slice(-10) }),
       });
-      chipsContainer.appendChild(chipBtn);
-    });
 
-    const chipWrapper = document.createElement("div");
-    chipWrapper.className = "message bot";
-    chipWrapper.appendChild(chipsContainer);
-    messagesArea.appendChild(chipWrapper);
+      const data = await res.json();
+      hideTyping();
 
-    scrollToBottom();
-  }
+      const reply = data.reply || 'Entschuldigung, es gab ein Problem.';
+      addMsg('bot', reply);
 
-  function showTypingIndicator() {
-    const messageDiv = document.createElement("div");
-    messageDiv.className = "message bot";
-    messageDiv.id = "typing-indicator";
-    messageDiv.innerHTML = '<div class="typing-indicator"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
-    messagesArea.appendChild(messageDiv);
-    scrollToBottom();
-  }
-
-  function removeTypingIndicator() {
-    const typing = document.getElementById("typing-indicator");
-    if (typing) typing.remove();
-  }
-
-  function scrollToBottom() {
-    messagesArea.scrollTop = messagesArea.scrollHeight;
-  }
-
-  function addMessage(text, isUser) {
-    const messageDiv = document.createElement("div");
-    messageDiv.className = `message ${isUser ? "user" : "bot"}`;
-    messageDiv.innerHTML = `<div class="message-content">${text}</div>`;
-    messagesArea.appendChild(messageDiv);
-    scrollToBottom();
-  }
-
-  function handleSend() {
-    const text = userInput.value.trim();
-    if (!text) return;
-
-    if (!hasShownWelcome) {
-      const detected = detectLanguage(text);
-      isGerman = detected === "de";
-      hasShownWelcome = true;
-      messagesArea.innerHTML = "";
-      showWelcome();
+      history.push({ role: 'model', parts: [{ text: reply }] });
+    } catch (err) {
+      hideTyping();
+      addMsg('bot', 'Verbindung fehlgeschlagen. Bitte versuche es erneut.');
     }
 
-    addMessage(text, true);
-    userInput.value = "";
-
-    setTimeout(() => {
-      showTypingIndicator();
-
-      setTimeout(() => {
-        removeTypingIndicator();
-
-        const match = findBestMatch(text);
-        if (match) {
-          const answer = isGerman ? match.answer_de : match.answer_en;
-          addMessage(answer, false);
-        } else {
-          const fallback = isGerman
-            ? "Entschuldigen Sie, ich habe keine passende Antwort gefunden. Bitte kontaktieren Sie das Sekretariat: studienkolleg.leipzig@rahn.education oder +49 341 3939-5310."
-            : "Sorry, I couldn't find a matching answer. Please contact the secretariat: studienkolleg.leipzig@rahn.education or +49 341 3939-5310.";
-          addMessage(fallback, false);
-        }
-      }, 300);
-    }, 0);
+    sending = false;
+    sendBtn.disabled = false;
+    inputEl.focus();
   }
-
-  sendButton.addEventListener("click", handleSend);
-  userInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") handleSend();
-  });
-
-  window.addEventListener("load", () => {
-    isGerman = null;
-    showWelcome();
-  });
 </script>
