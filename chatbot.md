@@ -28,7 +28,7 @@ title: Chatbot
     --kinu: #e8e3d8;
     --ishi: #b8b3a8;
     --sugi: #8a8578;
-    --beni: #c45c3e;
+    --beni: #9e3a1e;
     --matcha: #7a8c6e;
     --ai: #5b7a8c;
     --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -131,8 +131,11 @@ title: Chatbot
 
   .msg.user .msg-bubble {
     background: var(--beni);
-    color: white;
+    color: #ffffff;
     border-bottom-right-radius: 4px;
+    font-weight: 500;
+    font-size: 0.92rem;
+    text-shadow: 0 0.5px 0 rgba(0,0,0,0.1);
   }
 
   .msg-bubble p { margin: 0 0 8px; }
