@@ -9,6 +9,16 @@ title: Chatbot
     display: none !important;
   }
 
+  @media (max-width: 600px) {
+    .site-header {
+      display: none !important;
+    }
+    .page-content {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+  }
+
   .chatbot-wrap {
     --sumi: #1a1a18;
     --kuro: #2c2c28;
@@ -101,7 +111,7 @@ title: Chatbot
   }
 
   .msg.user .msg-avatar {
-    background: var(--ai);
+    background: var(--beni);
     color: white;
   }
 
@@ -120,8 +130,8 @@ title: Chatbot
   }
 
   .msg.user .msg-bubble {
-    background: var(--hai);
-    color: var(--shiro);
+    background: var(--beni);
+    color: white;
     border-bottom-right-radius: 4px;
   }
 
@@ -195,7 +205,7 @@ title: Chatbot
   }
 
   .input-area input:focus {
-    border-color: var(--ai);
+    border-color: var(--beni);
   }
 
   .input-area input::placeholder {
@@ -207,7 +217,7 @@ title: Chatbot
     height: 44px;
     border: none;
     border-radius: 50%;
-    background: var(--ai);
+    background: var(--beni);
     color: white;
     cursor: pointer;
     display: flex;
@@ -235,8 +245,8 @@ title: Chatbot
   /* Mobile Responsive */
   @media (max-width: 600px) {
     .chatbot-wrap {
-      height: calc(100vh - 60px);
-      height: calc(100dvh - 60px);
+      height: 100vh;
+      height: 100dvh;
     }
 
     .chat-header {
