@@ -120,8 +120,8 @@ title: Chatbot
   }
 
   .msg.user .msg-bubble {
-    background: var(--ai);
-    color: white;
+    background: var(--hai);
+    color: var(--shiro);
     border-bottom-right-radius: 4px;
   }
 
@@ -230,6 +230,104 @@ title: Chatbot
     padding: 8px;
     font-size: 0.8rem;
     color: var(--beni);
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 600px) {
+    .chatbot-wrap {
+      height: calc(100vh - 60px);
+      height: calc(100dvh - 60px);
+    }
+
+    .chat-header {
+      padding: 16px 16px 12px;
+    }
+
+    .chat-header h1 {
+      font-size: 1.3rem;
+    }
+
+    .chat-header p {
+      font-size: 0.78rem;
+    }
+
+    .messages {
+      padding: 16px 12px;
+      gap: 12px;
+    }
+
+    .msg {
+      gap: 8px;
+    }
+
+    .msg-avatar {
+      width: 28px;
+      height: 28px;
+      font-size: 0.65rem;
+    }
+
+    .msg-bubble {
+      max-width: 85%;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .chips {
+      padding: 0 12px 10px;
+      gap: 6px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+    }
+
+    .input-area {
+      padding: 12px 12px 16px;
+      gap: 8px;
+    }
+
+    .input-area input {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+    }
+
+    .input-area button {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+  }
+
+  /* Very small screens */
+  @media (max-width: 380px) {
+    .msg-avatar {
+      display: none;
+    }
+
+    .msg-bubble {
+      max-width: 95%;
+    }
+
+    .chip {
+      padding: 5px 10px;
+      font-size: 0.7rem;
+    }
+  }
+
+  /* Fix iOS input zoom */
+  @media (max-width: 600px) {
+    .input-area input {
+      font-size: 16px;
+    }
+  }
+
+  /* Safe area for notched phones */
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .input-area {
+      padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    }
   }
 
   @keyframes fadeIn {
