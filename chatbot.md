@@ -111,8 +111,13 @@ title: Chatbot
   }
 
   .msg.user .msg-avatar {
-    background: var(--beni);
-    color: white;
+    background: #2c2c28;
+    color: #f0ece4;
+  }
+
+  html[data-theme="dark"] .msg.user .msg-avatar {
+    background: #f0ece4;
+    color: #2c2c28;
   }
 
   .msg-bubble {
@@ -130,12 +135,14 @@ title: Chatbot
   }
 
   .msg.user .msg-bubble {
-    background: var(--beni);
-    color: #ffffff;
+    background: #2c2c28;
+    color: #f7f5f0;
     border-bottom-right-radius: 4px;
-    font-weight: 500;
-    font-size: 0.92rem;
-    text-shadow: 0 0.5px 0 rgba(0,0,0,0.1);
+  }
+
+  html[data-theme="dark"] .msg.user .msg-bubble {
+    background: #f0ece4;
+    color: #1a1a18;
   }
 
   .msg-bubble p { margin: 0 0 8px; }
