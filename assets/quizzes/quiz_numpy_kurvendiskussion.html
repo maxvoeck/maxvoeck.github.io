@@ -572,6 +572,11 @@
         let wrongSet = new Set();
         let answeredCorrectly = new Set();
 
+        function escapeHtml(str) {
+            if (!str) return str;
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
         function initQuiz() {
             queue = quizData.map((_, i) => i);
             currentIndex = 0;
@@ -597,11 +602,12 @@
                 <div class="question-container active">
                     <div class="question-number">${isRetry ? '🔁 Wiederholung – ' : ''}Frage ${totalAnswered + 1} · ${answeredCorrectly.size} von ${quizData.length} gemeistert</div>
                     <div class="question-text">${q.question}</div>
+                    ${q.code ? `<div class="code-block">${escapeHtml(q.code)}</div>` : ""}
                     <div class="options" id="options-current">
                         ${q.options.map((opt, i) => `
                             <div class="option" onclick="selectOption(${qIdx}, ${i})">
                                 <div class="option-letter">${String.fromCharCode(65 + i)}</div>
-                                <div class="option-text">${opt}</div>
+                                <div class="option-text">${escapeHtml(opt)}</div>
                             </div>
                         `).join('')}
                     </div>
