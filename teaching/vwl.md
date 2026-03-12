@@ -697,7 +697,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </svg>
         <div class="ma-progress-text" id="progressText">0%</div>
       </div>
-      <div class="ma-progress-label"><span id="completedCount">0</span> von 13 abgeschlossen</div>
+      <div class="ma-progress-label"><span id="completedCount">0</span> von 14 abgeschlossen</div>
     </div>
   </div>
 
@@ -904,13 +904,27 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
       </div>
 
+      <div class="ma-card" data-module="m14">
+        <div class="ma-card-header">
+          <span class="ma-card-number">14</span>
+          <h4>Inflation & Preisniveaustabilität</h4>
+        </div>
+        <div class="ma-actions">
+          <a href="/assets/pdfs/VWL_14_Preisniveau.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+          <a href="/assets/quizzes/quiz_preisniveau.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+          <button class="ma-check" onclick="toggleModule('m14', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <!-- Footer -->
   <div class="ma-footer">
     <div class="ma-footer-text">
-      <strong>13 Module</strong> · Mikroökonomie & Makroökonomie
+      <strong>14 Module</strong> · Mikroökonomie & Makroökonomie
     </div>
     <div class="ma-footer-actions">
       <a href="/teaching/" class="ma-btn ma-btn--secondary">← Übersicht</a>
@@ -922,7 +936,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 <script>
 const STORAGE_KEY = 'vwl-progress';
-const TOTAL_MODULES = 13;
+const TOTAL_MODULES = 14;
 const CIRCUMFERENCE = 339.292;
 
 function getProgress() {

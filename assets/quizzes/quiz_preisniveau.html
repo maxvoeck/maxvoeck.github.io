@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Inflation & Preisniveaustabilität</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+        }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+        }
+.quiz-container {
+background: white;
+border-radius: 16px;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+max-width: 800px;
+width: 100%;
+overflow: hidden;
+        }
+.quiz-header {
+background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+color: white;
+padding: 2rem;
+text-align: center;
+        }
+.quiz-header h1 {
+font-size: 1.8rem;
+margin-bottom: 0.5rem;
+        }
+.quiz-header p {
+opacity: 0.9;
+font-size: 1rem;
+        }
+.progress-bar {
+background: #e0e0e0;
+height: 8px;
+position: relative;
+        }
+.progress-fill {
+background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+height: 100%;
+width: 0%;
+transition: width 0.3s ease;
+        }
+.quiz-content {
+padding: 2rem;
+        }
+.question-container {
+display: none;
+        }
+.question-container.active {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+@keyframes fadeIn {
+            from {
+opacity: 0;
+transform: translateY(20px);
+            }
+            to {
+opacity: 1;
+transform: translateY(0);
+            }
+        }
+.question-number {
+color: #667eea;
+font-weight: 600;
+font-size: 0.9rem;
+margin-bottom: 0.5rem;
+        }
+.question-text {
+font-size: 1.3rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1.5rem;
+line-height: 1.5;
+        }
+.options {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+        }
+.option {
+background: #f8f9fa;
+border: 2px solid #e0e0e0;
+border-radius: 12px;
+padding: 1rem 1.5rem;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 1rem;
+        }
+.option:hover {
+background: #f0f1f3;
+border-color: #667eea;
+transform: translateX(5px);
+        }
+.option-letter {
+background: #667eea;
+color: white;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+flex-shrink: 0;
+        }
+.option.selected {
+background: #e8eaf6;
+border-color: #667eea;
+        }
+.option.correct {
+background: #d4edda;
+border-color: #28a745;
+        }
+.option.correct .option-letter {
+background: #28a745;
+        }
+.option.incorrect {
+background: #f8d7da;
+border-color: #dc3545;
+        }
+.option.incorrect .option-letter {
+background: #dc3545;
+        }
+.option.disabled {
+cursor: not-allowed;
+opacity: 0.7;
+        }
+.feedback {
+margin-top: 1.5rem;
+padding: 1rem;
+border-radius: 8px;
+display: none;
+        }
+.feedback.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.feedback.correct {
+background: #d4edda;
+border-left: 4px solid #28a745;
+color: #155724;
+        }
+.feedback.incorrect {
+background: #f8d7da;
+border-left: 4px solid #dc3545;
+color: #721c24;
+        }
+.feedback-title {
+font-weight: 600;
+margin-bottom: 0.5rem;
+        }
+.controls {
+margin-top: 2rem;
+display: flex;
+justify-content: space-between;
+gap: 1rem;
+        }
+.btn {
+padding: 0.8rem 2rem;
+border: none;
+border-radius: 8px;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+        }
+.btn-primary {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+        }
+.btn-primary:hover:not(:disabled) {
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+.btn-secondary {
+background: #f8f9fa;
+color: #374151;
+border: 2px solid #e0e0e0;
+        }
+.btn-secondary:hover:not(:disabled) {
+background: #e9ecef;
+        }
+.btn:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+        }
+.results-container {
+display: none;
+text-align: center;
+padding: 2rem;
+        }
+.results-container.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.score-circle {
+width: 200px;
+height: 200px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 2rem auto;
+color: white;
+box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+.score-number {
+font-size: 3rem;
+font-weight: 700;
+        }
+.score-label {
+font-size: 1rem;
+opacity: 0.9;
+        }
+.result-message {
+font-size: 1.5rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1rem;
+        }
+.result-details {
+background: #f8f9fa;
+border-radius: 12px;
+padding: 1.5rem;
+margin: 2rem 0;
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+gap: 1rem;
+        }
+.result-stat {
+text-align: center;
+        }
+.result-stat-number {
+font-size: 2rem;
+font-weight: 700;
+color: #667eea;
+        }
+.result-stat-label {
+font-size: 0.9rem;
+color: #666;
+margin-top: 0.3rem;
+        }
+@media (max-width: 768px) {
+body {
+padding: 10px;
+            }
+.quiz-header h1 {
+font-size: 1.4rem;
+            }
+.question-text {
+font-size: 1.1rem;
+            }
+.controls {
+flex-direction: column;
+            }
+.btn {
+width: 100%;
+            }
+        }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+<div class="quiz-header">
+<h1>💶 Inflation & Preisniveaustabilität</h1>
+<p>Ursachen, Messung & geldpolitische Reaktion</p>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="quiz-content">
+<div id="questionsContainer"></div>
+<div class="results-container" id="resultsContainer">
+<div class="result-message" id="resultMessage"></div>
+<div class="score-circle">
+<div class="score-number" id="scoreNumber">0%</div>
+<div class="score-label">Erreicht</div>
+</div>
+<div class="result-details">
+<div class="result-stat">
+<div class="result-stat-number" id="correctCount">0</div>
+<div class="result-stat-label">Gemeistert</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="incorrectCount">0</div>
+<div class="result-stat-label">Wiederholt</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="totalCount">0</div>
+<div class="result-stat-label">Gesamt</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+</div>
+</div>
+</div>
+<script>
+const quizData = [
+            {
+question: "Was ist Inflation?",
+options: [
+"Ein einmaliger Preisanstieg bei einem einzelnen Gut",
+"Ein anhaltender Anstieg des allgemeinen Preisniveaus einer Volkswirtschaft",
+"Eine Senkung der Steuern durch den Staat",
+"Ein Anstieg der Löhne in einem Unternehmen"
+                ],
+correct: 1,
+explanation: "Inflation ist ein anhaltender Anstieg des allgemeinen Preisniveaus. Nicht einzelne Preise steigen, sondern das allgemeine Niveau. Geld verliert dabei an Kaufkraft. Das Gegenteil ist Deflation (sinkendes Preisniveau)."
+            },
+            {
+question: "Wie lautet die Formel zur Berechnung der Inflationsrate?",
+options: [
+"π = Pt + Pt-1",
+"π = (Pt - Pt-1) / Pt-1 × 100%",
+"π = Pt × Pt-1 / 100",
+"π = Pt-1 / Pt × 100%"
+                ],
+correct: 1,
+explanation: "Die Inflationsrate π berechnet sich als: π = (Pt - Pt-1) / Pt-1 × 100%, wobei Pt das aktuelle Preisniveau und Pt-1 das Preisniveau des Vorjahres ist."
+            },
+            {
+question: "Der Warenkorb kostet 2023: 1.100 € und 2024: 1.155 €. Wie hoch ist die Inflationsrate?",
+options: [
+"5%",
+"55%",
+"4,5%",
+"10%"
+                ],
+correct: 0,
+explanation: "π = (1155 - 1100) / 1100 × 100% = 55 / 1100 × 100% = 5%. Die Preise sind im Durchschnitt um 5% gestiegen."
+            },
+            {
+question: "Wie misst das Statistische Bundesamt die Inflation?",
+options: [
+"Durch Befragung aller Bürger zu ihren Ausgaben",
+"Mit einem repräsentativen Warenkorb von ca. 700 Gütern, gewichtet nach Ausgabenanteil",
+"Durch Messung der Goldpreise an der Börse",
+"Nur durch Beobachtung der Benzinpreise"
+                ],
+correct: 1,
+explanation: "Das Statistische Bundesamt nutzt einen repräsentativen Warenkorb mit ca. 700 Gütern. Diese sind nach Ausgabenanteil gewichtet (z.B. Wohnen & Energie ~32%, Ernährung ~15%). Preise werden monatlich in 400 Städten erhoben."
+            },
+            {
+question: "Welche Kategorie hat den größten Anteil im Warenkorb (VPI)?",
+options: [
+"Ernährung (~15%)",
+"Verkehr (~13%)",
+"Wohnen & Energie (~32%)",
+"Freizeit & Kultur (~11%)"
+                ],
+correct: 2,
+explanation: "Wohnen & Energie hat mit ca. 32% den größten Anteil im Verbraucherpreisindex (VPI). Danach folgen Ernährung (~15%), Verkehr (~13%), Freizeit & Kultur (~11%) und Gesundheit (~5%)."
+            },
+            {
+question: "Welches Problem hat der Verbraucherpreisindex (VPI) bei der Inflationsmessung?",
+options: [
+"Er ist zu genau und überfordert die Statistiker",
+"Er berücksichtigt den Substitutionseffekt nicht — Konsumenten weichen auf billigere Güter aus",
+"Er wird nur alle 10 Jahre aktualisiert",
+"Er enthält nur Lebensmittel"
+                ],
+correct: 1,
+explanation: "Der VPI hat mehrere Grenzen: das Durchschnittsproblem, Qualitätsveränderungen, neue Güter (z.B. Smartphones 2005) und den Substitutionseffekt. Deshalb überschätzt der VPI tendenziell die Inflation leicht."
+            },
+            {
+question: "Welche drei Arten von Inflation gibt es?",
+options: [
+"Leichte, mittlere und schwere Inflation",
+"Nachfrageinflation, Angebotsinflation und Importierte Inflation",
+"Steuersenkung, Lohnerhöhung und Zinssenkung",
+"Private, staatliche und internationale Inflation"
+                ],
+correct: 1,
+explanation: "Die drei Inflationsarten sind: Nachfrageinflation (Demand-Pull: zu viel Geld), Angebotsinflation (Cost-Push: Kosten steigen) und Importierte Inflation (von außen). In der Realität wirken oft mehrere Ursachen gleichzeitig."
+            },
+            {
+question: "Was ist Nachfrageinflation (Demand-Pull)?",
+options: [
+"Inflation durch steigende Produktionskosten",
+"Inflation, weil die gesamtwirtschaftliche Nachfrage das Angebot übersteigt",
+"Inflation durch steigende Weltmarktpreise",
+"Inflation durch sinkende Löhne"
+                ],
+correct: 1,
+explanation: "Bei Nachfrageinflation übersteigt die gesamtwirtschaftliche Nachfrage das Angebot. Zu viel Geld 'jagt' zu wenige Güter. Dies ist typisch in Boom-Phasen und häufig nach starker Geldmengenausweitung. Merkformel: Zu viel Geld → Preise steigen."
+            },
+            {
+question: "Welches Beispiel zeigt Nachfrageinflation in Deutschland 2021/22?",
+options: [
+"Steigende Ölpreise durch den Ukraine-Krieg",
+"Nach Corona-Lockdowns explodierte die Konsumnachfrage, das Angebot konnte nicht schnell genug skalieren",
+"Abwertung des Euro gegenüber dem Dollar",
+"Erhöhung der Mehrwertsteuer"
+                ],
+correct: 1,
+explanation: "Nach den Corona-Lockdowns explodierte die Konsumnachfrage. Staatliche Hilfen hatten die Kaufkraft erhalten, aber das Angebot konnte nicht schnell genug skalieren. Unternehmen erhöhten die Preise, da die Nachfrage jedes Angebot aufnahm."
+            },
+            {
+question: "Was ist Angebotsinflation (Cost-Push)?",
+options: [
+"Inflation durch zu hohe Nachfrage",
+"Inflation durch steigende Produktionskosten, die Unternehmen weitergeben",
+"Inflation durch Wechselkursänderungen",
+"Inflation durch Steuersenkungen"
+                ],
+correct: 1,
+explanation: "Bei Angebotsinflation steigen die Produktionskosten (Rohstoffe, Energie, Löhne, Lieferketten) und Unternehmen geben diese an die Verbraucher weiter. Merkformel: Höhere Kosten → höhere Preise."
+            },
+            {
+question: "Welches historische Beispiel zeigt Angebotsinflation?",
+options: [
+"Die Hyperinflation 1923 in Deutschland",
+"Die Ölkrise 1973: OPEC-Embargo führte zur Vervierfachung des Ölpreises",
+"Die Nachholeffekte nach Corona 2021",
+"Die Einführung des Euro 2002"
+                ],
+correct: 1,
+explanation: "Bei der Ölkrise 1973 führte das OPEC-Embargo zur Vervierfachung des Ölpreises. Energie- und Transportkosten stiegen massiv, alle Güter wurden teurer. Gleichzeitig stagnierte das Wachstum → 'Stagflation'."
+            },
+            {
+question: "Was ist Importierte Inflation?",
+options: [
+"Inflation durch steigende Inlandsnachfrage",
+"Inflation durch Preissteigerungen im Ausland, die ins Inland importiert wird",
+"Inflation durch staatliche Ausgabenprogramme",
+"Inflation durch Lohnerhöhungen"
+                ],
+correct: 1,
+explanation: "Importierte Inflation entsteht durch Preissteigerungen im Ausland: steigende Weltmarktpreise für Öl, Lebensmittel oder Rohstoffe, oder durch Abwertung der eigenen Währung. Deutschland importiert ca. 70% seines Energiebedarfs und ist daher besonders anfällig."
+            },
+            {
+question: "Ein schwacher Euro macht alle Importe teurer. Welche Inflationsart ist das?",
+options: [
+"Nachfrageinflation",
+"Angebotsinflation",
+"Importierte Inflation",
+"Hyperinflation"
+                ],
+correct: 2,
+explanation: "Eine Abwertung der eigenen Währung (schwacher Euro) macht Importe teurer — das ist Importierte Inflation. Sie ist besonders relevant für offene Volkswirtschaften wie Deutschland."
+            },
+            {
+question: "Wer sind die Verlierer bei Inflation?",
+options: [
+"Schuldner und Immobilienbesitzer",
+"Sparer, Rentner, Gläubiger und Unternehmen (Planungsunsicherheit)",
+"Exporteure und der Staat",
+"Nur Arbeitnehmer"
+                ],
+correct: 1,
+explanation: "Verlierer der Inflation sind: Sparer (Kaufkraft sinkt), Rentner (feste Bezüge), Gläubiger (Forderungen entwerten) und Unternehmen (Planungsunsicherheit). Inflation ist eine versteckte Umverteilung — von Sparern zu Schuldnern!"
+            },
+            {
+question: "Wer profitiert von Inflation?",
+options: [
+"Sparer und Rentner",
+"Schuldner, der Staat, Immobilienbesitzer und Exporteure",
+"Gläubiger und Anleihenbesitzer",
+"Nur große Konzerne"
+                ],
+correct: 1,
+explanation: "Gewinner der Inflation sind: Schuldner (Schulden entwerten), der Staat (Staatsschulden sinken real), Immobilienbesitzer (Sachwerte) und Exporteure (Wettbewerbsvorteil durch schwächere Währung)."
+            },
+            {
+question: "Der Lohn steigt um 3%, die Inflation beträgt 5%. Was passiert real?",
+options: [
+"Der Arbeitnehmer gewinnt 2% Kaufkraft",
+"Der Arbeitnehmer verliert 2% Kaufkraft",
+"Es ändert sich nichts",
+"Der Arbeitnehmer gewinnt 8% Kaufkraft"
+                ],
+correct: 1,
+explanation: "Reales Lohnwachstum: 3% - 5% = -2%. Der Arbeitnehmer verliert real an Kaufkraft, obwohl sein Nominallohn gestiegen ist. Kaufkraft = Menge an Gütern, die man mit einem Geldbetrag kaufen kann."
+            },
+            {
+question: "Was geschah bei der Hyperinflation in Deutschland 1923?",
+options: [
+"Die Preise stiegen langsam über mehrere Jahre",
+"1 US-Dollar kostete im November 1923 4,2 Billionen Reichsmark, Ersparnisse wurden über Nacht wertlos",
+"Die Preise blieben stabil",
+"Nur Lebensmittelpreise stiegen"
+                ],
+correct: 1,
+explanation: "1923: Kriegsschulden + Reparationen → Staat druckt Geld. Im November 1923 kostete 1 US-Dollar 4,2 Billionen Reichsmark. Brot kostete morgens weniger als abends. Löhne wurden täglich, später stündlich ausgezahlt. Folge: Vertrauen in Währung und Institutionen kollabierte."
+            },
+            {
+question: "Was ist das primäre Ziel der EZB?",
+options: [
+"Vollbeschäftigung in allen Euro-Ländern",
+"Preisstabilität — Inflationsrate nahe, aber unter 2% p.a.",
+"Wirtschaftswachstum maximieren",
+"Den Euro so stark wie möglich machen"
+                ],
+correct: 1,
+explanation: "Das primäre Ziel der EZB ist Preisstabilität mit einer Inflationsrate nahe, aber unter 2% p.a. Die EZB sitzt in Frankfurt am Main, ist zuständig für alle 20 Euro-Länder und unabhängig von nationalen Regierungen."
+            },
+            {
+question: "Was ist das wichtigste Instrument der EZB?",
+options: [
+"Steuerpolitik",
+"Der Leitzins",
+"Handelsabkommen",
+"Arbeitsmarktreformen"
+                ],
+correct: 1,
+explanation: "Der Leitzins ist das wichtigste Instrument der EZB. Bei zu hoher Inflation wird er erhöht (Kredit teurer → weniger Konsum → Preise sinken), bei zu niedriger Inflation gesenkt (Kredit billiger → mehr Konsum → Preise steigen)."
+            },
+            {
+question: "Wie reagiert die EZB, wenn die Inflation zu hoch ist?",
+options: [
+"Leitzins senken",
+"Leitzins erhöhen — Kredite werden teurer, weniger Konsum, Preise sinken",
+"Mehr Geld drucken",
+"Steuern erhöhen"
+                ],
+correct: 1,
+explanation: "Bei zu hoher Inflation erhöht die EZB den Leitzins. Kredite werden teurer, es wird weniger konsumiert und investiert, die Nachfrage sinkt und damit auch die Preise."
+            },
+            {
+question: "Welche geldpolitischen Instrumente hat die EZB neben dem Leitzins?",
+options: [
+"Nur Steuerpolitik",
+"Mindestreserve, Offenmarktpolitik und Quantitative Easing",
+"Nur Handelsabkommen",
+"Nur Arbeitsmarktpolitik"
+                ],
+correct: 1,
+explanation: "Die EZB hat vier Instrumente: Leitzins (Kreditkosten), Mindestreserve (Bankenliquidität), Offenmarktpolitik (Anleihen kaufen/verkaufen zur Liquiditätsregulierung) und Quantitative Easing (Massenankauf von Wertpapieren in Extremsituationen)."
+            },
+            {
+question: "Wie hoch war die Inflation in Deutschland 2022?",
+options: [
+"2,2%",
+"5,0%",
+"8,8% — höchster Wert seit 1951",
+"15%"
+                ],
+correct: 2,
+explanation: "2022 erreichte die Inflation in Deutschland 8,8% — der höchste Wert seit 1951. Ursachen waren Energiepreise (Ukraine-Krieg), Nachholeffekte und Lieferkettenprobleme. Die EZB reagierte mit 10 Zinserhöhungen in Folge."
+            },
+            {
+question: "Was tat die EZB 2022-2023 gegen die hohe Inflation?",
+options: [
+"Nichts, sie wartete ab",
+"Sie senkte den Leitzins auf 0%",
+"Sie erhöhte den Leitzins von 0% auf 4,5% in 10 Zinserhöhungen",
+"Sie druckte mehr Geld"
+                ],
+correct: 2,
+explanation: "Die EZB erhöhte den Leitzins von 0% auf 4,5% in 10 aufeinanderfolgenden Zinserhöhungen. Ergebnis: Die Inflation sank auf ca. 2,2% Ende 2023. Preis: Das Wirtschaftswachstum verlangsamte sich spürbar."
+            },
+            {
+question: "Warenkorb Januar 2024: 1.240 €, Warenkorb Januar 2025: 1.302 €. Wie hoch ist die Inflationsrate?",
+options: [
+"6,2%",
+"5%",
+"62%",
+"4%"
+                ],
+correct: 1,
+explanation: "π = (1302 - 1240) / 1240 × 100% = 62 / 1240 × 100% = 5%. Die Inflationsrate beträgt 5%."
+            },
+            {
+question: "Nominallohn: 2.800 € → 2.884 €. Wie hoch ist die nominale Lohnsteigerung?",
+options: [
+"2%",
+"3%",
+"5%",
+"84%"
+                ],
+correct: 1,
+explanation: "Nominale Lohnsteigerung = (2884 - 2800) / 2800 × 100% = 84 / 2800 × 100% = 3%. Der Nominallohn ist um 3% gestiegen."
+            },
+            {
+question: "Bei 5% Inflation und 3% Lohnsteigerung: Hat der Arbeitnehmer real gewonnen oder verloren?",
+options: [
+"Gewonnen, weil sein Lohn gestiegen ist",
+"Verloren: reales Lohnwachstum ist 3% - 5% = -2%",
+"Weder noch, es gleicht sich aus",
+"Gewonnen: reales Lohnwachstum ist 3% + 5% = 8%"
+                ],
+correct: 1,
+explanation: "Reales Lohnwachstum = 3% - 5% = -2%. Der Arbeitnehmer hat real verloren, obwohl sein Nominallohn gestiegen ist. Die Inflation hat die Lohnerhöhung mehr als aufgefressen."
+            },
+            {
+question: "Nach einem Hitzesommer fallen Ernten drastisch aus, Lebensmittelpreise steigen um 15%. Welche Inflationsart?",
+options: [
+"Nachfrageinflation",
+"Angebotsinflation (steigende Kosten durch geringeres Angebot)",
+"Importierte Inflation",
+"Hyperinflation"
+                ],
+correct: 1,
+explanation: "Ernteausfälle reduzieren das Angebot → Kosten steigen → Preise steigen. Das ist Angebotsinflation (Cost-Push). Die Ursache liegt auf der Angebotsseite, nicht bei der Nachfrage."
+            },
+            {
+question: "Die EZB senkt den Leitzins auf nahezu 0%, Verbraucher nehmen Kredite auf, Konsum boomt, Preise steigen. Welche Inflationsart?",
+options: [
+"Angebotsinflation",
+"Importierte Inflation",
+"Nachfrageinflation (zu viel Geld in der Wirtschaft)",
+"Deflation"
+                ],
+correct: 2,
+explanation: "Billige Kredite → mehr Konsum → Nachfrage übersteigt Angebot → Preise steigen. Das ist klassische Nachfrageinflation (Demand-Pull). Zu viel Geld jagt zu wenige Güter."
+            },
+            {
+question: "Der Dollar wertet auf und Deutschlands Ölimporte werden deutlich teurer. Welche Inflationsart?",
+options: [
+"Nachfrageinflation",
+"Angebotsinflation",
+"Importierte Inflation",
+"Stagflation"
+                ],
+correct: 2,
+explanation: "Steigende Importpreise durch Wechselkursänderungen sind ein klassisches Beispiel für Importierte Inflation. Deutschland importiert ca. 70% seines Energiebedarfs und ist daher besonders anfällig."
+            }
+        ];
+let queue = [];
+        let currentIndex = 0;
+        let score = 0;
+        let totalAnswered = 0;
+        let wrongSet = new Set();
+        let answeredCorrectly = new Set();
+
+        function initQuiz() {
+            queue = quizData.map((_, i) => i);
+            currentIndex = 0;
+            score = 0;
+            totalAnswered = 0;
+            wrongSet = new Set();
+            answeredCorrectly = new Set();
+            renderCurrentQuestion();
+        }
+
+        function renderCurrentQuestion() {
+            if (currentIndex >= queue.length) {
+                showResults();
+                return;
+            }
+
+            const qIdx = queue[currentIndex];
+            const q = quizData[qIdx];
+            const container = document.getElementById('questionsContainer');
+            const isRetry = wrongSet.has(qIdx);
+
+            container.innerHTML = `
+                <div class="question-container active">
+                    <div class="question-number">${isRetry ? '🔁 Wiederholung – ' : ''}Frage ${totalAnswered + 1} · ${answeredCorrectly.size} von ${quizData.length} gemeistert</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options" id="options-current">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption(${qIdx}, ${i})">
+                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                <div class="option-text">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-current">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="controls">
+                        <div></div>
+                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                            Weiter →
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            updateProgress();
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            const optionsContainer = document.getElementById('options-current');
+            const options = optionsContainer.querySelectorAll('.option');
+            const correct = quizData[questionIndex].correct;
+
+            options.forEach(opt => opt.classList.add('disabled'));
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
+
+            const feedback = document.getElementById('feedback-current');
+            feedback.classList.add('show');
+
+            if (optionIndex === correct) {
+                score++;
+                answeredCorrectly.add(questionIndex);
+                wrongSet.delete(questionIndex);
+                feedback.classList.add('correct');
+                feedback.querySelector('.feedback-title').textContent = '✓ Richtig!';
+            } else {
+                wrongSet.add(questionIndex);
+                answeredCorrectly.delete(questionIndex);
+                feedback.classList.add('incorrect');
+                feedback.querySelector('.feedback-title').textContent = '✗ Falsch – kommt in 4 Fragen wieder!';
+                const insertPos = Math.min(currentIndex + 5, queue.length);
+                queue.splice(insertPos, 0, questionIndex);
+            }
+
+            feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
+            totalAnswered++;
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            if (currentIndex >= queue.length) {
+                showResults();
+            } else {
+                renderCurrentQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const progress = (answeredCorrectly.size / quizData.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            document.getElementById('questionsContainer').innerHTML = '';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            const percentage = Math.round((quizData.length / totalAnswered) * 100);
+            document.getElementById('scoreNumber').textContent = Math.min(percentage, 100) + '%';
+            document.getElementById('correctCount').textContent = quizData.length;
+            document.getElementById('incorrectCount').textContent = totalAnswered - quizData.length;
+            document.getElementById('totalCount').textContent = totalAnswered;
+
+            let message = '';
+            if (totalAnswered === quizData.length) {
+                message = 'Perfekt! Alles auf Anhieb richtig!';
+            } else if (totalAnswered <= quizData.length + 3) {
+                message = 'Sehr gut! Fast alles beim ersten Versuch!';
+            } else if (totalAnswered <= quizData.length + 6) {
+                message = 'Gut gemacht! Die Wiederholungen haben geholfen!';
+            } else {
+                message = 'Geschafft! Wiederhole das Thema nochmal zur Sicherheit!';
+            }
+
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function restartQuiz() {
+            document.getElementById('resultsContainer').classList.remove('show');
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+</script>
+</body>
+</html>
