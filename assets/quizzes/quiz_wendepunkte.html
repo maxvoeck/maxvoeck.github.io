@@ -357,11 +357,11 @@
                 <div class="result-details">
                     <div class="result-stat">
                         <div class="result-stat-number" id="correctCount">0</div>
-                        <div class="result-stat-label">Richtig</div>
+                        <div class="result-stat-label">Gemeistert</div>
                     </div>
                     <div class="result-stat">
                         <div class="result-stat-number" id="incorrectCount">0</div>
-                        <div class="result-stat-label">Falsch</div>
+                        <div class="result-stat-label">Wiederholt</div>
                     </div>
                     <div class="result-stat">
                         <div class="result-stat-number" id="totalCount">0</div>
@@ -542,132 +542,137 @@
             }
         ];
 
-        let currentQuestion = 0;
+        let queue = [];
+        let currentIndex = 0;
         let score = 0;
-        let answers = [];
+        let totalAnswered = 0;
+        let wrongSet = new Set();
+        let answeredCorrectly = new Set();
 
         function initQuiz() {
-            const container = document.getElementById('questionsContainer');
-            container.innerHTML = '';
+            queue = quizData.map((_, i) => i);
+            currentIndex = 0;
+            score = 0;
+            totalAnswered = 0;
+            wrongSet = new Set();
+            answeredCorrectly = new Set();
+            renderCurrentQuestion();
+        }
 
-            quizData.forEach((q, index) => {
-                const questionDiv = document.createElement('div');
-                questionDiv.className = 'question-container';
-                if (index === 0) questionDiv.classList.add('active');
-                
-                questionDiv.innerHTML = `
-                    <div class="question-number">Frage ${index + 1} von ${quizData.length}</div>
+        function renderCurrentQuestion() {
+            if (currentIndex >= queue.length) {
+                showResults();
+                return;
+            }
+
+            const qIdx = queue[currentIndex];
+            const q = quizData[qIdx];
+            const container = document.getElementById('questionsContainer');
+            const isRetry = wrongSet.has(qIdx);
+
+            container.innerHTML = `
+                <div class="question-container active">
+                    <div class="question-number">${isRetry ? '🔁 Wiederholung – ' : ''}Frage ${totalAnswered + 1} · ${answeredCorrectly.size} von ${quizData.length} gemeistert</div>
                     <div class="question-text">${q.question}</div>
-                    <div class="options" id="options-${index}">
+                    <div class="options" id="options-current">
                         ${q.options.map((opt, i) => `
-                            <div class="option" onclick="selectOption(${index}, ${i})">
+                            <div class="option" onclick="selectOption(${qIdx}, ${i})">
                                 <div class="option-letter">${String.fromCharCode(65 + i)}</div>
                                 <div class="option-text">${opt}</div>
                             </div>
                         `).join('')}
                     </div>
-                    <div class="feedback" id="feedback-${index}">
+                    <div class="feedback" id="feedback-current">
                         <div class="feedback-title"></div>
                         <div class="feedback-text"></div>
                     </div>
                     <div class="controls">
-                        <button class="btn btn-secondary" onclick="previousQuestion()" ${index === 0 ? 'style="visibility: hidden;"' : ''}>
-                            ← Zurück
-                        </button>
-                        <button class="btn btn-primary" id="nextBtn-${index}" onclick="nextQuestion()" disabled>
-                            ${index === quizData.length - 1 ? 'Auswertung anzeigen' : 'Weiter →'}
+                        <div></div>
+                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                            Weiter →
                         </button>
                     </div>
-                `;
-                
-                container.appendChild(questionDiv);
-            });
+                </div>
+            `;
 
             updateProgress();
         }
 
         function selectOption(questionIndex, optionIndex) {
-            if (answers[questionIndex] !== undefined) return;
-
-            const optionsContainer = document.getElementById(`options-${questionIndex}`);
+            const optionsContainer = document.getElementById('options-current');
             const options = optionsContainer.querySelectorAll('.option');
             const correct = quizData[questionIndex].correct;
-            
+
+            options.forEach(opt => opt.classList.add('disabled'));
             options[optionIndex].classList.add('selected');
             options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
             options[correct].classList.add('correct');
-            
-            options.forEach(opt => opt.classList.add('disabled'));
-            
-            answers[questionIndex] = optionIndex;
-            if (optionIndex === correct) score++;
-            
-            const feedback = document.getElementById(`feedback-${questionIndex}`);
+
+            const feedback = document.getElementById('feedback-current');
             feedback.classList.add('show');
-            feedback.classList.add(optionIndex === correct ? 'correct' : 'incorrect');
-            feedback.querySelector('.feedback-title').textContent = 
-                optionIndex === correct ? '✓ Richtig!' : '✗ Leider falsch';
+
+            if (optionIndex === correct) {
+                score++;
+                answeredCorrectly.add(questionIndex);
+                wrongSet.delete(questionIndex);
+                feedback.classList.add('correct');
+                feedback.querySelector('.feedback-title').textContent = '✓ Richtig!';
+            } else {
+                wrongSet.add(questionIndex);
+                answeredCorrectly.delete(questionIndex);
+                feedback.classList.add('incorrect');
+                feedback.querySelector('.feedback-title').textContent = '✗ Falsch – kommt in 4 Fragen wieder!';
+                // Insert this question again 4 positions later
+                const insertPos = Math.min(currentIndex + 5, queue.length);
+                queue.splice(insertPos, 0, questionIndex);
+            }
+
             feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
-            
-            document.getElementById(`nextBtn-${questionIndex}`).disabled = false;
+            totalAnswered++;
+            document.getElementById('nextBtn').disabled = false;
         }
 
         function nextQuestion() {
-            if (currentQuestion < quizData.length - 1) {
-                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
-                currentQuestion++;
-                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
-                updateProgress();
-            } else {
+            currentIndex++;
+            if (currentIndex >= queue.length) {
                 showResults();
-            }
-        }
-
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                document.querySelectorAll('.question-container')[currentQuestion].classList.remove('active');
-                currentQuestion--;
-                document.querySelectorAll('.question-container')[currentQuestion].classList.add('active');
-                updateProgress();
+            } else {
+                renderCurrentQuestion();
             }
         }
 
         function updateProgress() {
-            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            const progress = (answeredCorrectly.size / quizData.length) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
         }
 
         function showResults() {
-            document.getElementById('questionsContainer').style.display = 'none';
+            document.getElementById('questionsContainer').innerHTML = '';
             const resultsContainer = document.getElementById('resultsContainer');
             resultsContainer.classList.add('show');
-            
-            const percentage = Math.round((score / quizData.length) * 100);
-            document.getElementById('scoreNumber').textContent = percentage + '%';
-            document.getElementById('correctCount').textContent = score;
-            document.getElementById('incorrectCount').textContent = quizData.length - score;
-            document.getElementById('totalCount').textContent = quizData.length;
-            
+
+            const percentage = Math.round((quizData.length / totalAnswered) * 100);
+            document.getElementById('scoreNumber').textContent = Math.min(percentage, 100) + '%';
+            document.getElementById('correctCount').textContent = quizData.length;
+            document.getElementById('incorrectCount').textContent = totalAnswered - quizData.length;
+            document.getElementById('totalCount').textContent = totalAnswered;
+
             let message = '';
-            if (percentage >= 90) {
-                message = '🎉 Hervorragend! Du beherrschst Wendepunkte und Krümmungswechsel perfekt!';
-            } else if (percentage >= 70) {
-                message = '👍 Sehr gut! Du hast die notwendigen und hinreichenden Bedingungen verstanden!';
-            } else if (percentage >= 50) {
-                message = '📚 Gut gemacht! Wiederhole f\'\'(x) = 0 und f\'\'\'(x) ≠ 0!';
+            if (totalAnswered === quizData.length) {
+                message = 'Perfekt! Alles auf Anhieb richtig!';
+            } else if (totalAnswered <= quizData.length + 3) {
+                message = 'Sehr gut! Fast alles beim ersten Versuch!';
+            } else if (totalAnswered <= quizData.length + 6) {
+                message = 'Gut gemacht! Die Wiederholungen haben geholfen!';
             } else {
-                message = '💪 Weiter üben! Fokussiere auf den Unterschied zwischen Extrem- und Wendepunkten!';
+                message = 'Geschafft! Wiederhole das Thema nochmal zur Sicherheit!';
             }
-            
+
             document.getElementById('resultMessage').textContent = message;
         }
 
         function restartQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            answers = [];
             document.getElementById('resultsContainer').classList.remove('show');
-            document.getElementById('questionsContainer').style.display = 'block';
             initQuiz();
         }
 

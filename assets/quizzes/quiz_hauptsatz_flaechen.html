@@ -529,141 +529,140 @@
             }
         ];
 
-        let currentQuestion = 0;
+        let queue = [];
+        let currentIndex = 0;
         let score = 0;
-        let answers = [];
+        let totalAnswered = 0;
+        let wrongSet = new Set();
+        let answeredCorrectly = new Set();
 
         function initQuiz() {
-            showQuestion();
-            updateProgress();
+            queue = quizData.map((_, i) => i);
+            currentIndex = 0;
+            score = 0;
+            totalAnswered = 0;
+            wrongSet = new Set();
+            answeredCorrectly = new Set();
+            renderCurrentQuestion();
         }
 
-        function showQuestion() {
-            const question = quizData[currentQuestion];
-            
-            document.getElementById('questionNumber').textContent = `Frage ${currentQuestion + 1} von ${quizData.length}`;
-            document.getElementById('questionText').textContent = question.question;
-            
-            const optionsContainer = document.getElementById('optionsContainer');
-            optionsContainer.innerHTML = '';
-            
-            question.options.forEach((option, index) => {
-                const optionDiv = document.createElement('div');
-                optionDiv.className = 'option';
-                optionDiv.onclick = () => selectOption(index);
-                
-                const letter = String.fromCharCode(65 + index);
-                optionDiv.innerHTML = `
-                    <div class="option-letter">${letter}</div>
-                    <div class="option-text">${option}</div>
-                `;
-                
-                if (answers[currentQuestion] !== undefined) {
-                    optionDiv.classList.add('disabled');
-                    if (index === answers[currentQuestion]) {
-                        optionDiv.classList.add(index === question.correct ? 'correct' : 'incorrect');
-                    }
-                    if (index === question.correct) {
-                        optionDiv.classList.add('correct');
-                    }
-                }
-                
-                optionsContainer.appendChild(optionDiv);
-            });
-            
-            const explanation = document.getElementById('explanation');
-            if (answers[currentQuestion] !== undefined) {
-                document.getElementById('explanationText').textContent = question.explanation;
-                explanation.classList.add('show');
-            } else {
-                explanation.classList.remove('show');
+        function renderCurrentQuestion() {
+            if (currentIndex >= queue.length) {
+                showResults();
+                return;
             }
-            
-            updateButtons();
+
+            const qIdx = queue[currentIndex];
+            const q = quizData[qIdx];
+            const container = document.getElementById('questionsContainer');
+            const isRetry = wrongSet.has(qIdx);
+
+            container.innerHTML = `
+                <div class="question-container active">
+                    <div class="question-number">${isRetry ? '🔁 Wiederholung – ' : ''}Frage ${totalAnswered + 1} · ${answeredCorrectly.size} von ${quizData.length} gemeistert</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options" id="options-current">
+                        ${q.options.map((opt, i) => `
+                            <div class="option" onclick="selectOption(${qIdx}, ${i})">
+                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                                <div class="option-text">${opt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="feedback" id="feedback-current">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
+                    <div class="controls">
+                        <div></div>
+                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                            Weiter →
+                        </button>
+                    </div>
+                </div>
+            `;
+
             updateProgress();
         }
 
-        function selectOption(index) {
-            if (answers[currentQuestion] !== undefined) return;
-            
-            answers[currentQuestion] = index;
-            const question = quizData[currentQuestion];
-            
-            if (index === question.correct) {
+        function selectOption(questionIndex, optionIndex) {
+            const optionsContainer = document.getElementById('options-current');
+            const options = optionsContainer.querySelectorAll('.option');
+            const correct = quizData[questionIndex].correct;
+
+            options.forEach(opt => opt.classList.add('disabled'));
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
+
+            const feedback = document.getElementById('feedback-current');
+            feedback.classList.add('show');
+
+            if (optionIndex === correct) {
                 score++;
+                answeredCorrectly.add(questionIndex);
+                wrongSet.delete(questionIndex);
+                feedback.classList.add('correct');
+                feedback.querySelector('.feedback-title').textContent = '✓ Richtig!';
+            } else {
+                wrongSet.add(questionIndex);
+                answeredCorrectly.delete(questionIndex);
+                feedback.classList.add('incorrect');
+                feedback.querySelector('.feedback-title').textContent = '✗ Falsch – kommt in 4 Fragen wieder!';
+                // Insert this question again 4 positions later
+                const insertPos = Math.min(currentIndex + 5, queue.length);
+                queue.splice(insertPos, 0, questionIndex);
             }
-            
-            showQuestion();
+
+            feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
+            totalAnswered++;
+            document.getElementById('nextBtn').disabled = false;
         }
 
         function nextQuestion() {
-            if (currentQuestion < quizData.length - 1) {
-                currentQuestion++;
-                showQuestion();
-            } else {
+            currentIndex++;
+            if (currentIndex >= queue.length) {
                 showResults();
-            }
-        }
-
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                showQuestion();
-            }
-        }
-
-        function updateButtons() {
-            document.getElementById('prevBtn').disabled = currentQuestion === 0;
-            document.getElementById('nextBtn').disabled = answers[currentQuestion] === undefined;
-            
-            if (currentQuestion === quizData.length - 1 && answers[currentQuestion] !== undefined) {
-                document.getElementById('nextBtn').textContent = 'Ergebnis anzeigen';
             } else {
-                document.getElementById('nextBtn').textContent = 'Weiter →';
+                renderCurrentQuestion();
             }
         }
 
         function updateProgress() {
-            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            const progress = (answeredCorrectly.size / quizData.length) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
         }
 
         function showResults() {
-            document.getElementById('quizCard').style.display = 'none';
-            document.getElementById('results').classList.add('show');
-            
-            const percentage = Math.round((score / quizData.length) * 100);
-            document.getElementById('scoreText').textContent = percentage + '%';
-            document.getElementById('correctCount').textContent = score + ' von ' + quizData.length;
-            document.getElementById('incorrectCount').textContent = (quizData.length - score) + ' von ' + quizData.length;
-            document.getElementById('totalScore').textContent = score + ' / ' + quizData.length + ' Punkten';
-            
+            document.getElementById('questionsContainer').innerHTML = '';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.classList.add('show');
+
+            const percentage = Math.round((quizData.length / totalAnswered) * 100);
+            document.getElementById('scoreNumber').textContent = Math.min(percentage, 100) + '%';
+            document.getElementById('correctCount').textContent = quizData.length;
+            document.getElementById('incorrectCount').textContent = totalAnswered - quizData.length;
+            document.getElementById('totalCount').textContent = totalAnswered;
+
             let message = '';
-            if (percentage >= 90) {
-                message = 'Hervorragend! Sie beherrschen den Hauptsatz und die Flächenberechnung perfekt!';
-            } else if (percentage >= 70) {
-                message = 'Sehr gut! Sie haben die Konzepte gut verstanden!';
-            } else if (percentage >= 50) {
-                message = 'Gut gemacht! Wiederholen Sie noch einmal die Grundtypen der Flächenberechnung.';
+            if (totalAnswered === quizData.length) {
+                message = 'Perfekt! Alles auf Anhieb richtig!';
+            } else if (totalAnswered <= quizData.length + 3) {
+                message = 'Sehr gut! Fast alles beim ersten Versuch!';
+            } else if (totalAnswered <= quizData.length + 6) {
+                message = 'Gut gemacht! Die Wiederholungen haben geholfen!';
             } else {
-                message = 'Weiter üben! Wiederholen Sie den Hauptsatz und die vier Grundtypen.';
+                message = 'Geschafft! Wiederhole das Thema nochmal zur Sicherheit!';
             }
-            
+
             document.getElementById('resultMessage').textContent = message;
         }
 
         function restartQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            answers = [];
-            
-            document.getElementById('results').classList.remove('show');
-            document.getElementById('quizCard').style.display = 'block';
-            
+            document.getElementById('resultsContainer').classList.remove('show');
             initQuiz();
         }
 
-        // Quiz beim Laden initialisieren
         window.onload = initQuiz;
     </script>
 </body>

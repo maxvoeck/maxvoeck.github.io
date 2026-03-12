@@ -540,113 +540,111 @@
             }
         ];
 
-        let currentQuestion = 0;
+        let queue = [];
+        let currentIndex = 0;
         let score = 0;
-        let answers = new Array(quizData.length).fill(null);
-        let answered = false;
+        let totalAnswered = 0;
+        let wrongSet = new Set();
+        let answeredCorrectly = new Set();
 
         function initQuiz() {
-            showQuestion(currentQuestion);
-            updateProgress();
+            queue = quizData.map((_, i) => i);
+            currentIndex = 0;
+            score = 0;
+            totalAnswered = 0;
+            wrongSet = new Set();
+            answeredCorrectly = new Set();
+            document.getElementById('questionArea').style.display = 'block';
+            document.getElementById('controls').style.display = 'flex';
+            renderCurrentQuestion();
         }
 
-        function showQuestion(index) {
+        function renderCurrentQuestion() {
+            if (currentIndex >= queue.length) {
+                showResults();
+                return;
+            }
+
+            const qIdx = queue[currentIndex];
+            const q = quizData[qIdx];
             const questionArea = document.getElementById('questionArea');
-            const question = quizData[index];
-            answered = answers[index] !== null;
-
+            const isRetry = wrongSet.has(qIdx);
             const letters = ['A', 'B', 'C', 'D'];
-            
-            let optionsHTML = '';
-            question.options.forEach((option, i) => {
-                let optionClass = 'option';
-                if (answered) {
-                    optionClass += ' disabled';
-                    if (i === question.correct) {
-                        optionClass += ' correct';
-                    } else if (i === answers[index] && i !== question.correct) {
-                        optionClass += ' incorrect';
-                    }
-                } else if (answers[index] === i) {
-                    optionClass += ' selected';
-                }
 
+            let optionsHTML = '';
+            q.options.forEach((option, i) => {
                 optionsHTML += `
-                    <div class="${optionClass}" onclick="selectOption(${i})">
+                    <div class="option" onclick="selectOption(${qIdx}, ${i})">
                         <div class="option-letter">${letters[i]}</div>
                         <span>${option}</span>
                     </div>
                 `;
             });
 
-            let feedbackHTML = '';
-            if (answered) {
-                const isCorrect = answers[index] === question.correct;
-                feedbackHTML = `
-                    <div class="feedback ${isCorrect ? 'correct' : 'incorrect'} show">
-                        <div class="feedback-title">${isCorrect ? '✓ Richtig!' : '✗ Falsch'}</div>
-                        <div>${question.explanation}</div>
-                    </div>
-                `;
-            }
-
             questionArea.innerHTML = `
                 <div class="question-container active">
-                    <div class="question-number">Frage ${index + 1} von ${quizData.length}</div>
-                    <div class="question-text">${question.question}</div>
+                    <div class="question-number">${isRetry ? '🔁 Wiederholung – ' : ''}Frage ${totalAnswered + 1} · ${answeredCorrectly.size} von ${quizData.length} gemeistert</div>
+                    <div class="question-text">${q.question}</div>
                     <div class="options">${optionsHTML}</div>
-                    ${feedbackHTML}
+                    <div class="feedback" id="feedback-current">
+                        <div class="feedback-title"></div>
+                        <div class="feedback-text"></div>
+                    </div>
                 </div>
             `;
 
-            updateButtons();
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = true;
+            nextBtn.textContent = 'Weiter →';
+            document.getElementById('prevBtn').style.display = 'none';
+            updateProgress();
         }
 
-        function selectOption(optionIndex) {
-            if (answered) return;
+        function selectOption(questionIndex, optionIndex) {
+            const options = document.querySelectorAll('.option');
+            const correct = quizData[questionIndex].correct;
 
-            answers[currentQuestion] = optionIndex;
-            answered = true;
+            options.forEach(opt => opt.classList.add('disabled'));
+            options[optionIndex].classList.add('selected');
+            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
+            options[correct].classList.add('correct');
 
-            const question = quizData[currentQuestion];
-            if (optionIndex === question.correct) {
+            const feedback = document.getElementById('feedback-current');
+            feedback.classList.add('show');
+
+            if (optionIndex === correct) {
                 score++;
+                answeredCorrectly.add(questionIndex);
+                wrongSet.delete(questionIndex);
+                feedback.classList.add('correct');
+                feedback.querySelector('.feedback-title').textContent = '✓ Richtig!';
+            } else {
+                wrongSet.add(questionIndex);
+                answeredCorrectly.delete(questionIndex);
+                feedback.classList.add('incorrect');
+                feedback.querySelector('.feedback-title').textContent = '✗ Falsch – kommt in 4 Fragen wieder!';
+                const insertPos = Math.min(currentIndex + 5, queue.length);
+                queue.splice(insertPos, 0, questionIndex);
             }
 
-            showQuestion(currentQuestion);
+            feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
+            totalAnswered++;
+            document.getElementById('nextBtn').disabled = false;
         }
 
         function nextQuestion() {
-            if (currentQuestion < quizData.length - 1) {
-                currentQuestion++;
-                answered = answers[currentQuestion] !== null;
-                showQuestion(currentQuestion);
-                updateProgress();
-            } else {
+            currentIndex++;
+            if (currentIndex >= queue.length) {
                 showResults();
+            } else {
+                renderCurrentQuestion();
             }
         }
 
-        function previousQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                answered = answers[currentQuestion] !== null;
-                showQuestion(currentQuestion);
-                updateProgress();
-            }
-        }
-
-        function updateButtons() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-
-            prevBtn.disabled = currentQuestion === 0;
-            nextBtn.disabled = !answered;
-            nextBtn.textContent = currentQuestion === quizData.length - 1 ? 'Ergebnisse →' : 'Weiter →';
-        }
+        function previousQuestion() {}
 
         function updateProgress() {
-            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            const progress = (answeredCorrectly.size / quizData.length) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
         }
 
@@ -655,42 +653,30 @@
             document.getElementById('controls').style.display = 'none';
             document.getElementById('resultsContainer').classList.add('show');
 
-            const percentage = Math.round((score / quizData.length) * 100);
-            
-            document.getElementById('scoreNumber').textContent = percentage + '%';
-            document.getElementById('correctAnswers').textContent = score;
-            document.getElementById('incorrectAnswers').textContent = quizData.length - score;
+            const percentage = Math.round((quizData.length / totalAnswered) * 100);
+            document.getElementById('scoreNumber').textContent = Math.min(percentage, 100) + '%';
+            document.getElementById('correctAnswers').textContent = quizData.length;
+            document.getElementById('incorrectAnswers').textContent = totalAnswered - quizData.length;
 
             let message = '';
-            if (percentage >= 90) {
-                message = '🌟 Hervorragend! Du beherrschst das Thema perfekt!';
-            } else if (percentage >= 75) {
-                message = '👏 Sehr gut! Du hast die wichtigsten Konzepte verstanden!';
-            } else if (percentage >= 60) {
-                message = '✓ Gut gemacht! Mit etwas Übung wirst du noch besser!';
-            } else if (percentage >= 50) {
-                message = '📚 Noch Luft nach oben. Wiederhole die Präsentation nochmal!';
+            if (totalAnswered === quizData.length) {
+                message = 'Perfekt! Alles auf Anhieb richtig!';
+            } else if (totalAnswered <= quizData.length + 3) {
+                message = 'Sehr gut! Fast alles beim ersten Versuch!';
+            } else if (totalAnswered <= quizData.length + 6) {
+                message = 'Gut gemacht! Die Wiederholungen haben geholfen!';
             } else {
-                message = '💪 Nicht aufgeben! Schau dir die Materialien nochmal genau an!';
+                message = 'Geschafft! Wiederhole das Thema nochmal zur Sicherheit!';
             }
 
             document.getElementById('resultMessage').textContent = message;
         }
 
         function restartQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            answers = new Array(quizData.length).fill(null);
-            answered = false;
-
-            document.getElementById('questionArea').style.display = 'block';
-            document.getElementById('controls').style.display = 'flex';
             document.getElementById('resultsContainer').classList.remove('show');
-
             initQuiz();
         }
 
-        // Quiz starten
         initQuiz();
     </script>
 </body>
