@@ -769,7 +769,6 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-hero">
     <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
     <h1>Mathematik</h1>
-    <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--secondary" style="margin-top: var(--space-2); font-size: 13px;" onclick="event.stopPropagation()">📄 Gesamtskript (PDF)</a>
 
     <div class="ma-progress-container">
       <div class="ma-progress-ring">
@@ -781,6 +780,8 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
       <div class="ma-progress-label"><span id="completedCount">0</span> von 30 abgeschlossen</div>
     </div>
+
+    <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="margin-top: var(--space-6); padding: var(--space-3) var(--space-6); font-size: 15px;" onclick="event.stopPropagation()">📄 Gesamtskript herunterladen (PDF)</a>
   </div>
 
   <!-- Algebra -->
