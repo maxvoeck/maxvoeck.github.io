@@ -781,7 +781,9 @@ body, html, .page-content, .wrapper, main, .post-content {
       <div class="ma-progress-label"><span id="completedCount">0</span> von 30 abgeschlossen</div>
     </div>
 
-    <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="margin-top: var(--space-6); padding: var(--space-3) var(--space-6); font-size: 15px;" onclick="event.stopPropagation()">📄 Gesamtskript herunterladen (PDF)</a>
+    <div style="width: 100%; text-align: center; margin-top: var(--space-6);">
+      <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="padding: var(--space-3) var(--space-6); font-size: 15px;" onclick="event.stopPropagation()">📄 Gesamtskript herunterladen (PDF)</a>
+    </div>
   </div>
 
   <!-- Algebra -->
