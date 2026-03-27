@@ -287,8 +287,8 @@ title: Lernbaum
   }
 
   html[data-theme="dark"] .tree-formula-card {
-    background: var(--hai);
-    border-color: var(--ishi);
+    background: #1e1e1c;
+    border-color: var(--hai);
   }
 
   .tree-formula-rule {
@@ -328,7 +328,7 @@ title: Lernbaum
   }
 
   html[data-theme="dark"] .tree-preview-tip {
-    background: var(--hai);
+    background: #1e1e1c;
   }
 
   .tree-leaf-actions {
