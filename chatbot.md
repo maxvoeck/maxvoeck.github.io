@@ -282,7 +282,7 @@ title: Lernbaum
   }
 
   html[data-theme="dark"] .tree-leaf-card {
-    background: var(--kuro);
+    background: #1e1e1c;
     border-color: var(--hai);
   }
 
