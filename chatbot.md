@@ -281,6 +281,16 @@ title: Lernbaum
     background: var(--kuro);
   }
 
+  html[data-theme="dark"] .tree-leaf-card {
+    background: var(--kuro);
+    border-color: var(--hai);
+  }
+
+  html[data-theme="dark"] .tree-formula-card {
+    background: var(--hai);
+    border-color: var(--ishi);
+  }
+
   .tree-formula-rule {
     font-size: 0.69rem;
     font-weight: 600;
@@ -318,7 +328,7 @@ title: Lernbaum
   }
 
   html[data-theme="dark"] .tree-preview-tip {
-    background: var(--kuro);
+    background: var(--hai);
   }
 
   .tree-leaf-actions {
