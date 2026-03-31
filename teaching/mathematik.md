@@ -761,7 +761,141 @@ body, html, .page-content, .wrapper, main, .post-content {
   .ma-btn, .ma-check { display: none; }
   .ma-card { break-inside: avoid; }
 }
+
+/* ─── Aufgabe des Tages ─── */
+.adt {
+  max-width: 980px;
+  margin: 0 auto var(--space-12);
+  padding: 0 var(--space-5);
+}
+@media (min-width: 768px) {
+  .adt { padding: 0 var(--space-8); }
+}
+.adt-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-3);
+}
+.adt-card {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg, 16px);
+  padding: var(--space-8);
+  background: var(--bg-elevated, rgba(255,255,255,0.03));
+  transition: border-color 250ms;
+}
+.adt-card:hover { border-color: var(--border-hover, var(--border-strong)); }
+.adt-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+.adt-diff {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+.adt-question {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  line-height: 1.45;
+  margin-bottom: var(--space-3);
+}
+.adt-hint {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+  font-style: italic;
+}
+.adt-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.adt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm, 8px);
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 200ms;
+  text-decoration: none;
+  font-family: var(--font-body);
+}
+.adt-btn:hover {
+  background: var(--bg-elevated, rgba(255,255,255,0.06));
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.adt-btn--accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.adt-btn--accent:hover { opacity: 0.88; color: #fff; }
+.adt-solution {
+  display: none;
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+.adt-solution.visible {
+  display: block;
+  animation: adtFade 300ms ease;
+}
+@keyframes adtFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.adt-solution-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--matcha, #7a8c6e);
+  margin-bottom: var(--space-3);
+}
+.adt-solution-text {
+  font-size: 15px;
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.adt-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  margin-top: var(--space-4);
+  transition: color 200ms;
+}
+.adt-link:hover { color: var(--accent); }
+@media (max-width: 480px) {
+  .adt-question { font-size: 18px; }
+  .adt-card { padding: var(--space-5); }
+}
 </style>
+
+<!-- KaTeX -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 
 <div class="ma-container">
 
@@ -783,6 +917,26 @@ body, html, .page-content, .wrapper, main, .post-content {
 
     <div style="width: 100%; text-align: center; margin-top: var(--space-6);">
       <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="padding: var(--space-3) var(--space-6); font-size: 15px;" onclick="event.stopPropagation()">📄 Gesamtskript herunterladen (PDF)</a>
+    </div>
+  </div>
+
+  <!-- Aufgabe des Tages -->
+  <div class="adt">
+    <div class="adt-label">Aufgabe des Tages</div>
+    <div class="adt-card">
+      <div class="adt-meta">
+        <span class="adt-diff" id="adt-diff"></span>
+      </div>
+      <div class="adt-question" id="adt-question"></div>
+      <div class="adt-hint" id="adt-hint" style="display:none"></div>
+      <div class="adt-actions">
+        <button class="adt-btn adt-btn--accent" id="adt-toggle" onclick="window.adtToggle()">Antwort zeigen</button>
+        <a class="adt-btn" id="adt-quiz" style="display:none">Quiz &rarr;</a>
+      </div>
+      <div class="adt-solution" id="adt-solution">
+        <div class="adt-solution-label">Antwort</div>
+        <div class="adt-solution-text" id="adt-answer"></div>
+      </div>
     </div>
   </div>
 
@@ -1334,4 +1488,170 @@ function toggleSection(header) {
 
 document.addEventListener('DOMContentLoaded', updateUI);
 if (document.readyState !== 'loading') updateUI();
+</script>
+
+<!-- Aufgabe des Tages Script -->
+<script>
+(function() {
+  var pool = [
+    {
+      diff: "Grundlagen",
+      frage: "Berechne die Determinante: $\\det\\begin{pmatrix} 3 & 1 \\\\ 5 & 2 \\end{pmatrix}$",
+      hint: "Denk an die Formel ad - bc.",
+      antwort: "$\\det = 3 \\cdot 2 - 1 \\cdot 5 = 6 - 5 = 1$",
+      quiz: "/assets/quizzes/quiz_determinanten.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Löse das Gleichungssystem: $2x + y = 7$ und $x - y = 2$",
+      hint: "Addiere beide Gleichungen, um y zu eliminieren.",
+      antwort: "Addition: $3x = 9$, also $x = 3$. Einsetzen: $y = 1$. Lösung: $(3, 1)$.",
+      quiz: "/assets/quizzes/quiz_lgs_grundlagen.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Gegeben: $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$. Berechne $A^2$.",
+      antwort: "$A^2 = \\begin{pmatrix} 7 & 10 \\\\ 15 & 22 \\end{pmatrix}$",
+      quiz: "/assets/quizzes/quiz_matrizen_grundlagen.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Berechne das Skalarprodukt: $\\vec{a} = \\begin{pmatrix} 2 \\\\ -1 \\\\ 3 \\end{pmatrix}$ und $\\vec{b} = \\begin{pmatrix} 1 \\\\ 4 \\\\ -2 \\end{pmatrix}$",
+      antwort: "$\\vec{a} \\cdot \\vec{b} = 2 - 4 - 6 = -8$",
+      quiz: "/assets/quizzes/quiz_vektorprodukt.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Bestimme den Abstand des Punktes $P(1, 2, 3)$ vom Ursprung.",
+      antwort: "$d = \\sqrt{1^2 + 2^2 + 3^2} = \\sqrt{14} \\approx 3{,}74$"
+    },
+    {
+      diff: "Klausurniveau",
+      frage: "Zeige, dass $\\vec{a} = \\begin{pmatrix} 1 \\\\ 0 \\\\ -1 \\end{pmatrix}$ und $\\vec{b} = \\begin{pmatrix} 2 \\\\ 1 \\\\ 2 \\end{pmatrix}$ senkrecht stehen.",
+      antwort: "$\\vec{a} \\cdot \\vec{b} = 2 + 0 - 2 = 0$. Da Skalarprodukt $= 0$, stehen sie senkrecht.",
+      quiz: "/assets/quizzes/quiz_vektorprodukt.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Bestimme $f'(x)$ für $f(x) = 3x^4 - 2x^2 + 5x - 1$.",
+      antwort: "$f'(x) = 12x^3 - 4x + 5$",
+      quiz: "/assets/quizzes/quiz_ableitung_grundlagen.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Leite ab: $f(x) = \\sin(x) \\cdot e^x$ (Produktregel).",
+      antwort: "$f'(x) = \\cos(x) \\cdot e^x + \\sin(x) \\cdot e^x = e^x(\\cos x + \\sin x)$",
+      quiz: "/assets/quizzes/quiz_ableitungsregeln.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Finde die Extrempunkte von $f(x) = x^3 - 3x + 2$.",
+      hint: "Setze f'(x) = 0 und prüfe mit f''(x).",
+      antwort: "$x = \\pm 1$. Bei $x=1$: Minimum $(1, 0)$. Bei $x=-1$: Maximum $(-1, 4)$.",
+      quiz: "/assets/quizzes/quiz_extrempunkte.html"
+    },
+    {
+      diff: "Klausurniveau",
+      frage: "Bestimme die Wendepunkte von $f(x) = x^4 - 6x^2 + 8x + 1$.",
+      antwort: "$f''(x) = 12x^2 - 12 = 0 \\Rightarrow x = \\pm 1$. Wendepunkte: $W_1(1, 4)$ und $W_2(-1, -12)$.",
+      quiz: "/assets/quizzes/quiz_wendepunkte.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Berechne $\\lim_{n \\to \\infty} \\frac{3n^2 + 2n}{n^2 - 1}$.",
+      hint: "Teile durch die höchste Potenz von n.",
+      antwort: "$\\frac{3 + 0}{1 - 0} = 3$",
+      quiz: "/assets/quizzes/quiz_grenzwerte_folgen.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Berechne $\\int (4x^3 - 6x + 1)\\,dx$.",
+      antwort: "$x^4 - 3x^2 + x + C$",
+      quiz: "/assets/quizzes/quiz_integral_einfuehrung.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Berechne die Fläche unter $f(x) = x^2$ auf $[0, 3]$.",
+      antwort: "$A = \\left[\\frac{x^3}{3}\\right]_0^3 = 9$ FE",
+      quiz: "/assets/quizzes/quiz_hauptsatz_flaechen.html"
+    },
+    {
+      diff: "Klausurniveau",
+      frage: "Berechne $\\int x \\cdot e^x \\, dx$ (partielle Integration).",
+      hint: "Wähle u = x und v' = eˣ.",
+      antwort: "$x \\cdot e^x - e^x + C = e^x(x-1) + C$",
+      quiz: "/assets/quizzes/quiz_integrationsmethoden.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Bestimme mit L'Hôpital: $\\lim_{x \\to 0} \\frac{\\sin x}{x}$",
+      antwort: "Typ $\\frac{0}{0}$. L'Hôpital: $\\frac{\\cos 0}{1} = 1$.",
+      quiz: "/assets/quizzes/quiz_hospital.html"
+    },
+    {
+      diff: "Klausurniveau",
+      frage: "Bestimme die Asymptoten von $f(x) = \\frac{2x^2 + 1}{x - 1}$.",
+      hint: "Prüfe senkrechte und schräge Asymptoten.",
+      antwort: "Senkrecht: $x = 1$. Polynomdivision ergibt schräge Asymptote: $y = 2x + 2$.",
+      quiz: "/assets/quizzes/quiz_asymptoten.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Berechne: $\\frac{2}{3} + \\frac{3}{4}$",
+      hint: "Finde den gemeinsamen Nenner.",
+      antwort: "$\\frac{8}{12} + \\frac{9}{12} = \\frac{17}{12}$"
+    },
+    {
+      diff: "Mittel",
+      frage: "Rotationsvolumen: $f(x) = \\sqrt{x}$ auf $[0, 4]$ um die x-Achse.",
+      antwort: "$V = \\pi \\int_0^4 x\\,dx = \\pi \\cdot 8 = 8\\pi$ VE",
+      quiz: "/assets/quizzes/quiz_rotationsvolumen.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Ist die Folge $a_n = \\frac{(-1)^n}{n}$ konvergent? Falls ja, gegen welchen Grenzwert?",
+      antwort: "Ja, konvergent. $\\lim_{n \\to \\infty} \\frac{(-1)^n}{n} = 0$, da $|a_n| = \\frac{1}{n} \\to 0$.",
+      quiz: "/assets/quizzes/quiz_zahlenfolgen.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Bestimme die Gleichung der Tangente an $f(x) = x^2$ im Punkt $P(2, 4)$.",
+      antwort: "$f'(x) = 2x$, also $f'(2) = 4$. Tangente: $y = 4(x - 2) + 4 = 4x - 4$.",
+      quiz: "/assets/quizzes/quiz_ableitung_grundlagen.html"
+    }
+  ];
+
+  function renderMath(el) {
+    var html = el.innerHTML;
+    html = html.replace(/\$\$([\s\S]+?)\$\$/g, function(m, tex) {
+      var s = document.createElement('span');
+      try { katex.render(tex.trim(), s, { displayMode: true, throwOnError: false }); } catch(e) { s.textContent = tex; }
+      return s.outerHTML;
+    });
+    html = html.replace(/\$([^\$]+?)\$/g, function(m, tex) {
+      var s = document.createElement('span');
+      try { katex.render(tex.trim(), s, { displayMode: false, throwOnError: false }); } catch(e) { s.textContent = tex; }
+      return s.outerHTML;
+    });
+    el.innerHTML = html;
+  }
+
+  var dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  var t = pool[dayOfYear % pool.length];
+
+  var diffs = { "Grundlagen": "I", "Mittel": "II", "Klausurniveau": "III" };
+  document.getElementById('adt-diff').textContent = (diffs[t.diff]||"") + " " + t.diff;
+  var qEl = document.getElementById('adt-question');
+  qEl.innerHTML = t.frage; renderMath(qEl);
+  if (t.hint) { var h = document.getElementById('adt-hint'); h.textContent = t.hint; h.style.display = 'block'; }
+  var aEl = document.getElementById('adt-answer');
+  aEl.innerHTML = t.antwort; renderMath(aEl);
+  if (t.quiz) { var q = document.getElementById('adt-quiz'); q.href = t.quiz; q.style.display = 'inline-flex'; }
+
+  window.adtToggle = function() {
+    var sol = document.getElementById('adt-solution');
+    sol.classList.toggle('visible');
+    document.getElementById('adt-toggle').textContent = sol.classList.contains('visible') ? 'Antwort verbergen' : 'Antwort zeigen';
+  };
+})();
 </script>

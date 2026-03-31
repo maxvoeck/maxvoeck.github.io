@@ -680,7 +680,141 @@ body, html, .page-content, .wrapper, main, .post-content {
   .ma-btn, .ma-check { display: none; }
   .ma-card { break-inside: avoid; }
 }
+
+/* ─── Aufgabe des Tages ─── */
+.adt {
+  max-width: 980px;
+  margin: 0 auto var(--space-12);
+  padding: 0 var(--space-5);
+}
+@media (min-width: 768px) {
+  .adt { padding: 0 var(--space-8); }
+}
+.adt-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-3);
+}
+.adt-card {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg, 16px);
+  padding: var(--space-8);
+  background: var(--bg-elevated, rgba(255,255,255,0.03));
+  transition: border-color 250ms;
+}
+.adt-card:hover { border-color: var(--border-hover, var(--border-strong)); }
+.adt-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+.adt-diff {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+.adt-question {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  line-height: 1.45;
+  margin-bottom: var(--space-3);
+}
+.adt-hint {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+  font-style: italic;
+}
+.adt-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.adt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm, 8px);
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 200ms;
+  text-decoration: none;
+  font-family: var(--font-body);
+}
+.adt-btn:hover {
+  background: var(--bg-elevated, rgba(255,255,255,0.06));
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.adt-btn--accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.adt-btn--accent:hover { opacity: 0.88; color: #fff; }
+.adt-solution {
+  display: none;
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+.adt-solution.visible {
+  display: block;
+  animation: adtFade 300ms ease;
+}
+@keyframes adtFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.adt-solution-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--matcha, #7a8c6e);
+  margin-bottom: var(--space-3);
+}
+.adt-solution-text {
+  font-size: 15px;
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.adt-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  margin-top: var(--space-4);
+  transition: color 200ms;
+}
+.adt-link:hover { color: var(--accent); }
+@media (max-width: 480px) {
+  .adt-question { font-size: 18px; }
+  .adt-card { padding: var(--space-5); }
+}
 </style>
+
+<!-- KaTeX for VWL formulas -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 
 <div class="ma-container">
 
@@ -698,6 +832,26 @@ body, html, .page-content, .wrapper, main, .post-content {
         <div class="ma-progress-text" id="progressText">0%</div>
       </div>
       <div class="ma-progress-label"><span id="completedCount">0</span> von 14 abgeschlossen</div>
+    </div>
+  </div>
+
+  <!-- Aufgabe des Tages -->
+  <div class="adt">
+    <div class="adt-label">Aufgabe des Tages</div>
+    <div class="adt-card">
+      <div class="adt-meta">
+        <span class="adt-diff" id="adt-diff"></span>
+      </div>
+      <div class="adt-question" id="adt-question"></div>
+      <div class="adt-hint" id="adt-hint" style="display:none"></div>
+      <div class="adt-actions">
+        <button class="adt-btn adt-btn--accent" id="adt-toggle" onclick="window.adtToggle()">Antwort zeigen</button>
+        <a class="adt-btn" id="adt-quiz" style="display:none">Quiz &rarr;</a>
+      </div>
+      <div class="adt-solution" id="adt-solution">
+        <div class="adt-solution-label">Antwort</div>
+        <div class="adt-solution-text" id="adt-answer"></div>
+      </div>
     </div>
   </div>
 
@@ -1013,4 +1167,130 @@ function resetProgress() {
 
 document.addEventListener('DOMContentLoaded', updateUI);
 if (document.readyState !== 'loading') updateUI();
+</script>
+
+<!-- Aufgabe des Tages Script -->
+<script>
+(function() {
+  var pool = [
+    {
+      diff: "Grundlagen",
+      frage: "Was ist der Unterschied zwischen einem Bedürfnis, einem Bedarf und der Nachfrage?",
+      antwort: "Bedürfnis = Mangelempfinden (z.B. Hunger). Bedarf = auf ein konkretes Gut gerichtet (z.B. Pizza). Nachfrage = Bedarf tritt mit Kaufkraft am Markt auf.",
+      quiz: "/assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Nenne drei Merkmale eines vollkommenen Marktes.",
+      antwort: "Homogene Güter, vollständige Markttransparenz, keine persönlichen/zeitlichen/räumlichen Präferenzen.",
+      quiz: "/assets/quizzes/quiz_marktformen.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Nachfrage: $p = 100 - 2q$, Angebot: $p = 20 + 3q$. Bestimme Gleichgewichtspreis und -menge.",
+      antwort: "$100 - 2q = 20 + 3q \\Rightarrow q^* = 16$. Einsetzen: $p^* = 68$.",
+      quiz: "/assets/quizzes/quiz_marktgleichgewicht.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Was versteht man unter einem öffentlichen Gut? Nenne ein Beispiel.",
+      antwort: "Nicht-rivalisierend und nicht-ausschließbar. Beispiele: Straßenbeleuchtung, Landesverteidigung.",
+      quiz: "/assets/quizzes/quiz_gueterarten.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Erkläre das Gesetz der Nachfrage und warum die Nachfragekurve fallend verläuft.",
+      antwort: "Steigt der Preis, sinkt die nachgefragte Menge (ceteris paribus). Grund: Substitutionseffekt (Ausweichen auf günstigere Alternativen) und Einkommenseffekt (reale Kaufkraft sinkt).",
+      quiz: "/assets/quizzes/quiz_nachfrage.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Nenne die vier Phasen eines Konjunkturzyklus.",
+      antwort: "Aufschwung (Expansion), Hochkonjunktur (Boom), Abschwung (Rezession), Tiefstand (Depression).",
+      quiz: "/assets/quizzes/quiz_konjunktur.html"
+    },
+    {
+      diff: "Klausurniveau",
+      frage: "Erkläre den Unterschied zwischen Entstehungs-, Verwendungs- und Verteilungsrechnung des BIP.",
+      antwort: "Entstehung: Summe der Bruttowertschöpfung. Verwendung: $BIP = C + I + G + (Ex - Im)$. Verteilung: Summe aus Arbeitnehmerentgelten, Gewinnen, Abschreibungen, Produktionsabgaben.",
+      quiz: "/assets/quizzes/quiz_vgr.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Was ist Inflation und wie wird sie gemessen?",
+      antwort: "Anhaltender Anstieg des allgemeinen Preisniveaus. Gemessen über den Verbraucherpreisindex (VPI) eines repräsentativen Warenkorbs.",
+      quiz: "/assets/quizzes/quiz_preisniveau.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Was versteht man unter dem ökonomischen Prinzip? Nenne die zwei Ausprägungen.",
+      antwort: "Maximalprinzip: Mit gegebenen Mitteln den größtmöglichen Erfolg erzielen. Minimalprinzip: Ein bestimmtes Ziel mit möglichst geringem Aufwand erreichen.",
+      quiz: "/assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Was passiert am Markt, wenn der Staat einen Höchstpreis unter dem Gleichgewichtspreis festlegt?",
+      hint: "Denke an Angebot und Nachfrage bei diesem Preis.",
+      antwort: "Es entsteht eine Überschussnachfrage (Nachfrage > Angebot). Die nachgefragte Menge übersteigt die angebotene Menge, es kommt zu Versorgungsengpässen.",
+      quiz: "/assets/quizzes/quiz_marktgleichgewicht.html"
+    },
+    {
+      diff: "Klausurniveau",
+      frage: "Erkläre, wie eine expansive Geldpolitik der Zentralbank die Konjunktur beeinflusst.",
+      antwort: "Senkung des Leitzinses → günstigere Kredite → mehr Investitionen und Konsum → höhere Gesamtnachfrage → BIP steigt → kann aber auch Inflation fördern.",
+      quiz: "/assets/quizzes/quiz_konjunkturpolitik.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Was ist die Budgetgerade und wovon hängt ihre Lage ab?",
+      antwort: "Die Budgetgerade zeigt alle Güterkombinationen, die ein Haushalt bei gegebenem Einkommen und gegebenen Preisen kaufen kann. Lage hängt ab von: Einkommen (Parallelverschiebung) und Preisen der Güter (Drehung).",
+      quiz: "/assets/quizzes/quiz_budgetgerade.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Was unterscheidet ein Oligopol von einem Polypol?",
+      antwort: "Oligopol: wenige Anbieter, die sich gegenseitig beobachten und beeinflussen. Polypol: viele kleine Anbieter, die keinen individuellen Einfluss auf den Marktpreis haben.",
+      quiz: "/assets/quizzes/quiz_marktformen.html"
+    },
+    {
+      diff: "Klausurniveau",
+      frage: "Nenne drei Arten von Arbeitslosigkeit und erkläre sie kurz.",
+      antwort: "Friktionelle (Sucharbeitslosigkeit beim Jobwechsel), saisonale (wetterbedingt, z.B. Bau im Winter), konjunkturelle (durch Nachfragerückgang in der Rezession). Dazu: strukturelle (durch Wandel der Wirtschaft).",
+      quiz: "/assets/quizzes/quiz_arbeitslosigkeit.html"
+    }
+  ];
+
+  function renderMath(el) {
+    var html = el.innerHTML;
+    html = html.replace(/\$\$([\s\S]+?)\$\$/g, function(m, tex) {
+      var s = document.createElement('span');
+      try { katex.render(tex.trim(), s, { displayMode: true, throwOnError: false }); } catch(e) { s.textContent = tex; }
+      return s.outerHTML;
+    });
+    html = html.replace(/\$([^\$]+?)\$/g, function(m, tex) {
+      var s = document.createElement('span');
+      try { katex.render(tex.trim(), s, { displayMode: false, throwOnError: false }); } catch(e) { s.textContent = tex; }
+      return s.outerHTML;
+    });
+    el.innerHTML = html;
+  }
+
+  var dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  var t = pool[dayOfYear % pool.length];
+
+  var diffs = { "Grundlagen": "I", "Mittel": "II", "Klausurniveau": "III" };
+  document.getElementById('adt-diff').textContent = (diffs[t.diff]||"") + " " + t.diff;
+  var qEl = document.getElementById('adt-question');
+  qEl.innerHTML = t.frage; renderMath(qEl);
+  if (t.hint) { var h = document.getElementById('adt-hint'); h.textContent = t.hint; h.style.display = 'block'; }
+  var aEl = document.getElementById('adt-answer');
+  aEl.innerHTML = t.antwort; renderMath(aEl);
+  if (t.quiz) { var q = document.getElementById('adt-quiz'); q.href = t.quiz; q.style.display = 'inline-flex'; }
+
+  window.adtToggle = function() {
+    var sol = document.getElementById('adt-solution');
+    sol.classList.toggle('visible');
+    document.getElementById('adt-toggle').textContent = sol.classList.contains('visible') ? 'Antwort verbergen' : 'Antwort zeigen';
+  };
+})();
 </script>

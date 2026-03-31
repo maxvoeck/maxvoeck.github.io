@@ -546,6 +546,157 @@ body, html, .page-content, .wrapper, main, .post-content {
   .ma-btn, .ma-check { display: none; }
   .ma-card { break-inside: avoid; }
 }
+
+/* ─── Aufgabe des Tages ─── */
+.adt {
+  max-width: 980px;
+  margin: 0 auto var(--space-12);
+  padding: 0 var(--space-5);
+}
+@media (min-width: 768px) {
+  .adt { padding: 0 var(--space-8); }
+}
+.adt-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-3);
+}
+.adt-card {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg, 16px);
+  padding: var(--space-8);
+  background: var(--bg-elevated, rgba(255,255,255,0.03));
+  transition: border-color 250ms;
+}
+.adt-card:hover { border-color: var(--border-hover, var(--border-strong)); }
+.adt-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+}
+.adt-diff {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+.adt-question {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  line-height: 1.45;
+  margin-bottom: var(--space-3);
+}
+.adt-hint {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 300;
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+  font-style: italic;
+}
+.adt-code {
+  display: block;
+  background: var(--bg-secondary, #3d3d38);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm, 8px);
+  padding: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: pre;
+  overflow-x: auto;
+  margin: var(--space-4) 0 var(--space-5);
+  line-height: 1.6;
+}
+.adt-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.adt-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm, 8px);
+  border: 1px solid var(--border-strong);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 200ms;
+  text-decoration: none;
+  font-family: var(--font-body);
+}
+.adt-btn:hover {
+  background: var(--bg-elevated, rgba(255,255,255,0.06));
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.adt-btn--accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.adt-btn--accent:hover { opacity: 0.88; color: #fff; }
+.adt-solution {
+  display: none;
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--border);
+}
+.adt-solution.visible {
+  display: block;
+  animation: adtFade 300ms ease;
+}
+@keyframes adtFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.adt-solution-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--matcha, #7a8c6e);
+  margin-bottom: var(--space-3);
+}
+.adt-solution-text {
+  font-size: 15px;
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+.adt-solution-text code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--bg-secondary, #3d3d38);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.adt-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  margin-top: var(--space-4);
+  transition: color 200ms;
+}
+.adt-link:hover { color: var(--accent); }
+@media (max-width: 480px) {
+  .adt-question { font-size: 18px; }
+  .adt-card { padding: var(--space-5); }
+}
 </style>
 
 <div class="ma-container">
@@ -564,6 +715,27 @@ body, html, .page-content, .wrapper, main, .post-content {
         <div class="ma-progress-text" id="progressText">0%</div>
       </div>
       <div class="ma-progress-label"><span id="completedCount">0</span> von 6 abgeschlossen</div>
+    </div>
+  </div>
+
+  <!-- Aufgabe des Tages -->
+  <div class="adt">
+    <div class="adt-label">Aufgabe des Tages</div>
+    <div class="adt-card">
+      <div class="adt-meta">
+        <span class="adt-diff" id="adt-diff"></span>
+      </div>
+      <div class="adt-question" id="adt-question"></div>
+      <div class="adt-hint" id="adt-hint" style="display:none"></div>
+      <div id="adt-code-wrap"></div>
+      <div class="adt-actions">
+        <button class="adt-btn adt-btn--accent" id="adt-toggle" onclick="window.adtToggle()">Antwort zeigen</button>
+        <a class="adt-btn" id="adt-quiz" style="display:none">Quiz &rarr;</a>
+      </div>
+      <div class="adt-solution" id="adt-solution">
+        <div class="adt-solution-label">Antwort</div>
+        <div class="adt-solution-text" id="adt-answer"></div>
+      </div>
     </div>
   </div>
 
@@ -731,4 +903,115 @@ function resetProgress() {
 
 document.addEventListener('DOMContentLoaded', updateUI);
 if (document.readyState !== 'loading') updateUI();
+</script>
+
+<!-- Aufgabe des Tages Script -->
+<script>
+(function() {
+  var pool = [
+    {
+      diff: "Grundlagen",
+      frage: "Was ist der Unterschied zwischen einer Liste und einem Tupel in Python?",
+      antwort: "Listen sind veränderbar (mutable), Tupel unveränderbar (immutable). Listen: <code>[ ]</code>, Tupel: <code>( )</code>.",
+      quiz: "/assets/quizzes/quiz_listen_datenstrukturen.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Was gibt dieser Python-Code aus?",
+      code: "x = [1, 2, 3, 4, 5]\nprint(x[1:4])",
+      antwort: "<code>[2, 3, 4]</code> — Slicing geht von Index 1 (inklusive) bis 4 (exklusive).",
+      quiz: "/assets/quizzes/quiz_listen_datenstrukturen.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist.",
+      hint: "Du brauchst nur bis zur Wurzel der Zahl zu prüfen.",
+      code: "def ist_primzahl(n):\n    # Dein Code hier\n    pass",
+      antwort: "<code>def ist_primzahl(n):</code><br><code>&nbsp;&nbsp;if n < 2: return False</code><br><code>&nbsp;&nbsp;for i in range(2, int(n**0.5)+1):</code><br><code>&nbsp;&nbsp;&nbsp;&nbsp;if n % i == 0: return False</code><br><code>&nbsp;&nbsp;return True</code>",
+      quiz: "/assets/quizzes/quiz_kontrollstrukturen.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Was ist der Unterschied zwischen <code>=</code> und <code>==</code> in Python?",
+      antwort: "<code>=</code> ist Zuweisung (speichert Wert). <code>==</code> ist Vergleich (prüft Gleichheit, ergibt <code>True</code>/<code>False</code>).",
+      quiz: "/assets/quizzes/quiz_variablen_datentypen.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Was gibt dieser Code aus?",
+      code: "for i in range(5):\n    if i % 2 == 0:\n        print(i, end=\" \")",
+      antwort: "<code>0 2 4</code> — Die Schleife geht von 0 bis 4, die Bedingung filtert gerade Zahlen.",
+      quiz: "/assets/quizzes/quiz_kontrollstrukturen.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Was gibt <code>type(3.14)</code> in Python zurück?",
+      antwort: "<code>&lt;class 'float'&gt;</code> — 3.14 ist eine Gleitkommazahl (float).",
+      quiz: "/assets/quizzes/quiz_variablen_datentypen.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Was ist der Unterschied zwischen <code>append()</code> und <code>extend()</code> bei Listen?",
+      code: "a = [1, 2]\na.append([3, 4])\nprint(a)\n\nb = [1, 2]\nb.extend([3, 4])\nprint(b)",
+      antwort: "<code>append</code> fügt das Argument als einzelnes Element hinzu: <code>[1, 2, [3, 4]]</code>. <code>extend</code> fügt jedes Element einzeln hinzu: <code>[1, 2, 3, 4]</code>.",
+      quiz: "/assets/quizzes/quiz_listen_datenstrukturen.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Was passiert bei diesem Code?",
+      code: "name = input(\"Name: \")\nprint(\"Hallo, \" + name + \"!\")",
+      antwort: "Das Programm fragt den Benutzer nach einem Namen und gibt dann eine Begrüßung aus, z.B. <code>Hallo, Anna!</code>.",
+      quiz: "/assets/quizzes/quiz_python_grundlage.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Schreibe eine List Comprehension, die alle geraden Zahlen von 0 bis 20 in eine Liste packt.",
+      antwort: "<code>gerade = [x for x in range(21) if x % 2 == 0]</code><br>Ergebnis: <code>[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]</code>",
+      quiz: "/assets/quizzes/quiz_listen_datenstrukturen.html"
+    },
+    {
+      diff: "Klausurniveau",
+      frage: "Was gibt dieser Code aus?",
+      code: "def mystery(n):\n    if n <= 1:\n        return n\n    return mystery(n-1) + mystery(n-2)\n\nprint(mystery(6))",
+      hint: "Erkennst du das Muster?",
+      antwort: "<code>8</code> — Die Funktion berechnet Fibonacci-Zahlen rekursiv. F(6) = F(5)+F(4) = 5+3 = 8.",
+      quiz: "/assets/quizzes/quiz_kontrollstrukturen.html"
+    },
+    {
+      diff: "Grundlagen",
+      frage: "Welche drei Kontrollstrukturen gibt es in Python?",
+      antwort: "Sequenz (Anweisungen nacheinander), Selektion (<code>if/elif/else</code>), Iteration (<code>for</code>- und <code>while</code>-Schleifen).",
+      quiz: "/assets/quizzes/quiz_kontrollstrukturen.html"
+    },
+    {
+      diff: "Mittel",
+      frage: "Was gibt dieser Code aus und warum?",
+      code: "x = \"Python\"\nprint(x[::-1])",
+      antwort: "<code>nohtyP</code> — <code>[::-1]</code> ist ein Slice mit Schritt -1, der den String umkehrt.",
+      quiz: "/assets/quizzes/quiz_variablen_datentypen.html"
+    }
+  ];
+
+  var dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  var t = pool[dayOfYear % pool.length];
+
+  var diffs = { "Grundlagen": "I", "Mittel": "II", "Klausurniveau": "III" };
+  document.getElementById('adt-diff').textContent = (diffs[t.diff]||"") + " " + t.diff;
+  document.getElementById('adt-question').innerHTML = t.frage;
+  if (t.hint) { var h = document.getElementById('adt-hint'); h.textContent = t.hint; h.style.display = 'block'; }
+  if (t.code) {
+    var pre = document.createElement('code');
+    pre.className = 'adt-code';
+    pre.textContent = t.code;
+    document.getElementById('adt-code-wrap').appendChild(pre);
+  }
+  document.getElementById('adt-answer').innerHTML = t.antwort;
+  if (t.quiz) { var q = document.getElementById('adt-quiz'); q.href = t.quiz; q.style.display = 'inline-flex'; }
+
+  window.adtToggle = function() {
+    var sol = document.getElementById('adt-solution');
+    sol.classList.toggle('visible');
+    document.getElementById('adt-toggle').textContent = sol.classList.contains('visible') ? 'Antwort verbergen' : 'Antwort zeigen';
+  };
+})();
 </script>
