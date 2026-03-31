@@ -906,6 +906,7 @@ if (document.readyState !== 'loading') updateUI();
 </script>
 
 <!-- Aufgabe des Tages Script -->
+{% raw %}
 <script>
 (function() {
   var pool = [
@@ -1015,3 +1016,4 @@ if (document.readyState !== 'loading') updateUI();
   };
 })();
 </script>
+{% endraw %}
