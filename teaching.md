@@ -83,6 +83,10 @@ body, html, .page-content, .wrapper, main, .post-content {
       <span class="te-card-label">Mathematik</span>
       <span class="te-card-meta">30 Module · Algebra, Vektoren, Analysis, Integralrechnung</span>
     </a>
+    <a href="/teaching/mathematik-wkurs/" class="te-card">
+      <span class="te-card-label">Mathematik (W-Kurs)</span>
+      <span class="te-card-meta">2. Semester · Materialien in Vorbereitung</span>
+    </a>
     <a href="/teaching/vwl/" class="te-card">
       <span class="te-card-label">Volkswirtschaftslehre</span>
       <span class="te-card-meta">13 Module · Mikro- & Makroökonomie</span>
