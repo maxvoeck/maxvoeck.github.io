@@ -441,6 +441,19 @@ body, html, .page-content, .wrapper, main, .post-content {
           </button>
         </div>
       </div>
+
+      <div class="mw-card" data-module="wk-diff-02">
+        <div class="mw-card-header">
+          <span class="mw-card-number">02</span>
+          <h4>Extremwertaufgaben mit Nebenbedingung</h4>
+        </div>
+        <div class="mw-actions">
+          <a href="/assets/pdfs/WKurs_Extremwertaufgaben_Nebenbedingung.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+          <button class="mw-check" onclick="mwToggleModule('wk-diff-02', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
