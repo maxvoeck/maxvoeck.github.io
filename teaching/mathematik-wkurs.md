@@ -424,7 +424,6 @@ body, html, .page-content, .wrapper, main, .post-content {
     <div class="mw-section-header" onclick="mwToggleSection(this)">
       <div class="mw-section-title-group">
         <h2 class="mw-section-title">Differentialrechnung</h2>
-        <div class="mw-section-subtitle">Wiederholung aus dem 1. Semester</div>
       </div>
       <div class="mw-section-toggle">▼</div>
     </div>
@@ -468,6 +467,20 @@ body, html, .page-content, .wrapper, main, .post-content {
     </button>
   </div>
 </div>
+
+<div class="mw-card" data-module="wk-diff-04">
+  <div class="mw-card-header">
+    <span class="mw-card-number">04</span>
+    <h4>Kurvendiskussion &amp; Ausblick Integralrechnung</h4>
+  </div>
+  <div class="mw-actions">
+    <a href="/assets/pdfs/Kurvendiskusion_1.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+    <button class="mw-check" onclick="mwToggleModule('wk-diff-04', event)" aria-label="Als erledigt markieren">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+    </button>
+  </div>
+</div>
+
     </div>
   </div>
 
