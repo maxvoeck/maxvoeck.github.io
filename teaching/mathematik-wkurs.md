@@ -454,6 +454,20 @@ body, html, .page-content, .wrapper, main, .post-content {
           </button>
         </div>
       </div>
+
+      <!-- Neue Karte 03 im Differentialrechnung-Abschnitt -->
+<div class="mw-card" data-module="wk-diff-03">
+  <div class="mw-card-header">
+    <span class="mw-card-number">03</span>
+    <h4>Extremwertaufgaben — Vertiefung</h4>
+  </div>
+  <div class="mw-actions">
+    <a href="/assets/pdfs/Extremwertaufgaben_2.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+    <button class="mw-check" onclick="mwToggleModule('wk-diff-03', event)" aria-label="Als erledigt markieren">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+    </button>
+  </div>
+</div>
     </div>
   </div>
 
