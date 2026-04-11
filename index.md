@@ -144,34 +144,6 @@ layout: default
 
 <div class="home">
 
-  <!-- ═══ Aufgabe des Tages ═══ -->
-  <div class="adt-teaser">
-    <div class="adt-teaser-eyebrow">Aufgabe des Tages</div>
-    <div class="adt-teaser-grid">
-      <a href="/teaching/mathematik/" class="adt-teaser-card">
-        <div class="adt-teaser-left">
-          <span class="adt-teaser-dot adt-teaser-dot--mathe"></span>
-          <span class="adt-teaser-fach">Mathematik</span>
-        </div>
-        <span class="adt-teaser-arrow">&rarr;</span>
-      </a>
-      <a href="/teaching/vwl/" class="adt-teaser-card">
-        <div class="adt-teaser-left">
-          <span class="adt-teaser-dot adt-teaser-dot--vwl"></span>
-          <span class="adt-teaser-fach">Volkswirtschaftslehre</span>
-        </div>
-        <span class="adt-teaser-arrow">&rarr;</span>
-      </a>
-      <a href="/teaching/informatik/" class="adt-teaser-card">
-        <div class="adt-teaser-left">
-          <span class="adt-teaser-dot adt-teaser-dot--info"></span>
-          <span class="adt-teaser-fach">Informatik</span>
-        </div>
-        <span class="adt-teaser-arrow">&rarr;</span>
-      </a>
-    </div>
-  </div>
-
   <!-- ═══ Navigation ═══ -->
   <div class="home-eyebrow">Studienkolleg Leipzig</div>
 
