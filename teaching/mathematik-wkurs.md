@@ -484,22 +484,41 @@ body, html, .page-content, .wrapper, main, .post-content {
     </div>
   </div>
 
-  <!-- Themenblock 2 -->
-  <div class="mw-section collapsed">
-    <div class="mw-section-header" onclick="mwToggleSection(this)">
-      <div class="mw-section-title-group">
-        <h2 class="mw-section-title">Themenblock 2</h2>
-        <div class="mw-section-subtitle">Platzhalter – Inhalte folgen</div>
-      </div>
-      <div class="mw-section-toggle">▼</div>
+  <!-- Integralrechnung -->
+<div class="mw-section">
+  <div class="mw-section-header" onclick="mwToggleSection(this)">
+    <div class="mw-section-title-group">
+      <h2 class="mw-section-title">Integralrechnung</h2>
     </div>
-    <div class="mw-grid">
-      <div class="mw-placeholder">
-        <strong>Noch keine Module</strong>
-        Hier erscheinen demnächst die Kapitel und Quizze für Themenblock&nbsp;2.
-      </div>
-    </div>
+    <div class="mw-section-toggle">▼</div>
   </div>
+  <div class="mw-grid">
+
+    <div class="mw-card" data-module="wk-int-01">
+      <div class="mw-card-header">
+        <span class="mw-card-number">01</span>
+        <h4>Stammfunktion &amp; unbestimmtes Integral</h4>
+      </div>
+      <div class="mw-actions">
+        <a href="/assets/pdfs/Stammfunktion.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+        <button class="mw-check" onclick="mwToggleModule('wk-int-01', event)" aria-label="Als erledigt markieren">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mw-card" data-module="wk-int-02">
+      <div class="mw-card-header">
+        <span class="mw-card-number">02</span>
+        <h4>Bestimmtes Integral &amp; Hauptsatz</h4>
+      </div>
+      <div class="mw-actions">
+        <a href="/assets/pdfs/bestimmtes_integral.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+        <button class="mw-check" onclick="mwToggleModule('wk-int-02', event)" aria-label="Als erledigt markieren">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+        </button>
+      </div>
+    </div>
 
   <!-- Themenblock 3 -->
   <div class="mw-section collapsed">
