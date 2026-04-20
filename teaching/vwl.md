@@ -1077,7 +1077,6 @@ body, html, .page-content, .wrapper, main, .post-content {
     <span class="ma-card-number">15</span>
     <h4>Magisches Viereck</h4>
   </div>
-  <p>Stabilitätsgesetz, vier wirtschaftspolitische Ziele, Zielkonflikte und -harmonien</p>
   <div class="ma-actions">
     <a href="/assets/pdfs/VWL_15-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
     <a href="/assets/quizzes/quiz_magisches_viereck.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
