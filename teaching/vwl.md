@@ -1072,6 +1072,21 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
       </div>
 
+      <div class="ma-card" data-module="m15">
+  <div class="ma-card-header">
+    <span class="ma-card-number">15</span>
+    <h4>Magisches Viereck</h4>
+  </div>
+  <p>Stabilitätsgesetz, vier wirtschaftspolitische Ziele, Zielkonflikte und -harmonien</p>
+  <div class="ma-actions">
+    <a href="/assets/pdfs/VWL_15-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+    <a href="/assets/quizzes/quiz_magisches_viereck.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
+    <button class="ma-check" onclick="toggleModule('m15', event)" aria-label="Als erledigt markieren">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+    </button>
+  </div>
+</div>
+
     </div>
   </div>
 
@@ -1085,6 +1100,8 @@ body, html, .page-content, .wrapper, main, .post-content {
       <button class="ma-btn ma-btn--ghost" onclick="resetProgress()">Zurücksetzen</button>
     </div>
   </div>
+
+  
 
 </div>
 
