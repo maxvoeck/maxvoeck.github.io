@@ -520,34 +520,6 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
     </div>
 
-  <!-- Themenblock 3 -->
-  <div class="mw-section collapsed">
-    <div class="mw-section-header" onclick="mwToggleSection(this)">
-      <div class="mw-section-title-group">
-        <h2 class="mw-section-title">Themenblock 3</h2>
-        <div class="mw-section-subtitle">Platzhalter – Inhalte folgen</div>
-      </div>
-      <div class="mw-section-toggle">▼</div>
-    </div>
-    <div class="mw-grid">
-      <div class="mw-placeholder">
-        <strong>Noch keine Module</strong>
-        Hier erscheinen demnächst die Kapitel und Quizze für Themenblock&nbsp;3.
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="mw-footer">
-    <div class="mw-footer-text">
-      <strong>W-Kurs · 2. Semester</strong> · Materialien werden laufend ergänzt
-    </div>
-    <div class="mw-footer-actions">
-      <a href="/teaching/" class="mw-btn mw-btn--secondary">← Übersicht</a>
-      <a href="/teaching/mathematik/" class="mw-btn mw-btn--secondary">T-Kurs Mathematik</a>
-    </div>
-  </div>
-
 </div>
 
 <script>
