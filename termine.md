@@ -118,26 +118,10 @@ body, html, .page-content, .wrapper, main, .post-content {
 
     <div class="tr-row">
       <div class="tr-row-left">
-        <span class="tr-kurs">25w-T3</span>
-        <span class="tr-themen">Themen 1–3</span>
-      </div>
-      <span class="tr-datum">3. März 2026</span>
-    </div>
-
-    <div class="tr-row">
-      <div class="tr-row-left">
-        <span class="tr-kurs">25w-T1</span>
+        <span class="tr-kurs">25w-T4 & 25w-T2 & 25w-T3</span>
         <span class="tr-themen">Themen 4–6</span>
       </div>
-      <span class="tr-datum">9. April 2026</span>
-    </div>
-
-    <div class="tr-row">
-      <div class="tr-row-left">
-        <span class="tr-kurs">25w-T4 & 25w-T2</span>
-        <span class="tr-themen">Themen 1–3</span>
-      </div>
-      <span class="tr-datum">13. März 2026</span>
+      <span class="tr-datum">24. April 2026</span>
     </div>
   </div>
 
