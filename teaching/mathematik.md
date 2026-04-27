@@ -1329,6 +1329,19 @@ body, html, .page-content, .wrapper, main, .post-content {
           </button>
         </div>
       </div>
+
+      <div class="ma-card" data-module="i5">
+  <div class="ma-card-header">
+    <span class="ma-card-number">26</span>
+    <h4>Flächen zwischen Funktionen</h4>
+  </div>
+  <div class="ma-actions">
+    <a href="/assets/pdfs/Fläche_zwichen_Funktionen.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
+    <button class="ma-check" onclick="toggleModule('i5', event)" aria-label="Als erledigt markieren">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+    </button>
+  </div>
+</div>
     </div>
   </div>
 
