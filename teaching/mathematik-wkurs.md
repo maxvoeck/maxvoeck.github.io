@@ -232,6 +232,43 @@ body, html, .page-content, .wrapper, main, .post-content {
   background: linear-gradient(135deg, rgba(122, 140, 110, 0.08) 0%, var(--bg-secondary) 100%);
 }
 
+/* ─── Klausur-spezifische Card-Stile ─── */
+.mw-card-klausur {
+  border-color: var(--border-strong);
+}
+.mw-card-klausur .mw-card-meta {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  margin-bottom: var(--space-2);
+}
+.mw-card-klausur .mw-card-topics {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--space-4);
+}
+.mw-card-klausur .mw-topic-tag {
+  display: inline-block;
+  background: rgba(26, 26, 24, 0.06);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  margin: 2px 2px 2px 0;
+}
+.mw-card-klausur.mw-card--unavailable {
+  opacity: 0.5;
+}
+.mw-card-klausur.mw-card--unavailable .mw-btn--primary {
+  pointer-events: none;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .mw-card-header {
   display: flex;
   align-items: center;
@@ -284,6 +321,12 @@ body, html, .page-content, .wrapper, main, .post-content {
   color: var(--text-primary) !important;
 }
 .mw-btn--secondary:hover { background: rgba(26, 26, 24, 0.1); }
+.mw-btn--ghost {
+  background: transparent;
+  color: var(--text-tertiary) !important;
+  border: 1px solid var(--border-strong);
+}
+.mw-btn--ghost:hover { background: var(--bg-secondary); color: var(--text-secondary) !important; }
 
 .mw-check {
   margin-left: auto;
@@ -454,104 +497,166 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
       </div>
 
-      <!-- Neue Karte 03 im Differentialrechnung-Abschnitt -->
-<div class="mw-card" data-module="wk-diff-03">
-  <div class="mw-card-header">
-    <span class="mw-card-number">03</span>
-    <h4>Extremwertaufgaben — Vertiefung</h4>
-  </div>
-  <div class="mw-actions">
-    <a href="/assets/pdfs/Extremwertaufgaben_2.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
-    <button class="mw-check" onclick="mwToggleModule('wk-diff-03', event)" aria-label="Als erledigt markieren">
-      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-    </button>
-  </div>
-</div>
+      <div class="mw-card" data-module="wk-diff-03">
+        <div class="mw-card-header">
+          <span class="mw-card-number">03</span>
+          <h4>Extremwertaufgaben — Vertiefung</h4>
+        </div>
+        <div class="mw-actions">
+          <a href="/assets/pdfs/Extremwertaufgaben_2.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+          <button class="mw-check" onclick="mwToggleModule('wk-diff-03', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
 
-<div class="mw-card" data-module="wk-diff-04">
-  <div class="mw-card-header">
-    <span class="mw-card-number">04</span>
-    <h4>Kurvendiskussion &amp; Ausblick Integralrechnung</h4>
-  </div>
-  <div class="mw-actions">
-    <a href="/assets/pdfs/Kurvendiskusion_1.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
-    <button class="mw-check" onclick="mwToggleModule('wk-diff-04', event)" aria-label="Als erledigt markieren">
-      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-    </button>
-  </div>
-</div>
-
+      <div class="mw-card" data-module="wk-diff-04">
+        <div class="mw-card-header">
+          <span class="mw-card-number">04</span>
+          <h4>Kurvendiskussion &amp; Ausblick Integralrechnung</h4>
+        </div>
+        <div class="mw-actions">
+          <a href="/assets/pdfs/Kurvendiskusion_1.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+          <button class="mw-check" onclick="mwToggleModule('wk-diff-04', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Integralrechnung -->
-<div class="mw-section">
-  <div class="mw-section-header" onclick="mwToggleSection(this)">
-    <div class="mw-section-title-group">
-      <h2 class="mw-section-title">Integralrechnung</h2>
+  <div class="mw-section">
+    <div class="mw-section-header" onclick="mwToggleSection(this)">
+      <div class="mw-section-title-group">
+        <h2 class="mw-section-title">Integralrechnung</h2>
+      </div>
+      <div class="mw-section-toggle">▼</div>
     </div>
-    <div class="mw-section-toggle">▼</div>
-  </div>
-  <div class="mw-grid">
+    <div class="mw-grid">
 
-    <div class="mw-card" data-module="wk-int-01">
-      <div class="mw-card-header">
-        <span class="mw-card-number">01</span>
-        <h4>Stammfunktion &amp; unbestimmtes Integral</h4>
+      <div class="mw-card" data-module="wk-int-01">
+        <div class="mw-card-header">
+          <span class="mw-card-number">01</span>
+          <h4>Stammfunktion &amp; unbestimmtes Integral</h4>
+        </div>
+        <div class="mw-actions">
+          <a href="/assets/pdfs/Stammfunktion.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+          <button class="mw-check" onclick="mwToggleModule('wk-int-01', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="mw-actions">
-        <a href="/assets/pdfs/Stammfunktion.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
-        <button class="mw-check" onclick="mwToggleModule('wk-int-01', event)" aria-label="Als erledigt markieren">
-          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-        </button>
+
+      <div class="mw-card" data-module="wk-int-02">
+        <div class="mw-card-header">
+          <span class="mw-card-number">02</span>
+          <h4>Bestimmtes Integral &amp; Hauptsatz</h4>
+        </div>
+        <div class="mw-actions">
+          <a href="/assets/pdfs/bestimmtes_integral.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+          <button class="mw-check" onclick="mwToggleModule('wk-int-02', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
       </div>
+
+      <div class="mw-card" data-module="wk-int-03">
+        <div class="mw-card-header">
+          <span class="mw-card-number">03</span>
+          <h4>Flächenberechnung I</h4>
+        </div>
+        <div class="mw-actions">
+          <a href="/assets/pdfs/flaechenberechnung_1-2.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+          <button class="mw-check" onclick="mwToggleModule('wk-int-03', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="mw-card" data-module="wk-int-04">
+        <div class="mw-card-header">
+          <span class="mw-card-number">04</span>
+          <h4>Integrationstechniken</h4>
+        </div>
+        <div class="mw-actions">
+          <a href="/assets/pdfs/Integrationstechniken.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+          <button class="mw-check" onclick="mwToggleModule('wk-int-04', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
     </div>
+  </div>
 
-    <div class="mw-card" data-module="wk-int-02">
-      <div class="mw-card-header">
-        <span class="mw-card-number">02</span>
-        <h4>Bestimmtes Integral &amp; Hauptsatz</h4>
+  <!-- Klausuren -->
+  <div class="mw-section">
+    <div class="mw-section-header" onclick="mwToggleSection(this)">
+      <div class="mw-section-title-group">
+        <h2 class="mw-section-title">Klausuren</h2>
+        <div class="mw-section-subtitle">Übungsaufgaben zur Klausurvorbereitung</div>
       </div>
-      <div class="mw-actions">
-        <a href="/assets/pdfs/bestimmtes_integral.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
-        <button class="mw-check" onclick="mwToggleModule('wk-int-02', event)" aria-label="Als erledigt markieren">
-          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-        </button>
-      </div>
+      <div class="mw-section-toggle">▼</div>
     </div>
+    <div class="mw-grid">
 
-    <div class="mw-card" data-module="wk-int-03">
-  <div class="mw-card-header">
-    <span class="mw-card-number">03</span>
-    <h4>Flächenberechnung I</h4>
-  </div>
-  <div class="mw-actions">
-    <a href="/assets/pdfs/flaechenberechnung_1-2.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
-    <button class="mw-check" onclick="mwToggleModule('wk-int-03', event)" aria-label="Als erledigt markieren">
-      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-    </button>
-  </div>
-</div>
+      <!-- Klausur 1 – noch nicht verfügbar -->
+      <div class="mw-card mw-card-klausur mw-card--unavailable">
+        <div class="mw-card-header">
+          <span class="mw-card-number">K1</span>
+          <h4>Klausur 1</h4>
+        </div>
+        <div class="mw-card-topics">
+          <span class="mw-topic-tag">Differentialrechnung</span>
+          <span class="mw-topic-tag">Ableitungsregeln</span>
+        </div>
+        <div class="mw-actions">
+          <span class="mw-btn mw-btn--ghost">Demnächst</span>
+        </div>
+      </div>
 
-<div class="mw-card" data-module="wk-int-04">
-  <div class="mw-card-header">
-    <span class="mw-card-number">04</span>
-    <h4>Integrationstechniken</h4>
+      <!-- Klausur 2 – noch nicht verfügbar -->
+      <div class="mw-card mw-card-klausur mw-card--unavailable">
+        <div class="mw-card-header">
+          <span class="mw-card-number">K2</span>
+          <h4>Klausur 2</h4>
+        </div>
+        <div class="mw-card-topics">
+          <span class="mw-topic-tag">Extremwertaufgaben</span>
+          <span class="mw-topic-tag">Kurvendiskussion</span>
+        </div>
+        <div class="mw-actions">
+          <span class="mw-btn mw-btn--ghost">Demnächst</span>
+        </div>
+      </div>
+
+      <!-- Klausur 3 – verfügbar -->
+      <div class="mw-card mw-card-klausur" data-module="wk-klausur-03">
+        <div class="mw-card-header">
+          <span class="mw-card-number">K3</span>
+          <h4>Klausur 3</h4>
+        </div>
+        <div class="mw-card-topics">
+          <span class="mw-topic-tag">Extremwertaufgaben mit NB</span>
+          <span class="mw-topic-tag">Fläche unter Kurve</span>
+          <span class="mw-topic-tag">Fläche zwischen Kurven</span>
+        </div>
+        <div class="mw-actions">
+          <a href="/assets/pdfs/Klausur_3_W_2.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+          <button class="mw-check" onclick="mwToggleModule('wk-klausur-03', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <div class="mw-actions">
-    <a href="/assets/pdfs/Integrationstechniken.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
-    <button class="mw-check" onclick="mwToggleModule('wk-int-04', event)" aria-label="Als erledigt markieren">
-      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-    </button>
-  </div>
-</div>
 
 </div>
 
 <script>
 (function() {
-  // Eigener Storage-Scope, damit der W-Kurs-Fortschritt nicht mit
-  // dem T-Kurs-Fortschritt kollidiert.
   var STORAGE_KEY = 'math-wkurs-progress-v1';
   var CIRCUMFERENCE = 339.292;
 
@@ -564,9 +669,6 @@ body, html, .page-content, .wrapper, main, .post-content {
     catch (e) { /* ignore */ }
   }
 
-  // Gesamtanzahl dynamisch aus dem DOM — so funktioniert die Seite
-  // auch, wenn später Module hinzugefügt werden, ohne dass ein
-  // Konstantenwert angepasst werden muss.
   function getTotal() {
     return document.querySelectorAll('[data-module]').length;
   }
