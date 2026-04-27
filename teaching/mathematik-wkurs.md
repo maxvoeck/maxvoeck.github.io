@@ -520,6 +520,32 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
     </div>
 
+    <div class="mw-card" data-module="wk-int-03">
+  <div class="mw-card-header">
+    <span class="mw-card-number">03</span>
+    <h4>Flächenberechnung I</h4>
+  </div>
+  <div class="mw-actions">
+    <a href="/assets/pdfs/flaechenberechnung_1-2.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+    <button class="mw-check" onclick="mwToggleModule('wk-int-03', event)" aria-label="Als erledigt markieren">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="mw-card" data-module="wk-int-04">
+  <div class="mw-card-header">
+    <span class="mw-card-number">04</span>
+    <h4>Integrationstechniken</h4>
+  </div>
+  <div class="mw-actions">
+    <a href="/assets/pdfs/Integrationstechniken.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+    <button class="mw-check" onclick="mwToggleModule('wk-int-04', event)" aria-label="Als erledigt markieren">
+      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+    </button>
+  </div>
+</div>
+
 </div>
 
 <script>
