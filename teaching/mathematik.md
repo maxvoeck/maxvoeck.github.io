@@ -317,7 +317,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 .mw-section-header {
-  display: flex; align-items: center;
+  display: flex; align-items: flex-start;
   gap: var(--space-4); margin-bottom: var(--space-6);
   padding: var(--space-4); cursor: pointer; user-select: none;
   border-radius: var(--radius-lg);
@@ -379,7 +379,17 @@ body, html, .page-content, .wrapper, main, .post-content {
   padding: 3px 8px; border-radius: var(--radius-sm);
   margin: 2px 2px 2px 0;
 }
-.mw-card--unavailable { opacity: 0.45; pointer-events: none; }
+/* Verbesserte Darstellung nicht verfügbarer Klausuren */
+.mw-card--unavailable {
+  opacity: 0.6;
+}
+.mw-card--unavailable .mw-btn,
+.mw-card--unavailable .mw-btn--primary,
+.mw-card--unavailable .mw-btn--ghost {
+  pointer-events: none;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
 .mw-card-header {
   display: flex; align-items: center;
@@ -558,7 +568,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         </svg>
         <div class="ma-progress-text" id="progressText">0%</div>
       </div>
-      <div class="ma-progress-label"><span id="completedCount">0</span> von 30 abgeschlossen</div>
+      <div class="ma-progress-label"><span id="completedCount">0</span> von <span id="totalCount">0</span> abgeschlossen</div>
     </div>
     <div style="width:100%;text-align:center;margin-top:var(--space-6);">
       <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="padding:var(--space-3) var(--space-6);font-size:15px;" onclick="event.stopPropagation()">📄 Gesamtskript herunterladen (PDF)</a>
@@ -937,7 +947,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     </div>
   </div>
 
-  <!-- Klausuren -->
+  <!-- Klausuren (verbessert) -->
   <div class="mw-section collapsed">
     <div class="mw-section-header" onclick="mwToggleSection(this)">
       <div class="mw-section-title-group">
@@ -949,25 +959,38 @@ body, html, .page-content, .wrapper, main, .post-content {
     <div class="mw-grid">
 
       <div class="mw-card mw-card-klausur mw-card--unavailable">
-        <div class="mw-card-header"><span class="mw-card-number">K1</span><h4>Klausur 1</h4></div>
+        <div class="mw-card-header">
+          <span class="mw-card-number">K1</span>
+          <h4>Klausur 1</h4>
+        </div>
         <div class="mw-card-topics">
           <span class="mw-topic-tag">Differentialrechnung</span>
           <span class="mw-topic-tag">Ableitungsregeln</span>
         </div>
-        <div class="mw-actions"><span class="mw-btn mw-btn--ghost">Demnächst</span></div>
+        <div class="mw-actions">
+          <span class="mw-btn mw-btn--ghost">Demnächst</span>
+        </div>
       </div>
 
       <div class="mw-card mw-card-klausur mw-card--unavailable">
-        <div class="mw-card-header"><span class="mw-card-number">K2</span><h4>Klausur 2</h4></div>
+        <div class="mw-card-header">
+          <span class="mw-card-number">K2</span>
+          <h4>Klausur 2</h4>
+        </div>
         <div class="mw-card-topics">
           <span class="mw-topic-tag">Extremwertaufgaben</span>
           <span class="mw-topic-tag">Kurvendiskussion</span>
         </div>
-        <div class="mw-actions"><span class="mw-btn mw-btn--ghost">Demnächst</span></div>
+        <div class="mw-actions">
+          <span class="mw-btn mw-btn--ghost">Demnächst</span>
+        </div>
       </div>
 
       <div class="mw-card mw-card-klausur" data-module="klausur-03">
-        <div class="mw-card-header"><span class="mw-card-number">K3</span><h4>Klausur 3</h4></div>
+        <div class="mw-card-header">
+          <span class="mw-card-number">K3</span>
+          <h4>Klausur 3</h4>
+        </div>
         <div class="mw-card-topics">
           <span class="mw-topic-tag">Extremwertaufgaben mit NB</span>
           <span class="mw-topic-tag">Fläche unter Kurve</span>
@@ -987,7 +1010,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <!-- Footer -->
   <div class="ma-footer">
     <div class="ma-footer-text">
-      <strong>30 Module &amp; 5 Tools</strong> · Algebra, Vektoren, Analysis &amp; Integralrechnung
+      <strong><span id="totalModules">0</span> Module &amp; Tools</strong> · Algebra, Vektoren, Analysis &amp; Integralrechnung
     </div>
     <div class="ma-footer-actions">
       <a href="/teaching/" class="ma-btn ma-btn--secondary">← Übersicht</a>
@@ -998,8 +1021,11 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 <script>
 const STORAGE_KEY = 'math-progress-v2';
-const TOTAL_MODULES = 30;
 const CIRCUMFERENCE = 339.292;
+
+function getTotalModules() {
+  return document.querySelectorAll('[data-module]').length;
+}
 
 function getProgress() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
@@ -1028,16 +1054,24 @@ function toggleModule(moduleId, event) {
 
 function updateUI() {
   const progress = getProgress();
-  const completed = Object.keys(progress).length;
-  const percentage = Math.round((completed / TOTAL_MODULES) * 100);
+  const total = getTotalModules();
+  const completed = Object.keys(progress).filter(k => !!document.querySelector('[data-module="' + k + '"]')).length;
+  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
   const ring  = document.getElementById('progressRing');
   const text  = document.getElementById('progressText');
   const count = document.getElementById('completedCount');
-  if (ring && text && count) {
+  const totalEl = document.getElementById('totalCount');
+  const footerTotal = document.getElementById('totalModules');
+
+  if (ring && text && count && totalEl && footerTotal) {
     ring.style.strokeDashoffset = CIRCUMFERENCE - (percentage / 100) * CIRCUMFERENCE;
-    text.textContent  = percentage + '%';
+    text.textContent = percentage + '%';
     count.textContent = completed;
+    totalEl.textContent = total;
+    footerTotal.textContent = total;
   }
+
   document.querySelectorAll('[data-module]').forEach(card => {
     const done = !!progress[card.dataset.module];
     const isMw = card.classList.contains('mw-card');
@@ -1117,3 +1151,4 @@ if (document.readyState !== 'loading') updateUI();
   };
 })();
 </script>
+{% endraw %}
