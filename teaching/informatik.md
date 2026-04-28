@@ -829,7 +829,7 @@ body, html, .page-content, .wrapper, main, .post-content {
             <div class="ma-card" data-module="p7">
         <div class="ma-card-header">
           <span class="ma-card-number">07</span>
-          <h4>Dein neuer Titel</h4>   <!-- z. B. "Dictionaries" -->
+          <h4>Projekt</h4>   <!-- z. B. "Dictionaries" -->
         </div>
         <div class="ma-actions">
           <a href="/assets/pdfs/Info_7.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
