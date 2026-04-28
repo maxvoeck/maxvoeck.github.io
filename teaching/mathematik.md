@@ -1415,6 +1415,68 @@ body, html, .page-content, .wrapper, main, .post-content {
       </div>
     </div>
   </div>
+  <!-- Klausuren -->
+  <div class="mw-section">
+    <div class="mw-section-header" onclick="mwToggleSection(this)">
+      <div class="mw-section-title-group">
+        <h2 class="mw-section-title">Klausuren</h2>
+        <div class="mw-section-subtitle">Übungsaufgaben zur Klausurvorbereitung</div>
+      </div>
+      <div class="mw-section-toggle">▼</div>
+    </div>
+    <div class="mw-grid">
+
+      <!-- Klausur 1 – noch nicht verfügbar -->
+      <div class="mw-card mw-card-klausur mw-card--unavailable">
+        <div class="mw-card-header">
+          <span class="mw-card-number">K1</span>
+          <h4>Klausur 1</h4>
+        </div>
+        <div class="mw-card-topics">
+          <span class="mw-topic-tag">Differentialrechnung</span>
+          <span class="mw-topic-tag">Ableitungsregeln</span>
+        </div>
+        <div class="mw-actions">
+          <span class="mw-btn mw-btn--ghost">Demnächst</span>
+        </div>
+      </div>
+
+      <!-- Klausur 2 – noch nicht verfügbar -->
+      <div class="mw-card mw-card-klausur mw-card--unavailable">
+        <div class="mw-card-header">
+          <span class="mw-card-number">K2</span>
+          <h4>Klausur 2</h4>
+        </div>
+        <div class="mw-card-topics">
+          <span class="mw-topic-tag">Extremwertaufgaben</span>
+          <span class="mw-topic-tag">Kurvendiskussion</span>
+        </div>
+        <div class="mw-actions">
+          <span class="mw-btn mw-btn--ghost">Demnächst</span>
+        </div>
+      </div>
+
+      <!-- Klausur 3 – verfügbar -->
+      <div class="mw-card mw-card-klausur" data-module="wk-klausur-03">
+        <div class="mw-card-header">
+          <span class="mw-card-number">K3</span>
+          <h4>Klausur 3</h4>
+        </div>
+        <div class="mw-card-topics">
+          <span class="mw-topic-tag">Extremwertaufgaben mit NB</span>
+          <span class="mw-topic-tag">Fläche unter Kurve</span>
+          <span class="mw-topic-tag">Fläche zwischen Kurven</span>
+        </div>
+        <div class="mw-actions">
+          <a href="/assets/pdfs/Übungsheft_T_2_3.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
+          <button class="mw-check" onclick="mwToggleModule('wk-klausur-03', event)" aria-label="Als erledigt markieren">
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Footer -->
   <div class="ma-footer">
