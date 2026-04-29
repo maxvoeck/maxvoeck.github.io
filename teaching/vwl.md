@@ -1099,6 +1099,7 @@ body, html, .page-content, .wrapper, main, .post-content {
       <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
     </button>
   </div>
+</div>
   <div class="ma-card ma-card--exam">
   <div class="ma-card-header">
     <span class="ma-card-number" style="color: var(--ai);">✦</span>
@@ -1110,7 +1111,7 @@ body, html, .page-content, .wrapper, main, .post-content {
   <div class="ma-actions">
     <a href="/assets/pdfs/Klausur_Makro.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF</a>
   </div>
-</div>
+
 </div>
 
     </div>
