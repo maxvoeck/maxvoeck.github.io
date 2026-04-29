@@ -975,6 +975,21 @@ body, html, .page-content, .wrapper, main, .post-content {
         </div>
       </div>
 
+      <div class="ma-card ma-card--exam">
+  <div class="ma-card-header">
+    <span class="ma-card-number" style="color: var(--beni);">✦</span>
+    <h4>Klausur Mikroökonomie</h4>
+  </div>
+  <p style="font-size:13px; color: var(--text-tertiary); margin-bottom: var(--space-4);">
+    Übungsklausur zu allen Mikrothemen
+  </p>
+  <div class="ma-actions">
+    <a href="/assets/pdfs/Übungsheft_W_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF</a>
+  </div>
+</div>
+
+
+
     </div>
   </div>
 
