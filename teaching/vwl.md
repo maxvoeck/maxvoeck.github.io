@@ -1109,7 +1109,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     Übungsklausur zu allen Makrothemen
   </p>
   <div class="ma-actions">
-    <a href="/assets/pdfs/Klausur_Makro.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF</a>
+    <a href="/assets/pdfs/Übungsheft_W_2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF</a>
   </div>
 
 </div>
