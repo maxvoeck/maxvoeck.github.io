@@ -141,7 +141,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 <div class="tr-row">
 <div class="tr-row-left">
 <span class="tr-kurs">W-Kurs — Klausur</span>
-<span class="tr-themen">Grundlagen der VWL &middot; Konjunktur &amp; Wirtschaftspolitik &middot; Vorbereitung Übungsheft Grundlagen: Aufgaben 0 &middot; 1 &middot; 5 &middot; 6 &middot; 7 &middot; 8 &middot; 12 &middot; 13 &middot; 14 &middot; 17 &middot;&middot; Übungsheft Konjunktur: Aufgaben 0 &middot; 1 &middot; 3 &middot; 4 &middot; 11 &middot; 14 &middot; 15</span>
+<span class="tr-themen">Grundlagen der VWL &middot; Konjunktur &amp; Wirtschaftspolitik &middot; Vorbereitung Übungsheft Grundlagen: Aufgaben 1, 2, 6, 7, 13, 14, 15, 18 &middot; Übungsheft Konjunktur: Aufgaben 1, 2, 4, 5, 12, 15, 16</span>
 </div>
 <span class="tr-datum">06. Mai 2026</span>
 </div>
