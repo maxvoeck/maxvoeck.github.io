@@ -126,9 +126,15 @@ body, html, .page-content, .wrapper, main, .post-content {
   </div>
 
   <div class="tr-section">
-    <div class="tr-section-label">Mathematik</div>
-    <div class="tr-empty">Noch keine Termine eingetragen.</div>
-  </div>
+<div class="tr-section-label">Mathematik</div>
+    <div class="tr-row">
+      <div class="tr-row-left">
+        <span class="tr-kurs">W-Kurs (2. Semester) — Klausur 3</span>
+        <span class="tr-themen">Extremwertaufgaben &middot; Integralrechnung &middot; Vorbereitung: Übungsheft Aufgaben 3a, 3c &middot; 4a, 4b, 4c &middot; 5b, 5c &middot; 6a, 6b &middot; 7a–d &middot; 8a, 8b, 8c</span>
+      </div>
+      <span class="tr-datum">08. Mai 2026</span>
+    </div>
+</div>
 
   <div class="tr-section">
     <div class="tr-section-label">Volkswirtschaftslehre</div>
