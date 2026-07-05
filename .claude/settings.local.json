@@ -6,7 +6,13 @@
       "Bash(gem list *)",
       "Bash(git fetch *)",
       "Bash(gh auth *)",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "Bash(command -v gh)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://maxvoeck.github.io/teaching/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://maxvoeck.github.io/teaching/mathematik/)",
+      "Bash(curl -s https://maxvoeck.github.io/teaching/)",
+      "Bash(curl -s https://maxvoeck.github.io/teaching/mathematik/)",
+      "Bash(curl -s https://maxvoeck.github.io/assets/css/style.css)"
     ]
   }
 }
