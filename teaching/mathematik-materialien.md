@@ -4,885 +4,564 @@ title:
 permalink: /teaching/mathematik-materialien/
 ---
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-/* ═══════════════════════════════════════════════════════════════
-   JAPANDI DESIGN SYSTEM – Mathematik für Studienkolleg
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ─── Design Tokens ─── */
+/* ═══════════════════════════════════════════════════════
+   NACHTPROGRAMM — Mathematik für das Studienkolleg
+   Konzertprogramm-Ästhetik: Tinte, Elfenbein, Messing
+   ═══════════════════════════════════════════════════════ */
 :root {
-  /* Japandi Palette */
-  --sumi: #1a1a18;
-  --kuro: #2c2c28;
-  --hai: #3d3d38;
-  --kinari: #f0ece4;
-  --shiro: #f7f5f0;
-  --kinu: #e8e3d8;
-  --ishi: #b8b3a8;
-  --sugi: #8a8578;
-  --beni: #c45c3e;
-  --matcha: #7a8c6e;
-  --ai: #5b7a8c;
-  --kitsune: #c49a6c;
-  --sakura: #c4868a;
+  --ink:      #101014;
+  --graphit:  #17171d;
+  --graphit2: #1e1e26;
+  --linie:    rgba(236, 231, 220, 0.09);
+  --linie2:   rgba(236, 231, 220, 0.18);
+  --elfenbein:#ece7dc;
+  --nebel:    #8f8e97;
+  --messing:  #c2a15c;
+  --messing2: #dfc48a;
+  --gruen:    #8fa284;
 
-  /* Semantische Farben */
-  --algebra: var(--ai);
-  --vektor: var(--kitsune);
-  --diff: var(--beni);
-  --integral: var(--matcha);
-  --tools: var(--sakura);
-
-  --bg-primary: var(--shiro);
-  --bg-secondary: var(--kinari);
-  --bg-tertiary: var(--kinu);
-  --text-primary: var(--sumi);
-  --text-secondary: var(--sugi);
-  --text-tertiary: var(--ishi);
-  --border: rgba(26, 26, 24, 0.08);
-  --border-strong: rgba(26, 26, 24, 0.15);
-
-  /* Typografie */
-  --font-display: 'Cormorant Garamond', 'Noto Serif JP', Georgia, serif;
-  --font-body: 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans SC', 'Noto Sans KR', 'Noto Sans JP', system-ui, sans-serif;
-  --font-mono: 'SF Mono', 'Fira Code', monospace;
-
-  /* Abstände (8-Punkt-Grid) */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-10: 40px;
-  --space-12: 48px;
-  --space-16: 64px;
-  --space-20: 80px;
-
-  /* Radien */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-2xl: 24px;
-  --radius-full: 9999px;
-
-  /* Schatten */
-  --shadow-sm: 0 1px 2px rgba(var(--text-rgb),0.06);
-  --shadow-md: 0 4px 12px rgba(var(--text-rgb),0.08);
-  --shadow-lg: 0 12px 24px rgba(var(--text-rgb),0.12);
-  --shadow-xl: 0 24px 48px rgba(0,0,0,0.64);
-
-  /* Transitions */
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Inter', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', monospace;
 }
 
-/* ─── Reset & Base ─── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body, html, .page-content, .wrapper, main, .post-content {
-  background: var(--bg-primary) !important;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  line-height: 1.47059;
-  letter-spacing: -0.022em;
+body, html, .page-content, .wrapper, main {
+  background: #101014 !important;
 }
 
 .post-header, .page-heading, header.post-header {
   display: none !important;
 }
 
-/* ─── Container ─── */
-.ma-container {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: var(--space-8) var(--space-5);
-}
+.ma-mw-root * { box-sizing: border-box; margin: 0; padding: 0; }
 
-@media (min-width: 768px) {
-  .ma-container {
-    padding: var(--space-16) var(--space-8);
-  }
-}
-
-/* ─── Hero Section ─── */
-.ma-hero {
-  text-align: center;
-  margin-bottom: var(--space-16);
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.ma-hero-eyebrow {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--ai);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--space-3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-}
-
-.ma-hero h1 {
-  font-size: 48px;
-  font-weight: 300;
-  letter-spacing: -0.003em;
-  line-height: 1.08349;
-  margin-bottom: var(--space-3);
-  color: var(--text-primary);
-  font-family: var(--font-display);
-}
-
-@media (min-width: 768px) {
-  .ma-hero h1 {
-    font-size: 64px;
-  }
-}
-
-.ma-hero-subtitle {
-  font-size: 21px;
-  font-weight: 400;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-8);
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.381;
-}
-
-/* ─── Section Styling ─── */
-.ma-section {
-  margin-bottom: var(--space-16);
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-}
-
-.ma-section:nth-child(2) { animation-delay: 0.1s; }
-.ma-section:nth-child(3) { animation-delay: 0.2s; }
-.ma-section:nth-child(4) { animation-delay: 0.3s; }
-.ma-section:nth-child(5) { animation-delay: 0.4s; }
-.ma-section:nth-child(6) { animation-delay: 0.5s; }
-
-.ma-section-header {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-  margin-bottom: var(--space-6);
-  padding: 0 var(--space-2);
-}
-
-.ma-section-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-lg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-  background: var(--bg-secondary);
-  transition: transform var(--transition-spring);
-}
-
-.ma-section:hover .ma-section-icon {
-  transform: scale(1.1) rotate(-5deg);
-}
-
-.ma-section--vektor .ma-section-icon {
-  background: rgba(255, 149, 0, 0.12);
-  color: var(--vektor);
-}
-.ma-section--algebra .ma-section-icon {
-  background: rgba(90, 200, 250, 0.12);
-  color: var(--algebra);
-}
-.ma-section--diff .ma-section-icon {
-  background: rgba(255, 45, 85, 0.12);
-  color: var(--diff);
-}
-.ma-section--integral .ma-section-icon {
-  background: rgba(52, 199, 89, 0.12);
-  color: var(--integral);
-}
-
-.ma-section-title-group {
-  flex: 1;
-}
-
-.ma-section-title {
-  font-size: 28px;
-  font-weight: 300;
-  letter-spacing: -0.021em;
-  line-height: 1.14286;
-  color: var(--text-primary);
-  margin-bottom: var(--space-1);
-  font-family: var(--font-display);
-}
-
-.ma-section-subtitle {
+.ma-mw-root {
+  background: var(--ink);
+  color: var(--elfenbein);
+  font-family: var(--body);
   font-size: 15px;
-  color: var(--text-tertiary);
-  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 120px;
 }
 
-/* ─── Grid Layout ─── */
-.ma-grid {
+.mw-wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+
+/* ─── Hero ─── */
+.mw-hero {
+  padding: 96px 0 72px;
   display: grid;
-  gap: var(--space-4);
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: end;
+  border-bottom: 1px solid var(--linie2);
 }
-
-@media (min-width: 768px) {
-  .ma-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-5);
-  }
-}
-
-/* ─── Cards ─── */
-.ma-card {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-xl);
-  padding: var(--space-5);
-  position: relative;
-  overflow: hidden;
-  transition: all var(--transition-base);
-  border: 2px solid transparent;
-}
-
-.ma-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(var(--text-rgb),0.03) 0%, transparent 50%);
-  opacity: 0;
-  transition: opacity var(--transition-base);
-}
-
-.ma-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-  background: var(--bg-tertiary);
-}
-
-.ma-card:hover::before {
-  opacity: 1;
-}
-
-.ma-card:active {
-  transform: scale(0.98);
-  transition-duration: var(--transition-fast);
-}
-
-.ma-card-complete {
-  border-color: var(--integral);
-  background: linear-gradient(135deg, rgba(122, 140, 110, 0.05) 0%, var(--bg-secondary) 100%);
-}
-
-.ma-card-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-}
-
-.ma-card-number {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-tertiary);
+.mw-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--messing);
+  margin-bottom: 20px;
+}
+.mw-hero h1 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(52px, 8vw, 92px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+.mw-hero h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--messing2);
+}
+.mw-hero-sub {
+  margin-top: 22px;
+  max-width: 46ch;
+  color: var(--nebel);
+  font-size: 16px;
 }
 
-.ma-section--vektor .ma-card-number { color: var(--vektor); }
-.ma-section--algebra .ma-card-number { color: var(--algebra); }
-.ma-section--diff .ma-card-number { color: var(--diff); }
-.ma-section--integral .ma-card-number { color: var(--integral); }
-
-.ma-card h4 {
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.022em;
-  line-height: 1.23536;
-  margin: 0;
+/* Fortschrittsbogen */
+.mw-progress { text-align: center; }
+.mw-ring { width: 120px; height: 120px; }
+.mw-ring circle { fill: none; stroke-width: 3; }
+.mw-ring .bg { stroke: var(--linie2); }
+.mw-ring .fg {
+  stroke: var(--messing);
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 600ms cubic-bezier(0.4,0,0.2,1);
+}
+.mw-ring-label {
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 300;
+  fill: var(--elfenbein);
+}
+.mw-ring-caption {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--nebel);
 }
 
-.ma-card p {
-  font-size: 14px;
-  line-height: 1.42859;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-4);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* ─── Actions ─── */
-.ma-actions {
+/* ─── Gesamtskript ─── */
+.mw-feature {
+  margin: 56px 0 24px;
+  padding: 30px 34px;
+  background: linear-gradient(120deg, var(--graphit2), var(--graphit));
+  border: 1px solid var(--linie2);
+  border-radius: 4px;
   display: flex;
-  gap: var(--space-2);
-  flex-wrap: wrap;
   align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.mw-feature-titel h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+.mw-feature-titel p { color: var(--nebel); font-size: 14px; margin-top: 6px; max-width: 52ch; }
+.mw-feature .mw-btn { margin-left: auto; }
+
+/* ─── Kapitel ─── */
+.mw-kapitel { padding: 72px 0 12px; }
+.mw-kapitel-kopf {
+  display: flex;
+  align-items: baseline;
+  gap: 22px;
+  margin-bottom: 34px;
+}
+.mw-numeral {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 44px;
+  color: var(--messing);
+  min-width: 64px;
+}
+.mw-kapitel-kopf h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: -0.01em;
+}
+.mw-kapitel-kopf .mw-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nebel);
+  margin-left: auto;
+  white-space: nowrap;
 }
 
-.ma-btn {
+/* ─── Modulzeilen (Tracklist) ─── */
+.mw-liste { border-top: 1px solid var(--linie); }
+.mw-modul {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 20px 8px;
+  border-bottom: 1px solid var(--linie);
+  transition: background 180ms ease, padding 180ms ease;
+}
+.mw-modul:hover { background: rgba(236,231,220,0.025); padding-left: 16px; }
+.mw-nr {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--nebel);
+  transition: color 180ms;
+}
+.mw-modul:hover .mw-nr { color: var(--messing); }
+.mw-modul.done .mw-nr { color: var(--gruen); }
+.mw-modul h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 19px;
+  letter-spacing: 0.005em;
+}
+.mw-modul.done h4 { color: var(--nebel); }
+.mw-desc { color: var(--nebel); font-size: 13.5px; margin-top: 3px; }
+
+/* Aktionen */
+.mw-actions { display: flex; align-items: center; gap: 8px; }
+.mw-btn {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
-  font-size: 13px;
+  gap: 7px;
+  font-family: var(--body);
+  font-size: 12.5px;
   font-weight: 500;
-  text-decoration: none;
-  transition: all var(--transition-fast);
-  border: none;
+  letter-spacing: 0.02em;
+  color: var(--elfenbein);
+  background: transparent;
+  border: 1px solid var(--linie2);
+  border-radius: 999px;
+  padding: 7px 15px;
   cursor: pointer;
-  font-family: inherit;
-  position: relative;
-  z-index: 2;
+  text-decoration: none;
+  transition: all 160ms ease;
+  white-space: nowrap;
 }
-
-.ma-btn--primary {
-  background: var(--accent, #b85c38);
-  color: white !important;
+.mw-btn:hover { border-color: var(--messing); color: var(--messing2); }
+.mw-btn--voll {
+  background: var(--messing);
+  border-color: var(--messing);
+  color: var(--ink);
 }
+.mw-btn--voll:hover { background: var(--messing2); border-color: var(--messing2); color: var(--ink); }
+.mw-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-.ma-btn--primary:hover {
-  background: #a0543a;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(184, 92, 56, 0.3);
-}
-
-.ma-btn--secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary) !important;
-}
-
-.ma-btn--secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-/* ─── Check Button ─── */
-.ma-check {
-  margin-left: auto;
-  display: flex;
+/* Haken */
+.mw-check {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--linie2);
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-full);
-  background: transparent;
-  border: 2px solid var(--border-strong);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  position: relative;
-  z-index: 2;
-  padding: 0;
+  transition: all 200ms ease;
+  margin-left: 6px;
 }
+.mw-check svg { width: 13px; height: 13px; stroke: var(--ink); opacity: 0; transform: scale(0.4); transition: all 260ms cubic-bezier(0.34,1.56,0.64,1); }
+.mw-check:hover { border-color: var(--gruen); }
+.mw-modul.done .mw-check { background: var(--gruen); border-color: var(--gruen); }
+.mw-modul.done .mw-check svg { opacity: 1; transform: scale(1); }
 
-.ma-check:hover {
-  border-color: var(--integral);
-  background: rgba(122, 140, 110, 0.05);
-}
-
-.ma-check svg {
-  width: 16px;
-  height: 16px;
-  color: white;
-  opacity: 0;
-  transform: scale(0.5);
-  transition: all var(--transition-spring);
-  pointer-events: none;
-}
-
-.ma-card-complete .ma-check {
-  background: var(--integral);
-  border-color: var(--integral);
-}
-
-.ma-card-complete .ma-check svg {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* ─── Footer ─── */
-.ma-footer {
-  margin-top: var(--space-20);
-  padding-top: var(--space-8);
-  border-top: 1px solid var(--border);
+/* ─── Mini-Player ─── */
+.mw-player {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translate(-50%, 140%);
+  width: min(680px, calc(100% - 32px));
+  background: rgba(30, 30, 38, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--linie2);
+  border-radius: 14px;
+  padding: 14px 20px;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
   align-items: center;
-  text-align: center;
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards;
+  gap: 16px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 50;
 }
-
-@media (min-width: 768px) {
-  .ma-footer {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
-  }
+.mw-player.offen { transform: translate(-50%, 0); }
+.mw-play {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--messing);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background 160ms;
 }
-
-.ma-footer-text {
-  font-size: 12px;
-  color: var(--text-tertiary);
+.mw-play:hover { background: var(--messing2); }
+.mw-play svg { width: 15px; height: 15px; fill: var(--ink); }
+.mw-player-info { flex: 1; min-width: 0; }
+.mw-player-info .laeuft {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--messing);
 }
-
-.ma-footer-text strong {
-  color: var(--text-secondary);
-  font-weight: 600;
+.mw-player-info .titel {
+  font-family: var(--display);
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
 }
+.mw-player-bar {
+  height: 3px;
+  background: var(--linie2);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.mw-player-bar > div {
+  height: 100%;
+  width: 0%;
+  background: var(--messing);
+  border-radius: 2px;
+}
+.mw-player-close {
+  background: none; border: none;
+  color: var(--nebel);
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 6px;
+  transition: color 160ms;
+}
+.mw-player-close:hover { color: var(--elfenbein); }
 
-.ma-footer-actions {
+/* ─── Fußzeile ─── */
+.mw-fuss {
+  margin-top: 88px;
+  padding: 36px 0;
+  border-top: 1px solid var(--linie2);
   display: flex;
-  gap: var(--space-3);
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--nebel);
+  font-size: 13px;
 }
+.mw-fuss-links { display: flex; gap: 10px; }
 
-/* ─── Animations ─── */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ─── Responsiv ─── */
+@media (max-width: 760px) {
+  .mw-hero { grid-template-columns: 1fr; gap: 36px; padding: 64px 0 48px; }
+  .mw-progress { text-align: left; }
+  .mw-modul { grid-template-columns: 40px 1fr; }
+  .mw-actions { grid-column: 1 / -1; padding-left: 60px; flex-wrap: wrap; }
+  .mw-kapitel-kopf .mw-meta { display: none; }
+  .mw-feature .mw-btn { margin-left: 0; }
 }
+@media (max-width: 760px) { .mw-actions { padding-left: 0; } }
 
-/* ─── Reduced Motion ─── */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ─── Touch Optimizations ─── */
-@media (hover: none) {
-  .ma-card:hover {
-    transform: none;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .ma-card:active {
-    transform: scale(0.98);
-    background: var(--bg-tertiary);
-  }
-}
-
-/* ─── Print Styles ─── */
-@media print {
-  .ma-btn, .ma-check { display: none; }
-  .ma-card { break-inside: avoid; }
+  * { transition-duration: 1ms !important; animation: none !important; }
+  html { scroll-behavior: auto; }
 }
 </style>
 
-<div class="ma-container">
+<div class="ma-mw-root">
+<div class="mw-wrap">
 
   <!-- Hero -->
-  <div class="ma-hero">
-    <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
-    <h1>Lehrmaterialien</h1>
-    <p class="ma-hero-subtitle">Gesamtskript und alle 25 Module als PDFs — Algebra, Vektoren, Analysis und Integralrechnung</p>
-  </div>
+  <header class="mw-hero">
+    <div>
+      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung</div>
+      <h1>Mathematik,<br><em>Satz für Satz.</em></h1>
+      <p class="mw-hero-sub">25 Module in vier Kapiteln — jedes mit Skript, Podcast zum Hören und vertiefendem Text. Von Matrizen bis Rotationsvolumen.</p>
+    </div>
+    <div class="mw-progress">
+      <svg class="mw-ring" viewBox="0 0 120 120">
+        <circle class="bg" cx="60" cy="60" r="52"/>
+        <circle class="fg" cx="60" cy="60" r="52" id="ringFg"/>
+        <text class="mw-ring-label" x="60" y="60" text-anchor="middle" dominant-baseline="central" id="ringLabel">0</text>
+      </svg>
+      <div class="mw-ring-caption">von 25 Modulen</div>
+    </div>
+  </header>
 
   <!-- Gesamtskript -->
-  <div class="ma-section">
-    <div class="ma-grid">
-      <div class="ma-card" style="grid-column: 1 / -1; padding: var(--space-8);">
-        <div style="display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap;">
-          <div style="width: 80px; height: 80px; border-radius: var(--radius-xl); background: linear-gradient(135deg, var(--accent, #b85c38) 0%, #8b5a3c 100%); display: flex; align-items: center; justify-content: center; font-size: 40px; box-shadow: var(--shadow-lg);"></div>
-          <div style="flex: 1; min-width: 300px;">
-            <h3 style="font-size: 24px; font-weight: 600; color: var(--text-primary); margin-bottom: var(--space-2);">Mathematik Gesamtskript</h3>
-            <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: var(--space-4);">Alle 25 Module als zusammenhängendes Dokument — perfekt zum durchgehenden Lernen oder als Nachschlagewerk</p>
-            <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="padding: var(--space-3) var(--space-6); font-size: 15px;">
-              Gesamtskript öffnen (1.1 MB)
-            </a>
-          </div>
-        </div>
-      </div>
+  <div class="mw-feature">
+    <div class="mw-feature-titel">
+      <h3>Das Gesamtskript</h3>
+      <p>Alle 25 Module in einem Dokument — zum durchgehenden Lernen oder als Nachschlagewerk vor der FSP.</p>
     </div>
+    <a href="/assets/pdfs/Mathematik_Skript.pdf" class="mw-btn mw-btn--voll">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+      Skript öffnen · 1,1 MB
+    </a>
   </div>
 
-  <!-- Algebra -->
-  <div class="ma-section ma-section--algebra">
-    <div class="ma-section-header">
-      <div class="ma-section-icon"></div>
-      <div class="ma-section-title-group">
-        <h2 class="ma-section-title">Lineare Algebra</h2>
-        <p class="ma-section-subtitle">5 Module · Matrizen, Determinanten & Gleichungssysteme</p>
-      </div>
+  <div id="kapitel"></div>
+
+  <!-- Fußzeile -->
+  <footer class="mw-fuss">
+    <div><strong style="color:var(--elfenbein)">25 Module</strong> · Lineare Algebra, Vektorrechnung, Differentialrechnung, Integralrechnung</div>
+    <div class="mw-fuss-links">
+      <a href="/teaching/mathematik/" class="mw-btn">← Zurück</a>
+      <a href="/teaching/mathematik-uebungen/" class="mw-btn mw-btn--voll">Zu den Übungen →</a>
     </div>
-    <div class="ma-grid">
-      <div class="ma-card" data-module="a1">
-        <div class="ma-card-header">
-          <span class="ma-card-number">01</span>
-          <h4>Matrizen</h4>
-        </div>
-        <p>Addition, Multiplikation, Transponieren und spezielle Matrizen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('a1', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="a2">
-        <div class="ma-card-header">
-          <span class="ma-card-number">02</span>
-          <h4>Determinanten</h4>
-        </div>
-        <p>Laplace-Entwicklung, Sarrus-Regel und Inverse Matrizen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('a2', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="a3">
-        <div class="ma-card-header">
-          <span class="ma-card-number">03</span>
-          <h4>Matrizengleichungen</h4>
-        </div>
-        <p>Übungsaufgaben, Rangbestimmung und Gauß-Elimination</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_3.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('a3', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="a4">
-        <div class="ma-card-header">
-          <span class="ma-card-number">04</span>
-          <h4>Lineare Gleichungssysteme</h4>
-        </div>
-        <p>Matrixschreibweise, Gauß-Algorithmus und Lösbarkeitskriterien</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/LGS_2_1-5.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('a4', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="a5">
-        <div class="ma-card-header">
-          <span class="ma-card-number">05</span>
-          <h4>Parameterabhängigkeit</h4>
-        </div>
-        <p>LGS mit Parametern, Determinantentest und Fallunterscheidungen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/LGS_2_2-2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('a5', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Vektorrechnung -->
-  <div class="ma-section ma-section--vektor">
-    <div class="ma-section-header">
-      <div class="ma-section-icon"></div>
-      <div class="ma-section-title-group">
-        <h2 class="ma-section-title">Vektorrechnung</h2>
-        <p class="ma-section-subtitle">4 Module · Grundlagen bis Raumgeometrie</p>
-      </div>
-    </div>
-    <div class="ma-grid">
-      <div class="ma-card" data-module="v1">
-        <div class="ma-card-header">
-          <span class="ma-card-number">06</span>
-          <h4>Grundlagen</h4>
-        </div>
-        <p>Einführung in Vektoren, Koordinatensysteme, Betrag, Einheitsvektoren und Grundoperationen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_1-2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('v1', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="v2">
-        <div class="ma-card-header">
-          <span class="ma-card-number">07</span>
-          <h4>Vektor- & Spatprodukt</h4>
-        </div>
-        <p>Kreuzprodukt, Flächenberechnung, Spatprodukt und Volumenberechnung im Raum</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_2-2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('v2', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="v3">
-        <div class="ma-card-header">
-          <span class="ma-card-number">08</span>
-          <h4>Geraden und Ebenen</h4>
-        </div>
-        <p>Parametergleichungen, Normalenvektor, Koordinatenform und Lagebeziehungen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_3.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('v3', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-
-      <div class="ma-card" data-module="v4">
-        <div class="ma-card-header">
-          <span class="ma-card-number">09</span>
-          <h4>Abstände und Lagen</h4>
-        </div>
-        <p>Abstandsberechnungen, Hessesche Normalenform und praktische Anwendungen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_4.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('v4', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Differentialrechnung -->
-  <div class="ma-section ma-section--diff">
-    <div class="ma-section-header">
-      <div class="ma-section-icon"></div>
-      <div class="ma-section-title-group">
-        <h2 class="ma-section-title">Differentialrechnung</h2>
-        <p class="ma-section-subtitle">12 Module · Von Folgen bis Kurvendiskussion</p>
-      </div>
-    </div>
-    <div class="ma-grid">
-      <div class="ma-card" data-module="d1">
-        <div class="ma-card-header"><span class="ma-card-number">10</span><h4>Zahlenfolgen</h4></div>
-        <p>Explizite und rekursive Vorschriften, Monotonie und Beschränktheit</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Folgen_2_1-2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d1', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d2">
-        <div class="ma-card-header"><span class="ma-card-number">11</span><h4>Grenzwerte von Folgen</h4></div>
-        <p>Konvergenz, Divergenz, Grenzwertsätze und Eulersche Zahl</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d2', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d3">
-        <div class="ma-card-header"><span class="ma-card-number">12</span><h4>Grenzwerte im Unendlichen</h4></div>
-        <p>Dominanzprinzip und waagerechte Asymptoten</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Funktion_2_2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d3', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d4">
-        <div class="ma-card-header"><span class="ma-card-number">13</span><h4>Grenzwerte an einer Stelle</h4></div>
-        <p>Einseitige Grenzwerte, Polstellen und hebbare Lücken</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d4', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d5">
-        <div class="ma-card-header"><span class="ma-card-number">14</span><h4>Asymptoten</h4></div>
-        <p>Waagerechte, senkrechte und schräge Asymptoten</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Grenzwerte_2_3.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d5', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d6">
-        <div class="ma-card-header"><span class="ma-card-number">15</span><h4>Steigung und Ableitung</h4></div>
-        <p>Sekanten, Tangenten und Differenzierbarkeit</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Funktion_2_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d6', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d7">
-        <div class="ma-card-header"><span class="ma-card-number">16</span><h4>Ableitungsregeln</h4></div>
-        <p>Potenz-, Produkt-, Quotienten- und Kettenregel</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Funktion_2_4.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d7', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d8">
-        <div class="ma-card-header"><span class="ma-card-number">17</span><h4>Regel von de L'Hôpital</h4></div>
-        <p>Unbestimmte Ausdrücke: 0/0, ∞/∞, ∞·0</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Hospital_2_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d8', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d9">
-        <div class="ma-card-header"><span class="ma-card-number">18</span><h4>Extrempunkte</h4></div>
-        <p>Notwendige und hinreichende Bedingungen, Sattelpunkte</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Extremwert_2_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d9', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d10">
-        <div class="ma-card-header"><span class="ma-card-number">19</span><h4>Wendepunkte</h4></div>
-        <p>Krümmungswechsel und dritte Ableitung</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Wendepunkt_2_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d10', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d11">
-        <div class="ma-card-header"><span class="ma-card-number">20</span><h4>Kurvendiskussion</h4></div>
-        <p>Systematische Funktionsanalyse mit allen Kriterien</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Kurvendiskusion_2_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d11', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="d12">
-        <div class="ma-card-header"><span class="ma-card-number">21</span><h4>Extremwertaufgaben</h4></div>
-        <p>Optimierungsprobleme mit Nebenbedingungen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Extrem_2_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('d12', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Integralrechnung -->
-  <div class="ma-section ma-section--integral">
-    <div class="ma-section-header">
-      <div class="ma-section-icon"></div>
-      <div class="ma-section-title-group">
-        <h2 class="ma-section-title">Integralrechnung</h2>
-        <p class="ma-section-subtitle">4 Module · Stammfunktionen bis Rotationsvolumen</p>
-      </div>
-    </div>
-    <div class="ma-grid">
-      <div class="ma-card" data-module="i1">
-        <div class="ma-card-header"><span class="ma-card-number">22</span><h4>Einführung</h4></div>
-        <p>Stammfunktionen, Grundintegrale und bestimmtes Integral</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Integral_2_1.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('i1', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="i2">
-        <div class="ma-card-header"><span class="ma-card-number">23</span><h4>Integrationsmethoden</h4></div>
-        <p>Substitution, partielle Integration und Partialbruchzerlegung</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Integral_2_2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('i2', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="i3">
-        <div class="ma-card-header"><span class="ma-card-number">24</span><h4>Hauptsatz & Flächen</h4></div>
-        <p>HDI, bestimmte Integrale und Flächen zwischen Graphen</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Integral_2_3.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('i3', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-      <div class="ma-card" data-module="i4">
-        <div class="ma-card-header"><span class="ma-card-number">25</span><h4>Rotationsvolumen</h4></div>
-        <p>Volumen von Rotationskörpern um x- und y-Achse</p>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Intergal_2_4-2.pdf" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">PDF öffnen</a>
-          <button class="ma-check" onclick="toggleModule('i4', event)"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="ma-footer">
-    <div class="ma-footer-text">
-      <strong>25 Module</strong> · Lineare Algebra, Vektorrechnung, Differentialrechnung, Integralrechnung
-    </div>
-    <div class="ma-footer-actions">
-      <a href="/teaching/mathematik/" class="ma-btn ma-btn--secondary">← Zurück</a>
-      <a href="/teaching/mathematik-uebungen/" class="ma-btn ma-btn--primary">Zu den Übungen →</a>
-    </div>
-  </div>
+  </footer>
 
 </div>
 
+<!-- Mini-Player -->
+<div class="mw-player" id="player">
+  <button class="mw-play" id="playBtn" aria-label="Abspielen / Pausieren">
+    <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+  <div class="mw-player-info">
+    <div class="laeuft">Jetzt läuft</div>
+    <div class="titel" id="playerTitel">—</div>
+    <div class="mw-player-bar"><div id="playerBar"></div></div>
+  </div>
+  <button class="mw-player-close" id="playerClose" aria-label="Player schließen">×</button>
+</div>
+<audio id="audio"></audio>
+</div>
+
 <script>
-const STORAGE_KEY = 'math-progress-v2';
+/* ─── Daten: hier neue Module, PDFs, Podcasts & Texte eintragen ─── */
+const KAPITEL = [
+  {
+    numeral: 'I', titel: 'Lineare Algebra', meta: '5 Module',
+    module: [
+      { id:'a1', nr:'01', titel:'Matrizen', desc:'Addition, Multiplikation, Transponieren und spezielle Matrizen', pdf:'/assets/pdfs/Matrizen_2_1.pdf', podcast:'/assets/audio/matrizen.mp3', text:'/assets/texte/matrizen.pdf' },
+      { id:'a2', nr:'02', titel:'Determinanten', desc:'Laplace-Entwicklung, Sarrus-Regel und inverse Matrizen', pdf:'/assets/pdfs/Matrizen_2_2.pdf', podcast:'/assets/audio/determinanten.mp3', text:'/assets/texte/determinanten.pdf' },
+      { id:'a3', nr:'03', titel:'Matrizengleichungen', desc:'Übungsaufgaben, Rangbestimmung und Gauß-Elimination', pdf:'/assets/pdfs/Matrizen_2_3.pdf', podcast:'/assets/audio/matrizengleichungen.mp3', text:'/assets/texte/matrizengleichungen.pdf' },
+      { id:'a4', nr:'04', titel:'Lineare Gleichungssysteme', desc:'Matrixschreibweise, Gauß-Algorithmus und Lösbarkeitskriterien', pdf:'/assets/pdfs/LGS_2_1-5.pdf', podcast:'/assets/audio/lgs.mp3', text:'/assets/texte/lgs.pdf' },
+      { id:'a5', nr:'05', titel:'Parameterabhängigkeit', desc:'LGS mit Parametern, Determinantentest und Fallunterscheidungen', pdf:'/assets/pdfs/LGS_2_2-2.pdf', podcast:'/assets/audio/parameter.mp3', text:'/assets/texte/parameter.pdf' },
+    ]
+  },
+  {
+    numeral: 'II', titel: 'Vektorrechnung', meta: '4 Module',
+    module: [
+      { id:'v1', nr:'06', titel:'Grundlagen', desc:'Vektoren, Koordinatensysteme, Betrag und Grundoperationen', pdf:'/assets/pdfs/Geo_2_1-2.pdf', podcast:'/assets/audio/vektoren-grundlagen.mp3', text:'/assets/texte/vektoren-grundlagen.pdf' },
+      { id:'v2', nr:'07', titel:'Vektor- & Spatprodukt', desc:'Kreuzprodukt, Flächen, Spatprodukt und Volumen im Raum', pdf:'/assets/pdfs/Geo_2_2-2.pdf', podcast:'/assets/audio/spatprodukt.mp3', text:'/assets/texte/spatprodukt.pdf' },
+      { id:'v3', nr:'08', titel:'Geraden und Ebenen', desc:'Parametergleichungen, Normalenvektor und Lagebeziehungen', pdf:'/assets/pdfs/Geo_2_3.pdf', podcast:'/assets/audio/geraden-ebenen.mp3', text:'/assets/texte/geraden-ebenen.pdf' },
+      { id:'v4', nr:'09', titel:'Abstände und Lagen', desc:'Abstandsberechnungen und Hessesche Normalenform', pdf:'/assets/pdfs/Geo_2_4.pdf', podcast:'/assets/audio/abstaende.mp3', text:'/assets/texte/abstaende.pdf' },
+    ]
+  },
+  {
+    numeral: 'III', titel: 'Differentialrechnung', meta: '12 Module',
+    module: [
+      { id:'d1', nr:'10', titel:'Zahlenfolgen', desc:'Explizite und rekursive Vorschriften, Monotonie, Beschränktheit', pdf:'/assets/pdfs/Folgen_2_1-2.pdf', podcast:'/assets/audio/folgen.mp3', text:'/assets/texte/folgen.pdf' },
+      { id:'d2', nr:'11', titel:'Grenzwerte von Folgen', desc:'Konvergenz, Divergenz, Grenzwertsätze und Eulersche Zahl', pdf:'/assets/pdfs/Grenzwerte_2_1.pdf', podcast:'/assets/audio/grenzwerte-folgen.mp3', text:'/assets/texte/grenzwerte-folgen.pdf' },
+      { id:'d3', nr:'12', titel:'Grenzwerte im Unendlichen', desc:'Dominanzprinzip und waagerechte Asymptoten', pdf:'/assets/pdfs/Funktion_2_2.pdf', podcast:'/assets/audio/grenzwerte-unendlich.mp3', text:'/assets/texte/grenzwerte-unendlich.pdf' },
+      { id:'d4', nr:'13', titel:'Grenzwerte an einer Stelle', desc:'Einseitige Grenzwerte, Polstellen und hebbare Lücken', pdf:'/assets/pdfs/Grenzwerte_2_2.pdf', podcast:'/assets/audio/grenzwerte-stelle.mp3', text:'/assets/texte/grenzwerte-stelle.pdf' },
+      { id:'d5', nr:'14', titel:'Asymptoten', desc:'Waagerechte, senkrechte und schräge Asymptoten', pdf:'/assets/pdfs/Grenzwerte_2_3.pdf', podcast:'/assets/audio/asymptoten.mp3', text:'/assets/texte/asymptoten.pdf' },
+      { id:'d6', nr:'15', titel:'Steigung und Ableitung', desc:'Sekanten, Tangenten und Differenzierbarkeit', pdf:'/assets/pdfs/Funktion_2_1.pdf', podcast:'/assets/audio/ableitung.mp3', text:'/assets/texte/ableitung.pdf' },
+      { id:'d7', nr:'16', titel:'Ableitungsregeln', desc:'Potenz-, Produkt-, Quotienten- und Kettenregel', pdf:'/assets/pdfs/Funktion_2_4.pdf', podcast:'/assets/audio/ableitungsregeln.mp3', text:'/assets/texte/ableitungsregeln.pdf' },
+      { id:'d8', nr:'17', titel:'Regel von de L’Hôpital', desc:'Unbestimmte Ausdrücke: 0/0, ∞/∞, ∞·0', pdf:'/assets/pdfs/Hospital_2_1.pdf', podcast:'/assets/audio/hospital.mp3', text:'/assets/texte/hospital.pdf' },
+      { id:'d9', nr:'18', titel:'Extrempunkte', desc:'Notwendige und hinreichende Bedingungen, Sattelpunkte', pdf:'/assets/pdfs/Extremwert_2_1.pdf', podcast:'/assets/audio/extrempunkte.mp3', text:'/assets/texte/extrempunkte.pdf' },
+      { id:'d10', nr:'19', titel:'Wendepunkte', desc:'Krümmungswechsel und dritte Ableitung', pdf:'/assets/pdfs/Wendepunkt_2_1.pdf', podcast:'/assets/audio/wendepunkte.mp3', text:'/assets/texte/wendepunkte.pdf' },
+      { id:'d11', nr:'20', titel:'Kurvendiskussion', desc:'Systematische Funktionsanalyse mit allen Kriterien', pdf:'/assets/pdfs/Kurvendiskusion_2_1.pdf', podcast:'/assets/audio/kurvendiskussion.mp3', text:'/assets/texte/kurvendiskussion.pdf' },
+      { id:'d12', nr:'21', titel:'Extremwertaufgaben', desc:'Optimierungsprobleme mit Nebenbedingungen', pdf:'/assets/pdfs/Extrem_2_1.pdf', podcast:'/assets/audio/extremwertaufgaben.mp3', text:'/assets/texte/extremwertaufgaben.pdf' },
+    ]
+  },
+  {
+    numeral: 'IV', titel: 'Integralrechnung', meta: '4 Module',
+    module: [
+      { id:'i1', nr:'22', titel:'Einführung', desc:'Stammfunktionen, Grundintegrale und bestimmtes Integral', pdf:'/assets/pdfs/Integral_2_1.pdf', podcast:'/assets/audio/integral-einfuehrung.mp3', text:'/assets/texte/integral-einfuehrung.pdf' },
+      { id:'i2', nr:'23', titel:'Integrationsmethoden', desc:'Substitution, partielle Integration, Partialbruchzerlegung', pdf:'/assets/pdfs/Integral_2_2.pdf', podcast:'/assets/audio/integrationsmethoden.mp3', text:'/assets/texte/integrationsmethoden.pdf' },
+      { id:'i3', nr:'24', titel:'Hauptsatz & Flächen', desc:'HDI, bestimmte Integrale und Flächen zwischen Graphen', pdf:'/assets/pdfs/Integral_2_3.pdf', podcast:'/assets/audio/hauptsatz.mp3', text:'/assets/texte/hauptsatz.pdf' },
+      { id:'i4', nr:'25', titel:'Rotationsvolumen', desc:'Volumen von Rotationskörpern um x- und y-Achse', pdf:'/assets/pdfs/Intergal_2_4-2.pdf', podcast:'/assets/audio/rotationsvolumen.mp3', text:'/assets/texte/rotationsvolumen.pdf' },
+    ]
+  }
+];
 
+/* ─── Fortschritt (localStorage mit Fallback) ─── */
+const KEY = 'math-progress-v3';
+let memStore = {};
 function getProgress() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-  } catch {
-    return {};
-  }
+  try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+  catch { return memStore; }
+}
+function saveProgress(p) {
+  try { localStorage.setItem(KEY, JSON.stringify(p)); }
+  catch { memStore = p; }
 }
 
-function saveProgress(progress) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
-}
+const iconPdf  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>';
+const iconPod  = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+const iconText = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>';
+const iconCheck= '<svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>';
 
-function updateUI() {
-  const progress = getProgress();
-
-  document.querySelectorAll('.ma-card').forEach(card => {
-    const moduleId = card.dataset.module;
-    if (moduleId && progress[moduleId]) {
-      card.classList.add('ma-card-complete');
-    } else if (moduleId) {
-      card.classList.remove('ma-card-complete');
-    }
-  });
-}
-
-function toggleModule(id, event) {
-  if (event) {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  const progress = getProgress();
-  if (progress[id]) {
-    delete progress[id];
-  } else {
-    progress[id] = Date.now();
-  }
-  saveProgress(progress);
+/* ─── Rendern ─── */
+function render() {
+  const wrap = document.getElementById('kapitel');
+  wrap.innerHTML = KAPITEL.map(k => `
+    <section class="mw-kapitel">
+      <div class="mw-kapitel-kopf">
+        <span class="mw-numeral">${k.numeral}</span>
+        <h2>${k.titel}</h2>
+        <span class="mw-meta">${k.meta}</span>
+      </div>
+      <div class="mw-liste">
+        ${k.module.map(m => `
+          <div class="mw-modul" data-module="${m.id}">
+            <span class="mw-nr">${m.nr}</span>
+            <div>
+              <h4>${m.titel}</h4>
+              <p class="mw-desc">${m.desc}</p>
+            </div>
+            <div class="mw-actions">
+              <a href="${m.pdf}" class="mw-btn mw-btn--voll">${iconPdf} PDF</a>
+              <button class="mw-btn" onclick="startPodcast('${m.nr}', '${m.titel.replace(/'/g, "\\'")}', '${m.podcast}')">${iconPod} Podcast</button>
+              <a href="${m.text}" class="mw-btn">${iconText} Text</a>
+              <button class="mw-check" onclick="toggleModule('${m.id}')" aria-label="Als erledigt markieren">${iconCheck}</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `).join('');
   updateUI();
 }
 
-document.addEventListener('DOMContentLoaded', updateUI);
-if (document.readyState !== 'loading') updateUI();
+function updateUI() {
+  const p = getProgress();
+  let done = 0;
+  document.querySelectorAll('.mw-modul').forEach(el => {
+    const on = !!p[el.dataset.module];
+    el.classList.toggle('done', on);
+    if (on) done++;
+  });
+  const total = 25;
+  const r = 52, umfang = 2 * Math.PI * r;
+  const fg = document.getElementById('ringFg');
+  fg.style.strokeDasharray = umfang;
+  fg.style.strokeDashoffset = umfang * (1 - done / total);
+  document.getElementById('ringLabel').textContent = done;
+}
+
+function toggleModule(id) {
+  const p = getProgress();
+  if (p[id]) delete p[id]; else p[id] = Date.now();
+  saveProgress(p);
+  updateUI();
+}
+
+/* ─── Mini-Player ─── */
+const audio = document.getElementById('audio');
+const player = document.getElementById('player');
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+
+function startPodcast(nr, titel, src) {
+  document.getElementById('playerTitel').textContent = `Modul ${nr} · ${titel}`;
+  player.classList.add('offen');
+  audio.src = src;
+  audio.play().catch(() => { /* Datei noch nicht vorhanden — Player bleibt als Vorschau sichtbar */ });
+  setIcon();
+}
+playBtn.addEventListener('click', () => {
+  if (audio.paused) audio.play().catch(()=>{}); else audio.pause();
+  setIcon();
+});
+audio.addEventListener('play', setIcon);
+audio.addEventListener('pause', setIcon);
+audio.addEventListener('timeupdate', () => {
+  const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+  document.getElementById('playerBar').style.width = pct + '%';
+});
+function setIcon() {
+  playIcon.innerHTML = audio.paused
+    ? '<path d="M8 5v14l11-7z"/>'
+    : '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+}
+document.getElementById('playerClose').addEventListener('click', () => {
+  audio.pause();
+  player.classList.remove('offen');
+});
+
+render();
 </script>
