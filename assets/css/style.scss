@@ -2,34 +2,38 @@
 ---
 
 /* ═══════════════════════════════════════════════════════════════
-   和北 JAPANDI DESIGN SYSTEM – Global
-   Japanese × Norwegian Minimalism
-   Dark/Light Toggle mit Wabi-Sabi Palette
+   NACHTPROGRAMM DESIGN SYSTEM – Global
+   Konzertprogramm-Ästhetik: Tinte, Elfenbein, Messing
+   Dark/Light Toggle
    ═══════════════════════════════════════════════════════════════ */
 
 @import "minima";
 
-/* ─── Japandi Palette (immutable base colors) ─── */
+/* ─── Nachtprogramm Palette (immutable base colors) ─── */
 :root {
-  --sumi: #1a1a18;
-  --kuro: #2c2c28;
-  --hai: #3d3d38;
-  --kinari: #f0ece4;
-  --shiro: #f7f5f0;
-  --kinu: #e8e3d8;
-  --ishi: #b8b3a8;
-  --sugi: #8a8578;
+  --ink:      #101014;
+  --graphit:  #17171d;
+  --graphit2: #1e1e26;
+  --graphit3: #2a2a34;
+  --elfenbein:#ece7dc;
+  --nebel:    #8f8e97;
+  --nebel2:   #6b6a72;
+  --messing:  #c2a15c;
+  --messing2: #dfc48a;
+  --messing-dunkel: #8a6d34;
+  --gruen:    #8fa284;
 
-  --beni: #c45c3e;
-  --matcha: #7a8c6e;
-  --ai: #5b7a8c;
-  --kitsune: #c49a6c;
-  --sakura: #c4868a;
+  --papier:   #f2ede1;
+  --papier2:  #e8e0cd;
+  --papier3:  #ddd2b7;
+  --tinte:    #1c1a16;
+  --tinte2:   #5b564c;
+  --tinte3:   #8a8377;
 
-  /* Fonts – multilingual: Latin, CJK, Arabic */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans SC', 'Noto Sans KR', 'Noto Sans JP', system-ui, -apple-system, 'SF Pro Display', 'Inter', 'Segoe UI', sans-serif;
-  --font-mono: 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+  /* Fonts */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', 'Noto Sans Arabic', 'Noto Sans SC', 'Noto Sans KR', 'Noto Sans JP', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
 
   /* Spacing – 8pt grid */
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
@@ -48,76 +52,76 @@
 /* ─── Dark Mode (Default) ─── */
 :root,
 html[data-theme="dark"] {
-  --bg-deep: var(--sumi);
-  --bg-primary: var(--kuro);
-  --bg-secondary: var(--hai);
-  --bg-tertiary: #4a4a44;
+  --bg-deep: var(--ink);
+  --bg-primary: var(--graphit);
+  --bg-secondary: var(--graphit2);
+  --bg-tertiary: var(--graphit3);
 
-  --text-primary: var(--kinari);
-  --text-secondary: var(--ishi);
-  --text-tertiary: var(--sugi);
-  --text-muted: rgba(240,236,228,0.35);
+  --text-primary: var(--elfenbein);
+  --text-secondary: var(--nebel);
+  --text-tertiary: var(--nebel2);
+  --text-muted: rgba(236,231,220,0.35);
 
-  --text-rgb: 240, 236, 228;
-  --bg-rgb: 44, 44, 40;
+  --text-rgb: 236, 231, 220;
+  --bg-rgb: 16, 16, 20;
 
-  --bg-elevated: rgba(240,236,228,0.04);
-  --bg-card: rgba(61,61,56,0.85);
-  --bg-card-hover: rgba(74,74,68,0.9);
+  --bg-elevated: rgba(236,231,220,0.04);
+  --bg-card: rgba(30,30,38,0.85);
+  --bg-card-hover: rgba(42,42,52,0.9);
 
-  --border: rgba(240,236,228,0.06);
-  --border-hover: rgba(240,236,228,0.10);
-  --border-strong: rgba(240,236,228,0.15);
-  --separator: rgba(240,236,228,0.08);
-  --separator-strong: rgba(240,236,228,0.15);
+  --border: rgba(236,231,220,0.09);
+  --border-hover: rgba(236,231,220,0.13);
+  --border-strong: rgba(236,231,220,0.18);
+  --separator: rgba(236,231,220,0.09);
+  --separator-strong: rgba(236,231,220,0.18);
 
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.35);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.35);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
 
-  --accent: var(--beni);
-  --accent-hover: #d06a4c;
-  --success: var(--matcha);
-  --mikro: var(--kitsune);
-  --makro: var(--ai);
+  --accent: var(--messing);
+  --accent-hover: var(--messing2);
+  --success: var(--gruen);
+  --mikro: var(--messing);
+  --makro: var(--gruen);
 
   color-scheme: dark;
 }
 
 /* ─── Light Mode ─── */
 html[data-theme="light"] {
-  --bg-deep: var(--shiro);
-  --bg-primary: var(--shiro);
-  --bg-secondary: var(--kinari);
-  --bg-tertiary: var(--kinu);
+  --bg-deep: var(--papier);
+  --bg-primary: var(--papier);
+  --bg-secondary: var(--papier2);
+  --bg-tertiary: var(--papier3);
 
-  --text-primary: var(--sumi);
-  --text-secondary: var(--sugi);
-  --text-tertiary: var(--ishi);
-  --text-muted: rgba(26,26,24,0.35);
+  --text-primary: var(--tinte);
+  --text-secondary: var(--tinte2);
+  --text-tertiary: var(--tinte3);
+  --text-muted: rgba(28,26,22,0.35);
 
-  --text-rgb: 26, 26, 24;
-  --bg-rgb: 247, 245, 240;
+  --text-rgb: 28, 26, 22;
+  --bg-rgb: 242, 237, 225;
 
-  --bg-elevated: rgba(26,26,24,0.04);
-  --bg-card: rgba(240,236,228,0.85);
-  --bg-card-hover: rgba(232,227,216,0.9);
+  --bg-elevated: rgba(28,26,22,0.04);
+  --bg-card: rgba(255,253,248,0.85);
+  --bg-card-hover: rgba(255,253,248,0.95);
 
-  --border: rgba(26,26,24,0.08);
-  --border-hover: rgba(26,26,24,0.12);
-  --border-strong: rgba(26,26,24,0.15);
-  --separator: rgba(26,26,24,0.10);
-  --separator-strong: rgba(26,26,24,0.18);
+  --border: rgba(28,26,22,0.09);
+  --border-hover: rgba(28,26,22,0.13);
+  --border-strong: rgba(28,26,22,0.18);
+  --separator: rgba(28,26,22,0.10);
+  --separator-strong: rgba(28,26,22,0.18);
 
-  --shadow-sm: 0 1px 3px rgba(26,26,24,0.04);
-  --shadow-md: 0 4px 16px rgba(26,26,24,0.06);
-  --shadow-lg: 0 8px 32px rgba(26,26,24,0.08);
+  --shadow-sm: 0 1px 3px rgba(28,26,22,0.05);
+  --shadow-md: 0 4px 16px rgba(28,26,22,0.07);
+  --shadow-lg: 0 8px 32px rgba(28,26,22,0.09);
 
-  --accent: #a8502e;
-  --accent-hover: var(--beni);
+  --accent: var(--messing-dunkel);
+  --accent-hover: var(--messing);
   --success: #5a7a4e;
-  --mikro: #b08850;
-  --makro: #4a6a7c;
+  --mikro: var(--messing-dunkel);
+  --makro: #4a6a5c;
 
   color-scheme: light;
 }
@@ -217,7 +221,7 @@ a:visited { color: var(--accent); }
 strong, b { color: var(--text-primary); }
 
 code {
-  background: rgba(var(--text-rgb),0.06); color: var(--beni);
+  background: rgba(var(--text-rgb),0.06); color: var(--accent);
   border: 1px solid var(--border); border-radius: var(--r-sm);
   padding: 0.15em 0.4em; font-size: 0.88em;
   font-family: var(--font-mono);
@@ -230,8 +234,8 @@ pre {
 pre code { background: none; border: none; padding: 0; color: var(--text-secondary); }
 
 blockquote {
-  border-left: 3px solid var(--beni); color: var(--text-secondary);
-  background: rgba(196,92,62,0.04); padding: 1rem 1.25rem;
+  border-left: 3px solid var(--accent); color: var(--text-secondary);
+  background: rgba(var(--text-rgb),0.04); padding: 1rem 1.25rem;
   border-radius: 0 var(--r-md) var(--r-md) 0; margin-left: 0;
 }
 
@@ -385,14 +389,14 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 .svg-icon { fill: var(--text-tertiary); }
 .social-media-list li + li { padding-top: 5px; }
 .social-media-list a { color: var(--text-secondary); }
-.social-media-list a:hover { color: var(--beni); }
+.social-media-list a:hover { color: var(--accent); }
 
 /* ═══════════════════════════════════════════════════════════════
    SELECTION & SCROLLBAR
    ═══════════════════════════════════════════════════════════════ */
 
-::selection { background: rgba(196,92,62,0.3); color: var(--text-primary); }
-::-moz-selection { background: rgba(196,92,62,0.3); color: var(--text-primary); }
+::selection { background: rgba(194,161,92,0.3); color: var(--text-primary); }
+::-moz-selection { background: rgba(194,161,92,0.3); color: var(--text-primary); }
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }
 ::-webkit-scrollbar-thumb { background: rgba(var(--text-rgb),0.1); border-radius: 100px; }

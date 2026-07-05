@@ -47,6 +47,9 @@ body, html, .page-content, .wrapper, main {
   -webkit-font-smoothing: antialiased;
   padding-bottom: 120px;
 }
+.mw-page h1, .mw-page h2, .mw-page h3, .mw-page h4, .mw-page h5, .mw-page h6 {
+  color: var(--elfenbein);
+}
 
 .mw-wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
 
