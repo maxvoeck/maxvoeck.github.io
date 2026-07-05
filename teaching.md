@@ -4,97 +4,173 @@ title:
 permalink: /teaching/
 ---
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-body, html, .page-content, .wrapper, main, .post-content {
-  background: var(--bg-primary) !important;
-  color: var(--text-primary);
-}
-.post-header, .page-heading, header.post-header { display: none !important; }
+/* ═══════════════════════════════════════════════════════
+   NACHTPROGRAMM — Lehrmaterialien-Übersicht
+   Konzertprogramm-Ästhetik: Tinte, Elfenbein, Messing
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --ink:      #101014;
+  --graphit:  #17171d;
+  --graphit2: #1e1e26;
+  --linie:    rgba(236, 231, 220, 0.09);
+  --linie2:   rgba(236, 231, 220, 0.18);
+  --elfenbein:#ece7dc;
+  --nebel:    #8f8e97;
+  --messing:  #c2a15c;
+  --messing2: #dfc48a;
 
-.te-container {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Inter', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', monospace;
 }
 
-.te-eyebrow {
-  font-family: var(--font-body);
+body, html, .page-content, .wrapper, main {
+  background: #101014 !important;
+}
+.post-header, .page-heading, header.post-header {
+  display: none !important;
+}
+
+.mw-page * { box-sizing: border-box; margin: 0; padding: 0; }
+
+.mw-page {
+  background: var(--ink);
+  color: var(--elfenbein);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 120px;
+}
+
+.mw-wrap { max-width: 900px; margin: 0 auto; padding: 0 28px; }
+
+/* ─── Hero ─── */
+.mw-hero { padding: 96px 0 56px; }
+.mw-eyebrow {
+  font-family: var(--mono);
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: var(--s12);
+  color: var(--messing);
+  margin-bottom: 20px;
+}
+.mw-hero h1 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(44px, 7vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.mw-hero-sub {
+  margin-top: 18px;
+  max-width: 50ch;
+  color: var(--nebel);
+  font-size: 16px;
 }
 
-.te-grid {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--border-strong);
-}
-
-.te-card {
-  display: block;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border);
+/* ─── Fächerliste ─── */
+.mw-liste { border-top: 1px solid var(--linie2); padding-bottom: 40px; }
+.mw-fach {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 28px 8px;
+  border-bottom: 1px solid var(--linie2);
   text-decoration: none;
   color: inherit;
-  transition: padding-left 0.2s var(--ease-out);
+  transition: background 180ms ease, padding 180ms ease;
 }
-
-.te-card:hover {
-  padding-left: 0.75rem;
-}
-
-.te-card-label {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  transition: color var(--t-fast);
-}
-
-.te-card:hover .te-card-label {
-  color: var(--accent);
-}
-
-.te-card-meta {
-  display: block;
-  font-size: 13px;
+.mw-fach:hover { background: rgba(236,231,220,0.025); padding-left: 16px; }
+.mw-fach-nr {
+  font-family: var(--display);
+  font-style: italic;
   font-weight: 300;
-  color: var(--text-tertiary);
-  margin-top: 0.2rem;
+  font-size: 30px;
+  color: var(--messing);
+}
+.mw-fach h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: -0.005em;
+  transition: color 180ms ease;
+}
+.mw-fach:hover h2 { color: var(--messing2); }
+.mw-fach-meta {
+  color: var(--nebel);
+  font-size: 13.5px;
+  margin-top: 4px;
+}
+.mw-fach-pfeil {
+  font-family: var(--mono);
+  font-size: 20px;
+  color: var(--nebel);
+  transition: transform 180ms ease, color 180ms ease;
+}
+.mw-fach:hover .mw-fach-pfeil { color: var(--messing); transform: translateX(4px); }
+
+/* ─── Responsiv ─── */
+@media (max-width: 600px) {
+  .mw-hero { padding: 64px 0 40px; }
+  .mw-fach { grid-template-columns: 40px 1fr auto; gap: 14px; padding: 22px 4px; }
+  .mw-fach-nr { font-size: 22px; }
+  .mw-fach h2 { font-size: 20px; }
 }
 
-@media (max-width: 480px) {
-  .te-container { padding: 1.5rem 1.25rem 3rem; }
-  .te-card-label { font-size: 20px; }
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 1ms !important; animation: none !important; }
 }
 </style>
 
-<div class="te-container">
+<div class="mw-page">
+<div class="mw-wrap">
 
-  <div class="te-eyebrow">Materialien</div>
+  <header class="mw-hero">
+    <div class="mw-eyebrow">Studienkolleg Leipzig</div>
+    <h1>Lehrmaterialien</h1>
+    <p class="mw-hero-sub">Module, Skripte und Übungen für die Feststellungsprüfung — nach Fach sortiert.</p>
+  </header>
 
-  <div class="te-grid">
-    <a href="/teaching/mathematik/" class="te-card">
-      <span class="te-card-label">Mathematik</span>
-      <span class="te-card-meta">30 Module · Algebra, Vektoren, Analysis, Integralrechnung</span>
+  <div class="mw-liste">
+    <a href="/teaching/mathematik/" class="mw-fach">
+      <span class="mw-fach-nr">I</span>
+      <div>
+        <h2>Mathematik</h2>
+        <div class="mw-fach-meta">30 Module · Algebra, Vektoren, Analysis, Integralrechnung</div>
+      </div>
+      <span class="mw-fach-pfeil">→</span>
     </a>
-    <a href="/teaching/mathematik-wkurs/" class="te-card">
-      <span class="te-card-label">Mathematik (W-Kurs)</span>
-      <span class="te-card-meta">2. Semester · Materialien in Vorbereitung</span>
+    <a href="/teaching/mathematik-wkurs/" class="mw-fach">
+      <span class="mw-fach-nr">II</span>
+      <div>
+        <h2>Mathematik (W-Kurs)</h2>
+        <div class="mw-fach-meta">2. Semester · Materialien in Vorbereitung</div>
+      </div>
+      <span class="mw-fach-pfeil">→</span>
     </a>
-    <a href="/teaching/vwl/" class="te-card">
-      <span class="te-card-label">Volkswirtschaftslehre</span>
-      <span class="te-card-meta">13 Module · Mikro- & Makroökonomie</span>
+    <a href="/teaching/vwl/" class="mw-fach">
+      <span class="mw-fach-nr">III</span>
+      <div>
+        <h2>Volkswirtschaftslehre</h2>
+        <div class="mw-fach-meta">13 Module · Mikro- &amp; Makroökonomie</div>
+      </div>
+      <span class="mw-fach-pfeil">→</span>
     </a>
-    <a href="/teaching/informatik/" class="te-card">
-      <span class="te-card-label">Informatik</span>
-      <span class="te-card-meta">6 Module · Python</span>
+    <a href="/teaching/informatik/" class="mw-fach">
+      <span class="mw-fach-nr">IV</span>
+      <div>
+        <h2>Informatik</h2>
+        <div class="mw-fach-meta">6 Module · Python</div>
+      </div>
+      <span class="mw-fach-pfeil">→</span>
     </a>
   </div>
 
+</div>
 </div>
