@@ -813,7 +813,6 @@ body, html, .page-content, .wrapper, main, .post-content {
     </div>
     <div class="ma-footer-actions">
       <a href="/teaching/mathematik/" class="ma-btn ma-btn--secondary">← Zurück</a>
-      <a href="/teaching/mathematik-materialien/" class="ma-btn ma-btn--primary">Zu den Materialien →</a>
     </div>
   </div>
 
