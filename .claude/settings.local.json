@@ -3,7 +3,10 @@
     "allow": [
       "Bash(gem install *)",
       "Bash(grep -n \"require_from_bundler\\\\|Gemfile\" /Users/maks/.gem/ruby/2.6.0/gems/jekyll-4.2.2/lib/jekyll/plugin_manager.rb)",
-      "Bash(gem list *)"
+      "Bash(gem list *)",
+      "Bash(git fetch *)",
+      "Bash(gh auth *)",
+      "Bash(gh api *)"
     ]
   }
 }

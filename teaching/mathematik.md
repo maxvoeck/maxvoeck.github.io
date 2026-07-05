@@ -4,1024 +4,842 @@ title:
 permalink: /teaching/mathematik/
 ---
 
-<style>
-/* ═══════════════════════════════════════════════════════════════
-   和北 JAPANDI DESIGN SYSTEM – Mathematik für Studienkolleg
-   Japanese × Norwegian Minimalism
-   ═══════════════════════════════════════════════════════════════ */
-
-/* ─── Design Tokens ─── */
-:root {
-  --sumi: #1a1a18;
-  --kuro: #2c2c28;
-  --hai: #3d3d38;
-  --kinari: #f0ece4;
-  --shiro: #f7f5f0;
-  --kinu: #e8e3d8;
-  --ishi: #b8b3a8;
-  --sugi: #8a8578;
-
-  --beni: #c45c3e;
-  --matcha: #7a8c6e;
-  --ai: #5b7a8c;
-  --kitsune: #c49a6c;
-  --sakura: #c4868a;
-
-  --algebra: var(--ai);
-  --vektor: var(--kitsune);
-  --diff: var(--beni);
-  --integral: var(--matcha);
-  --tools: var(--sakura);
-
-  --bg-primary: var(--shiro);
-  --bg-secondary: var(--kinari);
-  --bg-tertiary: var(--kinu);
-  --text-primary: var(--sumi);
-  --text-secondary: var(--sugi);
-  --text-tertiary: var(--ishi);
-  --border: rgba(26, 26, 24, 0.08);
-  --border-strong: rgba(26, 26, 24, 0.15);
-
-  --font-display: 'Cormorant Garamond', 'Noto Serif JP', Georgia, serif;
-  --font-body: 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans SC', 'Noto Sans KR', 'Noto Sans JP', system-ui, sans-serif;
-  --font-mono: 'SF Mono', 'Fira Code', monospace;
-
-  --space-1: 4px;  --space-2: 8px;   --space-3: 12px;  --space-4: 16px;
-  --space-5: 20px; --space-6: 24px;  --space-8: 32px;  --space-10: 40px;
-  --space-12: 48px; --space-16: 64px; --space-20: 80px;
-
-  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
-  --radius-xl: 20px; --radius-2xl: 24px; --radius-full: 9999px;
-
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-*, *::before, *::after {
-  box-sizing: border-box; margin: 0; padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body, html, .page-content, .wrapper, main, .post-content {
-  background: var(--bg-primary) !important;
-  color: var(--text-primary);
-  font-family: var(--font-body);
-  line-height: 1.47059;
-  letter-spacing: -0.022em;
-}
-
-.post-header, .page-heading, header.post-header { display: none !important; }
-
-/* ─── Container ─── */
-.ma-container {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: var(--space-8) var(--space-5);
-}
-@media (min-width: 768px) {
-  .ma-container { padding: var(--space-16) var(--space-8); }
-}
-
-/* ─── Hero ─── */
-.ma-hero {
-  text-align: center;
-  margin-bottom: var(--space-16);
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.ma-hero-eyebrow {
-  font-size: 17px; font-weight: 600;
-  color: var(--text-tertiary);
-  text-transform: uppercase; letter-spacing: 0.05em;
-  margin-bottom: var(--space-3);
-  display: flex; align-items: center; justify-content: center;
-  gap: var(--space-2);
-}
-.ma-hero h1 {
-  font-size: 48px; font-weight: 300;
-  letter-spacing: -0.003em; line-height: 1.08349;
-  margin-bottom: var(--space-3);
-  color: var(--text-primary);
-  font-family: var(--font-display);
-}
-@media (min-width: 768px) { .ma-hero h1 { font-size: 64px; } }
-.ma-hero-subtitle {
-  font-size: 21px; font-weight: 400;
-  color: var(--text-secondary);
-  margin-bottom: var(--space-8);
-  max-width: 600px; margin-left: auto; margin-right: auto;
-  line-height: 1.381;
-}
-
-/* Progress Ring */
-.ma-progress-container {
-  display: inline-flex; flex-direction: column;
-  align-items: center; gap: var(--space-4);
-}
-.ma-progress-ring { position: relative; width: 120px; height: 120px; }
-.ma-progress-ring svg { transform: rotate(-90deg); width: 100%; height: 100%; }
-.ma-progress-ring-bg { fill: none; stroke: var(--border-strong); stroke-width: 8; }
-.ma-progress-ring-fill {
-  fill: none; stroke: var(--beni); stroke-width: 8;
-  stroke-linecap: round;
-  stroke-dasharray: 339.292; stroke-dashoffset: 339.292;
-  transition: stroke-dashoffset 1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.ma-progress-text {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 28px; font-weight: 600; color: var(--text-primary);
-}
-.ma-progress-label { font-size: 14px; color: var(--text-tertiary); font-weight: 500; }
-
-/* ─── Sections (ma-) ─── */
-.ma-section {
-  margin-bottom: var(--space-16);
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-}
-.ma-section:nth-child(2) { animation-delay: 0.1s; }
-.ma-section:nth-child(3) { animation-delay: 0.2s; }
-.ma-section:nth-child(4) { animation-delay: 0.3s; }
-.ma-section:nth-child(5) { animation-delay: 0.4s; }
-.ma-section:nth-child(6) { animation-delay: 0.5s; }
-
-.ma-section-header {
-  display: flex; align-items: flex-start;
-  gap: var(--space-4); margin-bottom: var(--space-6);
-  padding: var(--space-4); cursor: pointer; user-select: none;
-  border-radius: var(--radius-lg);
-  transition: background var(--transition-fast);
-}
-.ma-section-header:hover { background: var(--bg-secondary); }
-
-.ma-section-toggle {
-  margin-left: auto; font-size: 20px;
-  transition: transform var(--transition-base);
-  color: var(--text-tertiary);
-}
-.ma-section.collapsed .ma-section-toggle { transform: rotate(-90deg); }
-
-.ma-section .ma-grid {
-  max-height: 5000px; opacity: 1; overflow: hidden; padding-top: 4px;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
-}
-.ma-section.collapsed .ma-grid { max-height: 0; opacity: 0; pointer-events: none; }
-
-.ma-section-icon {
-  width: 48px; height: 48px; border-radius: var(--radius-lg);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px; flex-shrink: 0;
-  background: var(--bg-secondary);
-  transition: transform var(--transition-spring);
-}
-.ma-section:hover .ma-section-icon { transform: scale(1.1) rotate(-5deg); }
-.ma-section--vektor .ma-section-icon  { background: rgba(255,149,0,0.12);   color: var(--vektor); }
-.ma-section--algebra .ma-section-icon { background: rgba(90,200,250,0.12);   color: var(--algebra); }
-.ma-section--diff .ma-section-icon    { background: rgba(255,45,85,0.12);    color: var(--diff); }
-.ma-section--integral .ma-section-icon{ background: rgba(52,199,89,0.12);    color: var(--integral); }
-.ma-section--tools .ma-section-icon   { background: rgba(175,82,222,0.12);   color: var(--tools); }
-
-.ma-section-title-group { flex: 1; }
-.ma-section-title {
-  font-size: 28px; font-weight: 600;
-  letter-spacing: -0.021em; line-height: 1.14286;
-  color: var(--text-primary); margin-bottom: var(--space-1);
-  font-family: var(--font-display);
-}
-.ma-section-subtitle { font-size: 15px; color: var(--text-tertiary); font-weight: 400; }
-
-/* ─── Grid ─── */
-.ma-grid { display: grid; gap: var(--space-4); }
-@media (min-width: 768px) {
-  .ma-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
-}
-@media (min-width: 1024px) {
-  .ma-grid--tools { grid-template-columns: repeat(3, 1fr); }
-}
-
-/* ─── Cards (ma-) ─── */
-.ma-card {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-xl);
-  padding: var(--space-5);
-  position: relative; overflow: hidden;
-  transition: all var(--transition-base);
-  border: 2px solid transparent;
-}
-.ma-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-  background: var(--bg-tertiary);
-}
-.ma-card:active { transform: scale(0.98); transition-duration: var(--transition-fast); }
-.ma-card-complete {
-  border-color: var(--matcha);
-  background: linear-gradient(135deg, rgba(52,199,89,0.05) 0%, var(--bg-secondary) 100%);
-}
-.ma-card-header {
-  display: flex; align-items: center;
-  gap: var(--space-3); margin-bottom: var(--space-3);
-}
-.ma-card-number {
-  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
-  color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em;
-}
-.ma-section--vektor .ma-card-number  { color: var(--vektor); }
-.ma-section--algebra .ma-card-number { color: var(--algebra); }
-.ma-section--diff .ma-card-number    { color: var(--diff); }
-.ma-section--integral .ma-card-number{ color: var(--integral); }
-.ma-section--tools .ma-card-number   { color: var(--tools); }
-
-.ma-card h4 {
-  font-size: 17px; font-weight: 600;
-  color: var(--text-primary); letter-spacing: -0.022em;
-  line-height: 1.23536; margin: 0;
-}
-.ma-card p {
-  font-size: 14px; line-height: 1.42859; color: var(--text-secondary);
-  margin-bottom: var(--space-4);
-  display: -webkit-box; -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical; overflow: hidden;
-}
-
-/* ─── Actions & Buttons (ma-) ─── */
-.ma-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
-.ma-btn {
-  display: inline-flex; align-items: center; gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
-  font-size: 13px; font-weight: 500; text-decoration: none;
-  transition: all var(--transition-fast);
-  border: none; cursor: pointer;
-  font-family: var(--font-body);
-  position: relative; z-index: 2;
-}
-.ma-btn--primary { background: var(--beni); color: white !important; }
-.ma-btn--primary:hover { opacity: 0.9; transform: translateY(-1px); }
-.ma-btn--secondary { background: rgba(26,26,24,0.06); color: var(--text-primary) !important; }
-.ma-btn--secondary:hover { background: rgba(26,26,24,0.1); }
-.ma-btn--ghost { background: transparent; color: var(--text-tertiary) !important; padding: var(--space-2); }
-.ma-btn--ghost:hover { color: var(--matcha) !important; background: rgba(52,199,89,0.1); }
-
-/* ─── Check Button (ma-) ─── */
-.ma-check {
-  margin-left: auto;
-  display: flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px;
-  border-radius: var(--radius-full);
-  background: transparent;
-  border: 2px solid var(--border-strong);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  position: relative; z-index: 2; padding: 0;
-}
-.ma-check:hover { border-color: var(--matcha); background: rgba(52,199,89,0.05); }
-.ma-check svg {
-  width: 16px; height: 16px; color: white;
-  opacity: 0; transform: scale(0.5);
-  transition: all var(--transition-spring); pointer-events: none;
-}
-.ma-card-complete .ma-check { background: var(--matcha); border-color: var(--matcha); }
-.ma-card-complete .ma-check svg { opacity: 1; transform: scale(1); }
-
-/* ─── Tools Special ─── */
-.ma-section--tools .ma-card {
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(175,82,222,0.05) 100%);
-  border: 1px solid rgba(175,82,222,0.1);
-}
-.ma-section--tools .ma-card:hover {
-  border-color: rgba(175,82,222,0.2);
-  box-shadow: 0 8px 32px rgba(175,82,222,0.15);
-}
-
-/* ─── Footer ─── */
-.ma-footer {
-  margin-top: var(--space-20); padding-top: var(--space-8);
-  border-top: 1px solid var(--border);
-  display: flex; flex-direction: column;
-  gap: var(--space-5); align-items: center; text-align: center;
-  animation: fadeInUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.6s backwards;
-}
-@media (min-width: 768px) {
-  .ma-footer { flex-direction: row; justify-content: space-between; text-align: left; }
-}
-.ma-footer-text { font-size: 12px; color: var(--text-tertiary); }
-.ma-footer-text strong { color: var(--text-secondary); font-weight: 600; }
-.ma-footer-actions { display: flex; gap: var(--space-3); }
-
-/* ─── Klausuren-Block (mw-) ─── */
-.mw-section {
-  margin-bottom: var(--space-16);
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
-}
-.mw-section-header {
-  display: flex; align-items: flex-start;
-  gap: var(--space-4); margin-bottom: var(--space-6);
-  padding: var(--space-4); cursor: pointer; user-select: none;
-  border-radius: var(--radius-lg);
-  transition: background var(--transition-fast);
-}
-.mw-section-header:hover { background: var(--bg-secondary); }
-.mw-section-title-group { flex: 1; }
-.mw-section-title {
-  font-size: 28px; font-weight: 600;
-  letter-spacing: -0.021em; line-height: 1.14286;
-  color: var(--text-primary); margin-bottom: var(--space-1);
-  font-family: var(--font-display);
-}
-.mw-section-subtitle { font-size: 15px; color: var(--text-tertiary); font-weight: 400; }
-.mw-section-toggle {
-  margin-left: auto; font-size: 20px;
-  transition: transform var(--transition-base);
-  color: var(--text-tertiary);
-}
-.mw-section.collapsed .mw-section-toggle { transform: rotate(-90deg); }
-.mw-section .mw-grid {
-  max-height: 5000px; opacity: 1; overflow: hidden; padding-top: 4px;
-  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease;
-}
-.mw-section.collapsed .mw-grid { max-height: 0; opacity: 0; pointer-events: none; }
-
-.mw-grid { display: grid; gap: var(--space-4); }
-@media (min-width: 768px) {
-  .mw-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
-}
-
-.mw-card {
-  background: var(--bg-secondary);
-  border-radius: var(--radius-xl);
-  padding: var(--space-5);
-  position: relative; overflow: hidden;
-  transition: all var(--transition-base);
-  border: 2px solid transparent;
-}
-.mw-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-  background: var(--bg-tertiary);
-}
-.mw-card-complete {
-  border-color: var(--matcha);
-  background: linear-gradient(135deg, rgba(122,140,110,0.08) 0%, var(--bg-secondary) 100%);
-}
-.mw-card-klausur { border-color: var(--border-strong); }
-.mw-card-klausur .mw-card-topics {
-  font-size: 13px; color: var(--text-secondary);
-  line-height: 1.5; margin-bottom: var(--space-4);
-}
-.mw-card-klausur .mw-topic-tag {
-  display: inline-block;
-  background: rgba(26,26,24,0.06);
-  color: var(--text-secondary);
-  font-size: 11px; font-weight: 500;
-  padding: 3px 8px; border-radius: var(--radius-sm);
-  margin: 2px 2px 2px 0;
-}
-/* Verbesserte Darstellung nicht verfügbarer Klausuren */
-.mw-card--unavailable {
-  opacity: 0.6;
-}
-.mw-card--unavailable .mw-btn,
-.mw-card--unavailable .mw-btn--primary,
-.mw-card--unavailable .mw-btn--ghost {
-  pointer-events: none;
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.mw-card-header {
-  display: flex; align-items: center;
-  gap: var(--space-3); margin-bottom: var(--space-3);
-}
-.mw-card-number {
-  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
-  color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em;
-}
-.mw-card h4 {
-  font-size: 17px; font-weight: 600;
-  color: var(--text-primary); letter-spacing: -0.022em;
-  line-height: 1.23536; margin: 0;
-}
-.mw-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
-.mw-btn {
-  display: inline-flex; align-items: center; gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
-  font-size: 13px; font-weight: 500; text-decoration: none;
-  transition: all var(--transition-fast);
-  border: none; cursor: pointer;
-  font-family: var(--font-body);
-  position: relative; z-index: 2;
-}
-.mw-btn--primary { background: var(--beni); color: white !important; }
-.mw-btn--primary:hover { opacity: 0.9; transform: translateY(-1px); }
-.mw-btn--ghost {
-  background: transparent; color: var(--text-tertiary) !important;
-  border: 1px solid var(--border-strong);
-}
-.mw-btn--ghost:hover { background: var(--bg-secondary); }
-
-.mw-check {
-  margin-left: auto;
-  display: flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px;
-  border-radius: var(--radius-full);
-  background: transparent;
-  border: 2px solid var(--border-strong);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  position: relative; z-index: 2; padding: 0;
-}
-.mw-check:hover { border-color: var(--matcha); background: rgba(122,140,110,0.08); }
-.mw-check svg {
-  width: 16px; height: 16px; color: white;
-  opacity: 0; transform: scale(0.5);
-  transition: all var(--transition-spring); pointer-events: none;
-}
-.mw-card-complete .mw-check { background: var(--matcha); border-color: var(--matcha); }
-.mw-card-complete .mw-check svg { opacity: 1; transform: scale(1); }
-
-/* ─── Aufgabe des Tages ─── */
-.adt {
-  max-width: 980px; margin: 0 auto var(--space-12);
-  padding: 0 var(--space-5);
-}
-@media (min-width: 768px) { .adt { padding: 0 var(--space-8); } }
-.adt-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--text-tertiary);
-  margin-bottom: var(--space-3);
-}
-.adt-card {
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  padding: var(--space-8);
-  background: rgba(255,255,255,0.03);
-  transition: border-color 250ms;
-}
-.adt-card:hover { border-color: var(--border-strong); }
-.adt-meta { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5); flex-wrap: wrap; }
-.adt-diff { font-size: 11px; color: var(--text-tertiary); }
-.adt-question {
-  font-family: var(--font-display); font-size: 22px; font-weight: 400;
-  letter-spacing: -0.01em; color: var(--text-primary);
-  line-height: 1.45; margin-bottom: var(--space-3);
-}
-.adt-hint {
-  font-size: 13px; color: var(--text-tertiary); font-weight: 300;
-  line-height: 1.6; margin-bottom: var(--space-6); font-style: italic;
-}
-.adt-actions { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
-.adt-btn {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 500; padding: 8px 16px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-strong);
-  background: transparent; color: var(--text-primary);
-  cursor: pointer; transition: all 200ms; text-decoration: none;
-  font-family: var(--font-body);
-}
-.adt-btn:hover { background: rgba(255,255,255,0.06); }
-.adt-btn--accent { background: var(--beni); border-color: var(--beni); color: #fff; }
-.adt-btn--accent:hover { opacity: 0.88; color: #fff; }
-.adt-solution { display: none; margin-top: var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--border); }
-.adt-solution.visible { display: block; animation: adtFade 300ms ease; }
-@keyframes adtFade {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.adt-solution-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--matcha); margin-bottom: var(--space-3);
-}
-.adt-solution-text { font-size: 15px; color: var(--text-primary); line-height: 1.7; font-weight: 300; }
-@media (max-width: 480px) {
-  .adt-question { font-size: 18px; }
-  .adt-card { padding: var(--space-5); }
-}
-
-/* ─── Animations ─── */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-}
-@media (hover: none) {
-  .ma-card:hover { transform: none; box-shadow: none; }
-  .ma-card:active { transform: scale(0.98); background: var(--bg-tertiary); }
-}
-@media print {
-  .ma-btn, .ma-check, .mw-btn, .mw-check { display: none; }
-  .ma-card, .mw-card { break-inside: avoid; }
-}
-
-/* ─── Mobile ─── */
-@media (max-width: 600px) {
-  .wrapper, .page-content, .post-content { padding-left: 0 !important; padding-right: 0 !important; }
-  html, body { overflow-x: hidden; }
-  .ma-container { padding: var(--space-6) var(--space-4); }
-  .ma-hero { margin-bottom: var(--space-8); }
-  .ma-hero h1 { font-size: 32px; margin-bottom: var(--space-2); }
-  .ma-hero-subtitle { font-size: 15px; margin-bottom: var(--space-5); line-height: 1.5; }
-  .ma-progress-ring { width: 96px; height: 96px; }
-  .ma-progress-text { font-size: 20px; }
-  .ma-progress-label { font-size: 13px; }
-  .ma-section-header { padding: var(--space-4) var(--space-3); gap: var(--space-3); min-height: 60px; align-items: center; }
-  .ma-section-icon { width: 40px; height: 40px; font-size: 18px; flex-shrink: 0; }
-  .ma-section-title { font-size: 18px; }
-  .ma-section-subtitle { font-size: 12px; line-height: 1.4; }
-  .ma-section-toggle { font-size: 16px; flex-shrink: 0; }
-  .ma-card { padding: var(--space-4); }
-  .ma-card h4 { font-size: 15px; }
-  .ma-card p { font-size: 13px; margin-bottom: var(--space-3); }
-  .ma-btn { padding: var(--space-2) var(--space-3); font-size: 13px; min-height: 44px; }
-  .ma-check { width: 40px; height: 40px; flex-shrink: 0; }
-  .mw-section-header { padding: var(--space-4) var(--space-3); gap: var(--space-3); }
-  .mw-section-title { font-size: 18px; }
-  .mw-section-subtitle { font-size: 12px; }
-  .mw-card { padding: var(--space-4); }
-  .mw-card h4 { font-size: 15px; }
-  .mw-check { width: 40px; height: 40px; flex-shrink: 0; }
-  .ma-footer { margin-top: var(--space-12); flex-direction: column; text-align: center; }
-}
-</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <!-- KaTeX -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 
-<div class="ma-container">
+<style>
+/* ═══════════════════════════════════════════════════════
+   NACHTPROGRAMM — Mathematik-Hub für das Studienkolleg
+   Konzertprogramm-Ästhetik: Tinte, Elfenbein, Messing
+   ═══════════════════════════════════════════════════════ */
+:root {
+  --ink:      #101014;
+  --graphit:  #17171d;
+  --graphit2: #1e1e26;
+  --linie:    rgba(236, 231, 220, 0.09);
+  --linie2:   rgba(236, 231, 220, 0.18);
+  --elfenbein:#ece7dc;
+  --nebel:    #8f8e97;
+  --messing:  #c2a15c;
+  --messing2: #dfc48a;
+  --gruen:    #8fa284;
+  --rost:     #b3705c;
+
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Inter', system-ui, sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+}
+
+body, html, .page-content, .wrapper, main {
+  background: #101014 !important;
+}
+.post-header, .page-heading, header.post-header {
+  display: none !important;
+}
+
+.mw-page * { box-sizing: border-box; margin: 0; padding: 0; }
+
+.mw-page {
+  background: var(--ink);
+  color: var(--elfenbein);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 120px;
+}
+
+.mw-wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+
+/* ─── Hero ─── */
+.mw-hero {
+  padding: 96px 0 72px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: end;
+  border-bottom: 1px solid var(--linie2);
+}
+.mw-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--messing);
+  margin-bottom: 20px;
+}
+.mw-hero h1 {
+  font-family: var(--display);
+  font-weight: 300;
+  font-size: clamp(52px, 8vw, 92px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+.mw-hero-sub {
+  margin-top: 22px;
+  max-width: 46ch;
+  color: var(--nebel);
+  font-size: 16px;
+}
+
+/* Fortschrittsbogen */
+.mw-progress { text-align: center; }
+.mw-ring { width: 120px; height: 120px; }
+.mw-ring circle { fill: none; stroke-width: 3; }
+.mw-ring .bg { stroke: var(--linie2); }
+.mw-ring .fg {
+  stroke: var(--messing);
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke-dashoffset 600ms cubic-bezier(0.4,0,0.2,1);
+}
+.mw-ring-label {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 300;
+  fill: var(--elfenbein);
+}
+.mw-ring-caption {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--nebel);
+}
+
+/* ─── Gesamtskript-Feature ─── */
+.mw-feature {
+  margin: 56px 0 24px;
+  padding: 30px 34px;
+  background: linear-gradient(120deg, var(--graphit2), var(--graphit));
+  border: 1px solid var(--linie2);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.mw-feature-titel h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+.mw-feature-titel p { color: var(--nebel); font-size: 14px; margin-top: 6px; max-width: 52ch; }
+.mw-feature .mw-btn { margin-left: auto; }
+
+/* ─── Aufgabe des Tages ─── */
+.mw-adt {
+  margin: 24px 0 24px;
+  padding: 34px 36px;
+  background: linear-gradient(120deg, var(--graphit2), var(--graphit));
+  border: 1px solid var(--linie2);
+  border-radius: 4px;
+}
+.mw-adt-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--messing);
+  margin-bottom: 18px;
+}
+.mw-adt-diff {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--nebel);
+  border: 1px solid var(--linie2);
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin-bottom: 18px;
+}
+.mw-adt-frage {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.mw-adt-hint {
+  font-size: 13.5px;
+  color: var(--nebel);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+.mw-adt-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.mw-adt-loesung {
+  display: none;
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid var(--linie2);
+}
+.mw-adt-loesung.offen { display: block; animation: mwFade 300ms ease; }
+@keyframes mwFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mw-adt-loesung-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gruen);
+  margin-bottom: 10px;
+}
+.mw-adt-loesung-text { font-size: 15px; color: var(--elfenbein); line-height: 1.7; }
+
+/* ─── Kapitel (klappbar) ─── */
+.mw-kapitel { padding: 56px 0 12px; border-bottom: 1px solid var(--linie2); }
+.mw-kapitel:last-of-type { border-bottom: none; }
+.mw-kapitel-kopf {
+  display: flex;
+  align-items: baseline;
+  gap: 22px;
+  padding-bottom: 34px;
+  cursor: pointer;
+  user-select: none;
+}
+.mw-numeral {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 44px;
+  color: var(--messing);
+  min-width: 64px;
+}
+.mw-kapitel-kopf h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: -0.01em;
+}
+.mw-kapitel-kopf .mw-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nebel);
+  margin-left: auto;
+  white-space: nowrap;
+}
+.mw-chevron {
+  color: var(--nebel);
+  font-size: 15px;
+  transition: transform 220ms ease;
+  margin-left: 12px;
+}
+.mw-kapitel.zu .mw-chevron { transform: rotate(-90deg); }
+
+.mw-liste-outer {
+  max-height: 3000px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 420ms cubic-bezier(0.4,0,0.2,1), opacity 250ms ease;
+}
+.mw-kapitel.zu .mw-liste-outer { max-height: 0; opacity: 0; }
+
+/* ─── Modulzeilen ─── */
+.mw-liste { border-top: 1px solid var(--linie); }
+.mw-modul {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 20px 8px;
+  border-bottom: 1px solid var(--linie);
+  transition: background 180ms ease, padding 180ms ease;
+}
+.mw-modul:hover { background: rgba(236,231,220,0.025); padding-left: 16px; }
+.mw-nr {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--nebel);
+  transition: color 180ms;
+}
+.mw-modul:hover .mw-nr { color: var(--messing); }
+.mw-modul.done .mw-nr { color: var(--gruen); }
+.mw-modul h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 19px;
+  letter-spacing: 0.005em;
+}
+.mw-modul.done h4 { color: var(--nebel); }
+
+/* Aktionen */
+.mw-actions { display: flex; align-items: center; gap: 8px; }
+.mw-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--body);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--elfenbein);
+  background: transparent;
+  border: 1px solid var(--linie2);
+  border-radius: 999px;
+  padding: 7px 15px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 160ms ease;
+  white-space: nowrap;
+}
+.mw-btn:hover { border-color: var(--messing); color: var(--messing2); }
+.mw-btn--voll {
+  background: var(--messing);
+  border-color: var(--messing);
+  color: var(--ink);
+}
+.mw-btn--voll:hover { background: var(--messing2); border-color: var(--messing2); color: var(--ink); }
+.mw-btn--deaktiviert {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.mw-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+/* Haken */
+.mw-check {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--linie2);
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+.mw-check svg { width: 13px; height: 13px; stroke: var(--ink); opacity: 0; transform: scale(0.4); transition: all 260ms cubic-bezier(0.34,1.56,0.64,1); }
+.mw-check:hover { border-color: var(--gruen); }
+.mw-modul.done .mw-check,
+.mw-karte.done .mw-check { background: var(--gruen); border-color: var(--gruen); }
+.mw-modul.done .mw-check svg,
+.mw-karte.done .mw-check svg { opacity: 1; transform: scale(1); }
+
+/* ─── Karten-Raster (Tools & Klausuren) ─── */
+.mw-raster {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding-top: 8px;
+}
+.mw-karte {
+  background: var(--graphit);
+  border: 1px solid var(--linie2);
+  border-radius: 6px;
+  padding: 22px 24px;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+.mw-karte:hover { border-color: var(--messing); transform: translateY(-2px); }
+.mw-karte h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+.mw-karte-tags { margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 6px; }
+.mw-tag {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  color: var(--nebel);
+  border: 1px solid var(--linie2);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+.mw-karte-aktionen { display: flex; align-items: center; gap: 8px; }
+.mw-karte--bald { opacity: 0.55; }
+
+/* ─── Fußzeile ─── */
+.mw-fuss {
+  margin-top: 88px;
+  padding: 36px 0;
+  border-top: 1px solid var(--linie2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--nebel);
+  font-size: 13px;
+}
+.mw-fuss-links { display: flex; gap: 10px; }
+
+/* ─── Responsiv ─── */
+@media (max-width: 760px) {
+  .mw-hero { grid-template-columns: 1fr; gap: 36px; padding: 64px 0 48px; }
+  .mw-progress { text-align: left; }
+  .mw-modul { grid-template-columns: 40px 1fr; }
+  .mw-actions { grid-column: 1 / -1; padding-left: 60px; flex-wrap: wrap; }
+  .mw-kapitel-kopf .mw-meta { display: none; }
+  .mw-feature .mw-btn { margin-left: 0; }
+  .mw-raster { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) { .mw-actions { padding-left: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 1ms !important; animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+</style>
+
+<div class="mw-page">
+<div class="mw-wrap">
 
   <!-- Hero -->
-  <div class="ma-hero">
-    <div class="ma-hero-eyebrow">Studienkolleg Leipzig</div>
-    <h1>Mathematik</h1>
-    <div class="ma-progress-container">
-      <div class="ma-progress-ring">
-        <svg viewBox="0 0 120 120">
-          <circle class="ma-progress-ring-bg" cx="60" cy="60" r="54"/>
-          <circle class="ma-progress-ring-fill" id="progressRing" cx="60" cy="60" r="54"/>
-        </svg>
-        <div class="ma-progress-text" id="progressText">0%</div>
-      </div>
-      <div class="ma-progress-label"><span id="completedCount">0</span> von <span id="totalCount">0</span> abgeschlossen</div>
+  <header class="mw-hero">
+    <div>
+      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung</div>
+      <h1>Mathematik</h1>
+      <p class="mw-hero-sub">Module, Quiz, interaktive Tools und Klausurvorbereitung — alles an einem Ort.</p>
     </div>
-    <div style="width:100%;text-align:center;margin-top:var(--space-6);">
-      <a href="/assets/pdfs/Mathematik_Skript.pdf" class="ma-btn ma-btn--primary" style="padding:var(--space-3) var(--space-6);font-size:15px;" onclick="event.stopPropagation()">📄 Gesamtskript herunterladen (PDF)</a>
+    <div class="mw-progress">
+      <svg class="mw-ring" viewBox="0 0 120 120">
+        <circle class="bg" cx="60" cy="60" r="52"/>
+        <circle class="fg" cx="60" cy="60" r="52" id="progressRing"/>
+        <text class="mw-ring-label" x="60" y="60" text-anchor="middle" dominant-baseline="central" id="progressText">0%</text>
+      </svg>
+      <div class="mw-ring-caption"><span id="completedCount">0</span> von <span id="totalCount">0</span></div>
     </div>
+  </header>
+
+  <!-- Gesamtskript -->
+  <div class="mw-feature">
+    <div class="mw-feature-titel">
+      <h3>Gesamtskript</h3>
+      <p>Alle Module als zusammenhängendes Dokument — zum durchgehenden Lernen oder als Nachschlagewerk.</p>
+    </div>
+    <a href="/assets/pdfs/Mathematik_Skript.pdf" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+      Skript öffnen
+    </a>
   </div>
 
   <!-- Aufgabe des Tages -->
-  <div class="adt">
-    <div class="adt-label">Aufgabe des Tages</div>
-    <div class="adt-card">
-      <div class="adt-meta"><span class="adt-diff" id="adt-diff"></span></div>
-      <div class="adt-question" id="adt-question"></div>
-      <div class="adt-hint" id="adt-hint" style="display:none"></div>
-      <div class="adt-actions">
-        <button class="adt-btn adt-btn--accent" id="adt-toggle" onclick="window.adtToggle()">Antwort zeigen</button>
-        <a class="adt-btn" id="adt-quiz" style="display:none">Quiz &rarr;</a>
-      </div>
-      <div class="adt-solution" id="adt-solution">
-        <div class="adt-solution-label">Antwort</div>
-        <div class="adt-solution-text" id="adt-answer"></div>
-      </div>
+  <div class="mw-adt">
+    <div class="mw-adt-label">Aufgabe des Tages</div>
+    <div class="mw-adt-diff" id="adt-diff"></div>
+    <div class="mw-adt-frage" id="adt-question"></div>
+    <div class="mw-adt-hint" id="adt-hint" style="display:none"></div>
+    <div class="mw-adt-actions">
+      <button class="mw-btn mw-btn--voll" id="adt-toggle" onclick="window.adtToggle()">Antwort zeigen</button>
+      <a class="mw-btn" id="adt-quiz" style="display:none">Quiz →</a>
+    </div>
+    <div class="mw-adt-loesung" id="adt-solution">
+      <div class="mw-adt-loesung-label">Antwort</div>
+      <div class="mw-adt-loesung-text" id="adt-answer"></div>
     </div>
   </div>
 
   <!-- Lineare Algebra -->
-  <div class="ma-section ma-section--algebra collapsed">
-    <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-title-group">
-        <h2 class="ma-section-title">Lineare Algebra</h2>
-      </div>
-      <div class="ma-section-toggle">▼</div>
+  <section class="mw-kapitel zu" data-section>
+    <div class="mw-kapitel-kopf" onclick="toggleSection(this.parentElement)">
+      <span class="mw-numeral">I</span>
+      <h2>Lineare Algebra</h2>
+      <span class="mw-meta">5 Module</span>
+      <span class="mw-chevron">▾</span>
     </div>
-    <div class="ma-grid">
-      <div class="ma-card" data-module="a1">
-        <div class="ma-card-header"><span class="ma-card-number">01</span><h4>Matrizen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_matrizen_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('a1', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+    <div class="mw-liste-outer">
+      <div class="mw-liste">
+        <div class="mw-modul" data-module="a1">
+          <span class="mw-nr">01</span>
+          <div><h4>Matrizen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Matrizen_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_matrizen_grundlagen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('a1', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="a2">
-        <div class="ma-card-header"><span class="ma-card-number">02</span><h4>Determinanten</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_determinanten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('a2', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="a2">
+          <span class="mw-nr">02</span>
+          <div><h4>Determinanten</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Matrizen_2_2.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_determinanten.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('a2', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="a3">
-        <div class="ma-card-header"><span class="ma-card-number">03</span><h4>Matrizengleichungen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Matrizen_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <button class="ma-check" onclick="toggleModule('a3', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="a3">
+          <span class="mw-nr">03</span>
+          <div><h4>Matrizengleichungen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Matrizen_2_3.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <button class="mw-check" onclick="toggleModule('a3', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="a4">
-        <div class="ma-card-header"><span class="ma-card-number">04</span><h4>Lineare Gleichungssysteme</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/LGS_2_1-5.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_lgs_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('a4', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="a4">
+          <span class="mw-nr">04</span>
+          <div><h4>Lineare Gleichungssysteme</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/LGS_2_1-5.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_lgs_grundlagen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('a4', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="a5">
-        <div class="ma-card-header"><span class="ma-card-number">05</span><h4>Parameterabhängigkeit</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/LGS_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <button class="ma-check" onclick="toggleModule('a5', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="a5">
+          <span class="mw-nr">05</span>
+          <div><h4>Parameterabhängigkeit</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/LGS_2_2-2.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <button class="mw-check" onclick="toggleModule('a5', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Vektorrechnung -->
-  <div class="ma-section ma-section--vektor collapsed">
-    <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-title-group"><h2 class="ma-section-title">Vektorrechnung</h2></div>
-      <div class="ma-section-toggle">▼</div>
+  <section class="mw-kapitel zu" data-section>
+    <div class="mw-kapitel-kopf" onclick="toggleSection(this.parentElement)">
+      <span class="mw-numeral">II</span>
+      <h2>Vektorrechnung</h2>
+      <span class="mw-meta">4 Module</span>
+      <span class="mw-chevron">▾</span>
     </div>
-    <div class="ma-grid">
-      <div class="ma-card" data-module="v1">
-        <div class="ma-card-header"><span class="ma-card-number">06</span><h4>Grundlagen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_1-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_vektorrechnung_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('v1', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+    <div class="mw-liste-outer">
+      <div class="mw-liste">
+        <div class="mw-modul" data-module="v1">
+          <span class="mw-nr">06</span>
+          <div><h4>Grundlagen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Geo_2_1-2.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_vektorrechnung_grundlagen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('v1', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="v2">
-        <div class="ma-card-header"><span class="ma-card-number">07</span><h4>Vektor- &amp; Spatprodukt</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_2-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_vektorprodukt.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('v2', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="v2">
+          <span class="mw-nr">07</span>
+          <div><h4>Vektor- &amp; Spatprodukt</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Geo_2_2-2.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_vektorprodukt.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('v2', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="v3">
-        <div class="ma-card-header"><span class="ma-card-number">08</span><h4>Geraden und Ebenen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_geraden_ebenen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('v3', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="v3">
+          <span class="mw-nr">08</span>
+          <div><h4>Geraden und Ebenen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Geo_2_3.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_geraden_ebenen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('v3', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="v4">
-        <div class="ma-card-header"><span class="ma-card-number">09</span><h4>Abstände und Lagen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Geo_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_lagebeziehungen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('v4', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="v4">
+          <span class="mw-nr">09</span>
+          <div><h4>Abstände und Lagen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Geo_2_4.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_lagebeziehungen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('v4', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Differentialrechnung -->
-  <div class="ma-section ma-section--diff collapsed">
-    <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-title-group"><h2 class="ma-section-title">Differentialrechnung</h2></div>
-      <div class="ma-section-toggle">▼</div>
+  <section class="mw-kapitel zu" data-section>
+    <div class="mw-kapitel-kopf" onclick="toggleSection(this.parentElement)">
+      <span class="mw-numeral">III</span>
+      <h2>Differentialrechnung</h2>
+      <span class="mw-meta">12 Module</span>
+      <span class="mw-chevron">▾</span>
     </div>
-    <div class="ma-grid">
-      <div class="ma-card" data-module="d1">
-        <div class="ma-card-header"><span class="ma-card-number">10</span><h4>Zahlenfolgen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Zahlenfolgen_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_zahlenfolgen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d1', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+    <div class="mw-liste-outer">
+      <div class="mw-liste">
+        <div class="mw-modul" data-module="d1">
+          <span class="mw-nr">10</span>
+          <div><h4>Zahlenfolgen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Zahlenfolgen_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_zahlenfolgen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d1', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d2">
-        <div class="ma-card-header"><span class="ma-card-number">11</span><h4>Grenzwerte von Folgen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_grenzwerte_folgen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d2', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d2">
+          <span class="mw-nr">11</span>
+          <div><h4>Grenzwerte von Folgen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Grenzwerte_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_grenzwerte_folgen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d2', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d3">
-        <div class="ma-card-header"><span class="ma-card-number">12</span><h4>Grenzwerte im Unendlichen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Funktion_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_grenzwerte_funktionen_1.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d3', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d3">
+          <span class="mw-nr">12</span>
+          <div><h4>Grenzwerte im Unendlichen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Funktion_2_2.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_grenzwerte_funktionen_1.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d3', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d4">
-        <div class="ma-card-header"><span class="ma-card-number">13</span><h4>Grenzwerte an einer Stelle</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_grenzwerte_funktionen_2.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d4', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d4">
+          <span class="mw-nr">13</span>
+          <div><h4>Grenzwerte an einer Stelle</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Grenzwerte_2_2.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_grenzwerte_funktionen_2.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d4', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d5">
-        <div class="ma-card-header"><span class="ma-card-number">14</span><h4>Asymptoten</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Grenzwerte_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_asymptoten.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d5', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d5">
+          <span class="mw-nr">14</span>
+          <div><h4>Asymptoten</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Grenzwerte_2_3.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_asymptoten.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d5', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d6">
-        <div class="ma-card-header"><span class="ma-card-number">15</span><h4>Steigung und Ableitung</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Funktion_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_ableitung_grundlagen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d6', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d6">
+          <span class="mw-nr">15</span>
+          <div><h4>Steigung und Ableitung</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Funktion_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_ableitung_grundlagen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d6', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d7">
-        <div class="ma-card-header"><span class="ma-card-number">16</span><h4>Ableitungsregeln</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Funktion_2_4.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_ableitungsregeln.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d7', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d7">
+          <span class="mw-nr">16</span>
+          <div><h4>Ableitungsregeln</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Funktion_2_4.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_ableitungsregeln.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d7', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d8">
-        <div class="ma-card-header"><span class="ma-card-number">17</span><h4>Regel von de L'Hôpital</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Hospital_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_hospital.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d8', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d8">
+          <span class="mw-nr">17</span>
+          <div><h4>Regel von de L'Hôpital</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Hospital_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_hospital.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d8', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d9">
-        <div class="ma-card-header"><span class="ma-card-number">18</span><h4>Extrempunkte</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Extremwert_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_extrempunkte.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d9', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d9">
+          <span class="mw-nr">18</span>
+          <div><h4>Extrempunkte</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Extremwert_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_extrempunkte.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d9', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d10">
-        <div class="ma-card-header"><span class="ma-card-number">19</span><h4>Wendepunkte</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Wendepunkt_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_wendepunkte.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d10', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d10">
+          <span class="mw-nr">19</span>
+          <div><h4>Wendepunkte</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Wendepunkt_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_wendepunkte.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d10', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d11">
-        <div class="ma-card-header"><span class="ma-card-number">20</span><h4>Kurvendiskussion</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Kurvendiskusion_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_kurvendiskussion.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d11', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d11">
+          <span class="mw-nr">20</span>
+          <div><h4>Kurvendiskussion</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Kurvendiskusion_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_kurvendiskussion.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d11', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="d12">
-        <div class="ma-card-header"><span class="ma-card-number">21</span><h4>Extremwertaufgaben</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Extrem_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_extremwertaufgaben.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('d12', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="d12">
+          <span class="mw-nr">21</span>
+          <div><h4>Extremwertaufgaben</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Extrem_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_extremwertaufgaben.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('d12', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Integralrechnung -->
-  <div class="ma-section ma-section--integral collapsed">
-    <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-title-group"><h2 class="ma-section-title">Integralrechnung</h2></div>
-      <div class="ma-section-toggle">▼</div>
+  <section class="mw-kapitel zu" data-section>
+    <div class="mw-kapitel-kopf" onclick="toggleSection(this.parentElement)">
+      <span class="mw-numeral">IV</span>
+      <h2>Integralrechnung</h2>
+      <span class="mw-meta">5 Module</span>
+      <span class="mw-chevron">▾</span>
     </div>
-    <div class="ma-grid">
-      <div class="ma-card" data-module="i1">
-        <div class="ma-card-header"><span class="ma-card-number">22</span><h4>Einführung</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Integral_2_1.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_integral_einfuehrung.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('i1', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+    <div class="mw-liste-outer">
+      <div class="mw-liste">
+        <div class="mw-modul" data-module="i1">
+          <span class="mw-nr">22</span>
+          <div><h4>Einführung</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Integral_2_1.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_integral_einfuehrung.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('i1', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="i2">
-        <div class="ma-card-header"><span class="ma-card-number">23</span><h4>Integrationsmethoden</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Integral_2_2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_integrationsmethoden.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('i2', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="i2">
+          <span class="mw-nr">23</span>
+          <div><h4>Integrationsmethoden</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Integral_2_2.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_integrationsmethoden.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('i2', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="i3">
-        <div class="ma-card-header"><span class="ma-card-number">24</span><h4>Hauptsatz &amp; Flächen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Integral_2_3.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_hauptsatz_flaechen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('i3', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="i3">
+          <span class="mw-nr">24</span>
+          <div><h4>Hauptsatz &amp; Flächen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Integral_2_3.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_hauptsatz_flaechen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('i3', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="i4">
-        <div class="ma-card-header"><span class="ma-card-number">25</span><h4>Rotationsvolumen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Intergal_2_4-2.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <a href="/assets/quizzes/quiz_rotationsvolumen.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()">Quiz</a>
-          <button class="ma-check" onclick="toggleModule('i4', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="i4">
+          <span class="mw-nr">25</span>
+          <div><h4>Rotationsvolumen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Intergal_2_4-2.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <a href="/assets/quizzes/quiz_rotationsvolumen.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">Quiz</a>
+            <button class="mw-check" onclick="toggleModule('i4', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="i5">
-        <div class="ma-card-header"><span class="ma-card-number">26</span><h4>Flächen zwischen Funktionen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/pdfs/Fläche_zwichen_Funktionen.pdf" class="ma-btn ma-btn--secondary" onclick="event.stopPropagation()">PDF</a>
-          <button class="ma-check" onclick="toggleModule('i5', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-modul" data-module="i5">
+          <span class="mw-nr">26</span>
+          <div><h4>Flächen zwischen Funktionen</h4></div>
+          <div class="mw-actions">
+            <a href="/assets/pdfs/Fläche_zwichen_Funktionen.pdf" class="mw-btn" onclick="event.stopPropagation()">PDF</a>
+            <button class="mw-check" onclick="toggleModule('i5', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Interaktive Tools -->
-  <div class="ma-section ma-section--tools collapsed" id="tools">
-    <div class="ma-section-header" onclick="toggleSection(this)">
-      <div class="ma-section-title-group"><h2 class="ma-section-title">Interaktive Tools</h2></div>
-      <div class="ma-section-toggle">▼</div>
+  <section class="mw-kapitel zu" data-section id="tools">
+    <div class="mw-kapitel-kopf" onclick="toggleSection(this.parentElement)">
+      <h2>Interaktive Tools</h2>
+      <span class="mw-meta">5 Anwendungen</span>
+      <span class="mw-chevron">▾</span>
     </div>
-    <div class="ma-grid ma-grid--tools">
-      <div class="ma-card" data-module="t1">
-        <div class="ma-card-header"><h4>Tangenten-Explorer</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/interactive/tangenten_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex:1;">→ Öffnen</a>
-          <button class="ma-check" onclick="toggleModule('t1', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+    <div class="mw-liste-outer">
+      <div class="mw-raster">
+        <div class="mw-karte" data-module="t1">
+          <h4>Tangenten-Explorer</h4>
+          <div class="mw-karte-aktionen">
+            <a href="/assets/interactive/tangenten_explorer.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()" style="flex:1; justify-content:center;">→ Öffnen</a>
+            <button class="mw-check" onclick="toggleModule('t1', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="t2">
-        <div class="ma-card-header"><h4>3D-Vektor-Explorer</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/interactive/vektor_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex:1;">→ Öffnen</a>
-          <button class="ma-check" onclick="toggleModule('t2', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-karte" data-module="t2">
+          <h4>3D-Vektor-Explorer</h4>
+          <div class="mw-karte-aktionen">
+            <a href="/assets/interactive/vektor_explorer.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()" style="flex:1; justify-content:center;">→ Öffnen</a>
+            <button class="mw-check" onclick="toggleModule('t2', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="t3">
-        <div class="ma-card-header"><h4>Geraden &amp; Ebenen</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/interactive/geraden_ebenen_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex:1;">→ Öffnen</a>
-          <button class="ma-check" onclick="toggleModule('t3', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-karte" data-module="t3">
+          <h4>Geraden &amp; Ebenen</h4>
+          <div class="mw-karte-aktionen">
+            <a href="/assets/interactive/geraden_ebenen_explorer.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()" style="flex:1; justify-content:center;">→ Öffnen</a>
+            <button class="mw-check" onclick="toggleModule('t3', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="t4">
-        <div class="ma-card-header"><h4>Matrizen-Explorer</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/interactive/matrizen_explorer.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex:1;">→ Öffnen</a>
-          <button class="ma-check" onclick="toggleModule('t4', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-karte" data-module="t4">
+          <h4>Matrizen-Explorer</h4>
+          <div class="mw-karte-aktionen">
+            <a href="/assets/interactive/matrizen_explorer.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()" style="flex:1; justify-content:center;">→ Öffnen</a>
+            <button class="mw-check" onclick="toggleModule('t4', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
-      </div>
-      <div class="ma-card" data-module="t5">
-        <div class="ma-card-header"><h4>Determinanten-Rechner</h4></div>
-        <div class="ma-actions">
-          <a href="/assets/interactive/determinanten_rechner.html" class="ma-btn ma-btn--primary" onclick="event.stopPropagation()" style="flex:1;">→ Öffnen</a>
-          <button class="ma-check" onclick="toggleModule('t5', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+        <div class="mw-karte" data-module="t5">
+          <h4>Determinanten-Rechner</h4>
+          <div class="mw-karte-aktionen">
+            <a href="/assets/interactive/determinanten_rechner.html" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()" style="flex:1; justify-content:center;">→ Öffnen</a>
+            <button class="mw-check" onclick="toggleModule('t5', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Klausuren (verbessert) -->
-  <div class="mw-section collapsed">
-    <div class="mw-section-header" onclick="mwToggleSection(this)">
-      <div class="mw-section-title-group">
-        <h2 class="mw-section-title">Klausuren</h2>
-        <div class="mw-section-subtitle">Übungsaufgaben zur Klausurvorbereitung</div>
-      </div>
-      <div class="mw-section-toggle">▼</div>
+  <!-- Klausuren -->
+  <section class="mw-kapitel zu" data-section>
+    <div class="mw-kapitel-kopf" onclick="toggleSection(this.parentElement)">
+      <h2>Klausuren</h2>
+      <span class="mw-meta">Übungsaufgaben zur Klausurvorbereitung</span>
+      <span class="mw-chevron">▾</span>
     </div>
-    <div class="mw-grid">
-
-      <div class="mw-card mw-card-klausur mw-card--unavailable">
-        <div class="mw-card-header">
-          <span class="mw-card-number">K1</span>
+    <div class="mw-liste-outer">
+      <div class="mw-raster">
+        <div class="mw-karte mw-karte--bald">
           <h4>Klausur 1</h4>
+          <div class="mw-karte-tags">
+            <span class="mw-tag">Differentialrechnung</span>
+            <span class="mw-tag">Ableitungsregeln</span>
+          </div>
+          <div class="mw-karte-aktionen">
+            <span class="mw-btn mw-btn--deaktiviert">Demnächst</span>
+          </div>
         </div>
-        <div class="mw-card-topics">
-          <span class="mw-topic-tag">Differentialrechnung</span>
-          <span class="mw-topic-tag">Ableitungsregeln</span>
-        </div>
-        <div class="mw-actions">
-          <span class="mw-btn mw-btn--ghost">Demnächst</span>
-        </div>
-      </div>
-
-      <div class="mw-card mw-card-klausur mw-card--unavailable">
-        <div class="mw-card-header">
-          <span class="mw-card-number">K2</span>
+        <div class="mw-karte mw-karte--bald">
           <h4>Klausur 2</h4>
+          <div class="mw-karte-tags">
+            <span class="mw-tag">Extremwertaufgaben</span>
+            <span class="mw-tag">Kurvendiskussion</span>
+          </div>
+          <div class="mw-karte-aktionen">
+            <span class="mw-btn mw-btn--deaktiviert">Demnächst</span>
+          </div>
         </div>
-        <div class="mw-card-topics">
-          <span class="mw-topic-tag">Extremwertaufgaben</span>
-          <span class="mw-topic-tag">Kurvendiskussion</span>
-        </div>
-        <div class="mw-actions">
-          <span class="mw-btn mw-btn--ghost">Demnächst</span>
-        </div>
-      </div>
-
-      <div class="mw-card mw-card-klausur" data-module="klausur-03">
-        <div class="mw-card-header">
-          <span class="mw-card-number">K3</span>
+        <div class="mw-karte" data-module="klausur-03">
           <h4>Klausur 3</h4>
-        </div>
-        <div class="mw-card-topics">
-          <span class="mw-topic-tag">Extremwertaufgaben mit NB</span>
-          <span class="mw-topic-tag">Fläche unter Kurve</span>
-          <span class="mw-topic-tag">Fläche zwischen Kurven</span>
-        </div>
-        <div class="mw-actions">
-          <a href="/assets/pdfs/Übungsheft_T_2_3.pdf" class="mw-btn mw-btn--primary" onclick="event.stopPropagation()">PDF</a>
-          <button class="mw-check" onclick="toggleModule('klausur-03', event)" aria-label="Als erledigt markieren">
-            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>
-          </button>
+          <div class="mw-karte-tags">
+            <span class="mw-tag">Extremwertaufgaben mit NB</span>
+            <span class="mw-tag">Fläche unter Kurve</span>
+            <span class="mw-tag">Fläche zwischen Kurven</span>
+          </div>
+          <div class="mw-karte-aktionen">
+            <a href="/assets/pdfs/Übungsheft_T_2_3.pdf" class="mw-btn mw-btn--voll" onclick="event.stopPropagation()">PDF</a>
+            <button class="mw-check" onclick="toggleModule('klausur-03', event)" aria-label="Als erledigt markieren"><svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg></button>
+          </div>
         </div>
       </div>
-
     </div>
-  </div>
+  </section>
 
-  <!-- Footer -->
-  <div class="ma-footer">
-    <div class="ma-footer-text">
-      <strong><span id="totalModules">0</span> Module &amp; Tools</strong> · Algebra, Vektoren, Analysis &amp; Integralrechnung
+  <!-- Fußzeile -->
+  <footer class="mw-fuss">
+    <div><strong style="color:var(--elfenbein)"><span id="totalModules">0</span> Module &amp; Tools</strong> · Algebra, Vektoren, Analysis &amp; Integralrechnung</div>
+    <div class="mw-fuss-links">
+      <a href="/teaching/" class="mw-btn">← Übersicht</a>
     </div>
-    <div class="ma-footer-actions">
-      <a href="/teaching/" class="ma-btn ma-btn--secondary">← Übersicht</a>
-    </div>
-  </div>
+  </footer>
 
+</div>
 </div>
 
 <script>
 const STORAGE_KEY = 'math-progress-v2';
-const CIRCUMFERENCE = 339.292;
+const CIRCUMFERENCE = 2 * Math.PI * 52;
 
 function getTotalModules() {
   return document.querySelectorAll('[data-module]').length;
@@ -1043,10 +861,10 @@ function toggleModule(moduleId, event) {
   const card = event.target.closest('[data-module]');
   if (progress[moduleId]) {
     delete progress[moduleId];
-    if (card) card.classList.remove('ma-card-complete', 'mw-card-complete');
+    if (card) card.classList.remove('done');
   } else {
     progress[moduleId] = true;
-    if (card) card.classList.add(card.classList.contains('mw-card') ? 'mw-card-complete' : 'ma-card-complete');
+    if (card) card.classList.add('done');
   }
   saveProgress(progress);
   updateUI();
@@ -1065,6 +883,7 @@ function updateUI() {
   const footerTotal = document.getElementById('totalModules');
 
   if (ring && text && count && totalEl && footerTotal) {
+    ring.style.strokeDasharray = CIRCUMFERENCE;
     ring.style.strokeDashoffset = CIRCUMFERENCE - (percentage / 100) * CIRCUMFERENCE;
     text.textContent = percentage + '%';
     count.textContent = completed;
@@ -1073,19 +892,12 @@ function updateUI() {
   }
 
   document.querySelectorAll('[data-module]').forEach(card => {
-    const done = !!progress[card.dataset.module];
-    const isMw = card.classList.contains('mw-card');
-    card.classList.toggle('ma-card-complete', done && !isMw);
-    card.classList.toggle('mw-card-complete', done && isMw);
+    card.classList.toggle('done', !!progress[card.dataset.module]);
   });
 }
 
-function toggleSection(header) {
-  header.parentElement.classList.toggle('collapsed');
-}
-
-function mwToggleSection(header) {
-  header.parentElement.classList.toggle('collapsed');
+function toggleSection(section) {
+  section.classList.toggle('zu');
 }
 
 document.addEventListener('DOMContentLoaded', updateUI);
@@ -1146,8 +958,8 @@ if (document.readyState !== 'loading') updateUI();
 
   window.adtToggle = function() {
     var sol = document.getElementById('adt-solution');
-    sol.classList.toggle('visible');
-    document.getElementById('adt-toggle').textContent = sol.classList.contains('visible') ? 'Antwort verbergen' : 'Antwort zeigen';
+    sol.classList.toggle('offen');
+    document.getElementById('adt-toggle').textContent = sol.classList.contains('offen') ? 'Antwort verbergen' : 'Antwort zeigen';
   };
 })();
 </script>
