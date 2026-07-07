@@ -153,7 +153,7 @@ body, html, .page-content, .wrapper, main {
       <span class="mw-fach-nr">II</span>
       <div>
         <h2>Volkswirtschaftslehre</h2>
-        <div class="mw-fach-meta">13 Module · Mikro- &amp; Makroökonomie</div>
+        <div class="mw-fach-meta">17 Module · Mikro- &amp; Makroökonomie</div>
       </div>
       <span class="mw-fach-pfeil">→</span>
     </a>
