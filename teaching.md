@@ -149,16 +149,8 @@ body, html, .page-content, .wrapper, main {
       </div>
       <span class="mw-fach-pfeil">→</span>
     </a>
-    <a href="/teaching/mathematik-wkurs/" class="mw-fach">
-      <span class="mw-fach-nr">II</span>
-      <div>
-        <h2>Mathematik (W-Kurs)</h2>
-        <div class="mw-fach-meta">2. Semester · Materialien in Vorbereitung</div>
-      </div>
-      <span class="mw-fach-pfeil">→</span>
-    </a>
     <a href="/teaching/vwl/" class="mw-fach">
-      <span class="mw-fach-nr">III</span>
+      <span class="mw-fach-nr">II</span>
       <div>
         <h2>Volkswirtschaftslehre</h2>
         <div class="mw-fach-meta">13 Module · Mikro- &amp; Makroökonomie</div>
@@ -166,7 +158,7 @@ body, html, .page-content, .wrapper, main {
       <span class="mw-fach-pfeil">→</span>
     </a>
     <a href="/teaching/informatik/" class="mw-fach">
-      <span class="mw-fach-nr">IV</span>
+      <span class="mw-fach-nr">III</span>
       <div>
         <h2>Informatik</h2>
         <div class="mw-fach-meta">6 Module · Python</div>

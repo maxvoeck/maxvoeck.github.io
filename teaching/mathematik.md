@@ -377,7 +377,7 @@ body, html, .page-content, .wrapper, main {
       <h3>Das Gesamtskript</h3>
       <p>Alle Module in einem Dokument — zum durchgehenden Lernen oder als Nachschlagewerk vor der FSP.</p>
     </div>
-    <a href="/assets/pdfs/Mathematik_Skript.pdf" class="mw-btn mw-btn--voll">
+    <a href="/assets/pdfs/Mathematik_Skript.pdf" class="mw-btn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
       Skript öffnen · 1,1 MB
     </a>
@@ -496,7 +496,7 @@ function actionsFor(m) {
   if (m.tool) {
     return `<a href="${m.tool}" class="mw-btn mw-btn--voll">${iconTool} Öffnen</a>`;
   }
-  let html = `<a href="${m.pdf}" class="mw-btn mw-btn--voll">${iconPdf} PDF</a>`;
+  let html = `<a href="${m.pdf}" class="mw-btn">${iconPdf} Folien</a>`;
   if (m.quiz) html += `<a href="${m.quiz}" class="mw-btn">${iconQuiz} Quiz</a>`;
   html += `<button class="mw-btn" onclick="startPodcast('${m.nr}', '${m.titel.replace(/'/g, "\\'")}', '${m.podcast}')">${iconPod} Podcast</button>`;
   html += `<a href="${m.text}" class="mw-btn">${iconText} Text</a>`;
