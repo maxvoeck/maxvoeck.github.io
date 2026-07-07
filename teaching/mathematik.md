@@ -390,7 +390,6 @@ body, html, .page-content, .wrapper, main {
     <div><strong style="color:var(--elfenbein)">26 Module</strong> · Lineare Algebra, Vektorrechnung, Differentialrechnung, Integralrechnung &amp; interaktive Tools</div>
     <div class="mw-fuss-links">
       <a href="/teaching/" class="mw-btn">← Übersicht</a>
-      <a href="/teaching/mathematik-uebungen/" class="mw-btn mw-btn--voll">Zu den Übungen →</a>
     </div>
   </footer>
 
@@ -494,7 +493,7 @@ const iconCheck= '<svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke
 /* ─── Rendern ─── */
 function actionsFor(m) {
   if (m.tool) {
-    return `<a href="${m.tool}" class="mw-btn mw-btn--voll">${iconTool} Öffnen</a>`;
+    return `<a href="${m.tool}" class="mw-btn">${iconTool} Öffnen</a>`;
   }
   let html = `<a href="${m.pdf}" class="mw-btn">${iconPdf} Folien</a>`;
   if (m.quiz) html += `<a href="${m.quiz}" class="mw-btn">${iconQuiz} Quiz</a>`;
