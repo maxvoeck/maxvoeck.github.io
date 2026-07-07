@@ -214,15 +214,6 @@ body, html, .page-content, .wrapper, main {
 .mw-modul.done .mw-check { background: var(--gruen); border-color: var(--gruen); }
 .mw-modul.done .mw-check svg { opacity: 1; transform: scale(1); }
 
-/* ─── Leerer Zustand (1. Semester) ─── */
-.mw-leer {
-  padding: 36px 8px;
-  border-top: 1px solid var(--linie);
-  color: var(--nebel);
-  font-size: 14px;
-  font-style: italic;
-}
-
 /* ─── Mini-Player ─── */
 .mw-player {
   position: fixed;
@@ -335,7 +326,7 @@ body, html, .page-content, .wrapper, main {
     <div>
       <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung</div>
       <h1>Informatik</h1>
-      <p class="mw-hero-sub">Module nach Semester sortiert — Python-Grundlagen, Datenstrukturen und angewandte Programmierung.</p>
+      <p class="mw-hero-sub">Python-Grundlagen, Datenstrukturen und angewandte Programmierung — jedes Modul mit Skript, Quiz, Podcast zum Hören und vertiefendem Text.</p>
     </div>
     <div class="mw-progress">
       <svg class="mw-ring" viewBox="0 0 120 120">
@@ -347,21 +338,11 @@ body, html, .page-content, .wrapper, main {
     </div>
   </header>
 
-  <!-- 1. Semester (in Vorbereitung) -->
-  <section class="mw-kapitel">
-    <div class="mw-kapitel-kopf">
-      <span class="mw-numeral">I</span>
-      <h2>1. Semester</h2>
-      <span class="mw-meta">in Vorbereitung</span>
-    </div>
-    <div class="mw-leer">Die Materialien für das erste Semester folgen in Kürze.</div>
-  </section>
-
   <div id="kapitel"></div>
 
   <!-- Fußzeile -->
   <footer class="mw-fuss">
-    <div><strong style="color:var(--elfenbein)">7 Module</strong> · 2. Semester · Python</div>
+    <div><strong style="color:var(--elfenbein)">7 Module</strong> · Python</div>
     <div class="mw-fuss-links">
       <a href="/teaching/" class="mw-btn">← Übersicht</a>
     </div>
@@ -388,7 +369,7 @@ body, html, .page-content, .wrapper, main {
 /* ─── Daten: hier neue Module, PDFs, Quiz, Podcasts & Texte eintragen ─── */
 const KAPITEL = [
   {
-    numeral: 'II', titel: '2. Semester', meta: '7 Module',
+    numeral: 'I', titel: 'Python', meta: '7 Module',
     module: [
       { id:'p1', nr:'01', titel:'Python Grundlagen – print() und input()', pdf:'/assets/pdfs/Info_1.pdf', quiz:'/assets/quizzes/quiz_python_grundlage.html', podcast:'/assets/audio/python-grundlagen.mp3', text:'/assets/texte/python-grundlagen.pdf' },
       { id:'p2', nr:'02', titel:'Variablen und Datentypen', pdf:'/assets/pdfs/Info_2.pdf', quiz:'/assets/quizzes/quiz_variablen_datentypen.html', podcast:'/assets/audio/variablen-datentypen.mp3', text:'/assets/texte/variablen-datentypen.pdf' },

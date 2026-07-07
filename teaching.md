@@ -76,8 +76,40 @@ body, html, .page-content, .wrapper, main {
   font-size: 16px;
 }
 
+/* ─── Semester-Kapitel ─── */
+.mw-kapitel { padding: 56px 0 12px; }
+.mw-kapitel-kopf {
+  display: flex;
+  align-items: baseline;
+  gap: 22px;
+  margin-bottom: 8px;
+}
+.mw-numeral {
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 36px;
+  color: var(--messing);
+  min-width: 50px;
+}
+.mw-kapitel-kopf h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+}
+.mw-kapitel-kopf .mw-meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nebel);
+  margin-left: auto;
+  white-space: nowrap;
+}
+
 /* ─── Fächerliste ─── */
-.mw-liste { border-top: 1px solid var(--linie2); padding-bottom: 40px; }
+.mw-liste { border-top: 1px solid var(--linie2); }
 .mw-fach {
   display: grid;
   grid-template-columns: 56px 1fr auto;
@@ -91,12 +123,12 @@ body, html, .page-content, .wrapper, main {
 }
 .mw-fach:hover { background: rgba(236,231,220,0.025); padding-left: 16px; }
 .mw-fach-nr {
-  font-family: var(--display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 30px;
-  color: var(--messing);
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--nebel);
+  transition: color 180ms ease;
 }
+.mw-fach:hover .mw-fach-nr { color: var(--messing); }
 .mw-fach h2 {
   font-family: var(--display);
   font-weight: 400;
@@ -118,12 +150,21 @@ body, html, .page-content, .wrapper, main {
 }
 .mw-fach:hover .mw-fach-pfeil { color: var(--messing); transform: translateX(4px); }
 
+/* ─── Leerer Zustand ─── */
+.mw-leer {
+  padding: 28px 8px 40px;
+  border-top: 1px solid var(--linie2);
+  color: var(--nebel);
+  font-size: 14px;
+  font-style: italic;
+}
+
 /* ─── Responsiv ─── */
 @media (max-width: 600px) {
   .mw-hero { padding: 64px 0 40px; }
   .mw-fach { grid-template-columns: 40px 1fr auto; gap: 14px; padding: 22px 4px; }
-  .mw-fach-nr { font-size: 22px; }
   .mw-fach h2 { font-size: 20px; }
+  .mw-kapitel-kopf .mw-meta { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -137,35 +178,53 @@ body, html, .page-content, .wrapper, main {
   <header class="mw-hero">
     <div class="mw-eyebrow">Studienkolleg Leipzig</div>
     <h1>Lehrmaterialien</h1>
-    <p class="mw-hero-sub">Module, Skripte und Übungen für die Feststellungsprüfung — nach Fach sortiert.</p>
+    <p class="mw-hero-sub">Module, Skripte und Übungen für die Feststellungsprüfung — nach Semester sortiert.</p>
   </header>
 
-  <div class="mw-liste">
-    <a href="/teaching/mathematik/" class="mw-fach">
-      <span class="mw-fach-nr">I</span>
-      <div>
-        <h2>Mathematik</h2>
-        <div class="mw-fach-meta">30 Module · Algebra, Vektoren, Analysis, Integralrechnung</div>
-      </div>
-      <span class="mw-fach-pfeil">→</span>
-    </a>
-    <a href="/teaching/vwl/" class="mw-fach">
-      <span class="mw-fach-nr">II</span>
-      <div>
-        <h2>Volkswirtschaftslehre</h2>
-        <div class="mw-fach-meta">17 Module · Mikro- &amp; Makroökonomie</div>
-      </div>
-      <span class="mw-fach-pfeil">→</span>
-    </a>
-    <a href="/teaching/informatik/" class="mw-fach">
-      <span class="mw-fach-nr">III</span>
-      <div>
-        <h2>Informatik</h2>
-        <div class="mw-fach-meta">7 Module · Python</div>
-      </div>
-      <span class="mw-fach-pfeil">→</span>
-    </a>
-  </div>
+  <!-- 1. Semester -->
+  <section class="mw-kapitel">
+    <div class="mw-kapitel-kopf">
+      <span class="mw-numeral">I</span>
+      <h2>1. Semester</h2>
+      <span class="mw-meta">in Vorbereitung</span>
+    </div>
+    <div class="mw-leer">Die Materialien für das erste Semester folgen in Kürze.</div>
+  </section>
+
+  <!-- 2. Semester -->
+  <section class="mw-kapitel">
+    <div class="mw-kapitel-kopf">
+      <span class="mw-numeral">II</span>
+      <h2>2. Semester</h2>
+      <span class="mw-meta">3 Fächer</span>
+    </div>
+    <div class="mw-liste">
+      <a href="/teaching/mathematik/" class="mw-fach">
+        <span class="mw-fach-nr">01</span>
+        <div>
+          <h2>Mathematik</h2>
+          <div class="mw-fach-meta">30 Module · Algebra, Vektoren, Analysis, Integralrechnung</div>
+        </div>
+        <span class="mw-fach-pfeil">→</span>
+      </a>
+      <a href="/teaching/vwl/" class="mw-fach">
+        <span class="mw-fach-nr">02</span>
+        <div>
+          <h2>Volkswirtschaftslehre</h2>
+          <div class="mw-fach-meta">17 Module · Mikro- &amp; Makroökonomie</div>
+        </div>
+        <span class="mw-fach-pfeil">→</span>
+      </a>
+      <a href="/teaching/informatik/" class="mw-fach">
+        <span class="mw-fach-nr">03</span>
+        <div>
+          <h2>Informatik</h2>
+          <div class="mw-fach-meta">7 Module · Python</div>
+        </div>
+        <span class="mw-fach-pfeil">→</span>
+      </a>
+    </div>
+  </section>
 
 </div>
 </div>
