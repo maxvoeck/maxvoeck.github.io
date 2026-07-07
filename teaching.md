@@ -161,7 +161,7 @@ body, html, .page-content, .wrapper, main {
       <span class="mw-fach-nr">III</span>
       <div>
         <h2>Informatik</h2>
-        <div class="mw-fach-meta">6 Module · Python</div>
+        <div class="mw-fach-meta">7 Module · Python</div>
       </div>
       <span class="mw-fach-pfeil">→</span>
     </a>
