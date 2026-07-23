@@ -340,7 +340,7 @@ const KAPITEL = [
   {
     numeral: 'I', titel: 'Lineare Algebra', meta: '1 Modul',
     module: [
-      { id:'a1', nr:'01', titel:'Matrizen — Grundbegriffe', desc:'Definition, Typ, spezielle Matrizen (Diagonal-, Dreiecks-, symmetrische Matrix), Gleichheit, Addition, Skalarmultiplikation, Matrizenmultiplikation, Transponierte, Inverse und Spur', pdf:'/assets/pdfs/W_Matrizen_1.pdf', quiz:'/assets/quizzes/quiz_matrizen_w_grundbegriffe.html', text:'/assets/texte/w-matrizen-1.pdf', podcast:'/assets/audio/w-matrizen-1.m4a' },
+      { id:'a1', nr:'01', titel:'Matrizen — Grundbegriffe', desc:'Definition, Typ, spezielle Matrizen (Diagonal-, Dreiecks-, symmetrische Matrix), Gleichheit, Addition, Skalarmultiplikation, Matrizenmultiplikation, Transponierte, Inverse und Spur', pdf:'/assets/pdfs/W_Matrizen_1.pdf', quiz:'/assets/quizzes/quiz_matrizen_w_grundbegriffe.html', text:'/assets/texte/w-matrizen-1.pdf' },
     ]
   },
   { numeral: 'II',  titel: 'Finanzmathematik',      meta: 'folgt', module: [] },

@@ -19,7 +19,8 @@
       "Bash(cp \"/Users/maks/Desktop/mathematik_wkurs/Matrizen_1_folie.pdf\" \"/Users/maks/Desktop/portfolio-site/assets/pdfs/W_Matrizen_1.pdf\")",
       "Bash(cp \"/Users/maks/Desktop/mathematik_wkurs/Matrizen_1_text.pdf\" \"/Users/maks/Desktop/portfolio-site/assets/texte/w-matrizen-1.pdf\")",
       "Bash(cp \"/Users/maks/Desktop/mathematik_wkurs/Matrizen_1.m4a\" \"/Users/maks/Desktop/portfolio-site/assets/audio/w-matrizen-1.m4a\")",
-      "Bash(cp \"/Users/maks/Desktop/matrizen_1_quiz.html\" \"/Users/maks/Desktop/portfolio-site/assets/quizzes/quiz_matrizen_w_grundbegriffe.html\" *)"
+      "Bash(cp \"/Users/maks/Desktop/matrizen_1_quiz.html\" \"/Users/maks/Desktop/portfolio-site/assets/quizzes/quiz_matrizen_w_grundbegriffe.html\" *)",
+      "Bash(git -C /Users/maks/Desktop/portfolio-site status --short)"
     ]
   }
 }
