@@ -338,9 +338,10 @@ body, html, .page-content, .wrapper, main {
 /* ─── Daten: hier Kapitel und Module eintragen, sobald Materialien vorliegen ─── */
 const KAPITEL = [
   {
-    numeral: 'I', titel: 'Lineare Algebra', meta: '1 Modul',
+    numeral: 'I', titel: 'Lineare Algebra', meta: '2 Module',
     module: [
       { id:'a1', nr:'01', titel:'Matrizen — Grundbegriffe', desc:'Definition, Typ, spezielle Matrizen (Diagonal-, Dreiecks-, symmetrische Matrix), Gleichheit, Addition, Skalarmultiplikation, Matrizenmultiplikation, Transponierte, Inverse und Spur', pdf:'/assets/pdfs/W_Matrizen_1.pdf', quiz:'/assets/quizzes/quiz_matrizen_w_grundbegriffe.html', text:'/assets/texte/w-matrizen-1.pdf' },
+      { id:'a2', nr:'02', titel:'Determinante und inverse Matrix', desc:'Determinante bei 1×1-, 2×2- und 3×3-Matrizen (Regel von Sarrus), Laplacescher Entwicklungssatz, Eigenschaften der Determinante, Inverse mit der Adjunkten-Methode und Rechenregeln', pdf:'/assets/pdfs/W_Matrizen_2.pdf', quiz:'/assets/quizzes/quiz_matrizen_w_determinante.html', text:'/assets/texte/w-matrizen-2.pdf' },
     ]
   },
   { numeral: 'II',  titel: 'Finanzmathematik',      meta: 'folgt', module: [] },

@@ -211,7 +211,7 @@ body, html, .page-content, .wrapper, main {
         <span class="mw-fach-nr">02</span>
         <div>
           <h2>Mathematik (W-Kurs)</h2>
-          <div class="mw-fach-meta">1 Modul · Algebra, Finanzmathematik, Analysis, Integralrechnung</div>
+          <div class="mw-fach-meta">2 Module · Algebra, Finanzmathematik, Analysis, Integralrechnung</div>
         </div>
         <span class="mw-fach-pfeil">→</span>
       </a>
