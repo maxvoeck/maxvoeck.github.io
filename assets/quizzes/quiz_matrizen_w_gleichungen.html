@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matrizengleichungen — Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Piazzolla:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FAFAF8;
+    --paper-dim: #F0EEE8;
+    --ink: #1A1A1A;
+    --muted: #8A8A8A;
+    --line: #DDDAD1;
+    --accent: #3B4A6B;
+    --accent-soft: #E8EAF0;
+    --good: #2F7B5F;
+    --good-soft: #E4F0EA;
+    --bad: #B23B3B;
+    --bad-soft: #F5E7E5;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: clamp(16px, 4vw, 48px) 16px;
+  }
+
+  .app {
+    width: 100%;
+    max-width: 760px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .title-block h1 {
+    font-family: 'Piazzolla', serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    margin: 0 0 4px 0;
+    letter-spacing: -0.01em;
+  }
+
+  .title-block p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* --- signature element: the matrix progress grid --- */
+  .progress-matrix {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .bracket {
+    font-size: 44px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1;
+    user-select: none;
+  }
+
+  .grid5 {
+    display: grid;
+    grid-template-columns: repeat(5, 14px);
+    grid-template-rows: repeat(4, 14px);
+    gap: 4px;
+  }
+
+  .cell {
+    width: 14px;
+    height: 14px;
+    background: var(--line);
+    border-radius: 2px;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .cell.correct { background: var(--good); }
+  .cell.wrong { background: var(--bad); }
+  .cell.current { background: var(--accent); transform: scale(1.15); }
+
+  /* --- question card, framed like a matrix --- */
+  .card-wrap {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .big-bracket {
+    font-family: 'Piazzolla', serif;
+    font-size: clamp(60px, 12vw, 96px);
+    font-weight: 300;
+    color: var(--line);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    user-select: none;
+  }
+
+  .card {
+    background: white;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: clamp(20px, 4vw, 36px);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+  }
+
+  .question {
+    font-family: 'Piazzolla', serif;
+    font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+
+  .matrix-display {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.05rem;
+    margin: 16px 0 22px 0;
+    color: var(--ink);
+    white-space: pre;
+    background: var(--paper-dim);
+    padding: 14px 18px;
+    border-radius: 6px;
+    display: inline-block;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+  }
+
+  .option {
+    text-align: left;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .option .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    width: 16px;
+    flex-shrink: 0;
+  }
+
+  .option:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+  .option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .option.selected-correct { border-color: var(--good); background: var(--good-soft); }
+  .option.selected-wrong { border-color: var(--bad); background: var(--bad-soft); }
+  .option.reveal-correct { border-color: var(--good); background: var(--good-soft); }
+  .option:disabled { cursor: default; }
+
+  .feedback {
+    margin-top: 18px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    padding: 12px 14px;
+    border-radius: 8px;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.good { background: var(--good-soft); color: var(--good); }
+  .feedback.bad { background: var(--bad-soft); color: var(--bad); }
+
+  .controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+
+  button.next {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 11px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  button.next.show { opacity: 1; pointer-events: auto; }
+  button.next:hover { background: var(--accent); }
+  button.next:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* --- results screen --- */
+  .results {
+    display: none;
+    text-align: center;
+    padding: clamp(28px, 6vw, 48px) 20px;
+  }
+  .results.show { display: block; }
+
+  .results h2 {
+    font-family: 'Piazzolla', serif;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    margin: 4px 0 8px 0;
+  }
+
+  .score-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .final-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    max-width: 340px;
+    margin: 0 auto 30px auto;
+  }
+  .final-cell {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: white;
+  }
+  .final-cell.correct { background: var(--good); }
+  .final-cell.wrong { background: var(--bad); }
+
+  button.restart {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 11px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  button.restart:hover { background: var(--ink); color: var(--paper); }
+
+  .quiz-area { display: block; }
+  .quiz-area.hide { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+
+  @media (max-width: 480px) {
+    .big-bracket { display: none; }
+    .card { border: 1px solid var(--line); border-radius: 10px; }
+    .grid5 { grid-template-columns: repeat(5, 10px); grid-template-rows: repeat(4, 10px); gap: 3px; }
+    .cell { width: 10px; height: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <div class="title-block">
+      <h1>Matrizengleichungen</h1>
+      <p>Quiz zu Kapitel 3 — Matrizengleichungen</p>
+    </div>
+    <div class="progress-matrix">
+      <span class="bracket">[</span>
+      <div class="grid5" id="progressGrid"></div>
+      <span class="bracket">]</span>
+    </div>
+  </header>
+
+  <div class="quiz-area" id="quizArea">
+    <div class="card-wrap">
+      <span class="big-bracket">[</span>
+      <div class="card">
+        <div class="eyebrow" id="qCounter">FRAGE 1 / 20</div>
+        <div class="question" id="qText"></div>
+        <div id="qMatrix"></div>
+        <div class="options" id="qOptions"></div>
+        <div class="feedback" id="qFeedback"></div>
+        <div class="controls">
+          <button class="next" id="nextBtn">Weiter →</button>
+        </div>
+      </div>
+      <span class="big-bracket">]</span>
+    </div>
+  </div>
+
+  <div class="results" id="results">
+    <h2 id="resultHeadline"></h2>
+    <div class="score-line" id="scoreLine"></div>
+    <div class="final-grid" id="finalGrid"></div>
+    <button class="restart" id="restartBtn">Quiz neu starten</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "Was ist eine Matrizengleichung?",
+    options: [
+      "Eine Gleichung, in der Matrizen vorkommen und meist eine unbekannte Matrix X gesucht wird",
+      "Eine Gleichung, die nur Zahlen enthält",
+      "Eine Matrix, die nur aus Nullen besteht",
+      "Ein System zur Berechnung der Determinante"
+    ],
+    correct: 0
+  },
+  {
+    q: "Warum muss man bei Matrizengleichungen besonders auf die Reihenfolge der Multiplikation achten?",
+    options: [
+      "Weil Matrizen immer symmetrisch sind",
+      "Weil die Matrizenmultiplikation nicht kommutativ ist",
+      "Weil Matrizen keine Inverse besitzen",
+      "Weil die Addition von Matrizen nicht definiert ist"
+    ],
+    correct: 1
+  },
+  {
+    q: "Wie löst man X + A = B nach X auf?",
+    options: ["X = A − B", "X = B − A", "X = B + A", "X = A⁻¹B"],
+    correct: 1
+  },
+  {
+    q: "Gegeben die Gleichung. Was ist X?",
+    matrix: "X + ( 1  2 )  =  ( 5  6 )\n    ( 3  4 )     ( 7  8 )",
+    options: [
+      "( 4  4 ; 4  4 )",
+      "( 6  8 ; 10 12 )",
+      "( -4 -4 ; -4 -4 )",
+      "( 5  6 ; 7  8 )"
+    ],
+    correct: 0
+  },
+  {
+    q: "Wie löst man A·X = B nach X auf?",
+    options: ["X = B·A⁻¹", "X = A⁻¹·B", "X = A·B⁻¹", "X = B⁻¹·A"],
+    correct: 1
+  },
+  {
+    q: "Warum muss man bei A·X = B von LINKS mit A⁻¹ multiplizieren?",
+    options: [
+      "Weil A links von X steht und A⁻¹A = I ergibt",
+      "Weil das Ergebnis dadurch symmetrisch wird",
+      "Weil es bei Matrizen keinen Unterschied macht",
+      "Weil B sonst nicht invertierbar wäre"
+    ],
+    correct: 0
+  },
+  {
+    q: "Wie löst man X·A = B nach X auf?",
+    options: ["X = A⁻¹·B", "X = B·A⁻¹", "X = A·B⁻¹", "X = B⁻¹·A⁻¹"],
+    correct: 1
+  },
+  {
+    q: "Gegeben A, A⁻¹ und B. Was ist X bei A·X = B?",
+    matrix: "A = ( 2  1 )   A⁻¹ = (  1  -1 )   B = ( 5  3 )\n    ( 1  1 )         ( -1   2 )       ( 3  2 )",
+    options: [
+      "( 2  1 ; 1  1 )",
+      "( 5  3 ; 3  2 )",
+      "( 1 -1 ; -1  2 )",
+      "( 3  2 ; 2  1 )"
+    ],
+    correct: 0
+  },
+  {
+    q: "Liefern A·X = B und X·A = B im Allgemeinen dieselbe Lösung X?",
+    options: [
+      "Ja, immer, da Matrizenmultiplikation kommutativ ist",
+      "Nein, im Allgemeinen unterschiedliche Lösungen",
+      "Nur wenn B die Nullmatrix ist",
+      "Nur wenn A quadratisch ist"
+    ],
+    correct: 1
+  },
+  {
+    q: "Wie löst man A·X·B = C nach X auf?",
+    options: [
+      "X = A⁻¹·C·B⁻¹",
+      "X = B⁻¹·C·A⁻¹",
+      "X = A·C·B",
+      "X = C·A⁻¹·B⁻¹"
+    ],
+    correct: 0
+  },
+  {
+    q: "Bei A·X·B = C: warum reicht es nicht, nur mit A⁻¹ zu multiplizieren?",
+    options: [
+      "Weil B rechts von X steht und zusätzlich mit B⁻¹ von rechts multipliziert werden muss",
+      "Weil C sonst nicht quadratisch wäre",
+      "Weil A⁻¹ nicht existiert",
+      "Weil die Reihenfolge dabei keine Rolle spielt"
+    ],
+    correct: 0
+  },
+  {
+    q: "Für die Diagonalmatrix B gilt: Wie lautet B⁻¹?",
+    matrix: "B = ( 2   0 )\n    ( 0   3 )",
+    options: [
+      "( 1/2   0  ; 0   1/3 )",
+      "( 2   0  ; 0   3 )",
+      "( -2  0  ; 0  -3 )",
+      "( 1/2  1/3 ; 1/3  1/2 )"
+    ],
+    correct: 0
+  },
+  {
+    q: "Was ist der erste Lösungsschritt bei A·Xᵀ = B?",
+    options: [
+      "Beide Seiten mit A⁻¹ multiplizieren",
+      "Beide Seiten transponieren",
+      "Beide Seiten durch A dividieren",
+      "B invertieren"
+    ],
+    correct: 1
+  },
+  {
+    q: "Nach dem Transponieren von A·Xᵀ = B erhält man X·Aᵀ = Bᵀ. Wie geht es weiter?",
+    options: [
+      "Von links mit (Aᵀ)⁻¹ multiplizieren",
+      "Von rechts mit (Aᵀ)⁻¹ multiplizieren",
+      "Nochmals transponieren und fertig",
+      "Bᵀ von X subtrahieren"
+    ],
+    correct: 1
+  },
+  {
+    q: "Es gilt die nützliche Beziehung: (Aᵀ)⁻¹ = …",
+    options: ["Aᵀ", "A⁻¹", "(A⁻¹)ᵀ", "A"],
+    correct: 2
+  },
+  {
+    q: "Wie löst man Aᵀ·X + B = C nach X auf?",
+    options: [
+      "X = (Aᵀ)⁻¹·(C − B)",
+      "X = (C − B)·(Aᵀ)⁻¹",
+      "X = Aᵀ·(C − B)",
+      "X = (C + B)·(Aᵀ)⁻¹"
+    ],
+    correct: 0
+  },
+  {
+    q: "Was sollte man immer zuerst prüfen, bevor man mit A⁻¹ multipliziert?",
+    options: [
+      "Ob A symmetrisch ist",
+      "Ob det(A) ≠ 0 ist, da die Inverse sonst nicht existiert",
+      "Ob A quadratisch und die Nullmatrix ist",
+      "Ob B invertierbar ist"
+    ],
+    correct: 1
+  },
+  {
+    q: "Wie macht man die Probe bei einer gelösten Matrizengleichung?",
+    options: [
+      "X in die ursprüngliche Gleichung einsetzen und nachrechnen",
+      "Die Determinante von X berechnen",
+      "X transponieren und mit A vergleichen",
+      "Eine Probe ist bei Matrizengleichungen nicht möglich"
+    ],
+    correct: 0
+  },
+  {
+    q: "Gegeben die Gleichung. Was ist X?",
+    matrix: "2X − ( 1  3 )  =  ( 5  7 )\n     ( 2  0 )     ( 2  4 )",
+    options: [
+      "( 3  5 ; 2  2 )",
+      "( 6  10 ; 4  4 )",
+      "( 2  2 ; 0  2 )",
+      "( 4  4 ; 0  4 )"
+    ],
+    correct: 0
+  },
+  {
+    q: "Wie löst man X·A + B = C nach X auf?",
+    options: [
+      "X = A⁻¹·(C − B)",
+      "X = (C − B)·A⁻¹",
+      "X = (C + B)·A⁻¹",
+      "X = A⁻¹·(C + B)"
+    ],
+    correct: 1
+  }
+];
+
+let current = 0;
+let score = 0;
+const answers = new Array(questions.length).fill(null); // 'correct' | 'wrong'
+
+const progressGrid = document.getElementById('progressGrid');
+const qCounter = document.getElementById('qCounter');
+const qText = document.getElementById('qText');
+const qMatrix = document.getElementById('qMatrix');
+const qOptions = document.getElementById('qOptions');
+const qFeedback = document.getElementById('qFeedback');
+const nextBtn = document.getElementById('nextBtn');
+const quizArea = document.getElementById('quizArea');
+const results = document.getElementById('results');
+const resultHeadline = document.getElementById('resultHeadline');
+const scoreLine = document.getElementById('scoreLine');
+const finalGrid = document.getElementById('finalGrid');
+const restartBtn = document.getElementById('restartBtn');
+
+function buildProgressGrid() {
+  progressGrid.innerHTML = '';
+  for (let i = 0; i < questions.length; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.id = 'cell-' + i;
+    progressGrid.appendChild(cell);
+  }
+}
+
+function updateProgressGrid() {
+  for (let i = 0; i < questions.length; i++) {
+    const cell = document.getElementById('cell-' + i);
+    cell.classList.remove('correct', 'wrong', 'current');
+    if (answers[i] === 'correct') cell.classList.add('correct');
+    else if (answers[i] === 'wrong') cell.classList.add('wrong');
+    else if (i === current) cell.classList.add('current');
+  }
+}
+
+function renderQuestion() {
+  const item = questions[current];
+  qCounter.textContent = `FRAGE ${current + 1} / ${questions.length}`;
+  qText.textContent = item.q;
+
+  if (item.matrix) {
+    qMatrix.innerHTML = `<div class="matrix-display">${item.matrix}</div>`;
+  } else {
+    qMatrix.innerHTML = '';
+  }
+
+  qOptions.innerHTML = '';
+  const letters = ['A', 'B', 'C', 'D'];
+  item.options.forEach((optText, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<span class="tag">${letters[idx]}</span><span>${optText}</span>`;
+    btn.addEventListener('click', () => selectAnswer(idx));
+    qOptions.appendChild(btn);
+  });
+
+  qFeedback.className = 'feedback';
+  qFeedback.textContent = '';
+  nextBtn.classList.remove('show');
+  updateProgressGrid();
+}
+
+function selectAnswer(idx) {
+  if (answers[current] !== null) return; // already answered
+  const item = questions[current];
+  const isCorrect = idx === item.correct;
+  answers[current] = isCorrect ? 'correct' : 'wrong';
+  if (isCorrect) score++;
+
+  const buttons = qOptions.querySelectorAll('.option');
+  buttons.forEach((b, i) => {
+    b.disabled = true;
+    if (i === item.correct) b.classList.add('reveal-correct');
+    if (i === idx && !isCorrect) b.classList.add('selected-wrong');
+    if (i === idx && isCorrect) b.classList.add('selected-correct');
+  });
+
+  qFeedback.classList.add('show', isCorrect ? 'good' : 'bad');
+  qFeedback.textContent = isCorrect
+    ? 'Richtig!'
+    : `Nicht ganz — richtig ist: ${item.options[item.correct]}`;
+
+  nextBtn.classList.add('show');
+  updateProgressGrid();
+}
+
+nextBtn.addEventListener('click', () => {
+  if (current < questions.length - 1) {
+    current++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+});
+
+function showResults() {
+  quizArea.classList.add('hide');
+  results.classList.add('show');
+
+  const pct = Math.round((score / questions.length) * 100);
+  let headline;
+  if (pct === 100) headline = "Perfekt getroffen.";
+  else if (pct >= 80) headline = "Sehr gut gemacht.";
+  else if (pct >= 60) headline = "Solide Grundlage.";
+  else headline = "Noch Übungsbedarf.";
+
+  resultHeadline.textContent = headline;
+  scoreLine.textContent = `${score} von ${questions.length} richtig (${pct}%)`;
+
+  finalGrid.innerHTML = '';
+  answers.forEach((a, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'final-cell ' + (a === 'correct' ? 'correct' : 'wrong');
+    cell.textContent = a === 'correct' ? '✓' : '✕';
+    finalGrid.appendChild(cell);
+  });
+}
+
+restartBtn.addEventListener('click', () => {
+  current = 0;
+  score = 0;
+  answers.fill(null);
+  results.classList.remove('show');
+  quizArea.classList.remove('hide');
+  renderQuestion();
+});
+
+buildProgressGrid();
+renderQuestion();
+</script>
+
+</body>
+</html>
