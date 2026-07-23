@@ -196,7 +196,7 @@ body, html, .page-content, .wrapper, main {
     <div class="mw-kapitel-kopf">
       <span class="mw-numeral">II</span>
       <h2>2. Semester</h2>
-      <span class="mw-meta">3 Fächer</span>
+      <span class="mw-meta">4 Fächer</span>
     </div>
     <div class="mw-liste">
       <a href="/teaching/mathematik/" class="mw-fach">
@@ -207,8 +207,16 @@ body, html, .page-content, .wrapper, main {
         </div>
         <span class="mw-fach-pfeil">→</span>
       </a>
-      <a href="/teaching/vwl/" class="mw-fach">
+      <a href="/teaching/mathematik-w/" class="mw-fach">
         <span class="mw-fach-nr">02</span>
+        <div>
+          <h2>Mathematik (W-Kurs)</h2>
+          <div class="mw-fach-meta">1 Modul · Algebra, Finanzmathematik, Analysis, Integralrechnung</div>
+        </div>
+        <span class="mw-fach-pfeil">→</span>
+      </a>
+      <a href="/teaching/vwl/" class="mw-fach">
+        <span class="mw-fach-nr">03</span>
         <div>
           <h2>Volkswirtschaftslehre</h2>
           <div class="mw-fach-meta">17 Module · Mikro- &amp; Makroökonomie</div>
@@ -216,7 +224,7 @@ body, html, .page-content, .wrapper, main {
         <span class="mw-fach-pfeil">→</span>
       </a>
       <a href="/teaching/informatik/" class="mw-fach">
-        <span class="mw-fach-nr">03</span>
+        <span class="mw-fach-nr">04</span>
         <div>
           <h2>Informatik</h2>
           <div class="mw-fach-meta">7 Module · Python</div>
