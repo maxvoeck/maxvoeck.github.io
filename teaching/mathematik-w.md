@@ -342,7 +342,7 @@ const KAPITEL = [
     module: [
       { id:'a1', nr:'01', titel:'Matrizen — Grundbegriffe', desc:'Definition, Typ, spezielle Matrizen (Diagonal-, Dreiecks-, symmetrische Matrix), Gleichheit, Addition, Skalarmultiplikation, Matrizenmultiplikation, Transponierte, Inverse und Spur', pdf:'/assets/pdfs/W_Matrizen_1.pdf', quiz:'/assets/quizzes/quiz_matrizen_w_grundbegriffe.html', text:'/assets/texte/w-matrizen-1.pdf' },
       { id:'a2', nr:'02', titel:'Determinante und inverse Matrix', desc:'Determinante bei 1×1-, 2×2- und 3×3-Matrizen (Regel von Sarrus), Laplacescher Entwicklungssatz, Eigenschaften der Determinante, Inverse mit der Adjunkten-Methode und Rechenregeln', pdf:'/assets/pdfs/W_Matrizen_2.pdf', quiz:'/assets/quizzes/quiz_matrizen_w_determinante.html', text:'/assets/texte/w-matrizen-2.pdf' },
-      { id:'a3', nr:'03', titel:'Matrizengleichungen', desc:'Gleichungstypen X+A=B, AX=B, XA=B, AXB=C, AXᵀ=B und AᵀX+B=C nach X auflösen, allgemeine Lösungsstrategie und wichtige Regeln im Überblick', pdf:'/assets/pdfs/W_Matrizen_3.pdf', quiz:'/assets/quizzes/quiz_matrizen_w_gleichungen.html' },
+      { id:'a3', nr:'03', titel:'Matrizengleichungen', desc:'Gleichungstypen X+A=B, AX=B, XA=B, AXB=C, AXᵀ=B und AᵀX+B=C nach X auflösen, allgemeine Lösungsstrategie und wichtige Regeln im Überblick', pdf:'/assets/pdfs/W_Matrizen_3.pdf', quiz:'/assets/quizzes/quiz_matrizen_w_gleichungen.html', text:'/assets/texte/w-matrizen-3.pdf' },
     ]
   },
   { numeral: 'II',  titel: 'Finanzmathematik',      meta: 'folgt', module: [] },
