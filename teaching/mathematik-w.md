@@ -347,7 +347,12 @@ const KAPITEL = [
       { id:'a5', nr:'05', titel:'LGS mit Parameter', desc:'Parameter auf der rechten Seite, in der Koeffizientenmatrix und an mehreren Stellen; Fallunterscheidung bei parameterabhängigen Pivot-Elementen und Bestimmung der Lösungsmenge in Abhängigkeit vom Parameter', pdf:'/assets/pdfs/W_LGS_2.pdf', text:'/assets/texte/w-lgs-2.pdf' },
     ]
   },
-  { numeral: 'II',  titel: 'Finanzmathematik',      meta: 'folgt', module: [] },
+  {
+    numeral: 'II', titel: 'Finanzmathematik', meta: '1 Modul',
+    module: [
+      { id:'f1', nr:'01', titel:'Prozent- und Zinsrechnung', desc:'Grundbegriffe Grundwert, Prozentsatz, Prozentwert und das Prozent-Dreieck, die drei Grundaufgaben der Prozentrechnung sowie Zinsen für Jahre, Monate und Tage (kaufmännische Zinsrechnung)', pdf:'/assets/pdfs/W_Zinsrechnung_1.pdf', quiz:'/assets/quizzes/quiz_finanzmathematik_w_zinsrechnung.html', text:'/assets/texte/w-zinsrechnung-1.pdf' },
+    ]
+  },
   { numeral: 'III', titel: 'Differentialrechnung',  meta: 'folgt', module: [] },
   { numeral: 'IV',  titel: 'Integralrechnung',      meta: 'folgt', module: [] },
 ];
