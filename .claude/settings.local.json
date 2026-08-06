@@ -20,7 +20,9 @@
       "Bash(cp \"/Users/maks/Desktop/mathematik_wkurs/Matrizen_1_text.pdf\" \"/Users/maks/Desktop/portfolio-site/assets/texte/w-matrizen-1.pdf\")",
       "Bash(cp \"/Users/maks/Desktop/mathematik_wkurs/Matrizen_1.m4a\" \"/Users/maks/Desktop/portfolio-site/assets/audio/w-matrizen-1.m4a\")",
       "Bash(cp \"/Users/maks/Desktop/matrizen_1_quiz.html\" \"/Users/maks/Desktop/portfolio-site/assets/quizzes/quiz_matrizen_w_grundbegriffe.html\" *)",
-      "Bash(git -C /Users/maks/Desktop/portfolio-site status --short)"
+      "Bash(git -C /Users/maks/Desktop/portfolio-site status --short)",
+      "Bash(ls -la \"/Users/maks/Downloads/\" 2>&1 | grep -i quiz *)",
+      "Bash(md5 \"/Users/maks/Desktop/Zinsezins_Folie.pdf\" \"/Users/maks/Desktop/Zinsezins_text.pdf\")"
     ]
   }
 }
