@@ -25,7 +25,9 @@
       "Bash(md5 \"/Users/maks/Desktop/Zinsezins_Folie.pdf\" \"/Users/maks/Desktop/Zinsezins_text.pdf\")",
       "Bash(gh run *)",
       "Bash(git commit --allow-empty -m 'Retrigger Pages deploy after timeout *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git -C /Users/maks/Desktop/portfolio-site count-objects -v)",
+      "Bash(git commit --allow-empty -m 'Retrigger Pages deploy \\(attempt 3\\) *)"
     ]
   }
 }
