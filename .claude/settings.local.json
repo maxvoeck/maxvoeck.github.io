@@ -22,7 +22,10 @@
       "Bash(cp \"/Users/maks/Desktop/matrizen_1_quiz.html\" \"/Users/maks/Desktop/portfolio-site/assets/quizzes/quiz_matrizen_w_grundbegriffe.html\" *)",
       "Bash(git -C /Users/maks/Desktop/portfolio-site status --short)",
       "Bash(ls -la \"/Users/maks/Downloads/\" 2>&1 | grep -i quiz *)",
-      "Bash(md5 \"/Users/maks/Desktop/Zinsezins_Folie.pdf\" \"/Users/maks/Desktop/Zinsezins_text.pdf\")"
+      "Bash(md5 \"/Users/maks/Desktop/Zinsezins_Folie.pdf\" \"/Users/maks/Desktop/Zinsezins_text.pdf\")",
+      "Bash(gh run *)",
+      "Bash(git commit --allow-empty -m 'Retrigger Pages deploy after timeout *)",
+      "Bash(git push *)"
     ]
   }
 }
