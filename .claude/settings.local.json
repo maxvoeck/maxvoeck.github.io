@@ -27,7 +27,14 @@
       "Bash(git commit --allow-empty -m 'Retrigger Pages deploy after timeout *)",
       "Bash(git push *)",
       "Bash(git -C /Users/maks/Desktop/portfolio-site count-objects -v)",
-      "Bash(git commit --allow-empty -m 'Retrigger Pages deploy \\(attempt 3\\) *)"
+      "Bash(git commit --allow-empty -m 'Retrigger Pages deploy \\(attempt 3\\) *)",
+      "Bash(git commit --allow-empty -m 'Retrigger Pages deploy after Source reset *)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Add Betriebswirtschaftslehre subject page for W-Kurs *)",
+      "Bash(git config *)",
+      "Bash(security find-internet-password *)",
+      "Bash(git credential *)",
+      "Bash(gh --version)"
     ]
   }
 }
