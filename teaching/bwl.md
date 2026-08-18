@@ -113,7 +113,13 @@ body, html, .page-content, .wrapper, main {
 
 /* ─── Wochenplan ─── */
 .mw-plan { padding: 56px 0 8px; }
-.mw-plan-kopf { margin-bottom: 22px; }
+.mw-plan-kopf {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
 .mw-plan-kopf h3 {
   font-family: var(--display);
   font-weight: 400;
@@ -122,6 +128,7 @@ body, html, .page-content, .wrapper, main {
   margin-bottom: 8px;
 }
 .mw-plan-kopf p { color: var(--nebel); font-size: 13.5px; }
+.mw-plan-kopf .mw-btn { flex-shrink: 0; margin-top: 2px; }
 .mw-plan-wrap {
   overflow-x: auto;
   border: 1px solid var(--linie2);
@@ -359,6 +366,7 @@ body, html, .page-content, .wrapper, main {
 /* ─── Responsiv ─── */
 @media (max-width: 760px) {
   .mw-hero { grid-template-columns: 1fr; gap: 36px; padding: 64px 0 48px; }
+  .mw-plan-kopf { flex-direction: column; }
   .mw-progress { text-align: left; }
   .mw-modul { grid-template-columns: 40px 1fr; }
   .mw-actions { grid-column: 1 / -1; padding-left: 60px; flex-wrap: wrap; justify-content: flex-start; }
@@ -395,8 +403,14 @@ body, html, .page-content, .wrapper, main {
   <!-- Wochenplan -->
   <section class="mw-plan">
     <div class="mw-plan-kopf">
-      <h3>Wochenplan</h3>
-      <p>17.08.–27.11.2026 · 14 Unterrichtswochen · zwei Blöcke BWL pro Woche · Klausuren gemeinsam mit VWL: 22.09. · 20.10. · 17.11.</p>
+      <div>
+        <h3>Wochenplan</h3>
+        <p>17.08.–27.11.2026 · 14 Unterrichtswochen · zwei Blöcke BWL pro Woche · Klausuren gemeinsam mit VWL: 22.09. · 20.10. · 17.11.</p>
+      </div>
+      <a href="/assets/pdfs/Wochenplan_BWL_VWL_W.pdf" class="mw-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+        PDF herunterladen
+      </a>
     </div>
     <div class="mw-plan-wrap">
       <table class="mw-plan-table">
