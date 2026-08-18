@@ -35,7 +35,8 @@
       "Bash(security find-internet-password *)",
       "Bash(git credential *)",
       "Bash(gh --version)",
-      "Bash(git commit -m 'Add semester schedule to BWL/VWL pages, update Termine with new Klausur dates *)"
+      "Bash(git commit -m 'Add semester schedule to BWL/VWL pages, update Termine with new Klausur dates *)",
+      "Bash(git commit -m 'Add downloadable Wochenplan PDF to BWL and VWL pages *)"
     ]
   }
 }
