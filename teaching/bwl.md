@@ -111,6 +111,51 @@ body, html, .page-content, .wrapper, main {
   color: var(--nebel);
 }
 
+/* ─── Wochenplan ─── */
+.mw-plan { padding: 56px 0 8px; }
+.mw-plan-kopf { margin-bottom: 22px; }
+.mw-plan-kopf h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: -0.005em;
+  margin-bottom: 8px;
+}
+.mw-plan-kopf p { color: var(--nebel); font-size: 13.5px; }
+.mw-plan-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--linie2);
+  border-radius: 8px;
+}
+.mw-plan-table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 560px; }
+.mw-plan-table th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--nebel);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--linie2);
+  white-space: nowrap;
+}
+.mw-plan-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--linie);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.mw-plan-table tr:last-child td { border-bottom: none; }
+.mw-plan-table td:first-child, .mw-plan-table th:first-child {
+  font-family: var(--mono);
+  color: var(--nebel);
+  white-space: nowrap;
+}
+.mw-plan-table td:nth-child(2) { white-space: nowrap; color: var(--nebel); }
+.mw-plan-table tr.frei td { color: var(--nebel); font-style: italic; }
+.mw-plan-table tr.klausur td { color: var(--messing2); }
+.mw-plan-table tr.klausur strong { color: var(--messing); }
+
 /* ─── Kapitel ─── */
 .mw-kapitel { padding: 72px 0 12px; }
 .mw-kapitel-kopf {
@@ -346,6 +391,36 @@ body, html, .page-content, .wrapper, main {
       <div class="mw-ring-caption">von <span id="ringTotal">0</span> Modulen</div>
     </div>
   </header>
+
+  <!-- Wochenplan -->
+  <section class="mw-plan">
+    <div class="mw-plan-kopf">
+      <h3>Wochenplan</h3>
+      <p>17.08.–27.11.2026 · 14 Unterrichtswochen · zwei Blöcke BWL pro Woche · Klausuren gemeinsam mit VWL: 22.09. · 20.10. · 17.11.</p>
+    </div>
+    <div class="mw-plan-wrap">
+      <table class="mw-plan-table">
+        <thead><tr><th>Woche</th><th>Datum</th><th>BWL</th></tr></thead>
+        <tbody>
+          <tr><td>UW 1</td><td>17.–21.08.</td><td>Wirtschaften<br>Betrieb und Unternehmung</td></tr>
+          <tr><td>UW 2</td><td>24.–28.08.</td><td>Unternehmensformen I<br>Unternehmensformen II</td></tr>
+          <tr><td>UW 3</td><td>31.08.–04.09.</td><td>Unternehmensziele<br>Kennziffern und ROI</td></tr>
+          <tr><td>UW 4</td><td>07.–11.09.</td><td>Produktionsfaktoren<br>Wiederholung</td></tr>
+          <tr class="frei"><td>—</td><td>14.–18.09.</td><td>unterrichtsfrei</td></tr>
+          <tr class="klausur"><td>UW 5</td><td>21.–25.09.</td><td><strong>Klausur 1 · Di 22.09.</strong><br>Rechnungswesen</td></tr>
+          <tr><td>UW 6</td><td>28.09.–02.10.</td><td>Inventur und Inventar<br>Die Bilanz</td></tr>
+          <tr><td>UW 7</td><td>05.–09.10.</td><td>Bilanzveränderungen<br>Der Buchungssatz</td></tr>
+          <tr><td>UW 8</td><td>12.–16.10.</td><td>Kontenabschluss<br>Übungsblock</td></tr>
+          <tr class="klausur"><td>UW 9</td><td>19.–23.10.</td><td><strong>Klausur 2 · Di 20.10.</strong><br>Erfolgskonten</td></tr>
+          <tr><td>UW 10</td><td>26.–30.10.</td><td>GuV-Konto und Privatkonto<br>Übungsblock</td></tr>
+          <tr><td>UW 11</td><td>02.–06.11.</td><td>Umsatzsteuer<br>USt-Buchungen und Zahllast</td></tr>
+          <tr><td>UW 12</td><td>09.–13.11.</td><td>Abschreibungen<br>Buchung der Abschreibung</td></tr>
+          <tr class="klausur"><td>UW 13</td><td>16.–20.11.</td><td>Gesamtwiederholung<br><strong>Klausur 3 · Di 17.11.</strong></td></tr>
+          <tr><td>UW 14</td><td>23.–27.11.</td><td>Rückgabe Klausur 3<br>Bilanzanalyse</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <div id="kapitel"></div>
 

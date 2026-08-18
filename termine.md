@@ -114,37 +114,33 @@ body, html, .page-content, .wrapper, main, .post-content {
   <p class="tr-subtitle">Klausurtermine und organisatorische Hinweise für das laufende Semester.</p>
 
   <div class="tr-section">
-    <div class="tr-section-label">Informatik</div>
+    <div class="tr-section-label">Betriebswirtschaftslehre &amp; Volkswirtschaftslehre</div>
 
     <div class="tr-row">
       <div class="tr-row-left">
-        <span class="tr-kurs">25w-T4 & 25w-T2 & 25w-T3</span>
-        <span class="tr-themen">Themen 4–6</span>
+        <span class="tr-kurs">W-Kurs — Klausur 1 (gemeinsame Arbeit BWL &amp; VWL)</span>
+        <span class="tr-themen">BWL: Wirtschaften &middot; Betrieb und Unternehmung &middot; Unternehmensformen I &amp; II &middot; Unternehmensziele &middot; Kennziffern und ROI &middot; Produktionsfaktoren &middot; Rechnungswesen — VWL: Volkswirtschaftliche Gesamtrechnung &middot; Nominales und reales BIP &middot; Konjunktur und Konjunkturzyklen &middot; Antizyklische Konjunkturpolitik</span>
       </div>
-      <span class="tr-datum">24. April 2026</span>
+      <span class="tr-datum">22. September 2026</span>
+    </div>
+
+    <div class="tr-row">
+      <div class="tr-row-left">
+        <span class="tr-kurs">W-Kurs — Klausur 2 (gemeinsame Arbeit BWL &amp; VWL)</span>
+        <span class="tr-themen">BWL: Inventur und Inventar &middot; Die Bilanz &middot; Bilanzveränderungen &middot; Der Buchungssatz &middot; Kontenabschluss &middot; Erfolgskonten — VWL: Arbeitslosigkeit und Arbeitsmarktpolitik &middot; Inflation und Preisniveaustabilität &middot; Magisches Viereck</span>
+      </div>
+      <span class="tr-datum">20. Oktober 2026</span>
+    </div>
+
+    <div class="tr-row">
+      <div class="tr-row-left">
+        <span class="tr-kurs">W-Kurs — Klausur 3 (gemeinsame Arbeit BWL &amp; VWL)</span>
+        <span class="tr-themen">BWL: GuV-Konto und Privatkonto &middot; Umsatzsteuer &middot; USt-Buchungen und Zahllast &middot; Abschreibungen &middot; Buchung der Abschreibung &middot; Gesamtwiederholung — VWL: Wiederholung Semester 1</span>
+      </div>
+      <span class="tr-datum">17. November 2026</span>
     </div>
   </div>
 
-  <div class="tr-section">
-<div class="tr-section-label">Mathematik</div>
-    <div class="tr-row">
-      <div class="tr-row-left">
-        <span class="tr-kurs">W-Kurs (2. Semester) — Klausur 3</span>
-        <span class="tr-themen">Extremwertaufgaben &middot; Integralrechnung &middot; Vorbereitung: Übungsheft Aufgaben 3a, 3c &middot; 4a, 4b, 4c &middot; 5b, 5c &middot; 6a, 6b &middot; 7a–d &middot; 8a, 8b, 8c</span>
-      </div>
-      <span class="tr-datum">08. Mai 2026</span>
-    </div>
-</div>
-
-<div class="tr-section">
-<div class="tr-section-label">Volkswirtschaftslehre</div>
-<div class="tr-row">
-<div class="tr-row-left">
-<span class="tr-kurs">W-Kurs (2. Semester) — Klausur 3</span>
-<span class="tr-themen">Grundlagen der VWL &middot; Konjunktur &amp; Wirtschaftspolitik &middot; Vorbereitung Übungsheft Grundlagen: Aufgaben 1, 2, 14, 18 &middot; Übungsheft Konjunktur: Aufgaben 1, 4, 5, 12, 15</span>
-</div>
-<span class="tr-datum">06. Mai 2026</span>
-</div>
-</div>
+  <p class="tr-empty">Unterrichtsfrei: 14.–18. September sowie Mittwoch, 18. November (Buß- und Bettag).</p>
 
 </div>
