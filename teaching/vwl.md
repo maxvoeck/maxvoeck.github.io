@@ -398,32 +398,10 @@ body, html, .page-content, .wrapper, main {
         <h3>Wochenplan</h3>
         <p>17.08.–27.11.2026 · 14 Unterrichtswochen · ein Termin VWL pro Woche · Klausuren gemeinsam mit BWL: 22.09. · 20.10. · 17.11.</p>
       </div>
-      <a href="/assets/pdfs/Wochenplan_BWL_VWL_W.pdf" class="mw-btn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
-        PDF herunterladen
+      <a href="/assets/pdfs/Wochenplan_BWL_VWL_W.pdf" class="mw-btn" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        Wochenplan als PDF
       </a>
-    </div>
-    <div class="mw-plan-wrap">
-      <table class="mw-plan-table">
-        <thead><tr><th>Woche</th><th>Datum</th><th>VWL</th></tr></thead>
-        <tbody>
-          <tr><td>UW 1</td><td>17.–21.08.</td><td>Volkswirtschaftliche Gesamtrechnung</td></tr>
-          <tr><td>UW 2</td><td>24.–28.08.</td><td>Nominales und reales BIP</td></tr>
-          <tr><td>UW 3</td><td>31.08.–04.09.</td><td>Konjunktur und Konjunkturzyklen</td></tr>
-          <tr><td>UW 4</td><td>07.–11.09.</td><td>Antizyklische Konjunkturpolitik</td></tr>
-          <tr class="frei"><td>—</td><td>14.–18.09.</td><td>unterrichtsfrei</td></tr>
-          <tr class="klausur"><td>UW 5</td><td>21.–25.09.</td><td><strong>Klausur 1 · Di 22.09.</strong> (gemeinsam mit BWL) — kein neues Thema</td></tr>
-          <tr><td>UW 6</td><td>28.09.–02.10.</td><td>Arbeitslosigkeit und Arbeitsmarktpolitik</td></tr>
-          <tr><td>UW 7</td><td>05.–09.10.</td><td>Inflation und Preisniveaustabilität</td></tr>
-          <tr><td>UW 8</td><td>12.–16.10.</td><td>Magisches Viereck</td></tr>
-          <tr class="klausur"><td>UW 9</td><td>19.–23.10.</td><td><strong>Klausur 2 · Di 20.10.</strong> (gemeinsam mit BWL) — kein neues Thema</td></tr>
-          <tr><td>UW 10</td><td>26.–30.10.</td><td>Wiederholung Semester 1</td></tr>
-          <tr><td>UW 11</td><td>02.–06.11.</td><td>Wiederholung Semester 1</td></tr>
-          <tr><td>UW 12</td><td>09.–13.11.</td><td>Wiederholung Semester 1</td></tr>
-          <tr class="klausur"><td>UW 13</td><td>16.–20.11.</td><td><strong>Klausur 3 · Di 17.11.</strong> (gemeinsam mit BWL) — kein neues Thema</td></tr>
-          <tr><td>UW 14</td><td>23.–27.11.</td><td>Rückblick und Ausblick</td></tr>
-        </tbody>
-      </table>
     </div>
   </section>
 
