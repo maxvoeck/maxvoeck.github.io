@@ -1,0 +1,43 @@
+# Moduldaten Informatik (2. Semester).
+# Neue Module hier eintragen — Kapitelzahlen werden automatisch berechnet.
+
+fortschritt_key: info-progress
+
+kapitel:
+  - numeral: I
+    titel: Python
+    module:
+      - id: p1
+        nr: "01"
+        titel: Python Grundlagen – print() und input()
+        pdf: /assets/pdfs/Info_1.pdf
+        quiz: /assets/quizzes/quiz_python_grundlage.html
+      - id: p2
+        nr: "02"
+        titel: Variablen und Datentypen
+        pdf: /assets/pdfs/Info_2.pdf
+        quiz: /assets/quizzes/quiz_variablen_datentypen.html
+      - id: p3
+        nr: "03"
+        titel: Listen und Datenstrukturen
+        pdf: /assets/pdfs/Info_3.pdf
+        quiz: /assets/quizzes/quiz_listen_datenstrukturen.html
+      - id: p4
+        nr: "04"
+        titel: "Kontrollstrukturen – if, for, while"
+        pdf: /assets/pdfs/Info_4.pdf
+        quiz: /assets/quizzes/quiz_kontrollstrukturen.html
+      - id: p5
+        nr: "05"
+        titel: Funktionen in Python
+        pdf: /assets/pdfs/Info_5.pdf
+        quiz: /assets/quizzes/quiz_funktionen.html
+      - id: p6
+        nr: "06"
+        titel: "NumPy – Kurvendiskussion & Ableitungen"
+        pdf: /assets/pdfs/Info_6.pdf
+        quiz: /assets/quizzes/quiz_numpy_kurvendiskussion.html
+      - id: p7
+        nr: "07"
+        titel: Projekt
+        pdf: /assets/pdfs/Info_7.pdf
