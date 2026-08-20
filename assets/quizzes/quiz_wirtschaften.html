@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Wirtschaften – BWL Block 1</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:600;color:#1f2937;
+    margin-bottom:1.5rem;line-height:1.5
+}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{
+    background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;
+    padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f0f1f3;border-color:#667eea;transform:translateX(5px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0
+}
+.option.selected{background:#e8eaf6;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{
+    margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45
+}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{
+    margin-top:2rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:all .25s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{
+    width:200px;height:200px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+.score-number{font-size:3rem;font-weight:700}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+.small-note{font-size:.9rem;color:#6b7280;margin-top:.8rem;line-height:1.4}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header h1{font-size:1.4rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>💼 Wirtschaften</h1>
+        <p>Bedürfnisse, Güter und das ökonomische Prinzip · BWL · W-Kurs · Block 1</p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-content">
+        <div id="questionsContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Erreicht</div>
+            </div>
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="correctCount">0</div>
+                    <div class="result-stat-label">Gemeistert</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="incorrectCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const quizData = [
+{
+    question:"Warum müssen Menschen wirtschaften?",
+    options:[
+        "Weil Bedürfnisse unbegrenzt, die Mittel aber knapp sind",
+        "Weil alle Güter kostenlos sind",
+        "Weil Unternehmen immer Gewinn machen müssen",
+        "Weil nur Luxusgüter knapp sind"
+    ],
+    correct:0,
+    explanation:"Wirtschaften wird nötig, weil Bedürfnisse unbegrenzt sind, die verfügbaren Mittel aber knapp sind."
+},
+{
+    question:"Was ist ein Bedürfnis?",
+    options:[
+        "Ein tatsächlicher Kauf am Markt",
+        "Ein Gefühl eines Mangels oder ein Wunsch",
+        "Eine Bestellung bei einem Lieferanten",
+        "Ein Wunsch mit Kaufkraft"
+    ],
+    correct:1,
+    explanation:"Ein Bedürfnis ist zunächst ein Wunsch bzw. das Gefühl eines Mangels."
+},
+{
+    question:"Wann wird ein Bedürfnis zum Bedarf?",
+    options:[
+        "Erst nach dem Kauf",
+        "Wenn das Gut kostenlos ist",
+        "Wenn Kaufkraft vorhanden ist",
+        "Sobald man über ein Produkt spricht"
+    ],
+    correct:2,
+    explanation:"Bedarf bedeutet: Bedürfnis plus Kaufkraft. Die Mittel zum Kauf sind vorhanden."
+},
+{
+    question:"Wann spricht man von Nachfrage?",
+    options:[
+        "Wenn nur ein Wunsch besteht",
+        "Wenn Kaufkraft vorhanden ist, aber noch nicht gekauft wurde",
+        "Wenn das Gut ein Luxusgut ist",
+        "Wenn der Bedarf tatsächlich am Markt auftritt"
+    ],
+    correct:3,
+    explanation:"Nachfrage liegt vor, wenn der Bedarf tatsächlich am Markt wirksam wird, z. B. durch Kauf oder Bestellung."
+},
+{
+    question:"Herr Ali möchte ein Auto, hat aber kein Geld dafür. Was liegt vor?",
+    options:["Bedürfnis","Bedarf","Nachfrage","Produktionsgut"],
+    correct:0,
+    explanation:"Der Wunsch besteht, aber die Kaufkraft fehlt. Daher handelt es sich um ein Bedürfnis."
+},
+{
+    question:"Frau Chen hat 800 € gespart und sucht nach einem Laptop, hat aber noch keinen gekauft. Was liegt vor?",
+    options:["Nachfrage","Bedarf","Bedürfnis","freies Gut"],
+    correct:1,
+    explanation:"Wunsch und Kaufkraft sind vorhanden, aber es kam noch nicht zum Kauf. Das ist Bedarf."
+},
+{
+    question:"Eine Studentin kauft in der Mensa ein Mittagessen. Was liegt vor?",
+    options:["Bedarf","Luxusbedürfnis","Nachfrage","Bedürfnis"],
+    correct:2,
+    explanation:"Der Kauf findet tatsächlich statt. Damit wird der Bedarf zur Nachfrage."
+},
+{
+    question:"Welche Bedürfnisart passt am besten zu Trinkwasser?",
+    options:["Kulturbedürfnis","Luxusbedürfnis","Produktionsbedürfnis","Existenzbedürfnis"],
+    correct:3,
+    explanation:"Trinkwasser ist zum Leben notwendig und gehört daher zu den Existenzbedürfnissen."
+},
+{
+    question:"Welche Bedürfnisart passt am besten zu einem Deutschkurs?",
+    options:["Kulturbedürfnis","Luxusbedürfnis","Existenzbedürfnis","freies Bedürfnis"],
+    correct:0,
+    explanation:"Bildung gehört in der Präsentation zu den Kulturbedürfnissen."
+},
+{
+    question:"Welche Bedürfnisart passt am besten zu einem Privatflugzeug?",
+    options:["Kulturbedürfnis","Luxusbedürfnis","Existenzbedürfnis","Grundbedürfnis"],
+    correct:1,
+    explanation:"Ein Privatflugzeug geht deutlich über das gesellschaftlich Übliche hinaus und wird als Luxusbedürfnis eingeordnet."
+},
+{
+    question:"Was ist ein freies Gut?",
+    options:[
+        "Ein Gut, das immer vom Staat bezahlt wird",
+        "Ein besonders günstiges knappes Gut",
+        "Ein Gut, das unbegrenzt vorhanden ist",
+        "Ein Gut, das nur Unternehmen nutzen"
+    ],
+    correct:2,
+    explanation:"Freie Güter sind unbegrenzt vorhanden und deshalb kein Gegenstand des Wirtschaftens."
+},
+{
+    question:"Welches Beispiel ist in der Präsentation ein freies Gut?",
+    options:["eine Packung Reis","eine Beratung","eine Software-Lizenz","Sonnenlicht"],
+    correct:3,
+    explanation:"Sonnenlicht wird als freies Gut eingeordnet."
+},
+{
+    question:"Eine Zahnarztbehandlung ist ein knappes Gut. Welche Art ist sie?",
+    options:["Dienstleistung","Sachgut","Recht","freies Gut"],
+    correct:0,
+    explanation:"Eine Behandlung ist eine Dienstleistung."
+},
+{
+    question:"Eine Software-Lizenz gehört am ehesten zu welcher Güterart?",
+    options:["Sachgut","Recht","Dienstleistung","freies Gut"],
+    correct:1,
+    explanation:"Eine Lizenz ist ein Recht."
+},
+{
+    question:"Wovon hängt ab, ob ein Gut Konsumgut oder Produktionsgut ist?",
+    options:[
+        "Von seinem Preis",
+        "Nur davon, wer es hergestellt hat",
+        "Von seiner Verwendung",
+        "Von seiner Farbe"
+    ],
+    correct:2,
+    explanation:"Entscheidend ist die Verwendung. Dasselbe Gut kann Konsum- oder Produktionsgut sein."
+},
+{
+    question:"Ein Auto wird von einer Spedition für Lieferungen genutzt. Was ist es?",
+    options:["Konsumgut","freies Gut","Luxusbedürfnis","Produktionsgut"],
+    correct:3,
+    explanation:"Die Spedition setzt das Auto im Betrieb ein. Damit ist es ein Produktionsgut."
+},
+{
+    question:"Mit 200 Arbeitsstunden soll die höchstmögliche Produktionsmenge erreicht werden. Welches Prinzip?",
+    options:["Maximumprinzip","Minimumprinzip","Extremumprinzip","Bedarfsprinzip"],
+    correct:0,
+    explanation:"Der Einsatz – 200 Arbeitsstunden – ist fest. Das Ergebnis soll maximiert werden: Maximumprinzip."
+},
+{
+    question:"Ein Auftrag über 500 Stück soll mit möglichst geringen Kosten erfüllt werden. Welches Prinzip?",
+    options:["Maximumprinzip","Minimumprinzip","Extremumprinzip","Nachfrageprinzip"],
+    correct:1,
+    explanation:"Das Ergebnis – 500 Stück – ist fest. Der Einsatz bzw. die Kosten sollen minimiert werden: Minimumprinzip."
+},
+{
+    question:"Ein Unternehmen möchte das beste Verhältnis von Werbekosten und Umsatz erreichen. Welches Prinzip?",
+    options:["Minimumprinzip","Maximumprinzip","Extremumprinzip","Konsumprinzip"],
+    correct:2,
+    explanation:"Hier wird das beste Verhältnis zwischen Einsatz und Ergebnis gesucht. Das ist das Extremumprinzip."
+},
+{
+    question:"Welche Aussage zum ökonomischen Prinzip ist richtig?",
+    options:[
+        "Es sagt, welche Ziele ein Unternehmen verfolgen muss",
+        "Es gilt nur für Unternehmen",
+        "Es verlangt immer möglichst wenig Einsatz und möglichst viel Ergebnis gleichzeitig",
+        "Es sagt nur, wie Mittel und Ergebnis sinnvoll zueinander eingesetzt werden"
+    ],
+    correct:3,
+    explanation:"Das ökonomische Prinzip sagt nicht, welches Ziel richtig ist. Es beschreibt, wie ein gegebenes Ziel wirtschaftlich erreicht werden kann."
+}
+];
+
+let queue=[];
+let currentIndex=0;
+let totalAnswered=0;
+let wrongSet=new Set();
+let answeredCorrectly=new Set();
+
+function initQuiz(){
+    queue=quizData.map((_,i)=>i);
+    currentIndex=0;
+    totalAnswered=0;
+    wrongSet=new Set();
+    answeredCorrectly=new Set();
+    document.getElementById("resultsContainer").classList.remove("show");
+    renderCurrentQuestion();
+}
+
+function renderCurrentQuestion(){
+    if(currentIndex>=queue.length){
+        showResults();
+        return;
+    }
+
+    const qIdx=queue[currentIndex];
+    const q=quizData[qIdx];
+    const isRetry=wrongSet.has(qIdx);
+    const container=document.getElementById("questionsContainer");
+
+    container.innerHTML=`
+    <div class="question-container active">
+        <div class="question-number">
+            ${isRetry ? "🔁 Wiederholung · " : ""}Frage ${totalAnswered+1} ·
+            ${answeredCorrectly.size} von ${quizData.length} gemeistert
+        </div>
+        <div class="question-text">${q.question}</div>
+        <div class="options" id="options-current">
+            ${q.options.map((opt,i)=>`
+                <div class="option" onclick="selectOption(${qIdx},${i})">
+                    <div class="option-letter">${String.fromCharCode(65+i)}</div>
+                    <div class="option-text">${opt}</div>
+                </div>
+            `).join("")}
+        </div>
+
+        <div class="feedback" id="feedback-current">
+            <div class="feedback-title"></div>
+            <div class="feedback-text"></div>
+        </div>
+
+        <div class="controls">
+            <div></div>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                Weiter →
+            </button>
+        </div>
+    </div>`;
+
+    updateProgress();
+}
+
+function selectOption(questionIndex,optionIndex){
+    const options=document.querySelectorAll("#options-current .option");
+    const correct=quizData[questionIndex].correct;
+
+    options.forEach(opt=>{
+        opt.classList.add("disabled");
+        opt.onclick=null;
+    });
+
+    options[optionIndex].classList.add("selected");
+    options[optionIndex].classList.add(optionIndex===correct ? "correct" : "incorrect");
+    options[correct].classList.add("correct");
+
+    const feedback=document.getElementById("feedback-current");
+    feedback.classList.add("show");
+
+    if(optionIndex===correct){
+        answeredCorrectly.add(questionIndex);
+        wrongSet.delete(questionIndex);
+        feedback.classList.add("correct");
+        feedback.querySelector(".feedback-title").textContent="✓ Richtig!";
+    }else{
+        wrongSet.add(questionIndex);
+        answeredCorrectly.delete(questionIndex);
+        feedback.classList.add("incorrect");
+        feedback.querySelector(".feedback-title").textContent="✗ Noch nicht – die Frage kommt später wieder!";
+        const insertPos=Math.min(currentIndex+5,queue.length);
+        queue.splice(insertPos,0,questionIndex);
+    }
+
+    feedback.querySelector(".feedback-text").innerHTML=quizData[questionIndex].explanation;
+    totalAnswered++;
+    document.getElementById("nextBtn").disabled=false;
+    updateProgress();
+}
+
+function nextQuestion(){
+    currentIndex++;
+    if(currentIndex>=queue.length) showResults();
+    else renderCurrentQuestion();
+}
+
+function updateProgress(){
+    const progress=(answeredCorrectly.size/quizData.length)*100;
+    document.getElementById("progressFill").style.width=progress+"%";
+}
+
+function showResults(){
+    document.getElementById("questionsContainer").innerHTML="";
+    const results=document.getElementById("resultsContainer");
+    results.classList.add("show");
+
+    const repeats=Math.max(0,totalAnswered-quizData.length);
+    const percentage=Math.round((quizData.length/Math.max(totalAnswered,quizData.length))*100);
+
+    document.getElementById("scoreNumber").textContent=Math.min(percentage,100)+"%";
+    document.getElementById("correctCount").textContent=quizData.length;
+    document.getElementById("incorrectCount").textContent=repeats;
+    document.getElementById("totalCount").textContent=totalAnswered;
+
+    let message="";
+    if(repeats===0) message="Perfekt! Alles auf Anhieb richtig!";
+    else if(repeats<=3) message="Sehr gut! Nur wenige Wiederholungen.";
+    else if(repeats<=7) message="Gut gemacht! Die Wiederholungen haben geholfen.";
+    else message="Geschafft! Wiederhole Block 1 noch einmal zur Sicherheit.";
+
+    document.getElementById("resultMessage").textContent=message;
+}
+
+function restartQuiz(){ initQuiz(); }
+
+window.onload=initQuiz;
+</script>
+</body>
+</html>

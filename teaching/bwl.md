@@ -445,9 +445,10 @@ body, html, .page-content, .wrapper, main {
 /* ─── Daten: hier neue Module, PDFs, Quiz & Texte eintragen ─── */
 const KAPITEL = [
   {
-    numeral: 'I', titel: 'Allgemeine BWL', meta: '1 Modul',
+    numeral: 'I', titel: 'Allgemeine BWL', meta: '2 Module',
     module: [
-      { id:'b1', nr:'01', titel:'Wirtschaften', desc:'Bedürfnisse, Güter und das ökonomische Prinzip — von Bedürfnis, Bedarf und Nachfrage über Güterarten bis zu Maximum-, Minimum- und Extremumprinzip', pdf:'/assets/pdfs/BWL_W_1.pdf', text:'/assets/texte/bwl-w-1.pdf' },
+      { id:'b1', nr:'01', titel:'Wirtschaften', desc:'Bedürfnisse, Güter und das ökonomische Prinzip — von Bedürfnis, Bedarf und Nachfrage über Güterarten bis zu Maximum-, Minimum- und Extremumprinzip', pdf:'/assets/pdfs/BWL_W_1.pdf', quiz:'/assets/quizzes/quiz_wirtschaften.html', text:'/assets/texte/bwl-w-1.pdf' },
+      { id:'b2', nr:'02', titel:'Betrieb und Unternehmung', desc:'Betrieb, Unternehmung, Firma und Konzern unterscheiden — und warum die BWL mit Modellen arbeitet: Modell, Abstraktion und Prämisse', pdf:'/assets/pdfs/BWL_W_2.pdf', quiz:'/assets/quizzes/quiz_betrieb_unternehmung.html', text:'/assets/texte/bwl-w-2.pdf' },
     ]
   },
   { numeral: 'II',  titel: 'Buchführung',                    meta: 'folgt', module: [] },
