@@ -1,0 +1,104 @@
+{%- comment -%}
+  Fortschrittsanzeige und Mini-Player für die Fachseiten.
+  Die Modulliste selbst wird serverseitig gerendert (kurs/liste.html);
+  hier bleibt nur, was wirklich im Browser passieren muss.
+  Aufruf:  {% include kurs/script.html kurs=site.data.kurse.bwl %}
+{%- endcomment -%}
+
+<script>
+(function () {
+  'use strict';
+
+  /* ─── Fortschritt (localStorage mit Fallback) ─── */
+  var KEY = {{ include.kurs.fortschritt_key | jsonify }};
+  var memStore = {};
+
+  function getProgress() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || {}; }
+    catch (e) { return memStore; }
+  }
+  function saveProgress(p) {
+    try { localStorage.setItem(KEY, JSON.stringify(p)); }
+    catch (e) { memStore = p; }
+  }
+
+  function updateUI() {
+    var p = getProgress();
+    /* Nur Einträge mit data-module zählen — Werkzeuge sind nichts, was man abhakt. */
+    var module = document.querySelectorAll('.mw-modul[data-module]');
+    var done = 0;
+
+    module.forEach(function (el) {
+      var on = !!p[el.dataset.module];
+      el.classList.toggle('done', on);
+      var check = el.querySelector('.mw-check');
+      if (check) check.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on) done++;
+    });
+
+    var r = 52, umfang = 2 * Math.PI * r;
+    var fg = document.getElementById('ringFg');
+    if (fg) {
+      fg.style.strokeDasharray = umfang;
+      fg.style.strokeDashoffset = umfang * (1 - (module.length ? done / module.length : 0));
+    }
+    var label = document.getElementById('ringLabel');
+    if (label) label.textContent = done;
+  }
+
+  function toggleModule(id) {
+    var p = getProgress();
+    if (p[id]) delete p[id]; else p[id] = Date.now();
+    saveProgress(p);
+    updateUI();
+  }
+
+  document.querySelectorAll('.mw-check').forEach(function (btn) {
+    btn.addEventListener('click', function () { toggleModule(btn.dataset.toggle); });
+  });
+
+  /* ─── Mini-Player ─── */
+  var audio  = document.getElementById('audio');
+  var player = document.getElementById('player');
+
+  if (audio && player) {
+    var playBtn  = document.getElementById('playBtn');
+    var playIcon = document.getElementById('playIcon');
+
+    function setIcon() {
+      playIcon.innerHTML = audio.paused
+        ? '<path d="M8 5v14l11-7z"/>'
+        : '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+    }
+
+    document.querySelectorAll('[data-podcast]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.getElementById('playerTitel').textContent =
+          'Modul ' + btn.dataset.nr + ' · ' + btn.dataset.titel;
+        player.classList.add('offen');
+        audio.src = btn.dataset.podcast;
+        /* Datei noch nicht vorhanden — Player bleibt als Vorschau sichtbar */
+        audio.play().catch(function () {});
+        setIcon();
+      });
+    });
+
+    playBtn.addEventListener('click', function () {
+      if (audio.paused) audio.play().catch(function () {}); else audio.pause();
+      setIcon();
+    });
+    audio.addEventListener('play', setIcon);
+    audio.addEventListener('pause', setIcon);
+    audio.addEventListener('timeupdate', function () {
+      var pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+      document.getElementById('playerBar').style.width = pct + '%';
+    });
+    document.getElementById('playerClose').addEventListener('click', function () {
+      audio.pause();
+      player.classList.remove('offen');
+    });
+  }
+
+  updateUI();
+})();
+</script>

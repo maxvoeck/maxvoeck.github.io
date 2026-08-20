@@ -1,0 +1,26 @@
+{%- comment -%}
+  Mini-Player für die Podcast-Folgen. Gehört in .mw-page, außerhalb von .mw-wrap.
+  Wird nur ausgegeben, wenn der Kurs überhaupt Podcasts hat — sobald in
+  _data/kurse/*.yml wieder ein podcast:-Feld auftaucht, erscheint er von selbst.
+  Aufruf:  {% include kurs/player.html kurs=kurs %}
+{%- endcomment -%}
+{%- assign hat_podcast = false -%}
+{%- for k in include.kurs.kapitel -%}
+  {%- for m in k.module -%}
+    {%- if m.podcast %}{% assign hat_podcast = true %}{% endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- if hat_podcast -%}
+<div class="mw-player" id="player">
+  <button class="mw-play" id="playBtn" aria-label="Abspielen / Pausieren">
+    <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+  <div class="mw-player-info">
+    <div class="laeuft">Jetzt läuft</div>
+    <div class="titel" id="playerTitel">—</div>
+    <div class="mw-player-bar"><div id="playerBar"></div></div>
+  </div>
+  <button class="mw-player-close" id="playerClose" aria-label="Player schließen">×</button>
+</div>
+<audio id="audio"></audio>
+{%- endif -%}

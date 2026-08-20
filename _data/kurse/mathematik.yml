@@ -1,0 +1,205 @@
+# Moduldaten der Mathematikseite (1. Semester).
+# Neue Module hier eintragen — Kapitelzahlen werden automatisch berechnet.
+# Optionale Felder je Modul: desc, quiz, podcast, text, tool
+
+fortschritt_key: mathe-progress
+
+kapitel:
+  - numeral: I
+    titel: Lineare Algebra
+    module:
+      - id: a1
+        nr: "01"
+        titel: Matrizen
+        desc: "Addition, Multiplikation, Transponieren und spezielle Matrizen"
+        pdf: /assets/pdfs/Matrizen_2_1.pdf
+        quiz: /assets/quizzes/quiz_matrizen_grundlagen.html
+      - id: a2
+        nr: "02"
+        titel: Determinanten
+        desc: "Laplace-Entwicklung, Sarrus-Regel und inverse Matrizen"
+        pdf: /assets/pdfs/Matrizen_2_2.pdf
+        quiz: /assets/quizzes/quiz_determinanten.html
+      - id: a3
+        nr: "03"
+        titel: Matrizengleichungen
+        desc: "Übungsaufgaben, Rangbestimmung und Gauß-Elimination"
+        pdf: /assets/pdfs/Matrizen_2_3.pdf
+      - id: a4
+        nr: "04"
+        titel: Lineare Gleichungssysteme
+        desc: "Matrixschreibweise, Gauß-Algorithmus und Lösbarkeitskriterien"
+        pdf: /assets/pdfs/LGS_2_1-5.pdf
+        quiz: /assets/quizzes/quiz_lgs_grundlagen.html
+      - id: a5
+        nr: "05"
+        titel: Parameterabhängigkeit
+        desc: "LGS mit Parametern, Determinantentest und Fallunterscheidungen"
+        pdf: /assets/pdfs/LGS_2_2-2.pdf
+
+  - numeral: II
+    titel: Vektorrechnung
+    module:
+      - id: v1
+        nr: "06"
+        titel: Grundlagen
+        desc: "Vektoren, Koordinatensysteme, Betrag und Grundoperationen"
+        pdf: /assets/pdfs/Geo_2_1-2.pdf
+      - id: v2
+        nr: "07"
+        titel: "Vektor- & Spatprodukt"
+        desc: "Kreuzprodukt, Flächen, Spatprodukt und Volumen im Raum"
+        pdf: /assets/pdfs/Geo_2_2-2.pdf
+        quiz: /assets/quizzes/quiz_vektorprodukt.html
+      - id: v3
+        nr: "08"
+        titel: Geraden und Ebenen
+        desc: "Parametergleichungen, Normalenvektor und Lagebeziehungen"
+        pdf: /assets/pdfs/Geo_2_3.pdf
+        quiz: /assets/quizzes/quiz_geraden_ebenen.html
+      - id: v4
+        nr: "09"
+        titel: Abstände und Lagen
+        desc: Abstandsberechnungen und Hessesche Normalenform
+        pdf: /assets/pdfs/Geo_2_4.pdf
+        quiz: /assets/quizzes/quiz_lagebeziehungen.html
+
+  - numeral: III
+    titel: Differentialrechnung
+    module:
+      - id: d1
+        nr: "10"
+        titel: Zahlenfolgen
+        desc: "Explizite und rekursive Vorschriften, Monotonie, Beschränktheit"
+        pdf: /assets/pdfs/Folgen_2_1-2.pdf
+        quiz: /assets/quizzes/quiz_zahlenfolgen.html
+      - id: d2
+        nr: "11"
+        titel: Grenzwerte von Folgen
+        desc: "Konvergenz, Divergenz, Grenzwertsätze und Eulersche Zahl"
+        pdf: /assets/pdfs/Grenzwerte_2_1.pdf
+        quiz: /assets/quizzes/quiz_grenzwerte_folgen.html
+      - id: d3
+        nr: "12"
+        titel: Grenzwerte im Unendlichen
+        desc: Dominanzprinzip und waagerechte Asymptoten
+        pdf: /assets/pdfs/Funktion_2_2.pdf
+        quiz: /assets/quizzes/quiz_grenzwerte_funktionen_1.html
+      - id: d4
+        nr: "13"
+        titel: Grenzwerte an einer Stelle
+        desc: "Einseitige Grenzwerte, Polstellen und hebbare Lücken"
+        pdf: /assets/pdfs/Grenzwerte_2_2.pdf
+        quiz: /assets/quizzes/quiz_grenzwerte_funktionen_2.html
+      - id: d5
+        nr: "14"
+        titel: Asymptoten
+        desc: "Waagerechte, senkrechte und schräge Asymptoten"
+        pdf: /assets/pdfs/Grenzwerte_2_3.pdf
+        quiz: /assets/quizzes/quiz_asymptoten.html
+      - id: d6
+        nr: "15"
+        titel: Steigung und Ableitung
+        desc: "Sekanten, Tangenten und Differenzierbarkeit"
+        pdf: /assets/pdfs/Funktion_2_1.pdf
+        quiz: /assets/quizzes/quiz_ableitung_grundlagen.html
+      - id: d7
+        nr: "16"
+        titel: Ableitungsregeln
+        desc: "Potenz-, Produkt-, Quotienten- und Kettenregel"
+        pdf: /assets/pdfs/Funktion_2_4.pdf
+        quiz: /assets/quizzes/quiz_ableitungsregeln.html
+      - id: d8
+        nr: "17"
+        titel: Regel von de L’Hôpital
+        desc: "Unbestimmte Ausdrücke: 0/0, ∞/∞, ∞·0"
+        pdf: /assets/pdfs/Hospital_2_1.pdf
+        quiz: /assets/quizzes/quiz_hospital.html
+      - id: d9
+        nr: "18"
+        titel: Extrempunkte
+        desc: "Notwendige und hinreichende Bedingungen, Sattelpunkte"
+        pdf: /assets/pdfs/Extremwert_2_1.pdf
+        quiz: /assets/quizzes/quiz_extrempunkte.html
+      - id: d10
+        nr: "19"
+        titel: Wendepunkte
+        desc: Krümmungswechsel und dritte Ableitung
+        pdf: /assets/pdfs/Wendepunkt_2_1.pdf
+        quiz: /assets/quizzes/quiz_wendepunkte.html
+      - id: d11
+        nr: "20"
+        titel: Kurvendiskussion
+        desc: Systematische Funktionsanalyse mit allen Kriterien
+        pdf: /assets/pdfs/Kurvendiskusion_2_1.pdf
+        quiz: /assets/quizzes/quiz_kurvendiskussion.html
+      - id: d12
+        nr: "21"
+        titel: Extremwertaufgaben
+        desc: Optimierungsprobleme mit Nebenbedingungen
+        pdf: /assets/pdfs/Extrem_2_1.pdf
+        quiz: /assets/quizzes/quiz_extremwertaufgaben.html
+
+  - numeral: IV
+    titel: Integralrechnung
+    module:
+      - id: i1
+        nr: "22"
+        titel: Einführung
+        desc: "Stammfunktionen, Grundintegrale und bestimmtes Integral"
+        pdf: /assets/pdfs/Integral_2_1.pdf
+        quiz: /assets/quizzes/quiz_integral_einfuehrung.html
+      - id: i2
+        nr: "23"
+        titel: Integrationsmethoden
+        desc: "Substitution, partielle Integration, Partialbruchzerlegung"
+        pdf: /assets/pdfs/Integral_2_2.pdf
+        quiz: /assets/quizzes/quiz_integrationsmethoden.html
+      - id: i3
+        nr: "24"
+        titel: "Hauptsatz & Flächen"
+        desc: "HDI, bestimmte Integrale und Flächen zwischen Graphen"
+        pdf: /assets/pdfs/Integral_2_3.pdf
+        quiz: /assets/quizzes/quiz_hauptsatz_flaechen.html
+      - id: i4
+        nr: "25"
+        titel: Rotationsvolumen
+        desc: Volumen von Rotationskörpern um x- und y-Achse
+        pdf: /assets/pdfs/Intergal_2_4-2.pdf
+        quiz: /assets/quizzes/quiz_rotationsvolumen.html
+      - id: i5
+        nr: "26"
+        titel: Flächen zwischen Funktionen
+        desc: Flächenberechnung zwischen zwei Funktionsgraphen
+        pdf: /assets/pdfs/Fläche_zwichen_Funktionen.pdf
+
+  - numeral: V
+    titel: Interaktive Tools
+    meta: "5 Anwendungen"
+    fortschritt: false
+    module:
+      - id: t1
+        nr: "27"
+        titel: Tangenten-Explorer
+        desc: Interaktive Visualisierung von Tangenten und Sekanten
+        tool: /assets/interactive/tangenten_explorer.html
+      - id: t2
+        nr: "28"
+        titel: "3D-Vektor-Explorer"
+        desc: "Vektoren, Kreuzprodukt und Volumen im dreidimensionalen Raum"
+        tool: /assets/interactive/vektor_explorer.html
+      - id: t3
+        nr: "29"
+        titel: "Geraden & Ebenen"
+        desc: Lagebeziehungen und Schnittpunkte interaktiv erkunden
+        tool: /assets/interactive/geraden_ebenen_explorer.html
+      - id: t4
+        nr: "30"
+        titel: Matrizen-Explorer
+        desc: Matrixoperationen und Transformationen visualisieren
+        tool: /assets/interactive/matrizen_explorer.html
+      - id: t5
+        nr: "31"
+        titel: Determinanten-Rechner
+        desc: Determinanten beliebiger Matrizen berechnen
+        tool: /assets/interactive/determinanten_rechner.html

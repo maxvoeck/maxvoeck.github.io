@@ -1,0 +1,37 @@
+# Moduldaten der BWL-Seite.
+# Neue Module hier eintragen — Reihenfolge und Zählung ergeben sich automatisch.
+# Optionale Felder je Modul: desc, quiz, podcast, text
+fortschritt_key: bwl-w-progress
+
+kapitel:
+  - numeral: I
+    titel: Allgemeine BWL
+    module:
+      - id: b1
+        nr: "01"
+        titel: Wirtschaften
+        desc: >-
+          Bedürfnisse, Güter und das ökonomische Prinzip — von Bedürfnis, Bedarf und
+          Nachfrage über Güterarten bis zu Maximum-, Minimum- und Extremumprinzip
+        pdf: /assets/pdfs/BWL_W_1.pdf
+        quiz: /assets/quizzes/quiz_wirtschaften.html
+        text: /assets/texte/bwl-w-1.pdf
+      - id: b2
+        nr: "02"
+        titel: Betrieb und Unternehmung
+        desc: >-
+          Betrieb, Unternehmung, Firma und Konzern unterscheiden — und warum die BWL
+          mit Modellen arbeitet: Modell, Abstraktion und Prämisse
+        pdf: /assets/pdfs/BWL_W_2.pdf
+        quiz: /assets/quizzes/quiz_betrieb_unternehmung.html
+        text: /assets/texte/bwl-w-2.pdf
+
+  - numeral: II
+    titel: Buchführung
+    meta: folgt
+    module: []
+
+  - numeral: III
+    titel: Erfolg, Steuern, Abschreibungen
+    meta: folgt
+    module: []

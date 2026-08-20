@@ -1,0 +1,49 @@
+# Moduldaten Makroökonomie (2. Semester).
+# Fortschritts-Key bleibt vwl-progress, damit bestehende Häkchen erhalten bleiben.
+
+fortschritt_key: vwl-progress
+
+kapitel:
+  - numeral: I
+    titel: Makroökonomie
+    ueberschrift: false
+    module:
+      - id: m9
+        nr: "09"
+        titel: Volkswirtschaftliche Gesamtrechnung
+        pdf: /assets/pdfs/VWL_11.pdf
+        quiz: /assets/quizzes/quiz_vgr.html
+      - id: m10
+        nr: "10"
+        titel: Nominales vs. reales BIP
+        pdf: /assets/pdfs/VWL_12.pdf
+        quiz: /assets/quizzes/quiz_vgr2.html
+      - id: m11
+        nr: "11"
+        titel: "Konjunktur & Konjunkturzyklen"
+        pdf: /assets/pdfs/VWL_11_Konjunktur.pdf
+        quiz: /assets/quizzes/quiz_konjunktur.html
+      - id: m12
+        nr: "12"
+        titel: Antizyklische Konjunkturpolitik
+        pdf: /assets/pdfs/VWL_12_Konjunkturpolitik.pdf
+        quiz: /assets/quizzes/quiz_konjunkturpolitik.html
+      - id: m13
+        nr: "13"
+        titel: "Arbeitslosigkeit & Arbeitsmarktpolitik"
+        pdf: /assets/pdfs/Vwl_13_Arbeitslosigkeit.pdf
+        quiz: /assets/quizzes/quiz_arbeitslosigkeit.html
+      - id: m14
+        nr: "14"
+        titel: "Inflation & Preisniveaustabilität"
+        pdf: /assets/pdfs/VWL_14_Preisniveau.pdf
+        quiz: /assets/quizzes/quiz_preisniveau.html
+      - id: m15
+        nr: "15"
+        titel: Magisches Viereck
+        pdf: /assets/pdfs/VWL_15.pdf
+      - id: klausur-makro
+        nr: ★
+        titel: Klausur Makroökonomie
+        desc: Übungsklausur zu allen Makrothemen
+        pdf: /assets/pdfs/Übungsheft_W_2.pdf

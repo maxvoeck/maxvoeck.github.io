@@ -1,0 +1,68 @@
+{%- comment -%}
+  Rendert die Kapitel- und Modulliste einer Fachseite serverseitig.
+  Aufruf:  {% include kurs/liste.html kurs=site.data.kurse.bwl %}
+  Die Moduldaten stehen in _data/kurse/<fach>.yml
+{%- endcomment -%}
+
+{%- assign kurs = include.kurs -%}
+
+{%- capture icon_pdf -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>{%- endcapture -%}
+{%- capture icon_quiz -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 9a3 3 0 1 1 4 2.83c-.7.26-1 .95-1 1.67v.5"/><path d="M12 17.5h.01"/></svg>{%- endcapture -%}
+{%- capture icon_pod -%}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>{%- endcapture -%}
+{%- capture icon_text -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>{%- endcapture -%}
+{%- capture icon_check -%}<svg viewBox="0 0 12 12" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6l3 3 5-6"/></svg>{%- endcapture -%}
+{%- capture icon_tool -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>{%- endcapture -%}
+
+{%- for k in kurs.kapitel -%}
+  {%- assign anzahl = k.module | size -%}
+  <section class="mw-kapitel">
+    {%- comment -%}
+      ueberschrift: false — für Seiten, deren einziges Kapitel genauso heißt wie
+      die Seite selbst (z. B. Mikroökonomie). Spart die doppelte Überschrift.
+    {%- endcomment -%}
+    {%- unless k.ueberschrift == false -%}
+    <div class="mw-kapitel-kopf">
+      <span class="mw-numeral">{{ k.numeral }}</span>
+      <h2>{{ k.titel }}</h2>
+      <span class="mw-meta">
+        {%- if k.meta -%}
+          {{ k.meta }}
+        {%- elsif anzahl == 1 -%}
+          1 Modul
+        {%- else -%}
+          {{ anzahl }} Module
+        {%- endif -%}
+      </span>
+    </div>
+    {%- endunless -%}
+
+    {%- if anzahl > 0 -%}
+      <div class="mw-liste">
+        {%- for m in k.module -%}
+          <div class="mw-modul"{% unless k.fortschritt == false %} data-module="{{ m.id }}"{% endunless %}>
+            <span class="mw-nr">{{ m.nr }}</span>
+            <div>
+              <h4>{{ m.titel }}</h4>
+              {%- if m.desc %}<p class="mw-desc">{{ m.desc }}</p>{% endif -%}
+            </div>
+            <div class="mw-actions">
+              {%- if m.tool %}<a href="{{ m.tool }}" class="mw-btn">{{ icon_tool }} Öffnen</a>{% endif -%}
+              {%- if m.pdf %}<a href="{{ m.pdf }}" class="mw-btn">{{ icon_pdf }} Folien</a>{% endif -%}
+              {%- if m.quiz %}<a href="{{ m.quiz }}" class="mw-btn">{{ icon_quiz }} Quiz</a>{% endif -%}
+              {%- if m.podcast %}
+                <button class="mw-btn" data-podcast="{{ m.podcast }}" data-nr="{{ m.nr }}" data-titel="{{ m.titel | escape }}">{{ icon_pod }} Podcast</button>
+              {%- endif -%}
+              {%- if m.text %}<a href="{{ m.text }}" class="mw-btn">{{ icon_text }} Text</a>{% endif -%}
+              {%- comment -%} Kapitel mit fortschritt: false (z. B. Werkzeuge) bekommen kein Häkchen. {%- endcomment -%}
+              {%- unless k.fortschritt == false -%}
+                <button class="mw-check" data-toggle="{{ m.id }}" aria-label="Modul „{{ m.titel | escape }}“ als erledigt markieren" aria-pressed="false">{{ icon_check }}</button>
+              {%- endunless -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="mw-leer">Materialien für dieses Kapitel folgen in Kürze.</div>
+    {%- endif -%}
+  </section>
+{%- endfor -%}

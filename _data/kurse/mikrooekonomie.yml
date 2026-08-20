@@ -1,0 +1,55 @@
+# Moduldaten Mikroökonomie (1. Semester).
+# Fortschritts-Key bleibt vwl-progress, damit bestehende Häkchen erhalten bleiben.
+
+fortschritt_key: vwl-progress
+
+kapitel:
+  - numeral: I
+    titel: Mikroökonomie
+    ueberschrift: false
+    module:
+      - id: m1
+        nr: "01"
+        titel: "Bedürfnis, Bedarf und Nachfrage"
+        pdf: /assets/pdfs/WS_VWL_1-3.pdf
+        quiz: /assets/quizzes/quiz_beduerfnis_bedarf_nachfrage.html
+      - id: m2
+        nr: "02"
+        titel: Güterarten in der Wirtschaft
+        pdf: /assets/pdfs/WS_VWL_2-2.pdf
+        quiz: /assets/quizzes/quiz_gueterarten.html
+      - id: m3
+        nr: "03"
+        titel: Angebot und Angebotskurve
+        pdf: /assets/pdfs/WS_VWL_3-4.pdf
+        quiz: /assets/quizzes/quiz_angebot.html
+      - id: m4
+        nr: "04"
+        titel: Nachfrage und Nachfragekurve
+        pdf: /assets/pdfs/WS_VWL_4-2.pdf
+        quiz: /assets/quizzes/quiz_nachfrage.html
+      - id: m5
+        nr: "05"
+        titel: Marktgleichgewicht
+        pdf: /assets/pdfs/WS_VWL_5-2.pdf
+        quiz: /assets/quizzes/quiz_marktgleichgewicht.html
+      - id: m6
+        nr: "06"
+        titel: Konsumenten- und Produzentenrente
+        pdf: /assets/pdfs/WS_VWL_6.pdf
+        quiz: /assets/quizzes/quiz_renten.html
+      - id: m7
+        nr: "07"
+        titel: Marktformen
+        pdf: /assets/pdfs/WS_VWL_7.pdf
+        quiz: /assets/quizzes/quiz_marktformen.html
+      - id: m8
+        nr: "08"
+        titel: Budgetgerade
+        pdf: /assets/pdfs/WS_VWL_8-3.pdf
+        quiz: /assets/quizzes/quiz_budgetgerade.html
+      - id: klausur-mikro
+        nr: ★
+        titel: Klausur Mikroökonomie
+        desc: Übungsklausur zu allen Mikrothemen
+        pdf: /assets/pdfs/Übungsheft_W_1.pdf

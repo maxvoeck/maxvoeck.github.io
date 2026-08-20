@@ -1,0 +1,20 @@
+{%- comment -%}
+  Fortschrittsbogen im Seitenkopf.
+  Aufruf:  {% include kurs/ring.html kurs=kurs %}
+  Die Gesamtzahl wird aus den Daten berechnet; Kapitel mit fortschritt: false
+  (z. B. Werkzeuge) zählen nicht mit.
+{%- endcomment -%}
+{%- assign gesamt = 0 -%}
+{%- for k in include.kurs.kapitel -%}
+  {%- unless k.fortschritt == false -%}
+    {%- assign gesamt = gesamt | plus: k.module.size -%}
+  {%- endunless -%}
+{%- endfor -%}
+<div class="mw-progress">
+  <svg class="mw-ring" viewBox="0 0 120 120">
+    <circle class="bg" cx="60" cy="60" r="52"/>
+    <circle class="fg" cx="60" cy="60" r="52" id="ringFg"/>
+    <text class="mw-ring-label" x="60" y="60" text-anchor="middle" dominant-baseline="central" id="ringLabel">0</text>
+  </svg>
+  <div class="mw-ring-caption">von <span id="ringTotal">{{ gesamt }}</span> Modulen</div>
+</div>

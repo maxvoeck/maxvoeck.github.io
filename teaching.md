@@ -181,14 +181,44 @@ body, html, .page-content, .wrapper, main {
     <p class="mw-hero-sub">Module, Skripte und Übungen für die Feststellungsprüfung — nach Semester sortiert.</p>
   </header>
 
+  {%- comment -%}
+    Modulzahlen kommen aus _data/kurse/*.yml und werden berechnet —
+    nicht von Hand pflegen. Fächer ohne Datendatei tragen ihre Zahl noch selbst.
+  {%- endcomment -%}
+  {%- assign mathe_module = 0 -%}
+  {%- for k in site.data.kurse.mathematik.kapitel -%}
+    {%- unless k.fortschritt == false -%}{%- assign mathe_module = mathe_module | plus: k.module.size -%}{%- endunless -%}
+  {%- endfor -%}
+  {%- assign mikro_module = site.data.kurse.mikrooekonomie.kapitel[0].module.size -%}
+  {%- assign makro_module = site.data.kurse.makrooekonomie.kapitel[0].module.size -%}
+  {%- assign bwl_module = 0 -%}
+  {%- for k in site.data.kurse.bwl.kapitel -%}{%- assign bwl_module = bwl_module | plus: k.module.size -%}{%- endfor -%}
+
   <!-- 1. Semester -->
   <section class="mw-kapitel">
     <div class="mw-kapitel-kopf">
       <span class="mw-numeral">I</span>
       <h2>1. Semester</h2>
-      <span class="mw-meta">in Vorbereitung</span>
+      <span class="mw-meta">2 Fächer</span>
     </div>
-    <div class="mw-leer">Die Materialien für das erste Semester folgen in Kürze.</div>
+    <div class="mw-liste">
+      <a href="/teaching/mathematik/" class="mw-fach">
+        <span class="mw-fach-nr">01</span>
+        <div>
+          <h2>Mathematik</h2>
+          <div class="mw-fach-meta">{{ mathe_module }} Module &amp; 5 interaktive Tools · Algebra, Vektoren, Analysis, Integralrechnung</div>
+        </div>
+        <span class="mw-fach-pfeil">&rarr;</span>
+      </a>
+      <a href="/teaching/mikrooekonomie/" class="mw-fach">
+        <span class="mw-fach-nr">02</span>
+        <div>
+          <h2>Volkswirtschaftslehre &middot; Mikro&ouml;konomie</h2>
+          <div class="mw-fach-meta">{{ mikro_module }} Module · Nachfrage, Angebot, Marktgleichgewicht, Marktformen</div>
+        </div>
+        <span class="mw-fach-pfeil">&rarr;</span>
+      </a>
+    </div>
   </section>
 
   <!-- 2. Semester -->
@@ -196,48 +226,40 @@ body, html, .page-content, .wrapper, main {
     <div class="mw-kapitel-kopf">
       <span class="mw-numeral">II</span>
       <h2>2. Semester</h2>
-      <span class="mw-meta">5 Fächer</span>
+      <span class="mw-meta">4 F&auml;cher</span>
     </div>
     <div class="mw-liste">
-      <a href="/teaching/mathematik/" class="mw-fach">
-        <span class="mw-fach-nr">01</span>
-        <div>
-          <h2>Mathematik</h2>
-          <div class="mw-fach-meta">30 Module · Algebra, Vektoren, Analysis, Integralrechnung</div>
-        </div>
-        <span class="mw-fach-pfeil">→</span>
-      </a>
       <a href="/teaching/mathematik-w/" class="mw-fach">
-        <span class="mw-fach-nr">02</span>
+        <span class="mw-fach-nr">01</span>
         <div>
           <h2>Mathematik (W-Kurs)</h2>
           <div class="mw-fach-meta">7 Module · Algebra, Finanzmathematik, Analysis, Integralrechnung</div>
         </div>
-        <span class="mw-fach-pfeil">→</span>
+        <span class="mw-fach-pfeil">&rarr;</span>
       </a>
-      <a href="/teaching/vwl/" class="mw-fach">
-        <span class="mw-fach-nr">03</span>
+      <a href="/teaching/makrooekonomie/" class="mw-fach">
+        <span class="mw-fach-nr">02</span>
         <div>
-          <h2>Volkswirtschaftslehre</h2>
-          <div class="mw-fach-meta">17 Module · Mikro- &amp; Makroökonomie</div>
+          <h2>Volkswirtschaftslehre &middot; Makro&ouml;konomie</h2>
+          <div class="mw-fach-meta">{{ makro_module }} Module · VGR, Konjunktur, Arbeitsmarkt, Inflation</div>
         </div>
-        <span class="mw-fach-pfeil">→</span>
+        <span class="mw-fach-pfeil">&rarr;</span>
       </a>
       <a href="/teaching/bwl/" class="mw-fach">
-        <span class="mw-fach-nr">04</span>
+        <span class="mw-fach-nr">03</span>
         <div>
           <h2>Betriebswirtschaftslehre</h2>
-          <div class="mw-fach-meta">1 Modul · Allgemeine BWL, Buchführung, Erfolg &amp; Steuern</div>
+          <div class="mw-fach-meta">{{ bwl_module }} Module · Allgemeine BWL, Buchf&uuml;hrung, Erfolg &amp; Steuern</div>
         </div>
-        <span class="mw-fach-pfeil">→</span>
+        <span class="mw-fach-pfeil">&rarr;</span>
       </a>
       <a href="/teaching/informatik/" class="mw-fach">
-        <span class="mw-fach-nr">05</span>
+        <span class="mw-fach-nr">04</span>
         <div>
           <h2>Informatik</h2>
           <div class="mw-fach-meta">7 Module · Python</div>
         </div>
-        <span class="mw-fach-pfeil">→</span>
+        <span class="mw-fach-pfeil">&rarr;</span>
       </a>
     </div>
   </section>
