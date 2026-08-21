@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Unternehmensformen I – BWL</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+min-height:100vh;padding:20px;display:flex;justify-content:center;align-items:center}
+.quiz-container{background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.3);max-width:820px;width:100%;overflow:hidden}
+.quiz-header{background:linear-gradient(135deg,#374151 0%,#1f2937 100%);color:#fff;padding:2rem;text-align:center}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px}
+.progress-fill{background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);height:100%;width:0%;transition:width .3s ease}
+.quiz-content{padding:2rem}
+.question-container{display:none}.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.question-number{color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem}
+.question-text{font-size:1.28rem;font-weight:600;color:#1f2937;margin-bottom:1.5rem;line-height:1.5}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;display:flex;align-items:center;gap:1rem}
+.option:hover{background:#f0f1f3;border-color:#667eea;transform:translateX(5px)}
+.option-letter{background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0}
+.option.correct{background:#d4edda;border-color:#28a745}.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{margin-top:2rem;display:flex;justify-content:space-between;gap:1rem}
+.btn{padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .25s ease}
+.btn-primary{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)}
+.score-number{font-size:3rem;font-weight:700}.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem}
+.result-stat{text-align:center}.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+@media(max-width:768px){body{padding:10px}.quiz-header h1{font-size:1.4rem}.question-text{font-size:1.1rem}.controls{flex-direction:column}.btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+<div class="quiz-header"><h1>Unternehmensformen I</h1><p>Einzelunternehmen · GbR · OHG · KG · BWL · W-Kurs</p></div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div class="quiz-content">
+<div id="questionsContainer"></div>
+<div class="results-container" id="resultsContainer">
+<div class="result-message" id="resultMessage"></div>
+<div class="score-circle"><div class="score-number" id="scoreNumber">0%</div><div class="score-label">Erreicht</div></div>
+<div class="result-details">
+<div class="result-stat"><div class="result-stat-number" id="correctCount">0</div><div class="result-stat-label">Gemeistert</div></div>
+<div class="result-stat"><div class="result-stat-number" id="incorrectCount">0</div><div class="result-stat-label">Wiederholungen</div></div>
+<div class="result-stat"><div class="result-stat-number" id="totalCount">0</div><div class="result-stat-label">Antworten gesamt</div></div>
+</div>
+<button class="btn btn-primary" onclick="restartQuiz()">Quiz wiederholen</button>
+</div></div></div>
+
+<script>
+const quizData = [
+{question:"Welche Aussage beschreibt ein Einzelunternehmen richtig?",options:["Eine Person ist Inhaber und entscheidet allein","Mindestens zwei Personen müssen beteiligt sein","Ein Kommanditist führt immer die Geschäfte","Alle Beteiligten haften nur mit ihrer Einlage"],correct:0,explanation:"Beim Einzelunternehmen gibt es einen Inhaber. Er führt das Unternehmen allein und trägt auch das unternehmerische Risiko."},
+{question:"Was bedeutet unbeschränkte Haftung?",options:["Die Haftung endet immer bei 10.000 €","Es wird nur mit dem Geschäftsvermögen gehaftet","Es wird auch mit dem Privatvermögen gehaftet","Nur Banken dürfen auf Privatvermögen zugreifen"],correct:2,explanation:"Unbeschränkte Haftung bedeutet, dass neben dem Geschäftsvermögen auch das Privatvermögen für Schulden eingesetzt werden kann."},
+{question:"Ein Einzelunternehmen hat 70.000 € Schulden und 40.000 € Geschäftsvermögen. Was kann grundsätzlich zusätzlich betroffen sein?",options:["Nur zukünftiger Gewinn","Das Privatvermögen des Inhabers","Nur das Vermögen der Lieferanten","Kein weiteres Vermögen"],correct:1,explanation:"Der Inhaber haftet unbeschränkt. Deshalb kann grundsätzlich auch sein Privatvermögen betroffen sein."},
+{question:"Welche Rechtsform passt typischerweise zu zwei Personen, die gemeinsam Nachhilfe anbieten?",options:["GbR","Einzelunternehmen","KG","AG"],correct:0,explanation:"Für einen gemeinsamen einfachen Zweck mehrerer Personen passt die GbR."},
+{question:"Was unterscheidet die OHG in diesem Unterricht vor allem von der GbR?",options:["Bei der OHG haftet niemand persönlich","Die OHG ist für ein Handelsgewerbe gedacht","Die GbR braucht immer einen Kommanditisten","Die OHG darf nur aus einer Person bestehen"],correct:1,explanation:"Die OHG wird als Personengesellschaft für ein gemeinsames Handelsgewerbe behandelt."},
+{question:"Wie haften die Gesellschafter einer OHG?",options:["Nur mit einer festen Einlage","Nur mit dem Gesellschaftsvermögen","Persönlich und unbeschränkt","Überhaupt nicht persönlich"],correct:2,explanation:"Die Gesellschafter einer OHG haften persönlich und unbeschränkt."},
+{question:"Was bedeutet unmittelbare Haftung?",options:["Der Gläubiger kann sich direkt an einen Gesellschafter wenden","Die Schuld wird automatisch halbiert","Nur das Finanzamt kann Forderungen stellen","Zuerst muss immer ein Kommanditist zahlen"],correct:0,explanation:"Unmittelbare Haftung bedeutet, dass sich ein Gläubiger direkt an einen haftenden Gesellschafter wenden kann."},
+{question:"Was bedeutet solidarische Haftung?",options:["Jeder haftet nur für seinen Anteil","Jeder kann für die gesamte Schuld haften","Nur der älteste Gesellschafter haftet","Privatvermögen ist geschützt"],correct:1,explanation:"Bei solidarischer Haftung kann ein Gläubiger die gesamte offene Forderung von einem einzelnen haftenden Gesellschafter verlangen."},
+{question:"Eine OHG hat 180.000 € Schulden und 80.000 € Gesellschaftsvermögen. Wie hoch ist der offene Betrag?",options:["80.000 €","100.000 €","180.000 €","260.000 €"],correct:1,explanation:"180.000 € − 80.000 € = 100.000 €."},
+{question:"Welche zwei Rollen gibt es in der KG?",options:["Inhaber und Arbeitnehmer","Komplementär und Kommanditist","Gläubiger und Schuldner","Vorstand und Aufsichtsrat"],correct:1,explanation:"Die KG unterscheidet zwischen Komplementär und Kommanditist."},
+{question:"Welche Aussage zum Komplementär ist richtig?",options:["Er haftet unbeschränkt und führt grundsätzlich das Unternehmen","Er haftet nie persönlich","Er darf nur Kapital geben","Seine Haftung ist immer auf 1.000 € begrenzt"],correct:0,explanation:"Der Komplementär ist der voll haftende Gesellschafter und übernimmt grundsätzlich die Geschäftsführung."},
+{question:"Welche Aussage zum Kommanditisten ist richtig?",options:["Er haftet immer mit seinem gesamten Privatvermögen","Er ist immer alleiniger Geschäftsführer","Seine Haftung ist grundsätzlich begrenzt","Er muss alleiniger Inhaber sein"],correct:2,explanation:"Der Kommanditist hat eine begrenzte Haftung und eignet sich besonders als Kapitalgeber."},
+{question:"Warum kann eine KG für einen Geldgeber interessant sein?",options:["Er kann Kapital geben, ohne unbeschränkt zu haften","Er muss automatisch die ganze Geschäftsführung übernehmen","Er braucht kein Kapital einzubringen","Er wird dadurch Einzelunternehmer"],correct:0,explanation:"Als Kommanditist kann ein Geldgeber Kapital bereitstellen, ohne wie ein Komplementär unbeschränkt zu haften."},
+{question:"Ein Kommanditist hat eine Hafteinlage von 50.000 € vollständig eingezahlt. Wie viel muss er im behandelten Grundfall zusätzlich zahlen?",options:["0 €","25.000 €","50.000 €","Die gesamte Schuld der KG"],correct:0,explanation:"Ist die Einlage vollständig geleistet, muss der Kommanditist im behandelten Grundfall nicht noch einmal bis zu diesem Betrag zahlen."},
+{question:"Eine Kommanditistin hat eine Hafteinlage von 30.000 € und erst 10.000 € eingezahlt. Welcher Betrag fehlt noch?",options:["10.000 €","20.000 €","30.000 €","40.000 €"],correct:1,explanation:"30.000 € − 10.000 € = 20.000 €."},
+{question:"Nach Verbrauch des Gesellschaftsvermögens sind noch 160.000 € offen. Eine Kommanditistin muss noch 20.000 € leisten. Wie viel bleibt danach offen?",options:["20.000 €","140.000 €","160.000 €","180.000 €"],correct:1,explanation:"160.000 € − 20.000 € = 140.000 €."},
+{question:"Welche Rechtsform passt am besten: Eine Person eröffnet allein einen kleinen Blumenladen?",options:["Einzelunternehmen","GbR","OHG","KG"],correct:0,explanation:"Wenn eine Person allein Inhaber ist und das Geschäft führt, passt das Einzelunternehmen."},
+{question:"Welche Rechtsform passt am besten: Drei Kaufleute führen gemeinsam einen Baustoffhandel?",options:["Einzelunternehmen","GbR","OHG","KG ohne Komplementär"],correct:2,explanation:"Mehrere Personen führen gemeinsam ein Handelsgewerbe. Dafür passt die OHG."},
+{question:"Welche Rechtsform passt: Eine Unternehmerin braucht Kapital. Der Geldgeber will nicht mitarbeiten und nicht unbeschränkt haften.",options:["Einzelunternehmen","GbR","OHG","KG"],correct:3,explanation:"Die KG passt, weil der Geldgeber als Kommanditist Kapital geben kann, ohne unbeschränkt zu haften."},
+{question:"Welche Frage ist beim Vergleich der behandelten Rechtsformen besonders wichtig?",options:["Welche Farbe hat das Firmenlogo?","Wer haftet wie?","Wie groß ist das Büro?","Welche Werbung nutzt das Unternehmen?"],correct:1,explanation:"Die Haftung ist ein zentraler Prüfungsaspekt: Wer haftet und in welchem Umfang?"}
+];
+
+let queue=[], currentIndex=0, totalAnswered=0, wrongSet=new Set(), answeredCorrectly=new Set();
+
+function initQuiz(){
+queue=quizData.map((_,i)=>i);currentIndex=0;totalAnswered=0;wrongSet=new Set();answeredCorrectly=new Set();
+document.getElementById("resultsContainer").classList.remove("show");renderCurrentQuestion();
+}
+function renderCurrentQuestion(){
+if(currentIndex>=queue.length){showResults();return;}
+const qIdx=queue[currentIndex],q=quizData[qIdx],isRetry=wrongSet.has(qIdx),container=document.getElementById("questionsContainer");
+container.innerHTML=`<div class="question-container active">
+<div class="question-number">${isRetry?"Wiederholung · ":""}Frage ${totalAnswered+1} · ${answeredCorrectly.size} von ${quizData.length} gemeistert</div>
+<div class="question-text">${q.question}</div>
+<div class="options" id="options-current">${q.options.map((opt,i)=>`<div class="option" onclick="selectOption(${qIdx},${i})"><div class="option-letter">${String.fromCharCode(65+i)}</div><div>${opt}</div></div>`).join("")}</div>
+<div class="feedback" id="feedback-current"><div class="feedback-title"></div><div class="feedback-text"></div></div>
+<div class="controls"><div></div><button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Weiter →</button></div></div>`;
+updateProgress();
+}
+function selectOption(questionIndex,optionIndex){
+const options=document.querySelectorAll("#options-current .option"),correct=quizData[questionIndex].correct;
+options.forEach(opt=>{opt.classList.add("disabled");opt.onclick=null;});
+options[optionIndex].classList.add(optionIndex===correct?"correct":"incorrect");options[correct].classList.add("correct");
+const feedback=document.getElementById("feedback-current");feedback.classList.add("show");
+if(optionIndex===correct){answeredCorrectly.add(questionIndex);wrongSet.delete(questionIndex);feedback.classList.add("correct");feedback.querySelector(".feedback-title").textContent="Richtig!";}
+else{wrongSet.add(questionIndex);answeredCorrectly.delete(questionIndex);feedback.classList.add("incorrect");feedback.querySelector(".feedback-title").textContent="Noch nicht – die Frage kommt später wieder!";queue.splice(Math.min(currentIndex+5,queue.length),0,questionIndex);}
+feedback.querySelector(".feedback-text").textContent=quizData[questionIndex].explanation;totalAnswered++;document.getElementById("nextBtn").disabled=false;updateProgress();
+}
+function nextQuestion(){currentIndex++;currentIndex>=queue.length?showResults():renderCurrentQuestion();}
+function updateProgress(){document.getElementById("progressFill").style.width=(answeredCorrectly.size/quizData.length*100)+"%";}
+function showResults(){
+document.getElementById("questionsContainer").innerHTML="";document.getElementById("resultsContainer").classList.add("show");
+const repeats=Math.max(0,totalAnswered-quizData.length),percentage=Math.round((quizData.length/Math.max(totalAnswered,quizData.length))*100);
+document.getElementById("scoreNumber").textContent=Math.min(percentage,100)+"%";document.getElementById("correctCount").textContent=quizData.length;document.getElementById("incorrectCount").textContent=repeats;document.getElementById("totalCount").textContent=totalAnswered;
+document.getElementById("resultMessage").textContent=repeats===0?"Perfekt! Alles auf Anhieb richtig!":repeats<=3?"Sehr gut! Nur wenige Wiederholungen.":repeats<=7?"Gut gemacht! Die Wiederholungen haben geholfen.":"Geschafft! Wiederhole Unternehmensformen I noch einmal zur Sicherheit.";
+}
+function restartQuiz(){initQuiz();}
+window.onload=initQuiz;
+</script>
+</body>
+</html>

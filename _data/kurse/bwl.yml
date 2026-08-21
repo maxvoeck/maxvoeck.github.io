@@ -25,6 +25,15 @@ kapitel:
         pdf: /assets/pdfs/BWL_W_2.pdf
         quiz: /assets/quizzes/quiz_betrieb_unternehmung.html
         text: /assets/texte/bwl-w-2.pdf
+      - id: b3
+        nr: "03"
+        titel: Unternehmensformen I
+        desc: >-
+          Einzelunternehmen und Personengesellschaften — Haftung, Geschäftsführung und
+          Kapital bei Einzelunternehmen, GbR, OHG und KG
+        pdf: /assets/pdfs/BWL_W_3.pdf
+        quiz: /assets/quizzes/quiz_unternehmensformen.html
+        text: /assets/texte/bwl-w-3.pdf
 
   - numeral: II
     titel: Buchführung
