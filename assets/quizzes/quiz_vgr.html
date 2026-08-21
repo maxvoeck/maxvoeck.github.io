@@ -1,675 +1,666 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: Volkswirtschaftliche Gesamtrechnung</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .quiz-container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .quiz-header {
-            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .quiz-header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .quiz-header p {
-            opacity: 0.9;
-            font-size: 1rem;
-        }
-
-        .progress-bar {
-            background: #e0e0e0;
-            height: 8px;
-            position: relative;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .quiz-content {
-            padding: 2rem;
-        }
-
-        .question-container {
-            display: none;
-        }
-
-        .question-container.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .question-number {
-            color: #667eea;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .option {
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .option:hover {
-            background: #f0f1f3;
-            border-color: #667eea;
-            transform: translateX(5px);
-        }
-
-        .option-letter {
-            background: #667eea;
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .option.selected {
-            background: #e8eaf6;
-            border-color: #667eea;
-        }
-
-        .option.correct {
-            background: #d4edda;
-            border-color: #28a745;
-        }
-
-        .option.correct .option-letter {
-            background: #28a745;
-        }
-
-        .option.incorrect {
-            background: #f8d7da;
-            border-color: #dc3545;
-        }
-
-        .option.incorrect .option-letter {
-            background: #dc3545;
-        }
-
-        .option.disabled {
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        .feedback {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .feedback.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .feedback.correct {
-            background: #d4edda;
-            border-left: 4px solid #28a745;
-            color: #155724;
-        }
-
-        .feedback.incorrect {
-            background: #f8d7da;
-            border-left: 4px solid #dc3545;
-            color: #721c24;
-        }
-
-        .feedback-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .controls {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f8f9fa;
-            color: #374151;
-            border: 2px solid #e0e0e0;
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background: #e9ecef;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .results-container {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .results-container.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .score-circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 2rem auto;
-            color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-
-        .score-number {
-            font-size: 3rem;
-            font-weight: 700;
-        }
-
-        .score-label {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .result-message {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 1rem;
-        }
-
-        .result-details {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .result-stat {
-            text-align: center;
-        }
-
-        .result-stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        .result-stat-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 0.3rem;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .quiz-header h1 {
-                font-size: 1.4rem;
-            }
-
-            .question-text {
-                font-size: 1.1rem;
-            }
-
-            .controls {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Volkswirtschaftliche Gesamtrechnung</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:860px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem;line-height:1.4}
+.progress-bar{background:#e5e7eb;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .4s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(16px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:700;font-size:.9rem;margin-bottom:.6rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:650;color:#1f2937;
+    margin-bottom:1.35rem;line-height:1.45
+}
+.question-hint{
+    font-size:.92rem;color:#6b7280;margin-top:-.6rem;margin-bottom:1.2rem
+}
+.options{display:flex;flex-direction:column;gap:.9rem}
+.option{
+    background:#f8f9fa;border:2px solid #e5e7eb;border-radius:12px;
+    padding:1rem 1.25rem;cursor:pointer;transition:all .22s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f3f4f6;border-color:#667eea;transform:translateX(4px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;flex-shrink:0
+}
+.option-text{line-height:1.4;color:#263142}
+.option.selected{background:#eef0ff;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.78}
+.feedback{
+    margin-top:1.35rem;padding:1rem 1.1rem;border-radius:9px;
+    display:none;line-height:1.48
+}
+.feedback.show{display:block;animation:fadeIn .35s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:750;margin-bottom:.4rem}
+.controls{
+    margin-top:1.6rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.82rem 1.8rem;border:none;border-radius:8px;
+    font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.35)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .4s ease}
+.score-circle{
+    width:190px;height:190px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:1.7rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.35)
+}
+.score-number{font-size:2.8rem;font-weight:800}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.42rem;font-weight:700;color:#1f2937;margin-bottom:.75rem}
+.result-sub{font-size:.96rem;color:#6b7280;line-height:1.45}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.4rem;margin:1.7rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:800;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.25rem}
+.small-note{
+    font-size:.9rem;color:#6b7280;margin-top:.75rem;line-height:1.45
+}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header{padding:1.5rem}
+    .quiz-header h1{font-size:1.4rem}
+    .quiz-content{padding:1.25rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+</style>
 </head>
 <body>
-    <div class="quiz-container">
-        <div class="quiz-header">
-            <h1>📈 Volkswirtschaftliche Gesamtrechnung</h1>
-            <p>BIP-Berechnung und Grundkonzepte</p>
-        </div>
+<div class="quiz-container">
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-        <div class="quiz-content">
-            <div id="questionsContainer"></div>
-
-            <div class="results-container" id="resultsContainer">
-                <div class="result-message" id="resultMessage"></div>
-                <div class="score-circle">
-                    <div class="score-number" id="scoreNumber">0%</div>
-                    <div class="score-label">Erreicht</div>
-                </div>
-                <div class="result-details">
-                    <div class="result-stat">
-                        <div class="result-stat-number" id="correctCount">0</div>
-                        <div class="result-stat-label">Gemeistert</div>
-                    </div>
-                    <div class="result-stat">
-                        <div class="result-stat-number" id="incorrectCount">0</div>
-                        <div class="result-stat-label">Wiederholt</div>
-                    </div>
-                    <div class="result-stat">
-                        <div class="result-stat-number" id="totalCount">0</div>
-                        <div class="result-stat-label">Gesamt</div>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
-            </div>
-        </div>
+    <div class="quiz-header">
+        <h1>📊 Volkswirtschaftliche Gesamtrechnung</h1>
+        <p>BIP · Inlandsprinzip · Wertschöpfung · Entstehung · Verwendung · Verteilung<br>
+        VWL · W-Kurs · Studienkolleg</p>
     </div>
 
-    <script>
-        const quizData = [
-            {
-                question: "Was ist die Volkswirtschaftliche Gesamtrechnung (VGR)?",
-                options: [
-                    "Die Buchhaltung eines einzelnen Unternehmens",
-                    "Ein systematisches Rechenwerk, das alle wirtschaftlichen Aktivitäten eines Landes erfasst",
-                    "Die Steuererklärung der Regierung",
-                    "Ein Verzeichnis aller Arbeitsplätze"
-                ],
-                correct: 1,
-                explanation: "Die VGR ist ein systematisches Rechenwerk, das alle wirtschaftlichen Aktivitäten eines Landes in einer bestimmten Periode erfasst und darstellt."
-            },
-            {
-                question: "Was bedeutet BIP?",
-                options: [
-                    "Bruttoinlandsprodukt",
-                    "Bundesindustrieproduktion",
-                    "Bruttoinvestitionsplan",
-                    "Binnenmarktindikator"
-                ],
-                correct: 0,
-                explanation: "BIP steht für Bruttoinlandsprodukt und ist der Gesamtwert aller Güter und Dienstleistungen, die innerhalb eines Jahres innerhalb der Landesgrenzen hergestellt wurden."
-            },
-            {
-                question: "Welches Prinzip gilt beim BIP?",
-                options: [
-                    "Inländerprinzip - nur von Deutschen produziert",
-                    "Inlandsprinzip - nur was im Land produziert wird",
-                    "Weltprinzip - alle deutschen Exporte weltweit",
-                    "Regionalprinzip - nur Bundesländer"
-                ],
-                correct: 1,
-                explanation: "Beim BIP gilt das Inlandsprinzip: Es zählt alles, was innerhalb der Landesgrenzen produziert wird, unabhängig von der Nationalität des Produzenten."
-            },
-            {
-                question: "Ein polnischer Arbeiter arbeitet in Deutschland. Wo wird seine Arbeit erfasst?",
-                options: [
-                    "Im polnischen BIP",
-                    "Im deutschen BIP",
-                    "In beiden BIPs",
-                    "In keinem BIP"
-                ],
-                correct: 1,
-                explanation: "Da die Arbeit im Inland (Deutschland) geleistet wird, zählt sie zum deutschen BIP (Inlandsprinzip). Für das polnische BNE (Bruttonationaleinkommen) würde das Inländerprinzip gelten."
-            },
-            {
-                question: "Warum dürfen Vorleistungen nicht ins BIP eingerechnet werden?",
-                options: [
-                    "Sie sind zu klein",
-                    "Um Doppelzählung zu vermeiden",
-                    "Sie sind nicht wichtig",
-                    "Sie kosten nichts"
-                ],
-                correct: 1,
-                explanation: "Vorleistungen dürfen nicht eingerechnet werden, um Doppelzählung zu vermeiden. Das BIP erfasst nur den Wert der Endprodukte oder die Summe der Wertschöpfungen."
-            },
-            {
-                question: "Ein Bauer verkauft Weizen für 0,50€, die Mühle verkauft Mehl für 0,80€, der Bäcker verkauft Brot für 2€. Wie hoch ist der BIP-Beitrag?",
-                options: [
-                    "3,30€ (Summe aller Verkaufspreise)",
-                    "2,00€ (nur das Endprodukt)",
-                    "0,80€ (nur die Mühle)",
-                    "1,50€ (Durchschnitt)"
-                ],
-                correct: 1,
-                explanation: "Der BIP-Beitrag beträgt 2€, der Wert des Endprodukts. Alternativ kann man die Wertschöpfungen addieren: 0,50€ + 0,30€ + 1,20€ = 2€. Die Summe der Verkaufspreise (3,30€) würde zu Doppelzählung führen."
-            },
-            {
-                question: "Wie viele Methoden gibt es zur Berechnung des BIP?",
-                options: [
-                    "Eine Methode",
-                    "Zwei Methoden",
-                    "Drei Methoden",
-                    "Fünf Methoden"
-                ],
-                correct: 2,
-                explanation: "Es gibt drei Berechnungsmethoden: Entstehungsrechnung (Produktion), Verwendungsrechnung (Nachfrage) und Verteilungsrechnung (Einkommen). Alle drei führen zum gleichen BIP."
-            },
-            {
-                question: "Was misst die Entstehungsrechnung?",
-                options: [
-                    "Wer kauft die Produkte",
-                    "Wie wird produziert (Summe der Wertschöpfungen)",
-                    "Wer erhält das Einkommen",
-                    "Wie viele Menschen arbeiten"
-                ],
-                correct: 1,
-                explanation: "Die Entstehungsrechnung erfasst, wie produziert wird, indem sie die Wertschöpfungen aller Wirtschaftszweige addiert. Wertschöpfung = Produktionswert - Vorleistungen."
-            },
-            {
-                question: "Was ist die Formel der Verwendungsrechnung?",
-                options: [
-                    "BIP = Löhne + Gewinne + Steuern",
-                    "BIP = C + I + G + (X - M)",
-                    "BIP = Produktion - Vorleistungen",
-                    "BIP = Export + Import"
-                ],
-                correct: 1,
-                explanation: "Die Verwendungsrechnung lautet: BIP = C (Konsum) + I (Investitionen) + G (Staatsausgaben) + (X - M) (Außenbeitrag). Sie zeigt, wofür produziert wird."
-            },
-            {
-                question: "Was bedeutet der Außenbeitrag (X - M)?",
-                options: [
-                    "Die Summe von Exporten und Importen",
-                    "Nur die Exporte",
-                    "Exporte minus Importe",
-                    "Nur die Importe"
-                ],
-                correct: 2,
-                explanation: "Der Außenbeitrag ist die Differenz zwischen Exporten (X) und Importen (M). Ein positiver Außenbeitrag (X > M) bedeutet Exportüberschuss, ein negativer (X < M) Importüberschuss."
-            },
-            {
-                question: "Warum werden Importe vom BIP abgezogen?",
-                options: [
-                    "Weil sie nicht wichtig sind",
-                    "Weil sie nicht im Inland produziert wurden",
-                    "Weil sie zu teuer sind",
-                    "Weil sie illegal sind"
-                ],
-                correct: 1,
-                explanation: "Importe werden abgezogen, weil sie nicht im Inland produziert wurden. Das BIP erfasst nur die Inlandsproduktion. Ein importiertes iPhone wurde z.B. in China produziert, nicht in Deutschland."
-            },
-            {
-                question: "Ein Unternehmen hat einen Produktionswert von 500.000€ und Vorleistungen von 200.000€. Wie hoch ist die Wertschöpfung?",
-                options: [
-                    "500.000€",
-                    "200.000€",
-                    "300.000€",
-                    "700.000€"
-                ],
-                correct: 2,
-                explanation: "Wertschöpfung = Produktionswert - Vorleistungen = 500.000€ - 200.000€ = 300.000€. Die Wertschöpfung ist der Beitrag zum BIP."
-            },
-            {
-                question: "Welche Komponente ist typischerweise die größte im BIP (Verwendungsrechnung)?",
-                options: [
-                    "Staatsausgaben (G)",
-                    "Investitionen (I)",
-                    "Konsum (C)",
-                    "Exporte (X)"
-                ],
-                correct: 2,
-                explanation: "Der Konsum (C) ist mit ca. 50-60% typischerweise die größte Komponente des BIP. Private Haushalte geben den Großteil ihres Einkommens für Waren und Dienstleistungen aus."
-            },
-            {
-                question: "Was erfasst die Verteilungsrechnung?",
-                options: [
-                    "Wer die Produkte kauft",
-                    "Wer das Einkommen erhält (Löhne, Gewinne, Steuern)",
-                    "Wie viel produziert wird",
-                    "Welche Branchen es gibt"
-                ],
-                correct: 1,
-                explanation: "Die Verteilungsrechnung zeigt, wer das Einkommen erhält: Arbeitnehmerentgelte (Löhne), Unternehmensgewinne und Produktions-/Importabgaben (Steuern minus Subventionen)."
-            },
-            {
-                question: "Wird Hausarbeit im BIP erfasst?",
-                options: [
-                    "Ja, vollständig",
-                    "Ja, teilweise",
-                    "Nein, weil es keine Marktleistung ist",
-                    "Nur wenn man dafür bezahlt wird"
-                ],
-                correct: 2,
-                explanation: "Hausarbeit wird nicht im BIP erfasst, da sie keine marktlich bewertete Leistung ist. Das BIP erfasst nur Güter und Dienstleistungen, die über den Markt getauscht werden."
-            }
-        ];
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
 
-        let queue = [];
-        let currentIndex = 0;
-        let score = 0;
-        let totalAnswered = 0;
-        let wrongSet = new Set();
-        let answeredCorrectly = new Set();
+    <div class="quiz-content">
 
-        function initQuiz() {
-            queue = quizData.map((_, i) => i);
-            currentIndex = 0;
-            score = 0;
-            totalAnswered = 0;
-            wrongSet = new Set();
-            answeredCorrectly = new Set();
-            renderCurrentQuestion();
-        }
+        <div id="questionsContainer"></div>
 
-        function renderCurrentQuestion() {
-            if (currentIndex >= queue.length) {
-                showResults();
-                return;
-            }
+        <div class="results-container" id="resultsContainer">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="result-sub" id="resultSub"></div>
 
-            const qIdx = queue[currentIndex];
-            const q = quizData[qIdx];
-            const container = document.getElementById('questionsContainer');
-            const isRetry = wrongSet.has(qIdx);
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Lernquote</div>
+            </div>
 
-            container.innerHTML = `
-                <div class="question-container active">
-                    <div class="question-number">${isRetry ? '🔁 Wiederholung – ' : ''}Frage ${totalAnswered + 1} · ${answeredCorrectly.size} von ${quizData.length} gemeistert</div>
-                    <div class="question-text">${q.question}</div>
-                    <div class="options" id="options-current">
-                        ${q.options.map((opt, i) => `
-                            <div class="option" onclick="selectOption(${qIdx}, ${i})">
-                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
-                                <div class="option-text">${opt}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="feedback" id="feedback-current">
-                        <div class="feedback-title"></div>
-                        <div class="feedback-text"></div>
-                    </div>
-                    <div class="controls">
-                        <div></div>
-                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
-                            Weiter →
-                        </button>
-                    </div>
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="masteredCount">0</div>
+                    <div class="result-stat-label">Fragen gemeistert</div>
                 </div>
-            `;
+                <div class="result-stat">
+                    <div class="result-stat-number" id="repeatCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
 
-            updateProgress();
-        }
+            <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+            <div class="small-note">
+                Ziel: Nicht nur richtige Antworten erkennen, sondern die Begriffe und Rechenwege sicher erklären können.
+            </div>
+        </div>
 
-        function selectOption(questionIndex, optionIndex) {
-            const optionsContainer = document.getElementById('options-current');
-            const options = optionsContainer.querySelectorAll('.option');
-            const correct = quizData[questionIndex].correct;
+    </div>
+</div>
 
-            options.forEach(opt => opt.classList.add('disabled'));
-            options[optionIndex].classList.add('selected');
-            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
-            options[correct].classList.add('correct');
+<script>
+const quizData = [
 
-            const feedback = document.getElementById('feedback-current');
-            feedback.classList.add('show');
+{
+    question:"Was ist die wichtigste Aufgabe der Volkswirtschaftlichen Gesamtrechnung (VGR)?",
+    options:[
+        "Sie misst und ordnet die wirtschaftlichen Aktivitäten eines Landes.",
+        "Sie legt die Preise aller Unternehmen fest.",
+        "Sie bestimmt die Steuersätze eines Landes.",
+        "Sie erfasst nur die Gewinne großer Unternehmen."
+    ],
+    correct:0,
+    explanation:"Die VGR ist ein systematisches Rechenwerk. Sie macht die wirtschaftliche Leistung eines Landes messbar."
+},
 
-            if (optionIndex === correct) {
-                score++;
-                answeredCorrectly.add(questionIndex);
-                wrongSet.delete(questionIndex);
-                feedback.classList.add('correct');
-                feedback.querySelector('.feedback-title').textContent = '✓ Richtig!';
-            } else {
-                wrongSet.add(questionIndex);
-                answeredCorrectly.delete(questionIndex);
-                feedback.classList.add('incorrect');
-                feedback.querySelector('.feedback-title').textContent = '✗ Falsch – kommt in 4 Fragen wieder!';
-                // Insert this question again 4 positions later
-                const insertPos = Math.min(currentIndex + 5, queue.length);
-                queue.splice(insertPos, 0, questionIndex);
-            }
+{
+    question:"Was misst das Bruttoinlandsprodukt (BIP)?",
+    options:[
+        "Nur die Gewinne deutscher Unternehmen",
+        "Den Wert aller Endprodukte und Dienstleistungen, die in einer Periode im Inland produziert werden",
+        "Alle Verkäufe, die innerhalb eines Jahres stattfinden",
+        "Nur die Produktion deutscher Staatsbürger"
+    ],
+    correct:1,
+    explanation:"Beim BIP zählen Endprodukte und Dienstleistungen, die in einer bestimmten Periode im Inland produziert werden."
+},
 
-            feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
-            totalAnswered++;
-            document.getElementById('nextBtn').disabled = false;
-        }
+{
+    question:"Was ist beim Inlandsprinzip entscheidend?",
+    options:[
+        "Die Nationalität des Unternehmens",
+        "Die Nationalität der Arbeitnehmer",
+        "Der Ort der Produktion",
+        "Der Wohnort des Käufers"
+    ],
+    correct:2,
+    explanation:"Beim Inlandsprinzip entscheidet der Produktionsort. Die Nationalität ist nicht entscheidend."
+},
 
-        function nextQuestion() {
-            currentIndex++;
-            if (currentIndex >= queue.length) {
-                showResults();
-            } else {
-                renderCurrentQuestion();
-            }
-        }
+{
+    question:"Ein japanisches Unternehmen produziert Autos in Leipzig. Werden diese Autos im deutschen BIP erfasst?",
+    options:[
+        "Nein, weil das Unternehmen japanisch ist",
+        "Nein, weil nur deutsche Unternehmen zählen",
+        "Nur wenn deutsche Arbeitnehmer dort arbeiten",
+        "Ja, weil die Produktion in Deutschland stattfindet"
+    ],
+    correct:3,
+    explanation:"Die Produktion findet im Inland statt. Deshalb wird sie im deutschen BIP erfasst."
+},
 
-        function updateProgress() {
-            const progress = (answeredCorrectly.size / quizData.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
+{
+    question:"Ein deutscher Arbeitnehmer produziert Autos in Polen. Gehört diese Produktion zum deutschen BIP?",
+    options:[
+        "Nein, weil die Produktion im Ausland stattfindet",
+        "Ja, weil der Arbeitnehmer Deutscher ist",
+        "Ja, weil Autos immer zum deutschen BIP gehören",
+        "Nur wenn das Unternehmen deutsch ist"
+    ],
+    correct:0,
+    explanation:"Für das deutsche BIP ist der Produktionsort entscheidend. Die Produktion findet in Polen statt."
+},
 
-        function showResults() {
-            document.getElementById('questionsContainer').innerHTML = '';
-            const resultsContainer = document.getElementById('resultsContainer');
-            resultsContainer.classList.add('show');
+{
+    question:"Warum wird der private Verkauf eines gebrauchten Autos normalerweise nicht als neue Produktion im BIP erfasst?",
+    options:[
+        "Weil Autos keine Güter sind",
+        "Weil das Auto bereits früher produziert wurde",
+        "Weil private Verkäufe immer verboten sind",
+        "Weil nur Dienstleistungen zum BIP gehören"
+    ],
+    correct:1,
+    explanation:"Beim Weiterverkauf eines gebrauchten Autos entsteht kein neu produziertes Auto."
+},
 
-            const percentage = Math.round((quizData.length / totalAnswered) * 100);
-            document.getElementById('scoreNumber').textContent = Math.min(percentage, 100) + '%';
-            document.getElementById('correctCount').textContent = quizData.length;
-            document.getElementById('incorrectCount').textContent = totalAnswered - quizData.length;
-            document.getElementById('totalCount').textContent = totalAnswered;
+{
+    question:"Was sind Vorleistungen?",
+    options:[
+        "Löhne der Arbeitnehmer",
+        "Gewinne eines Unternehmens",
+        "Güter oder Dienstleistungen, die ein Unternehmen für die eigene Produktion einkauft",
+        "Alle fertigen Endprodukte"
+    ],
+    correct:2,
+    explanation:"Vorleistungen werden von anderen Unternehmen gekauft und für die eigene Produktion verwendet."
+},
 
-            let message = '';
-            if (totalAnswered === quizData.length) {
-                message = 'Perfekt! Alles auf Anhieb richtig!';
-            } else if (totalAnswered <= quizData.length + 3) {
-                message = 'Sehr gut! Fast alles beim ersten Versuch!';
-            } else if (totalAnswered <= quizData.length + 6) {
-                message = 'Gut gemacht! Die Wiederholungen haben geholfen!';
-            } else {
-                message = 'Geschafft! Wiederhole das Thema nochmal zur Sicherheit!';
-            }
+{
+    question:"Wie berechnet man die Wertschöpfung eines Unternehmens?",
+    options:[
+        "Vorleistungen + Produktionswert",
+        "Produktionswert + Gewinn",
+        "Vorleistungen − Produktionswert",
+        "Produktionswert − Vorleistungen"
+    ],
+    correct:3,
+    explanation:"Wertschöpfung = Produktionswert − Vorleistungen."
+},
 
-            document.getElementById('resultMessage').textContent = message;
-        }
+{
+    question:"Ein Unternehmen hat einen Produktionswert von 120.000 € und Vorleistungen von 70.000 €. Wie hoch ist die Wertschöpfung?",
+    options:[
+        "50.000 €",
+        "70.000 €",
+        "120.000 €",
+        "190.000 €"
+    ],
+    correct:0,
+    explanation:"120.000 € − 70.000 € = 50.000 €."
+},
 
-        function restartQuiz() {
-            document.getElementById('resultsContainer').classList.remove('show');
-            initQuiz();
-        }
+{
+    question:"Warum darf man bei einer Produktionskette nicht einfach alle Verkaufspreise addieren?",
+    options:[
+        "Weil Verkaufspreise nicht in Euro angegeben werden dürfen",
+        "Weil sonst Vorleistungen mehrfach gezählt werden",
+        "Weil nur der niedrigste Preis zählt",
+        "Weil nur Importe gezählt werden"
+    ],
+    correct:1,
+    explanation:"Frühere Produktionsstufen sind bereits im Preis späterer Produkte enthalten. Eine Addition aller Preise würde zu Doppelzählung führen."
+},
 
-        window.onload = initQuiz;
-    </script>
+{
+    question:"Bauer: 0,50 €, Mühle: 0,80 €, Bäcker: 2,00 €. Wie hoch ist der BIP-Beitrag des fertigen Brotes?",
+    options:[
+        "3,30 €",
+        "1,20 €",
+        "2,00 €",
+        "0,80 €"
+    ],
+    correct:2,
+    explanation:"Der BIP-Beitrag entspricht dem Wert des Endprodukts beziehungsweise der Summe aller Wertschöpfungen: 2,00 €."
+},
+
+{
+    question:"Welche Frage beantwortet die Entstehungsrechnung?",
+    options:[
+        "Wer kauft die Produkte?",
+        "Wie hoch sind die Importe?",
+        "Wer erhält Einkommen?",
+        "Wo bzw. wie entsteht die Wirtschaftsleistung?"
+    ],
+    correct:3,
+    explanation:"Die Entstehungsrechnung betrachtet die Wertschöpfung: Wo bzw. wie entsteht die Wirtschaftsleistung?"
+},
+
+{
+    question:"Wie wird das BIP in der vereinfachten Entstehungsrechnung berechnet?",
+    options:[
+        "Als Summe aller Wertschöpfungen",
+        "Als Summe aller Verkaufspreise",
+        "Als Summe aller Importe",
+        "Nur aus den Unternehmensgewinnen"
+    ],
+    correct:0,
+    explanation:"In der vereinfachten Entstehungsrechnung ist das BIP die Summe aller Wertschöpfungen."
+},
+
+{
+    question:"Drei Bereiche haben Wertschöpfungen von 100, 300 und 500 Mio. €. Wie hoch ist das BIP?",
+    options:[
+        "500 Mio. €",
+        "900 Mio. €",
+        "800 Mio. €",
+        "1.500 Mio. €"
+    ],
+    correct:1,
+    explanation:"100 + 300 + 500 = 900 Mio. €."
+},
+
+{
+    question:"Wie lautet die Formel der Verwendungsrechnung?",
+    options:[
+        "BIP = C + I + G + X + M",
+        "BIP = C − I + G + X",
+        "BIP = C + I + G + (X − M)",
+        "BIP = C + M − X"
+    ],
+    correct:2,
+    explanation:"Die vereinfachte Verwendungsrechnung lautet: BIP = C + I + G + (X − M)."
+},
+
+{
+    question:"Wofür steht C in der Verwendungsrechnung?",
+    options:[
+        "Unternehmensgewinne",
+        "Staatsausgaben",
+        "Exporte",
+        "Konsum der privaten Haushalte"
+    ],
+    correct:3,
+    explanation:"C steht für den Konsum der privaten Haushalte."
+},
+
+{
+    question:"Wie berechnet man den Außenbeitrag?",
+    options:[
+        "Exporte − Importe",
+        "Importe − Exporte",
+        "Konsum − Investitionen",
+        "Staatsausgaben + Importe"
+    ],
+    correct:0,
+    explanation:"Außenbeitrag = X − M = Exporte − Importe."
+},
+
+{
+    question:"Ein Land exportiert für 80 Mrd. € und importiert für 100 Mrd. €. Wie hoch ist der Außenbeitrag?",
+    options:[
+        "+180 Mrd. €",
+        "−20 Mrd. €",
+        "+20 Mrd. €",
+        "−180 Mrd. €"
+    ],
+    correct:1,
+    explanation:"80 − 100 = −20 Mrd. €. Der Außenbeitrag ist negativ."
+},
+
+{
+    question:"Warum werden Importe bei der Verwendungsrechnung abgezogen?",
+    options:[
+        "Weil Importe immer zu teuer sind",
+        "Weil Importe nicht konsumiert werden",
+        "Weil sie im Ausland produziert wurden",
+        "Weil Exporte und Importe immer gleich groß sein müssen"
+    ],
+    correct:2,
+    explanation:"Das BIP misst inländische Produktion. Importe wurden im Ausland produziert und müssen deshalb abgezogen werden."
+},
+
+{
+    question:"C = 450.000, I = 180.000, G = 220.000, X = 150.000, M = 120.000. Wie hoch ist das BIP?",
+    options:[
+        "820.000",
+        "850.000",
+        "910.000",
+        "880.000"
+    ],
+    correct:3,
+    explanation:"Außenbeitrag: 150.000 − 120.000 = 30.000. BIP = 450.000 + 180.000 + 220.000 + 30.000 = 880.000."
+},
+
+{
+    question:"Welche Frage beantwortet die Verteilungsrechnung?",
+    options:[
+        "Wer erhält die Einkommen aus der Produktion?",
+        "Welche Güter werden importiert?",
+        "Wie viele Unternehmen gibt es?",
+        "Wo wird ein Produkt verkauft?"
+    ],
+    correct:0,
+    explanation:"Die Verteilungsrechnung betrachtet die Einkommensseite: Wer erhält die bei der Produktion entstandenen Einkommen?"
+},
+
+{
+    question:"Welche Aussage zur Verteilungsrechnung entspricht dem Unterricht?",
+    options:[
+        "Sie ersetzt die Entstehungsrechnung vollständig.",
+        "Wir verwenden eine vereinfachte Darstellung mit Arbeitnehmerentgelt, Unternehmenseinkommen und Abgaben.",
+        "Sie besteht nur aus den Löhnen.",
+        "Sie misst ausschließlich die Exporte."
+    ],
+    correct:1,
+    explanation:"Im Unterricht wird ausdrücklich ein vereinfachtes Modell verwendet: Arbeitnehmerentgelt + Unternehmenseinkommen + Abgaben."
+},
+
+{
+    question:"Econia: Arbeitnehmerentgelte 500 Mio. €, Unternehmenseinkommen 300 Mio. €, Abgaben 100 Mio. €. Welcher Gesamtwert ergibt sich im vereinfachten Modell?",
+    options:[
+        "700 Mio. €",
+        "800 Mio. €",
+        "900 Mio. €",
+        "1.000 Mio. €"
+    ],
+    correct:2,
+    explanation:"500 + 300 + 100 = 900 Mio. €."
+},
+
+{
+    question:"Welche Zuordnung ist richtig?",
+    options:[
+        "Entstehung = Einkommen, Verwendung = Wertschöpfung, Verteilung = Importe",
+        "Entstehung = Konsum, Verwendung = Produktion, Verteilung = Exporte",
+        "Entstehung = Staatsausgaben, Verwendung = Löhne, Verteilung = Vorleistungen",
+        "Entstehung = Wertschöpfung, Verwendung = Ausgaben, Verteilung = Einkommen"
+    ],
+    correct:3,
+    explanation:"Die drei Perspektiven sind: Entstehung = Wertschöpfung, Verwendung = Ausgaben, Verteilung = Einkommen."
+},
+
+{
+    question:"Warum führen Entstehungs-, Verwendungs- und Verteilungsrechnung zum gleichen BIP?",
+    options:[
+        "Weil sie dieselbe Wirtschaftsleistung aus verschiedenen Perspektiven betrachten",
+        "Weil alle Formeln immer dieselben Zahlen enthalten",
+        "Weil nur die Entstehungsrechnung wirklich gerechnet wird",
+        "Weil Importe und Exporte immer gleich sind"
+    ],
+    correct:0,
+    explanation:"Es gibt nicht drei verschiedene BIP. Die Methoden betrachten denselben wirtschaftlichen Prozess aus unterschiedlichen Perspektiven."
+},
+
+{
+    question:"Econia hat eine Summe der Wertschöpfungen von 900 Mio. €. C = 500, I = 180, G = 170, X = 100 und M = 50. Welche Aussage ist richtig?",
+    options:[
+        "Die Entstehungsrechnung ergibt 900, die Verwendungsrechnung 950.",
+        "Beide Methoden ergeben 900 Mio. €.",
+        "Die Verwendungsrechnung kann nicht berechnet werden.",
+        "Die Entstehungsrechnung ergibt nur 500 Mio. €."
+    ],
+    correct:1,
+    explanation:"Entstehung: 900. Verwendung: 500 + 180 + 170 + (100 − 50) = 900 Mio. €. Beide Perspektiven führen zum selben BIP."
+}
+
+];
+
+let queue = [];
+let currentIndex = 0;
+let totalAnswered = 0;
+let wrongSet = new Set();
+let mastered = new Set();
+
+function initQuiz(){
+    queue = quizData.map((_,i)=>i);
+    currentIndex = 0;
+    totalAnswered = 0;
+    wrongSet = new Set();
+    mastered = new Set();
+
+    document.getElementById("resultsContainer").classList.remove("show");
+    renderCurrentQuestion();
+}
+
+function renderCurrentQuestion(){
+    if(currentIndex >= queue.length){
+        showResults();
+        return;
+    }
+
+    const qIdx = queue[currentIndex];
+    const q = quizData[qIdx];
+    const isRetry = wrongSet.has(qIdx);
+    const container = document.getElementById("questionsContainer");
+
+    container.innerHTML = `
+    <div class="question-container active">
+        <div class="question-number">
+            ${isRetry ? "🔁 Wiederholung · " : ""}
+            Frage ${totalAnswered + 1} · ${mastered.size} von ${quizData.length} gemeistert
+        </div>
+
+        <div class="question-text">${q.question}</div>
+
+        <div class="options" id="options-current">
+            ${q.options.map((opt,i)=>`
+                <div class="option" onclick="selectOption(${qIdx},${i})">
+                    <div class="option-letter">${String.fromCharCode(65+i)}</div>
+                    <div class="option-text">${opt}</div>
+                </div>
+            `).join("")}
+        </div>
+
+        <div class="feedback" id="feedback-current">
+            <div class="feedback-title"></div>
+            <div class="feedback-text"></div>
+        </div>
+
+        <div class="controls">
+            <div></div>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                Weiter →
+            </button>
+        </div>
+    </div>`;
+
+    updateProgress();
+}
+
+function selectOption(questionIndex, optionIndex){
+    const options = document.querySelectorAll("#options-current .option");
+    const correct = quizData[questionIndex].correct;
+
+    options.forEach(opt=>{
+        opt.classList.add("disabled");
+        opt.onclick = null;
+    });
+
+    options[optionIndex].classList.add("selected");
+
+    const feedback = document.getElementById("feedback-current");
+    feedback.classList.add("show");
+
+    if(optionIndex === correct){
+        options[optionIndex].classList.add("correct");
+        mastered.add(questionIndex);
+        wrongSet.delete(questionIndex);
+
+        feedback.classList.add("correct");
+        feedback.querySelector(".feedback-title").textContent = "✓ Richtig!";
+    }else{
+        options[optionIndex].classList.add("incorrect");
+        options[correct].classList.add("correct");
+
+        wrongSet.add(questionIndex);
+        mastered.delete(questionIndex);
+
+        feedback.classList.add("incorrect");
+        feedback.querySelector(".feedback-title").textContent =
+            "✗ Noch nicht – diese Frage kommt später wieder.";
+
+        const insertPos = Math.min(currentIndex + 5, queue.length);
+        queue.splice(insertPos, 0, questionIndex);
+    }
+
+    feedback.querySelector(".feedback-text").textContent =
+        quizData[questionIndex].explanation;
+
+    totalAnswered++;
+    document.getElementById("nextBtn").disabled = false;
+    updateProgress();
+}
+
+function nextQuestion(){
+    currentIndex++;
+
+    if(currentIndex >= queue.length){
+        showResults();
+    }else{
+        renderCurrentQuestion();
+    }
+}
+
+function updateProgress(){
+    const progress = (mastered.size / quizData.length) * 100;
+    document.getElementById("progressFill").style.width = progress + "%";
+}
+
+function showResults(){
+    document.getElementById("questionsContainer").innerHTML = "";
+
+    const results = document.getElementById("resultsContainer");
+    results.classList.add("show");
+
+    const repeats = Math.max(0, totalAnswered - quizData.length);
+    const efficiency = Math.round(
+        (quizData.length / Math.max(totalAnswered, quizData.length)) * 100
+    );
+
+    document.getElementById("scoreNumber").textContent =
+        Math.min(efficiency,100) + "%";
+
+    document.getElementById("masteredCount").textContent = quizData.length;
+    document.getElementById("repeatCount").textContent = repeats;
+    document.getElementById("totalCount").textContent = totalAnswered;
+
+    let message = "";
+    let sub = "";
+
+    if(repeats === 0){
+        message = "Sehr sicher!";
+        sub = "Alle Fragen wurden beim ersten Versuch richtig beantwortet.";
+    }else if(repeats <= 4){
+        message = "Sehr gut!";
+        sub = "Nur wenige Inhalte mussten wiederholt werden.";
+    }else if(repeats <= 9){
+        message = "Gut gelernt!";
+        sub = "Die Wiederholungen haben die unsicheren Inhalte noch einmal aktiviert.";
+    }else{
+        message = "Geschafft!";
+        sub = "Wiederholen Sie besonders Inlandsprinzip, Wertschöpfung und die drei BIP-Perspektiven.";
+    }
+
+    document.getElementById("resultMessage").textContent = message;
+    document.getElementById("resultSub").textContent = sub;
+}
+
+function restartQuiz(){
+    initQuiz();
+}
+
+window.onload = initQuiz;
+</script>
 </body>
 </html>

@@ -13,6 +13,7 @@ kapitel:
         titel: Volkswirtschaftliche Gesamtrechnung
         pdf: /assets/pdfs/VWL_11.pdf
         quiz: /assets/quizzes/quiz_vgr.html
+        text: /assets/texte/vgr.pdf
       - id: m10
         nr: "10"
         titel: Nominales vs. reales BIP
