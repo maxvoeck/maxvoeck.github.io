@@ -19,6 +19,7 @@ kapitel:
         titel: Nominales vs. reales BIP
         pdf: /assets/pdfs/VWL_12.pdf
         quiz: /assets/quizzes/quiz_vgr2.html
+        text: /assets/texte/vgr2.pdf
       - id: m11
         nr: "11"
         titel: "Konjunktur & Konjunkturzyklen"

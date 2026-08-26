@@ -1,675 +1,587 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz: VGR II - Nominales vs. reales BIP</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .quiz-container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .quiz-header {
-            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .quiz-header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .quiz-header p {
-            opacity: 0.9;
-            font-size: 1rem;
-        }
-
-        .progress-bar {
-            background: #e0e0e0;
-            height: 8px;
-            position: relative;
-        }
-
-        .progress-fill {
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-
-        .quiz-content {
-            padding: 2rem;
-        }
-
-        .question-container {
-            display: none;
-        }
-
-        .question-container.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .question-number {
-            color: #667eea;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .option {
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 1rem 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .option:hover {
-            background: #f0f1f3;
-            border-color: #667eea;
-            transform: translateX(5px);
-        }
-
-        .option-letter {
-            background: #667eea;
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .option.selected {
-            background: #e8eaf6;
-            border-color: #667eea;
-        }
-
-        .option.correct {
-            background: #d4edda;
-            border-color: #28a745;
-        }
-
-        .option.correct .option-letter {
-            background: #28a745;
-        }
-
-        .option.incorrect {
-            background: #f8d7da;
-            border-color: #dc3545;
-        }
-
-        .option.incorrect .option-letter {
-            background: #dc3545;
-        }
-
-        .option.disabled {
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        .feedback {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border-radius: 8px;
-            display: none;
-        }
-
-        .feedback.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .feedback.correct {
-            background: #d4edda;
-            border-left: 4px solid #28a745;
-            color: #155724;
-        }
-
-        .feedback.incorrect {
-            background: #f8d7da;
-            border-left: 4px solid #dc3545;
-            color: #721c24;
-        }
-
-        .feedback-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .controls {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f8f9fa;
-            color: #374151;
-            border: 2px solid #e0e0e0;
-        }
-
-        .btn-secondary:hover:not(:disabled) {
-            background: #e9ecef;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .results-container {
-            display: none;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .results-container.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .score-circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 2rem auto;
-            color: white;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-
-        .score-number {
-            font-size: 3rem;
-            font-weight: 700;
-        }
-
-        .score-label {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .result-message {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 1rem;
-        }
-
-        .result-details {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .result-stat {
-            text-align: center;
-        }
-
-        .result-stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        .result-stat-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 0.3rem;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .quiz-header h1 {
-                font-size: 1.4rem;
-            }
-
-            .question-text {
-                font-size: 1.1rem;
-            }
-
-            .controls {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Nominales und reales BIP</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:600;color:#1f2937;
+    margin-bottom:1.5rem;line-height:1.5
+}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{
+    background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;
+    padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f0f1f3;border-color:#667eea;transform:translateX(5px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0
+}
+.option.selected{background:#e8eaf6;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{
+    margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45
+}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{
+    margin-top:2rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:all .25s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{
+    width:200px;height:200px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+.score-number{font-size:3rem;font-weight:700}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+.small-note{font-size:.9rem;color:#6b7280;margin-top:.8rem;line-height:1.4}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header h1{font-size:1.4rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+</style>
 </head>
 <body>
-    <div class="quiz-container">
-        <div class="quiz-header">
-            <h1>📊 VGR II: Nominales vs. reales BIP</h1>
-            <p>BIP-Deflator, Pro-Kopf-BIP und Grenzen des BIP</p>
-        </div>
-
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-
-        <div class="quiz-content">
-            <div id="questionsContainer"></div>
-
-            <div class="results-container" id="resultsContainer">
-                <div class="result-message" id="resultMessage"></div>
-                <div class="score-circle">
-                    <div class="score-number" id="scoreNumber">0%</div>
-                    <div class="score-label">Erreicht</div>
-                </div>
-                <div class="result-details">
-                    <div class="result-stat">
-                        <div class="result-stat-number" id="correctCount">0</div>
-                        <div class="result-stat-label">Gemeistert</div>
-                    </div>
-                    <div class="result-stat">
-                        <div class="result-stat-number" id="incorrectCount">0</div>
-                        <div class="result-stat-label">Wiederholt</div>
-                    </div>
-                    <div class="result-stat">
-                        <div class="result-stat-number" id="totalCount">0</div>
-                        <div class="result-stat-label">Gesamt</div>
-                    </div>
-                </div>
-                <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
-            </div>
-        </div>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>📊 Nominales und reales BIP</h1>
+        <p>Reales Wachstum, BIP-Deflator, BIP pro Kopf und Grenzen des BIP · VWL · W-Kurs</p>
     </div>
 
-    <script>
-        const quizData = [
-            {
-                question: "Was ist der Hauptunterschied zwischen nominalem und realem BIP?",
-                options: [
-                    "Das nominale BIP ist immer höher als das reale BIP",
-                    "Das reale BIP ist preisbereinigt, das nominale BIP nicht",
-                    "Das nominale BIP misst nur Exporte",
-                    "Es gibt keinen Unterschied"
-                ],
-                correct: 1,
-                explanation: "Das reale BIP ist zu konstanten Preisen eines Basisjahres bewertet und damit um Inflation bereinigt, während das nominale BIP zu laufenden Marktpreisen bewertet wird."
-            },
-            {
-                question: "Wofür wird das nominale BIP berechnet?",
-                options: [
-                    "Zu konstanten Preisen eines Basisjahres",
-                    "Zu laufenden Marktpreisen",
-                    "Nur für Investitionsgüter",
-                    "Nur für den Export"
-                ],
-                correct: 1,
-                explanation: "Das nominale BIP wird zu laufenden Marktpreisen berechnet: Nominales BIP = Σ(pt · qt), wobei pt die aktuellen Preise sind."
-            },
-            {
-                question: "Das nominale BIP kann steigen, obwohl die Produktionsmenge sinkt. Warum?",
-                options: [
-                    "Wegen steigender Exporte",
-                    "Wegen höherer Preise (Inflation)",
-                    "Wegen steigender Importe",
-                    "Das ist unmöglich"
-                ],
-                correct: 1,
-                explanation: "Wenn die Preise stark steigen (Inflation), kann das nominale BIP zunehmen, auch wenn die tatsächlich produzierte Menge sinkt. Deshalb ist das reale BIP wichtiger für die Wachstumsanalyse."
-            },
-            {
-                question: "Wie wird das reale BIP berechnet?",
-                options: [
-                    "Reales BIP = Σ(pt · qt) mit aktuellen Preisen",
-                    "Reales BIP = Σ(p0 · qt) mit Basisjahrpreisen",
-                    "Reales BIP = Nominales BIP × BIP-Deflator",
-                    "Reales BIP = BIP pro Kopf × Einwohner"
-                ],
-                correct: 1,
-                explanation: "Das reale BIP wird mit konstanten Preisen eines Basisjahres berechnet: Reales BIP = Σ(p0 · qt), wobei p0 die Preise im Basisjahr sind."
-            },
-            {
-                question: "Was misst der BIP-Deflator?",
-                options: [
-                    "Die Arbeitslosenquote",
-                    "Die durchschnittliche Preisentwicklung aller inländisch produzierten Güter",
-                    "Nur die Importpreise",
-                    "Die Bevölkerungsentwicklung"
-                ],
-                correct: 1,
-                explanation: "Der BIP-Deflator ist ein Preisindex für alle im BIP enthaltenen Güter und Dienstleistungen und misst die durchschnittliche Preisentwicklung der Inlandsproduktion."
-            },
-            {
-                question: "Wie berechnet man den BIP-Deflator?",
-                options: [
-                    "BIP-Deflator = Reales BIP / Nominales BIP × 100",
-                    "BIP-Deflator = Nominales BIP / Reales BIP × 100",
-                    "BIP-Deflator = BIP / Einwohnerzahl",
-                    "BIP-Deflator = Inflation × 100"
-                ],
-                correct: 1,
-                explanation: "Der BIP-Deflator wird berechnet als: BIP-Deflator = (Nominales BIP / Reales BIP) × 100. Er zeigt, wie stark sich das Preisniveau verändert hat."
-            },
-            {
-                question: "Das nominale BIP steigt um 8%, der BIP-Deflator um 3%. Wie hoch ist die reale Wachstumsrate (ca.)?",
-                options: [
-                    "11%",
-                    "5%",
-                    "8%",
-                    "3%"
-                ],
-                correct: 1,
-                explanation: "Faustregel: Nominale Wachstumsrate ≈ Reale Wachstumsrate + Inflationsrate. Also: 8% ≈ reales Wachstum + 3%, daher reales Wachstum ≈ 5%."
-            },
-            {
-                question: "Was ist der Hauptunterschied zwischen BIP-Deflator und Verbraucherpreisindex (VPI)?",
-                options: [
-                    "Es gibt keinen Unterschied",
-                    "Der BIP-Deflator umfasst alle inländischen Güter, der VPI nur Konsumgüter",
-                    "Der VPI ist genauer als der BIP-Deflator",
-                    "Der BIP-Deflator misst nur Importe"
-                ],
-                correct: 1,
-                explanation: "Der BIP-Deflator erfasst alle inländisch produzierten Güter (inkl. Investitions- und Staatsgüter, aber ohne Importe), während der VPI nur Konsumgüter der Haushalte misst (inkl. Importe)."
-            },
-            {
-                question: "Wie wird das BIP pro Kopf berechnet?",
-                options: [
-                    "BIP pro Kopf = BIP × Einwohnerzahl",
-                    "BIP pro Kopf = BIP / Einwohnerzahl",
-                    "BIP pro Kopf = Nominales BIP / Reales BIP",
-                    "BIP pro Kopf = BIP-Deflator × 100"
-                ],
-                correct: 1,
-                explanation: "Das BIP pro Kopf wird berechnet als: BIP pro Kopf = BIP / Einwohnerzahl. Es dient dem Vergleich des durchschnittlichen Wohlstands zwischen Ländern."
-            },
-            {
-                question: "Land A hat ein BIP von 100 Mrd. € und 10 Mio. Einwohner. Land B hat 200 Mrd. € und 40 Mio. Einwohner. Welches Land ist pro Kopf wohlhabender?",
-                options: [
-                    "Land B (5.000 € pro Kopf)",
-                    "Land A (10.000 € pro Kopf)",
-                    "Beide gleich",
-                    "Kann man nicht berechnen"
-                ],
-                correct: 1,
-                explanation: "Land A: 100 Mrd. / 10 Mio. = 10.000 € pro Kopf. Land B: 200 Mrd. / 40 Mio. = 5.000 € pro Kopf. Land A ist wohlhabender pro Kopf, obwohl das absolute BIP kleiner ist."
-            },
-            {
-                question: "Was bedeutet Kaufkraftbereinigung (PPP)?",
-                options: [
-                    "Anpassung für internationale Preisunterschiede",
-                    "Berechnung der Inflation",
-                    "Messung der Arbeitslosigkeit",
-                    "Berechnung des Exports"
-                ],
-                correct: 0,
-                explanation: "PPP (Purchasing Power Parity) bereinigt das BIP pro Kopf um internationale Preisunterschiede, damit Länder mit unterschiedlichen Preisniveaus vergleichbar werden."
-            },
-            {
-                question: "Welches der folgenden wird NICHT vom BIP erfasst?",
-                options: [
-                    "Industrieproduktion",
-                    "Hausarbeit und Ehrenamt",
-                    "Staatsausgaben",
-                    "Exporte"
-                ],
-                correct: 1,
-                explanation: "Das BIP erfasst nur marktlich bewertete Güter und Dienstleistungen. Nicht-marktliche Arbeit wie Hausarbeit, Ehrenamt und Kindererziehung werden nicht erfasst."
-            },
-            {
-                question: "Was ist ein BIP-Paradoxon?",
-                options: [
-                    "Das BIP kann nie sinken",
-                    "Das BIP kann steigen, obwohl es der Gesellschaft schlechter geht",
-                    "Das BIP ist immer gleich der Inflation",
-                    "Das BIP misst nur Exporte"
-                ],
-                correct: 1,
-                explanation: "BIP-Paradoxe sind Situationen, in denen das BIP steigt, obwohl die Gesellschaft schlechter gestellt ist - z.B. nach Naturkatastrophen durch Wiederaufbau oder durch Umweltzerstörung."
-            },
-            {
-                question: "Was ist der HDI (Human Development Index)?",
-                options: [
-                    "Ein Maß nur für das BIP",
-                    "Ein Index der Bildung, Lebenserwartung und Einkommen kombiniert",
-                    "Ein Maß nur für die Inflation",
-                    "Die Arbeitslosenquote"
-                ],
-                correct: 1,
-                explanation: "Der HDI kombiniert drei Dimensionen: Lebenserwartung (Gesundheit), Bildung (durchschnittliche und erwartete Schuljahre) und Lebensstandard (BIP pro Kopf PPP)."
-            },
-            {
-                question: "Welche Aussage über das BIP ist korrekt?",
-                options: [
-                    "Das BIP erfasst Einkommensverteilung und Lebensqualität",
-                    "Das BIP misst Wirtschaftsleistung, nicht Wohlbefinden",
-                    "Das BIP berücksichtigt Umweltschäden",
-                    "Das BIP misst nur immaterielle Güter"
-                ],
-                correct: 1,
-                explanation: "Das BIP ist ein Aktivitätsmaß für die Wirtschaftsleistung, kein Wohlstandsmaß. Es erfasst nicht: Verteilung, Umwelt, Freizeit, unbezahlte Arbeit oder Lebensqualität."
-            }
-        ];
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
 
-        let queue = [];
-        let currentIndex = 0;
-        let score = 0;
-        let totalAnswered = 0;
-        let wrongSet = new Set();
-        let answeredCorrectly = new Set();
+    <div class="quiz-content">
+        <div id="questionsContainer"></div>
 
-        function initQuiz() {
-            queue = quizData.map((_, i) => i);
-            currentIndex = 0;
-            score = 0;
-            totalAnswered = 0;
-            wrongSet = new Set();
-            answeredCorrectly = new Set();
-            renderCurrentQuestion();
-        }
-
-        function renderCurrentQuestion() {
-            if (currentIndex >= queue.length) {
-                showResults();
-                return;
-            }
-
-            const qIdx = queue[currentIndex];
-            const q = quizData[qIdx];
-            const container = document.getElementById('questionsContainer');
-            const isRetry = wrongSet.has(qIdx);
-
-            container.innerHTML = `
-                <div class="question-container active">
-                    <div class="question-number">${isRetry ? '🔁 Wiederholung – ' : ''}Frage ${totalAnswered + 1} · ${answeredCorrectly.size} von ${quizData.length} gemeistert</div>
-                    <div class="question-text">${q.question}</div>
-                    <div class="options" id="options-current">
-                        ${q.options.map((opt, i) => `
-                            <div class="option" onclick="selectOption(${qIdx}, ${i})">
-                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
-                                <div class="option-text">${opt}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="feedback" id="feedback-current">
-                        <div class="feedback-title"></div>
-                        <div class="feedback-text"></div>
-                    </div>
-                    <div class="controls">
-                        <div></div>
-                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
-                            Weiter →
-                        </button>
-                    </div>
+        <div class="results-container" id="resultsContainer">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Erreicht</div>
+            </div>
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="correctCount">0</div>
+                    <div class="result-stat-label">Gemeistert</div>
                 </div>
-            `;
+                <div class="result-stat">
+                    <div class="result-stat-number" id="incorrectCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+            <div class="small-note">Die Antwortmöglichkeiten werden bei jedem Durchlauf neu gemischt. Dadurch gibt es kein festes A-B-C-D-Lösungsmuster.</div>
+        </div>
+    </div>
+</div>
 
-            updateProgress();
-        }
+<script>
+const quizData = [
+{
+    question:"Warum reicht ein Anstieg des nominalen BIP allein nicht aus, um echtes Wirtschaftswachstum festzustellen?",
+    options:[
+        "Weil das nominale BIP nur Dienstleistungen berücksichtigt",
+        "Weil das nominale BIP auch durch steigende Preise wachsen kann",
+        "Weil das nominale BIP immer kleiner als das reale BIP ist",
+        "Weil das nominale BIP keine produzierten Mengen enthält"
+    ],
+    answer:"Weil das nominale BIP auch durch steigende Preise wachsen kann",
+    explanation:"Das nominale BIP wird mit aktuellen Preisen bewertet. Es kann deshalb steigen, obwohl die produzierte Menge unverändert bleibt."
+},
+{
+    question:"Wie wird das nominale BIP grundsätzlich berechnet?",
+    options:[
+        "Aktuelle Mengen × aktuelle Preise",
+        "Aktuelle Mengen × Preise des Basisjahres",
+        "Mengen des Basisjahres × aktuelle Preise",
+        "Reales BIP ÷ Preisniveau"
+    ],
+    answer:"Aktuelle Mengen × aktuelle Preise",
+    explanation:"Beim nominalen BIP werden sowohl die Mengen als auch die Preise des jeweiligen aktuellen Jahres verwendet."
+},
+{
+    question:"Welche Aussage beschreibt das reale BIP am besten?",
+    options:[
+        "Es bewertet nur die Preisentwicklung eines Landes",
+        "Es verwendet ausschließlich die Mengen des Basisjahres",
+        "Es misst das BIP pro Einwohner",
+        "Es bewertet aktuelle Produktionsmengen zu konstanten Preisen"
+    ],
+    answer:"Es bewertet aktuelle Produktionsmengen zu konstanten Preisen",
+    explanation:"Das reale BIP verwendet aktuelle Mengen, aber konstante Preise, damit Preisänderungen nicht als reales Wachstum erscheinen."
+},
+{
+    question:"Was gilt im Basisjahr bei der vereinfachten Berechnung mit festen Basisjahrpreisen?",
+    options:[
+        "Das reale BIP ist immer größer als das nominale BIP",
+        "Nominales und reales BIP sind gleich groß",
+        "Der BIP-Deflator ist gleich 0",
+        "Es kann kein nominales BIP berechnet werden"
+    ],
+    answer:"Nominales und reales BIP sind gleich groß",
+    explanation:"Im Basisjahr werden beim nominalen und realen BIP dieselben Mengen und dieselben Preise verwendet."
+},
+{
+    question:"Eine Volkswirtschaft produziert 2024 genau 1.050 Smartphones zu 520 € pro Stück. Wie hoch ist das nominale BIP 2024?",
+    options:[
+        "500.000 €",
+        "520.000 €",
+        "525.000 €",
+        "546.000 €"
+    ],
+    answer:"546.000 €",
+    explanation:"1.050 × 520 € = 546.000 €."
+},
+{
+    question:"2023 ist das Basisjahr. Ein Smartphone kostet 2023 genau 500 €. 2024 werden 1.050 Smartphones produziert. Wie hoch ist das reale BIP 2024?",
+    options:[
+        "546.000 €",
+        "525.000 €",
+        "500.000 €",
+        "520.000 €"
+    ],
+    answer:"525.000 €",
+    explanation:"Für das reale BIP werden die 1.050 Stück des Jahres 2024 mit dem Basisjahrpreis von 500 € bewertet: 1.050 × 500 € = 525.000 €."
+},
+{
+    question:"Das nominale BIP steigt von 500.000 € auf 546.000 €. Wie hoch ist die nominale Wachstumsrate?",
+    options:[
+        "9,2 %",
+        "5,0 %",
+        "4,0 %",
+        "46,0 %"
+    ],
+    answer:"9,2 %",
+    explanation:"(546.000 − 500.000) ÷ 500.000 × 100 = 9,2 %."
+},
+{
+    question:"Das reale BIP steigt von 500.000 € auf 525.000 €. Wie hoch ist das reale Wachstum?",
+    options:[
+        "9,2 %",
+        "4,0 %",
+        "5,0 %",
+        "25,0 %"
+    ],
+    answer:"5,0 %",
+    explanation:"(525.000 − 500.000) ÷ 500.000 × 100 = 5,0 %."
+},
+{
+    question:"Eine Wirtschaft produziert 2022 genau 100 kg Äpfel zu 1 €/kg und 50 kg Kartoffeln zu 2 €/kg. Wie hoch ist das nominale BIP 2022?",
+    options:[
+        "150 €",
+        "200 €",
+        "250 €",
+        "300 €"
+    ],
+    answer:"200 €",
+    explanation:"100 × 1 € + 50 × 2 € = 100 € + 100 € = 200 €."
+},
+{
+    question:"Basisjahr ist 2022. 2023 werden 150 kg Äpfel und 100 kg Kartoffeln produziert. Die Basisjahrpreise sind 1 €/kg für Äpfel und 2 €/kg für Kartoffeln. Wie hoch ist das reale BIP 2023?",
+    options:[
+        "250 €",
+        "300 €",
+        "600 €",
+        "350 €"
+    ],
+    answer:"350 €",
+    explanation:"150 × 1 € + 100 × 2 € = 150 € + 200 € = 350 €."
+},
+{
+    question:"Warum zeigt das reale BIP im Apfel-Kartoffel-Beispiel ein Wachstum von 75 %, obwohl die gesamte Kilogrammmenge nur um etwa 66,7 % steigt?",
+    options:[
+        "Weil unterschiedliche Güter mit Preisen wirtschaftlich gewichtet werden",
+        "Weil beim realen BIP immer die höheren aktuellen Preise benutzt werden",
+        "Weil Kartoffeln beim BIP doppelt gezählt werden",
+        "Weil das reale BIP nur die Kartoffelmenge betrachtet"
+    ],
+    answer:"Weil unterschiedliche Güter mit Preisen wirtschaftlich gewichtet werden",
+    explanation:"Äpfel und Kartoffeln werden nicht nur als Kilogramm addiert. Ihre Mengen werden mit den Preisen des Basisjahres bewertet."
+},
+{
+    question:"Warum kann man 1 Auto, 20 Brote, 3 Haarschnitte und 2 Computer nicht sinnvoll zu 26 Einheiten Wirtschaftsleistung addieren?",
+    options:[
+        "Weil nur Sachgüter in das BIP eingehen",
+        "Weil Dienstleistungen keine Preise haben",
+        "Weil die Güter keine gemeinsame physische Einheit besitzen",
+        "Weil höchstens zwei Güter gleichzeitig verglichen werden dürfen"
+    ],
+    answer:"Weil die Güter keine gemeinsame physische Einheit besitzen",
+    explanation:"Unterschiedliche Güter und Dienstleistungen sind physisch nicht direkt addierbar. Preise schaffen einen gemeinsamen Bewertungsmaßstab."
+},
+{
+    question:"Welche Formel beschreibt den BIP-Deflator?",
+    options:[
+        "Reales BIP ÷ nominales BIP × 100",
+        "Nominales BIP − reales BIP",
+        "Nominales BIP ÷ reales BIP × 100",
+        "Reales BIP ÷ Einwohnerzahl"
+    ],
+    answer:"Nominales BIP ÷ reales BIP × 100",
+    explanation:"Der BIP-Deflator wird als nominales BIP geteilt durch reales BIP mal 100 berechnet."
+},
+{
+    question:"Der BIP-Deflator steigt vom Basiswert 100 auf 171,4. Was bedeutet das?",
+    options:[
+        "Das Preisniveau liegt etwa 71,4 % über dem Basisjahr",
+        "Die reale Produktion ist um 171,4 % gestiegen",
+        "Das nominale BIP ist um genau 71,4 % gesunken",
+        "Das Preisniveau ist um 171,4 % gestiegen"
+    ],
+    answer:"Das Preisniveau liegt etwa 71,4 % über dem Basisjahr",
+    explanation:"Bei einem Index mit Basiswert 100 entspricht 171,4 einem Niveau, das 71,4 % über dem Basisjahr liegt."
+},
+{
+    question:"Der Apfelpreis steigt um 100 %, der Kartoffelpreis um 50 %, der BIP-Deflator aber um etwa 71,4 %. Warum?",
+    options:[
+        "Weil der Deflator immer den kleineren Preisanstieg verwendet",
+        "Weil der Deflator grundsätzlich genau 75 % anzeigen muss",
+        "Weil der Deflator nur den Apfelpreis berücksichtigt",
+        "Weil die Preisänderungen entsprechend ihrer wirtschaftlichen Bedeutung gewichtet eingehen"
+    ],
+    answer:"Weil die Preisänderungen entsprechend ihrer wirtschaftlichen Bedeutung gewichtet eingehen",
+    explanation:"Der Deflator ist kein einfacher Durchschnitt der einzelnen Preisänderungen. Die Produktionsstruktur beeinflusst das Gewicht der Güter."
+},
+{
+    question:"Nominales BIP = 1.080 Mrd. €, BIP-Deflator = 104. Wie hoch ist das reale BIP ungefähr?",
+    options:[
+        "1.123,2 Mrd. €",
+        "1.038,5 Mrd. €",
+        "1.080,0 Mrd. €",
+        "976,0 Mrd. €"
+    ],
+    answer:"1.038,5 Mrd. €",
+    explanation:"1.080 ÷ 104 × 100 ≈ 1.038,5 Mrd. €."
+},
+{
+    question:"Die reale Produktion sinkt um 1 %, die Preise steigen um 5 %. Welche Aussage ist möglich?",
+    options:[
+        "Das nominale BIP kann trotzdem steigen",
+        "Das nominale BIP muss um genau 1 % sinken",
+        "Das reale BIP muss um 5 % steigen",
+        "Nominales und reales BIP müssen gleich bleiben"
+    ],
+    answer:"Das nominale BIP kann trotzdem steigen",
+    explanation:"Steigende Preise können den Rückgang der realen Menge im nominalen Wert überkompensieren. Bei −1 % Menge und +5 % Preis ergibt sich etwa +3,95 % nominal."
+},
+{
+    question:"Warum können Qualitätsverbesserungen die Messung von Preisentwicklung erschweren?",
+    options:[
+        "Weil bessere Produkte nicht zum BIP gehören",
+        "Weil Qualität nur bei Dienstleistungen eine Rolle spielt",
+        "Weil höhere Qualität automatisch eine sinkende Produktionsmenge bedeutet",
+        "Weil ein höherer Preis teilweise bessere Qualität statt reine Inflation widerspiegeln kann"
+    ],
+    answer:"Weil ein höherer Preis teilweise bessere Qualität statt reine Inflation widerspiegeln kann",
+    explanation:"Wenn sich ein Produkt verbessert, ist nicht jeder Preisaufschlag eine reine Preissteigerung bei unveränderter Qualität."
+},
+{
+    question:"Wie wird das BIP pro Kopf berechnet?",
+    options:[
+        "BIP × Einwohnerzahl",
+        "BIP ÷ Preisniveau",
+        "BIP ÷ Einwohnerzahl",
+        "Reales BIP − nominales BIP"
+    ],
+    answer:"BIP ÷ Einwohnerzahl",
+    explanation:"Das BIP pro Kopf verteilt das gesamte BIP rechnerisch auf die Einwohnerzahl."
+},
+{
+    question:"Land A hat 100 Mrd. € BIP und 10 Mio. Einwohner. Land B hat 200 Mrd. € BIP und 40 Mio. Einwohner. Welches Land hat das höhere BIP pro Kopf?",
+    options:[
+        "Beide Länder haben dasselbe BIP pro Kopf",
+        "Land A",
+        "Land B",
+        "Das kann ohne BIP-Deflator nicht berechnet werden"
+    ],
+    answer:"Land A",
+    explanation:"Land A: 100 Mrd. ÷ 10 Mio. = 10.000 € pro Kopf. Land B: 200 Mrd. ÷ 40 Mio. = 5.000 € pro Kopf."
+},
+{
+    question:"Welche wichtige Information liefert das BIP pro Kopf allein nicht?",
+    options:[
+        "Wie viele Waren und Dienstleistungen insgesamt produziert werden",
+        "Wie hoch das gesamte BIP ist",
+        "Wie viele Einwohner ein Land hat",
+        "Wie gleich oder ungleich Einkommen verteilt sind"
+    ],
+    answer:"Wie gleich oder ungleich Einkommen verteilt sind",
+    explanation:"Das BIP pro Kopf ist ein Durchschnittswert. Zwei Länder können denselben Durchschnitt, aber sehr unterschiedliche Einkommensverteilungen haben."
+},
+{
+    question:"Warum kann das BIP nach einer schweren Naturkatastrophe steigen, obwohl Wohlstand zerstört wurde?",
+    options:[
+        "Weil Wiederaufbau und Reparaturen zusätzliche wirtschaftliche Leistungen erzeugen",
+        "Weil Naturkatastrophen automatisch als Exporte gebucht werden",
+        "Weil zerstörtes Vermögen als neues BIP gezählt wird",
+        "Weil nach Katastrophen keine Preise mehr verwendet werden"
+    ],
+    answer:"Weil Wiederaufbau und Reparaturen zusätzliche wirtschaftliche Leistungen erzeugen",
+    explanation:"Reparaturen und Wiederaufbau können die gemessene Produktion erhöhen, obwohl der vorherige Schaden den Wohlstand reduziert hat."
+},
+{
+    question:"Welche drei Bereiche gehören zum Human Development Index (HDI)?",
+    options:[
+        "Inflation, Arbeitslosigkeit und Exporte",
+        "Gesundheit, Bildung und Lebensstandard",
+        "Umwelt, Freizeit und Staatsverschuldung",
+        "BIP, Deflator und Einwohnerzahl"
+    ],
+    answer:"Gesundheit, Bildung und Lebensstandard",
+    explanation:"Der HDI kombiniert Gesundheit, Bildung und Lebensstandard als drei Dimensionen menschlicher Entwicklung."
+},
+{
+    question:"Was beschreibt der Gini-Koeffizient in diesem Themenblock?",
+    options:[
+        "Die reale Wachstumsrate",
+        "Das allgemeine Preisniveau",
+        "Die Gleichheit oder Ungleichheit der Einkommensverteilung",
+        "Die Zahl der produzierten Güter"
+    ],
+    answer:"Die Gleichheit oder Ungleichheit der Einkommensverteilung",
+    explanation:"Der Gini-Koeffizient dient als Kennzahl für die Verteilung von Einkommen: näher an 0 bedeutet gleichmäßiger, näher an 1 ungleicher."
+},
+{
+    question:"Welche Kennzahl eignet sich am besten für die Frage, ob die tatsächliche Wirtschaftsleistung gestiegen ist?",
+    options:[
+        "Reales BIP",
+        "Nominales BIP allein",
+        "Gini-Koeffizient",
+        "BIP pro Kopf ohne Zeitvergleich"
+    ],
+    answer:"Reales BIP",
+    explanation:"Das reale BIP rechnet Preisänderungen heraus und ist deshalb die zentrale Kennzahl für die Entwicklung der realen Produktion."
+}
+];
 
-        function selectOption(questionIndex, optionIndex) {
-            const optionsContainer = document.getElementById('options-current');
-            const options = optionsContainer.querySelectorAll('.option');
-            const correct = quizData[questionIndex].correct;
+let queue=[];
+let currentIndex=0;
+let totalAnswered=0;
+let wrongSet=new Set();
+let answeredCorrectly=new Set();
+let currentOptions=[];
+let currentCorrectIndex=-1;
 
-            options.forEach(opt => opt.classList.add('disabled'));
-            options[optionIndex].classList.add('selected');
-            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
-            options[correct].classList.add('correct');
+function shuffledCopy(items){
+    const arr=[...items];
+    for(let i=arr.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [arr[i],arr[j]]=[arr[j],arr[i]];
+    }
+    return arr;
+}
 
-            const feedback = document.getElementById('feedback-current');
-            feedback.classList.add('show');
+function initQuiz(){
+    queue=quizData.map((_,i)=>i);
+    currentIndex=0;
+    totalAnswered=0;
+    wrongSet=new Set();
+    answeredCorrectly=new Set();
+    document.getElementById("resultsContainer").classList.remove("show");
+    renderCurrentQuestion();
+}
 
-            if (optionIndex === correct) {
-                score++;
-                answeredCorrectly.add(questionIndex);
-                wrongSet.delete(questionIndex);
-                feedback.classList.add('correct');
-                feedback.querySelector('.feedback-title').textContent = '✓ Richtig!';
-            } else {
-                wrongSet.add(questionIndex);
-                answeredCorrectly.delete(questionIndex);
-                feedback.classList.add('incorrect');
-                feedback.querySelector('.feedback-title').textContent = '✗ Falsch – kommt in 4 Fragen wieder!';
-                // Insert this question again 4 positions later
-                const insertPos = Math.min(currentIndex + 5, queue.length);
-                queue.splice(insertPos, 0, questionIndex);
-            }
+function renderCurrentQuestion(){
+    if(currentIndex>=queue.length){
+        showResults();
+        return;
+    }
 
-            feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
-            totalAnswered++;
-            document.getElementById('nextBtn').disabled = false;
-        }
+    const qIdx=queue[currentIndex];
+    const q=quizData[qIdx];
+    const isRetry=wrongSet.has(qIdx);
+    const container=document.getElementById("questionsContainer");
 
-        function nextQuestion() {
-            currentIndex++;
-            if (currentIndex >= queue.length) {
-                showResults();
-            } else {
-                renderCurrentQuestion();
-            }
-        }
+    currentOptions=shuffledCopy(q.options);
+    currentCorrectIndex=currentOptions.indexOf(q.answer);
 
-        function updateProgress() {
-            const progress = (answeredCorrectly.size / quizData.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
+    container.innerHTML=`
+    <div class="question-container active">
+        <div class="question-number">
+            ${isRetry ? "🔁 Wiederholung · " : ""}Frage ${totalAnswered+1} ·
+            ${answeredCorrectly.size} von ${quizData.length} gemeistert
+        </div>
+        <div class="question-text">${q.question}</div>
+        <div class="options" id="options-current">
+            ${currentOptions.map((opt,i)=>`
+                <div class="option" onclick="selectOption(${qIdx},${i})">
+                    <div class="option-letter">${String.fromCharCode(65+i)}</div>
+                    <div class="option-text">${opt}</div>
+                </div>
+            `).join("")}
+        </div>
 
-        function showResults() {
-            document.getElementById('questionsContainer').innerHTML = '';
-            const resultsContainer = document.getElementById('resultsContainer');
-            resultsContainer.classList.add('show');
+        <div class="feedback" id="feedback-current">
+            <div class="feedback-title"></div>
+            <div class="feedback-text"></div>
+        </div>
 
-            const percentage = Math.round((quizData.length / totalAnswered) * 100);
-            document.getElementById('scoreNumber').textContent = Math.min(percentage, 100) + '%';
-            document.getElementById('correctCount').textContent = quizData.length;
-            document.getElementById('incorrectCount').textContent = totalAnswered - quizData.length;
-            document.getElementById('totalCount').textContent = totalAnswered;
+        <div class="controls">
+            <div></div>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                Weiter →
+            </button>
+        </div>
+    </div>`;
 
-            let message = '';
-            if (totalAnswered === quizData.length) {
-                message = 'Perfekt! Alles auf Anhieb richtig!';
-            } else if (totalAnswered <= quizData.length + 3) {
-                message = 'Sehr gut! Fast alles beim ersten Versuch!';
-            } else if (totalAnswered <= quizData.length + 6) {
-                message = 'Gut gemacht! Die Wiederholungen haben geholfen!';
-            } else {
-                message = 'Geschafft! Wiederhole das Thema nochmal zur Sicherheit!';
-            }
+    updateProgress();
+}
 
-            document.getElementById('resultMessage').textContent = message;
-        }
+function selectOption(questionIndex,optionIndex){
+    const options=document.querySelectorAll("#options-current .option");
+    const correct=currentCorrectIndex;
 
-        function restartQuiz() {
-            document.getElementById('resultsContainer').classList.remove('show');
-            initQuiz();
-        }
+    options.forEach(opt=>{
+        opt.classList.add("disabled");
+        opt.onclick=null;
+    });
 
-        window.onload = initQuiz;
-    </script>
+    options[optionIndex].classList.add("selected");
+    options[optionIndex].classList.add(optionIndex===correct ? "correct" : "incorrect");
+    options[correct].classList.add("correct");
+
+    const feedback=document.getElementById("feedback-current");
+    feedback.classList.add("show");
+
+    if(optionIndex===correct){
+        answeredCorrectly.add(questionIndex);
+        wrongSet.delete(questionIndex);
+        feedback.classList.add("correct");
+        feedback.querySelector(".feedback-title").textContent="✓ Richtig!";
+    }else{
+        wrongSet.add(questionIndex);
+        answeredCorrectly.delete(questionIndex);
+        feedback.classList.add("incorrect");
+        feedback.querySelector(".feedback-title").textContent="✗ Noch nicht – die Frage kommt später wieder!";
+        const insertPos=Math.min(currentIndex+5,queue.length);
+        queue.splice(insertPos,0,questionIndex);
+    }
+
+    feedback.querySelector(".feedback-text").innerHTML=quizData[questionIndex].explanation;
+    totalAnswered++;
+    document.getElementById("nextBtn").disabled=false;
+    updateProgress();
+}
+
+function nextQuestion(){
+    currentIndex++;
+    if(currentIndex>=queue.length) showResults();
+    else renderCurrentQuestion();
+}
+
+function updateProgress(){
+    const progress=(answeredCorrectly.size/quizData.length)*100;
+    document.getElementById("progressFill").style.width=progress+"%";
+}
+
+function showResults(){
+    document.getElementById("questionsContainer").innerHTML="";
+    const results=document.getElementById("resultsContainer");
+    results.classList.add("show");
+
+    const repeats=Math.max(0,totalAnswered-quizData.length);
+    const percentage=Math.round((quizData.length/Math.max(totalAnswered,quizData.length))*100);
+
+    document.getElementById("scoreNumber").textContent=Math.min(percentage,100)+"%";
+    document.getElementById("correctCount").textContent=quizData.length;
+    document.getElementById("incorrectCount").textContent=repeats;
+    document.getElementById("totalCount").textContent=totalAnswered;
+
+    let message="";
+    if(repeats===0) message="Perfekt! Alles auf Anhieb richtig!";
+    else if(repeats<=3) message="Sehr gut! Nur wenige Wiederholungen.";
+    else if(repeats<=7) message="Gut gemacht! Die Wiederholungen haben geholfen.";
+    else message="Geschafft! Wiederhole das Thema noch einmal zur Sicherheit.";
+
+    document.getElementById("resultMessage").textContent=message;
+}
+
+function restartQuiz(){ initQuiz(); }
+
+window.onload=initQuiz;
+</script>
 </body>
 </html>
