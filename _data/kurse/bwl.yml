@@ -34,6 +34,15 @@ kapitel:
         pdf: /assets/pdfs/BWL_W_3.pdf
         quiz: /assets/quizzes/quiz_unternehmensformen.html
         text: /assets/texte/bwl-w-3.pdf
+      - id: b4
+        nr: "04"
+        titel: Unternehmensformen II
+        desc: >-
+          Kapitalgesellschaften und Rechtsformwahl — GmbH, UG, AG und GmbH & Co. KG
+          mit Haftung, Kapital und Organen
+        pdf: /assets/pdfs/BWL_W_4.pdf
+        quiz: /assets/quizzes/quiz_unternehmensformen_2.html
+        text: /assets/texte/bwl-w-4.pdf
 
   - numeral: II
     titel: Buchführung

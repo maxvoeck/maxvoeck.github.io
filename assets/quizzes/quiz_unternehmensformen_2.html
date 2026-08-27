@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Unternehmensformen II – BWL Block 4</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:600;color:#1f2937;
+    margin-bottom:1.5rem;line-height:1.5
+}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{
+    background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;
+    padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f0f1f3;border-color:#667eea;transform:translateX(5px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0
+}
+.option.selected{background:#e8eaf6;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{
+    margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45
+}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{
+    margin-top:2rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:all .25s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{
+    width:200px;height:200px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+.score-number{font-size:3rem;font-weight:700}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+.small-note{font-size:.9rem;color:#6b7280;margin-top:.8rem;line-height:1.4}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header h1{font-size:1.4rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>🏢 Unternehmensformen II</h1>
+        <p>Kapitalgesellschaften und Rechtsformwahl · BWL · W-Kurs · Block 4</p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-content">
+        <div id="questionsContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Erreicht</div>
+            </div>
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="correctCount">0</div>
+                    <div class="result-stat-label">Gemeistert</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="incorrectCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const quizData = [
+  {
+    "question": "Was ist der wichtigste Unterschied bei der Haftung zwischen Personen- und Kapitalgesellschaften?",
+    "options": [
+      "Bei beiden Gesellschaftsformen haftet immer nur das Unternehmen.",
+      "Bei Personengesellschaften haftet mindestens ein Gesellschafter unbeschränkt privat; bei Kapitalgesellschaften haftet im Normalfall die Gesellschaft.",
+      "Nur bei einer AG gibt es eine Haftungsbeschränkung.",
+      "Bei Kapitalgesellschaften haftet immer der Geschäftsführer privat."
+    ],
+    "correct": 1,
+    "explanation": "Bei Personengesellschaften haftet mindestens ein Gesellschafter unbeschränkt privat. Bei GmbH, UG und AG haftet im Normalfall die Gesellschaft mit ihrem Vermögen."
+  },
+  {
+    "question": "Was bedeutet „juristische Person“ im Zusammenhang mit einer GmbH?",
+    "options": [
+      "Die GmbH darf nur von Juristen gegründet werden.",
+      "Die GmbH ist rechtlich von ihren Gesellschaftern getrennt.",
+      "Die GmbH haftet nie für Schulden.",
+      "Die GmbH besteht immer aus mehreren Personen."
+    ],
+    "correct": 1,
+    "explanation": "Eine juristische Person ist eine eigene rechtliche Einheit. Die GmbH ist rechtlich von ihren Gesellschaftern getrennt."
+  },
+  {
+    "question": "Was ist ein Organ einer Gesellschaft?",
+    "options": [
+      "Ein Anteil am Gewinn",
+      "Ein besonderer Vertrag mit der Bank",
+      "Ein Teil des Stammkapitals",
+      "Eine Stelle, die für die Gesellschaft handelt oder entscheidet"
+    ],
+    "correct": 3,
+    "explanation": "Ein Organ ist eine Stelle, die für die Gesellschaft handelt oder Entscheidungen trifft, zum Beispiel Geschäftsführer oder Vorstand."
+  },
+  {
+    "question": "Welche Aussage beschreibt Fremdorganschaft?",
+    "options": [
+      "Alle Gesellschafter müssen gemeinsam entscheiden.",
+      "Auch eine andere Person als die Eigentümer kann die Leitung übernehmen.",
+      "Die Gesellschaft darf keine Mitarbeiter beschäftigen.",
+      "Nur die Eigentümer dürfen das Unternehmen führen."
+    ],
+    "correct": 1,
+    "explanation": "Bei Fremdorganschaft kann auch eine andere Person die Leitung übernehmen, zum Beispiel ein angestellter Geschäftsführer."
+  },
+  {
+    "question": "Wie hoch ist das Mindeststammkapital einer GmbH?",
+    "options": [
+      "10.000 €",
+      "1 €",
+      "50.000 €",
+      "25.000 €"
+    ],
+    "correct": 3,
+    "explanation": "Das Mindeststammkapital der GmbH beträgt 25.000 €."
+  },
+  {
+    "question": "Anna ist alleinige Gesellschafterin einer GmbH und gleichzeitig Geschäftsführerin. Ist das möglich?",
+    "options": [
+      "Nur bei einer AG ist das erlaubt.",
+      "Nur wenn ein Aufsichtsrat zustimmt.",
+      "Ja, eine Person kann gleichzeitig Gesellschafterin und Geschäftsführerin sein.",
+      "Nein, Eigentümer und Geschäftsführer müssen immer verschiedene Personen sein."
+    ],
+    "correct": 2,
+    "explanation": "Ja. Bei einer Einmann-GmbH kann eine Person alleinige Gesellschafterin und gleichzeitig Geschäftsführerin sein. Die Rollen bleiben rechtlich verschieden."
+  },
+  {
+    "question": "Welche Aufgabe hat die Gesellschafterversammlung einer GmbH?",
+    "options": [
+      "Sie führt automatisch das tägliche Geschäft.",
+      "Sie verkauft Aktien an der Börse.",
+      "Sie kontrolliert immer den Aufsichtsrat.",
+      "Sie trifft wichtige Grundsatzentscheidungen."
+    ],
+    "correct": 3,
+    "explanation": "Die Gesellschafterversammlung trifft wichtige Grundsatzentscheidungen. Das tägliche Geschäft führt der Geschäftsführer."
+  },
+  {
+    "question": "Welche Aussage zur UG (haftungsbeschränkt) ist richtig?",
+    "options": [
+      "Sie kann theoretisch mit sehr wenig Stammkapital gegründet werden.",
+      "Sie braucht mindestens 50.000 € Grundkapital.",
+      "Sie hat keine Haftungsbeschränkung.",
+      "Sie darf nur eine Person als Eigentümer haben."
+    ],
+    "correct": 0,
+    "explanation": "Eine UG kann theoretisch ab 1 € Stammkapital gegründet werden. Praktisch braucht ein Unternehmen natürlich mehr Geld für seine Kosten."
+  },
+  {
+    "question": "Warum muss eine UG einen Teil ihres Jahresüberschusses als Rücklage behalten?",
+    "options": [
+      "Damit kein Handelsregister nötig ist.",
+      "Damit nach und nach mehr Eigenkapital aufgebaut wird.",
+      "Damit die Aktionäre jedes Jahr eine Dividende erhalten.",
+      "Damit die Geschäftsführer privat haften."
+    ],
+    "correct": 1,
+    "explanation": "Die Rücklage sorgt dafür, dass ein Teil des Gewinns im Unternehmen bleibt und so Eigenkapital aufgebaut wird."
+  },
+  {
+    "question": "Welcher Rechtsformzusatz muss bei einer UG im Firmennamen stehen?",
+    "options": [
+      "„UG (haftungsbeschränkt)“",
+      "nur „UG“",
+      "„Klein-GmbH“",
+      "„UG AG“"
+    ],
+    "correct": 0,
+    "explanation": "Im Firmennamen muss „UG (haftungsbeschränkt)“ oder „Unternehmergesellschaft (haftungsbeschränkt)“ stehen."
+  },
+  {
+    "question": "Wie hoch ist das Mindestgrundkapital einer AG?",
+    "options": [
+      "25.000 €",
+      "50.000 €",
+      "1 €",
+      "100.000 €"
+    ],
+    "correct": 1,
+    "explanation": "Das Mindestgrundkapital einer Aktiengesellschaft beträgt 50.000 €."
+  },
+  {
+    "question": "Welches Organ leitet das tägliche Geschäft einer AG?",
+    "options": [
+      "Aufsichtsrat",
+      "Vorstand",
+      "Hauptversammlung",
+      "Gesellschafterversammlung"
+    ],
+    "correct": 1,
+    "explanation": "Der Vorstand leitet die AG und vertritt sie nach außen."
+  },
+  {
+    "question": "Welche Aufgabe hat der Aufsichtsrat einer AG?",
+    "options": [
+      "Er kontrolliert den Vorstand und setzt ihn ein.",
+      "Er führt das tägliche Geschäft.",
+      "Er ist die Versammlung aller Kunden.",
+      "Er verteilt automatisch den gesamten Gewinn."
+    ],
+    "correct": 0,
+    "explanation": "Der Aufsichtsrat kontrolliert den Vorstand und setzt beziehungsweise bestellt dessen Mitglieder ein."
+  },
+  {
+    "question": "Welche Aussage über die Hauptversammlung ist richtig?",
+    "options": [
+      "Sie gibt es nur bei börsennotierten Unternehmen.",
+      "Sie ist die Versammlung der Aktionäre.",
+      "Sie leitet das tägliche Geschäft.",
+      "Sie besteht nur aus Vorstandsmitgliedern."
+    ],
+    "correct": 1,
+    "explanation": "Die Hauptversammlung ist die Versammlung der Aktionäre. Sie entscheidet über bestimmte wichtige Fragen."
+  },
+  {
+    "question": "Welche Aussage ist ein typischer Fehler über die AG?",
+    "options": [
+      "Eine AG ist eine Kapitalgesellschaft.",
+      "Eine AG kann viele Kapitalgeber haben.",
+      "Eine AG hat einen Vorstand.",
+      "Jede AG ist automatisch an der Börse."
+    ],
+    "correct": 3,
+    "explanation": "Nicht jede AG ist börsennotiert. Die Rechtsform AG bedeutet nicht automatisch Börsennotierung."
+  },
+  {
+    "question": "Warum ist eine AG besonders für sehr großen Kapitalbedarf geeignet?",
+    "options": [
+      "Weil sich viele Kapitalgeber über Aktien beteiligen können.",
+      "Weil sie keine Organe hat.",
+      "Weil sie kein Mindestkapital braucht.",
+      "Weil ihre Eigentümer immer privat haften."
+    ],
+    "correct": 0,
+    "explanation": "Die AG ist besonders gut geeignet, wenn viel Kapital von vielen Kapitalgebern aufgenommen werden soll."
+  },
+  {
+    "question": "Was ist bei einer GmbH & Co. KG die Komplementärin?",
+    "options": [
+      "die Hauptversammlung",
+      "immer eine Privatperson",
+      "der Aufsichtsrat",
+      "eine GmbH"
+    ],
+    "correct": 3,
+    "explanation": "Bei der GmbH & Co. KG übernimmt eine GmbH die Rolle der Komplementärin."
+  },
+  {
+    "question": "Warum begrenzt die GmbH & Co. KG die private Haftung natürlicher Personen?",
+    "options": [
+      "Die GmbH & Co. KG ist eine AG.",
+      "Die KG hat grundsätzlich keine Schulden.",
+      "Die GmbH haftet als Komplementärin mit ihrem Gesellschaftsvermögen; keine natürliche Person muss als Komplementär privat unbeschränkt haften.",
+      "Die Kommanditisten dürfen keine Einlage leisten."
+    ],
+    "correct": 2,
+    "explanation": "Die GmbH ist die voll haftende Komplementärin. Sie besitzt Gesellschaftsvermögen, aber kein Privatvermögen wie eine natürliche Person."
+  },
+  {
+    "question": "Was bedeutet „Einlage“?",
+    "options": [
+      "Geld oder ein anderer Vermögenswert, den ein Gesellschafter in das Unternehmen einbringt",
+      "Eine Rechnung des Unternehmens",
+      "Eine Veröffentlichung im Handelsregister",
+      "Der Jahresabschluss einer AG"
+    ],
+    "correct": 0,
+    "explanation": "Eine Einlage ist Geld oder ein anderer Vermögenswert, den ein Gesellschafter in das Unternehmen einbringt."
+  },
+  {
+    "question": "Welche fünf Kriterien werden in diesem Kurs für die Rechtsformwahl verwendet?",
+    "options": [
+      "Haftung, Kapitalbedarf, Leitung, Publizität, Kosten/Formalitäten",
+      "Preis, Werbung, Standort, Produkt, Umsatz",
+      "Haftung, Steuern, Lohn, Marketing, Gewinn",
+      "Kapital, Produktion, Absatz, Einkauf, Personal"
+    ],
+    "correct": 0,
+    "explanation": "Im Kurs prüfen wir Haftung, Kapitalbedarf, Leitung, Publizität und Kosten/Formalitäten."
+  },
+  {
+    "question": "Mei gründet allein. Sie hat 2.000 € und möchte ihr Privatvermögen schützen. Welche Form passt am besten?",
+    "options": [
+      "Einzelunternehmen",
+      "OHG",
+      "UG (haftungsbeschränkt)",
+      "GmbH"
+    ],
+    "correct": 2,
+    "explanation": "Das Einzelunternehmen passt wegen der privaten Haftung nicht. Für eine GmbH reicht das Kapital nicht. Die UG verbindet wenig Startkapital mit Haftungsbeschränkung."
+  },
+  {
+    "question": "Ali und Ben haben 30.000 € Startkapital und wollen nicht privat haften. Welche Form ist hier besonders naheliegend?",
+    "options": [
+      "AG",
+      "GmbH",
+      "Einzelunternehmen",
+      "OHG"
+    ],
+    "correct": 1,
+    "explanation": "Die GmbH passt: Die Haftung ist beschränkt und die 30.000 € reichen für das Mindeststammkapital von 25.000 €."
+  },
+  {
+    "question": "Frau Kim hat 60.000 € Eigenkapital, will allein Eigentümerin bleiben und braucht keine weiteren Kapitalgeber. Warum ist eine AG nicht automatisch die beste Wahl?",
+    "options": [
+      "Eine AG darf nur mit weniger als 50.000 € gegründet werden.",
+      "Der große Vorteil der AG – viele Kapitalgeber – wird in diesem Fall nicht benötigt.",
+      "Eine einzelne Person darf nie eine Kapitalgesellschaft gründen.",
+      "Eine AG hat keine Haftungsbeschränkung."
+    ],
+    "correct": 1,
+    "explanation": "Viel vorhandenes Kapital bedeutet nicht automatisch AG. Wenn kein breiter Kapitalgeberkreis nötig ist, kann eine GmbH besser passen."
+  },
+  {
+    "question": "Ein Schüler schreibt: „Ich empfehle die AG, weil die Aktionäre die Firma täglich leiten und nur 25.000 € Kapital nötig sind.“ Was ist richtig?",
+    "options": [
+      "Nur die Aussage über das Kapital ist falsch.",
+      "Beide Aussagen sind richtig.",
+      "Beide Aussagen sind falsch.",
+      "Nur die Aussage über die Leitung ist falsch."
+    ],
+    "correct": 2,
+    "explanation": "Beide Aussagen sind falsch: Die AG wird vom Vorstand geleitet und benötigt mindestens 50.000 € Grundkapital."
+  }
+];
+
+let queue=[];
+let currentIndex=0;
+let totalAnswered=0;
+let wrongSet=new Set();
+let answeredCorrectly=new Set();
+
+function initQuiz(){
+    queue=quizData.map((_,i)=>i);
+    currentIndex=0;
+    totalAnswered=0;
+    wrongSet=new Set();
+    answeredCorrectly=new Set();
+    document.getElementById("resultsContainer").classList.remove("show");
+    renderCurrentQuestion();
+}
+
+function renderCurrentQuestion(){
+    if(currentIndex>=queue.length){
+        showResults();
+        return;
+    }
+
+    const qIdx=queue[currentIndex];
+    const q=quizData[qIdx];
+    const isRetry=wrongSet.has(qIdx);
+    const container=document.getElementById("questionsContainer");
+
+    container.innerHTML=`
+    <div class="question-container active">
+        <div class="question-number">
+            ${isRetry ? "🔁 Wiederholung · " : ""}Frage ${totalAnswered+1} ·
+            ${answeredCorrectly.size} von ${quizData.length} gemeistert
+        </div>
+        <div class="question-text">${q.question}</div>
+        <div class="options" id="options-current">
+            ${q.options.map((opt,i)=>`
+                <div class="option" onclick="selectOption(${qIdx},${i})">
+                    <div class="option-letter">${String.fromCharCode(65+i)}</div>
+                    <div class="option-text">${opt}</div>
+                </div>
+            `).join("")}
+        </div>
+
+        <div class="feedback" id="feedback-current">
+            <div class="feedback-title"></div>
+            <div class="feedback-text"></div>
+        </div>
+
+        <div class="controls">
+            <div></div>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                Weiter →
+            </button>
+        </div>
+    </div>`;
+
+    updateProgress();
+}
+
+function selectOption(questionIndex,optionIndex){
+    const options=document.querySelectorAll("#options-current .option");
+    const correct=quizData[questionIndex].correct;
+
+    options.forEach(opt=>{
+        opt.classList.add("disabled");
+        opt.onclick=null;
+    });
+
+    options[optionIndex].classList.add("selected");
+    options[optionIndex].classList.add(optionIndex===correct ? "correct" : "incorrect");
+    options[correct].classList.add("correct");
+
+    const feedback=document.getElementById("feedback-current");
+    feedback.classList.add("show");
+
+    if(optionIndex===correct){
+        answeredCorrectly.add(questionIndex);
+        wrongSet.delete(questionIndex);
+        feedback.classList.add("correct");
+        feedback.querySelector(".feedback-title").textContent="✓ Richtig!";
+    }else{
+        wrongSet.add(questionIndex);
+        answeredCorrectly.delete(questionIndex);
+        feedback.classList.add("incorrect");
+        feedback.querySelector(".feedback-title").textContent="✗ Noch nicht – die Frage kommt später wieder!";
+        const insertPos=Math.min(currentIndex+5,queue.length);
+        queue.splice(insertPos,0,questionIndex);
+    }
+
+    feedback.querySelector(".feedback-text").innerHTML=quizData[questionIndex].explanation;
+    totalAnswered++;
+    document.getElementById("nextBtn").disabled=false;
+    updateProgress();
+}
+
+function nextQuestion(){
+    currentIndex++;
+    if(currentIndex>=queue.length) showResults();
+    else renderCurrentQuestion();
+}
+
+function updateProgress(){
+    const progress=(answeredCorrectly.size/quizData.length)*100;
+    document.getElementById("progressFill").style.width=progress+"%";
+}
+
+function showResults(){
+    document.getElementById("questionsContainer").innerHTML="";
+    const results=document.getElementById("resultsContainer");
+    results.classList.add("show");
+
+    const repeats=Math.max(0,totalAnswered-quizData.length);
+    const percentage=Math.round((quizData.length/Math.max(totalAnswered,quizData.length))*100);
+
+    document.getElementById("scoreNumber").textContent=Math.min(percentage,100)+"%";
+    document.getElementById("correctCount").textContent=quizData.length;
+    document.getElementById("incorrectCount").textContent=repeats;
+    document.getElementById("totalCount").textContent=totalAnswered;
+
+    let message="";
+    if(repeats===0) message="Perfekt! Alles auf Anhieb richtig!";
+    else if(repeats<=3) message="Sehr gut! Nur wenige Wiederholungen.";
+    else if(repeats<=7) message="Gut gemacht! Die Wiederholungen haben geholfen.";
+    else message="Geschafft! Wiederhole Block 4 noch einmal zur Sicherheit.";
+
+    document.getElementById("resultMessage").textContent=message;
+}
+
+function restartQuiz(){ initQuiz(); }
+
+window.onload=initQuiz;
+</script>
+</body>
+</html>
