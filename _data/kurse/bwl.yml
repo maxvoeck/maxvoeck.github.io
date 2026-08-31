@@ -43,6 +43,15 @@ kapitel:
         pdf: /assets/pdfs/BWL_W_4.pdf
         quiz: /assets/quizzes/quiz_unternehmensformen_2.html
         text: /assets/texte/bwl-w-4.pdf
+      - id: b5
+        nr: "05"
+        titel: Unternehmensziele
+        desc: >-
+          Sach- und Formalziele, Zielbereiche und Zielhierarchie — dazu Zielbeziehungen,
+          Shareholder- und Stakeholder-Ansatz sowie begrenzte Rationalität
+        pdf: /assets/pdfs/BWL_W_5.pdf
+        quiz: /assets/quizzes/quiz_unternehmensziele.html
+        text: /assets/texte/bwl-w-5.pdf
 
   - numeral: II
     titel: Buchführung

@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quiz: Unternehmensziele und Zielbeziehungen – BWL Block 5</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+
+.quiz-header h1{
+    font-size:1.8rem;
+    margin-bottom:.5rem
+}
+
+.quiz-header p{
+    opacity:.9;
+    font-size:1rem;
+    line-height:1.4
+}
+
+.progress-bar{
+    background:#e0e0e0;
+    height:8px;
+    position:relative
+}
+
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;
+    width:0%;
+    transition:width .3s ease
+}
+
+.quiz-content{
+    padding:2rem
+}
+
+.question-container{
+    display:none
+}
+
+.question-container.active{
+    display:block;
+    animation:fadeIn .45s ease
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(18px)
+    }
+    to{
+        opacity:1;
+        transform:translateY(0)
+    }
+}
+
+.question-number{
+    color:#667eea;
+    font-weight:600;
+    font-size:.9rem;
+    margin-bottom:.5rem
+}
+
+.question-text{
+    font-size:1.28rem;
+    font-weight:600;
+    color:#1f2937;
+    margin-bottom:1.5rem;
+    line-height:1.5
+}
+
+.options{
+    display:flex;
+    flex-direction:column;
+    gap:1rem
+}
+
+.option{
+    background:#f8f9fa;
+    border:2px solid #e0e0e0;
+    border-radius:12px;
+    padding:1rem 1.5rem;
+    cursor:pointer;
+    transition:all .25s ease;
+    display:flex;
+    align-items:center;
+    gap:1rem
+}
+
+.option:hover{
+    background:#f0f1f3;
+    border-color:#667eea;
+    transform:translateX(5px)
+}
+
+.option-letter{
+    background:#667eea;
+    color:#fff;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:600;
+    flex-shrink:0
+}
+
+.option-text{
+    line-height:1.4
+}
+
+.option.selected{
+    background:#e8eaf6;
+    border-color:#667eea
+}
+
+.option.correct{
+    background:#d4edda;
+    border-color:#28a745
+}
+
+.option.correct .option-letter{
+    background:#28a745
+}
+
+.option.incorrect{
+    background:#f8d7da;
+    border-color:#dc3545
+}
+
+.option.incorrect .option-letter{
+    background:#dc3545
+}
+
+.option.disabled{
+    cursor:not-allowed;
+    opacity:.74
+}
+
+.feedback{
+    margin-top:1.5rem;
+    padding:1rem;
+    border-radius:8px;
+    display:none;
+    line-height:1.5
+}
+
+.feedback.show{
+    display:block;
+    animation:fadeIn .4s ease
+}
+
+.feedback.correct{
+    background:#d4edda;
+    border-left:4px solid #28a745;
+    color:#155724
+}
+
+.feedback.incorrect{
+    background:#f8d7da;
+    border-left:4px solid #dc3545;
+    color:#721c24
+}
+
+.feedback-title{
+    font-weight:700;
+    margin-bottom:.45rem
+}
+
+.controls{
+    margin-top:2rem;
+    display:flex;
+    justify-content:space-between;
+    gap:1rem
+}
+
+.btn{
+    padding:.8rem 2rem;
+    border:none;
+    border-radius:8px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all .25s ease
+}
+
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    color:#fff
+}
+
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+
+.btn:disabled{
+    opacity:.5;
+    cursor:not-allowed
+}
+
+.results-container{
+    display:none;
+    text-align:center;
+    padding:2rem
+}
+
+.results-container.show{
+    display:block;
+    animation:fadeIn .45s ease
+}
+
+.score-circle{
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    margin:2rem auto;
+    color:#fff;
+    box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+
+.score-number{
+    font-size:3rem;
+    font-weight:700
+}
+
+.score-label{
+    font-size:1rem;
+    opacity:.9
+}
+
+.result-message{
+    font-size:1.45rem;
+    font-weight:600;
+    color:#1f2937;
+    margin-bottom:1rem
+}
+
+.result-details{
+    background:#f8f9fa;
+    border-radius:12px;
+    padding:1.5rem;
+    margin:2rem 0;
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    gap:1rem
+}
+
+.result-stat{
+    text-align:center
+}
+
+.result-stat-number{
+    font-size:2rem;
+    font-weight:700;
+    color:#667eea
+}
+
+.result-stat-label{
+    font-size:.9rem;
+    color:#666;
+    margin-top:.3rem
+}
+
+@media(max-width:768px){
+    body{
+        padding:10px
+    }
+
+    .quiz-header h1{
+        font-size:1.4rem
+    }
+
+    .question-text{
+        font-size:1.1rem
+    }
+
+    .controls{
+        flex-direction:column
+    }
+
+    .btn{
+        width:100%
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-container">
+
+    <div class="quiz-header">
+        <h1>🎯 Unternehmensziele</h1>
+        <p>
+            Sachziele · Formalziele · Zielbereiche · Zielbeziehungen ·
+            Shareholder und Stakeholder · BWL · W-Kurs · Block 5
+        </p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-content">
+
+        <div id="questionsContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+
+            <div class="result-message" id="resultMessage"></div>
+
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Erreicht</div>
+            </div>
+
+            <div class="result-details">
+
+                <div class="result-stat">
+                    <div class="result-stat-number" id="correctCount">0</div>
+                    <div class="result-stat-label">Gemeistert</div>
+                </div>
+
+                <div class="result-stat">
+                    <div class="result-stat-number" id="incorrectCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+
+            </div>
+
+            <button class="btn btn-primary" onclick="restartQuiz()">
+                🔄 Quiz wiederholen
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+const quizData = [
+
+{
+    question:"Was beschreibt ein Sachziel?",
+    options:[
+        "Den wirtschaftlichen Erfolg des Unternehmens",
+        "Die konkrete Leistung des Unternehmens",
+        "Nur den Gewinn des Unternehmens",
+        "Die Interessen der Eigentümer"
+    ],
+    correct:1,
+    explanation:"Sachziele beschreiben die Leistung eines Unternehmens, zum Beispiel Produktionsmenge, Produkt oder Qualität."
+},
+
+{
+    question:"Welches Ziel ist ein Formalziel?",
+    options:[
+        "Im nächsten Monat 2.000 Fahrräder produzieren",
+        "Die Qualität der Fahrräder verbessern",
+        "Den Gewinn um 10 % steigern",
+        "Ein neues Fahrradmodell herstellen"
+    ],
+    correct:2,
+    explanation:"Gewinn ist eine wirtschaftliche Erfolgsgröße. Deshalb ist die Gewinnsteigerung ein Formalziel."
+},
+
+{
+    question:"Ein Unternehmen möchte im nächsten Jahr 50.000 Smartphones produzieren. Welche Zielart liegt vor?",
+    options:[
+        "Sachziel",
+        "Formalziel",
+        "Sozialziel",
+        "Shareholder-Ziel"
+    ],
+    correct:0,
+    explanation:"Die Produktionsmenge beschreibt eine konkrete Leistung. Deshalb handelt es sich um ein Sachziel."
+},
+
+{
+    question:"Die Produktionskosten sollen um 6 % sinken. Welche Zielart liegt vor?",
+    options:[
+        "Unterziel",
+        "Sachziel",
+        "ökologisches Ziel",
+        "Formalziel"
+    ],
+    correct:3,
+    explanation:"Kosten sind eine wirtschaftliche Erfolgsgröße. Das Ziel ist deshalb ein Formalziel."
+},
+
+{
+    question:"Welche Aussage über Sachziele und Formalziele ist richtig?",
+    options:[
+        "Sachziele sind immer wichtiger als Formalziele",
+        "Sachziele können Mittel zur Erreichung von Formalzielen sein",
+        "Formalziele beschreiben nur die Produktionsmenge",
+        "Sachziele betreffen ausschließlich Mitarbeiter"
+    ],
+    correct:1,
+    explanation:"Sachziele haben häufig Instrumentalcharakter. Eine konkrete Leistung kann helfen, ein wirtschaftliches Formalziel zu erreichen."
+},
+
+{
+    question:"Welches Ziel ist ein ökonomisches Ziel?",
+    options:[
+        "Den Marktanteil erhöhen",
+        "Die Zahl der Arbeitsunfälle senken",
+        "Den CO₂-Ausstoß senken",
+        "Flexible Arbeitszeiten anbieten"
+    ],
+    correct:0,
+    explanation:"Ein höherer Marktanteil betrifft den wirtschaftlichen Erfolg des Unternehmens und ist deshalb ein ökonomisches Ziel."
+},
+
+{
+    question:"Welches Beispiel ist ein soziales Unternehmensziel?",
+    options:[
+        "Den Wasserverbrauch um 10 % senken",
+        "Den Umsatz um 5 % erhöhen",
+        "Neue Maschinen kaufen",
+        "Die Zahl der Arbeitsunfälle reduzieren"
+    ],
+    correct:3,
+    explanation:"Die Sicherheit der Beschäftigten betrifft Menschen und ihre Arbeitsbedingungen. Das Ziel ist sozial."
+},
+
+{
+    question:"Welches Ziel ist ökologisch?",
+    options:[
+        "Den Gewinn erhöhen",
+        "Den CO₂-Ausstoß um 20 % senken",
+        "Die Löhne erhöhen",
+        "Den Marktanteil erhöhen"
+    ],
+    correct:1,
+    explanation:"Die Senkung des CO₂-Ausstoßes betrifft Umwelt und Klima und ist deshalb ein ökologisches Ziel."
+},
+
+{
+    question:"Ein Unternehmen möchte 30 % weniger Verpackungsmaterial verwenden. Welche Einordnung passt am besten?",
+    options:[
+        "nur Formalziel",
+        "soziales Ziel",
+        "ökologisches Ziel",
+        "Shareholder-Ziel"
+    ],
+    correct:2,
+    explanation:"Weniger Verpackungsmaterial bedeutet einen sparsameren Umgang mit Ressourcen. Das Ziel ist ökologisch."
+},
+
+{
+    question:"Was gilt für die Zielhierarchie?",
+    options:[
+        "Unterziele sind immer wichtiger als Oberziele",
+        "Alle Ziele sind gleich konkret",
+        "Oberziele gelten nur für einzelne Mitarbeiter",
+        "Je weiter nach unten, desto konkreter werden die Ziele"
+    ],
+    correct:3,
+    explanation:"Oberziele sind allgemein. Zwischen- und Unterziele konkretisieren sie für kleinere Bereiche."
+},
+
+{
+    question:"Der Gewinn des gesamten Unternehmens soll steigen. Welche Ebene der Zielhierarchie passt am besten?",
+    options:[
+        "Oberziel",
+        "Zwischenziel",
+        "Unterziel",
+        "Maßnahme"
+    ],
+    correct:0,
+    explanation:"Das Ziel gilt für das gesamte Unternehmen und ist deshalb ein Oberziel."
+},
+
+{
+    question:"Was ist der Unterschied zwischen einem Ziel und einer Maßnahme?",
+    options:[
+        "Es gibt keinen Unterschied",
+        "Eine Maßnahme beschreibt den gewünschten Zustand",
+        "Ein Ziel beschreibt den gewünschten Zustand, eine Maßnahme den Weg dorthin",
+        "Eine Maßnahme ist immer ein Formalziel"
+    ],
+    correct:2,
+    explanation:"Das Ziel beschreibt, was erreicht werden soll. Eine Maßnahme beschreibt, was dafür konkret getan wird."
+},
+
+{
+    question:"Ziel 1: Energieverbrauch senken. Ziel 2: Energiekosten senken. Welche Beziehung liegt vor?",
+    options:[
+        "indifferent",
+        "komplementär",
+        "konkurrierend",
+        "hierarchisch"
+    ],
+    correct:1,
+    explanation:"Weniger Energieverbrauch führt normalerweise zu geringeren Energiekosten. Die Ziele unterstützen sich."
+},
+
+{
+    question:"Wann sind zwei Ziele konkurrierend?",
+    options:[
+        "Wenn die bessere Erreichung eines Ziels das andere Ziel erschwert",
+        "Wenn beide Ziele genau gleich sind",
+        "Wenn kein Zusammenhang besteht",
+        "Wenn ein Ziel ein Unterziel ist"
+    ],
+    correct:0,
+    explanation:"Konkurrierende Ziele stehen in einem Zielkonflikt. Eine stärkere Erreichung des einen Ziels erschwert das andere."
+},
+
+{
+    question:"Ein Unternehmen möchte die Löhne deutlich erhöhen und gleichzeitig die Personalkosten senken. Welche Zielbeziehung liegt zunächst vor?",
+    options:[
+        "komplementär",
+        "indifferent",
+        "hierarchisch",
+        "konkurrierend"
+    ],
+    correct:3,
+    explanation:"Höhere Löhne erhöhen zunächst die Personalkosten. Die beiden Ziele stehen deshalb im Konflikt."
+},
+
+{
+    question:"Was bedeutet eine indifferente oder neutrale Zielbeziehung?",
+    options:[
+        "Ein Ziel ist wichtiger als das andere",
+        "Die Ziele beeinflussen sich nicht wesentlich",
+        "Beide Ziele können nicht erreicht werden",
+        "Die Ziele unterstützen sich automatisch"
+    ],
+    correct:1,
+    explanation:"Bei indifferenten Zielen besteht kein wesentlicher Zusammenhang zwischen der Erreichung der beiden Ziele."
+},
+
+{
+    question:"Die Kantine wird neu gestrichen und gleichzeitig wird die Lagersoftware aktualisiert. Welche Zielbeziehung liegt wahrscheinlich vor?",
+    options:[
+        "konkurrierend",
+        "komplementär",
+        "indifferent",
+        "Formalziel"
+    ],
+    correct:2,
+    explanation:"Zwischen beiden Zielen besteht in diesem Fall kein wesentlicher Zusammenhang. Sie sind indifferent."
+},
+
+{
+    question:"Welche Aussage zu Zielbeziehungen ist richtig?",
+    options:[
+        "Umweltziele und Gewinnziele sind immer konkurrierend",
+        "Soziale Ziele sind immer indifferent zu ökonomischen Zielen",
+        "Zielbeziehungen müssen nicht begründet werden",
+        "Die Zielbeziehung hängt vom konkreten Fall ab"
+    ],
+    correct:3,
+    explanation:"Die gleichen Zielarten können in verschiedenen Situationen unterschiedlich zusammenwirken. Deshalb muss immer der konkrete Fall betrachtet werden."
+},
+
+{
+    question:"Was sollte eine gute Begründung in einer Klausur enthalten?",
+    options:[
+        "Begriff + Fallinformation + Schlussfolgerung",
+        "Nur den Fachbegriff",
+        "Nur ein Beispiel aus dem Alltag",
+        "Eine möglichst lange Definition"
+    ],
+    correct:0,
+    explanation:"Bei einer Begründungsaufgabe sollte der Fachbegriff genannt, eine Information aus dem Fall verwendet und daraus eine Schlussfolgerung gezogen werden."
+},
+
+{
+    question:"Was ist ein Shareholder?",
+    options:[
+        "Jeder Kunde eines Unternehmens",
+        "Ein Eigentümer oder Anteilseigner eines Unternehmens",
+        "Jeder Mitarbeiter eines Unternehmens",
+        "Nur eine Bank, die einen Kredit gibt"
+    ],
+    correct:1,
+    explanation:"Shareholder sind Eigentümer oder Anteilseigner. Bei einer Aktiengesellschaft sind zum Beispiel die Aktionäre Shareholder."
+},
+
+{
+    question:"Wer ist bei einer Aktiengesellschaft typischerweise Shareholder?",
+    options:[
+        "Ein Anwohner",
+        "Ein Lieferant",
+        "Ein Aktionär",
+        "Jeder Kunde"
+    ],
+    correct:2,
+    explanation:"Ein Aktionär besitzt Anteile an der Aktiengesellschaft und ist deshalb Shareholder."
+},
+
+{
+    question:"Was ist ein Stakeholder?",
+    options:[
+        "Nur ein Eigentümer",
+        "Nur ein Mitarbeiter",
+        "Nur eine Person mit Aktien",
+        "Eine Person oder Gruppe mit Interesse am Unternehmen oder Betroffenheit durch seine Entscheidungen"
+    ],
+    correct:3,
+    explanation:"Stakeholder sind wichtige Anspruchsgruppen. Dazu können Eigentümer, Mitarbeiter, Kunden, Lieferanten, Banken, Staat oder Anwohner gehören."
+},
+
+{
+    question:"Welche Aussage ist richtig?",
+    options:[
+        "Shareholder sind auch Stakeholder",
+        "Jeder Stakeholder ist automatisch Shareholder",
+        "Mitarbeiter können keine Stakeholder sein",
+        "Kunden sind immer Shareholder"
+    ],
+    correct:0,
+    explanation:"Eigentümer sind eine Anspruchsgruppe des Unternehmens und deshalb auch Stakeholder. Aber nicht jeder Stakeholder besitzt Unternehmensanteile."
+},
+
+{
+    question:"Welche Person ist Stakeholder, aber normalerweise kein Shareholder?",
+    options:[
+        "Ein Gesellschafter einer GmbH",
+        "Ein Aktionär",
+        "Ein Anwohner neben einer Fabrik",
+        "Der Eigentümer eines Einzelunternehmens"
+    ],
+    correct:2,
+    explanation:"Ein Anwohner kann von Lärm oder Emissionen betroffen sein und ist deshalb Stakeholder, ohne Eigentümer des Unternehmens zu sein."
+},
+
+{
+    question:"Was steht beim Shareholder-Ansatz besonders im Mittelpunkt?",
+    options:[
+        "Ausschließlich die Interessen der Kunden",
+        "Die Interessen der Eigentümer",
+        "Nur ökologische Ziele",
+        "Die Interessen aller Gruppen gleich stark"
+    ],
+    correct:1,
+    explanation:"Beim Shareholder-Ansatz haben die Interessen der Eigentümer bzw. Anteilseigner einen besonders hohen Stellenwert."
+},
+
+{
+    question:"Was kennzeichnet den Stakeholder-Ansatz?",
+    options:[
+        "Es werden Interessen verschiedener Anspruchsgruppen berücksichtigt",
+        "Nur der Gewinn ist wichtig",
+        "Eigentümer dürfen nicht berücksichtigt werden",
+        "Nur Mitarbeiter entscheiden über Unternehmensziele"
+    ],
+    correct:0,
+    explanation:"Beim Stakeholder-Ansatz werden die Interessen verschiedener Gruppen berücksichtigt, zum Beispiel Eigentümer, Mitarbeiter und Kunden."
+},
+
+{
+    question:"Was bedeutet begrenzte Rationalität nach Herbert Simon?",
+    options:[
+        "Manager entscheiden grundsätzlich irrational",
+        "Unternehmen dürfen keine Gewinne maximieren",
+        "Menschen haben nicht alle Informationen und nicht unbegrenzt Zeit",
+        "Jede Entscheidung muss mathematisch berechnet werden"
+    ],
+    correct:2,
+    explanation:"Menschen können nicht alle Informationen kennen und jede Alternative prüfen. Ihre Rationalität ist deshalb begrenzt."
+},
+
+{
+    question:"Was bedeutet Satisficing?",
+    options:[
+        "Immer die teuerste Lösung wählen",
+        "Eine ausreichend gute Lösung wählen",
+        "Alle möglichen Alternativen vollständig vergleichen",
+        "Nur kurzfristige Ziele verfolgen"
+    ],
+    correct:1,
+    explanation:"Beim Satisficing wird nicht unbedingt die perfekte, sondern eine ausreichend gute Lösung gewählt."
+},
+
+{
+    question:"Ein Einkäufer sucht einen Bürostuhl für maximal 200 € und kauft beim ersten Anbieter, der alle Anforderungen erfüllt. Was zeigt das?",
+    options:[
+        "indifferente Ziele",
+        "Shareholder-Ansatz",
+        "Gewinnmaximierung",
+        "Satisficing"
+    ],
+    correct:3,
+    explanation:"Der Einkäufer sucht nicht weltweit nach der perfekten Lösung. Er akzeptiert eine ausreichend gute Lösung."
+},
+
+{
+    question:"Die GreenBike GmbH kauft eine teure energiesparende Maschine. Kurzfristig sinkt dadurch möglicherweise der Gewinn. Welche Beziehung besteht kurzfristig zwischen Gewinnziel und Umweltziel?",
+    options:[
+        "indifferent",
+        "konkurrierend",
+        "komplementär",
+        "identisch"
+    ],
+    correct:1,
+    explanation:"Die Investition verursacht zunächst hohe Kosten und kann den Gewinn senken. Kurzfristig besteht deshalb ein Zielkonflikt."
+},
+
+{
+    question:"Die gleiche Maschine senkt später Stromverbrauch und Energiekosten. Wie können Gewinnziel und Umweltziel dann zusammenwirken?",
+    options:[
+        "komplementär",
+        "immer konkurrierend",
+        "indifferent",
+        "ohne Zielbeziehung"
+    ],
+    correct:0,
+    explanation:"Weniger Energie senkt CO₂-Ausstoß und Energiekosten gleichzeitig. Langfristig können sich beide Ziele deshalb unterstützen."
+}
+
+];
+
+let queue=[];
+let currentIndex=0;
+let totalAnswered=0;
+let wrongSet=new Set();
+let answeredCorrectly=new Set();
+
+function initQuiz(){
+
+    queue=quizData.map((_,i)=>i);
+
+    currentIndex=0;
+    totalAnswered=0;
+
+    wrongSet=new Set();
+    answeredCorrectly=new Set();
+
+    document
+        .getElementById("resultsContainer")
+        .classList.remove("show");
+
+    renderCurrentQuestion();
+}
+
+function renderCurrentQuestion(){
+
+    if(currentIndex>=queue.length){
+        showResults();
+        return;
+    }
+
+    const qIdx=queue[currentIndex];
+    const q=quizData[qIdx];
+
+    const isRetry=wrongSet.has(qIdx);
+
+    const container=
+        document.getElementById("questionsContainer");
+
+    container.innerHTML=`
+    <div class="question-container active">
+
+        <div class="question-number">
+            ${isRetry ? "🔁 Wiederholung · " : ""}
+            Frage ${totalAnswered+1} ·
+            ${answeredCorrectly.size} von ${quizData.length} gemeistert
+        </div>
+
+        <div class="question-text">
+            ${q.question}
+        </div>
+
+        <div class="options" id="options-current">
+
+            ${q.options.map((opt,i)=>`
+                <div
+                    class="option"
+                    onclick="selectOption(${qIdx},${i})"
+                >
+                    <div class="option-letter">
+                        ${String.fromCharCode(65+i)}
+                    </div>
+
+                    <div class="option-text">
+                        ${opt}
+                    </div>
+                </div>
+            `).join("")}
+
+        </div>
+
+        <div
+            class="feedback"
+            id="feedback-current"
+        >
+            <div class="feedback-title"></div>
+            <div class="feedback-text"></div>
+        </div>
+
+        <div class="controls">
+
+            <div></div>
+
+            <button
+                class="btn btn-primary"
+                id="nextBtn"
+                onclick="nextQuestion()"
+                disabled
+            >
+                Weiter →
+            </button>
+
+        </div>
+
+    </div>
+    `;
+
+    updateProgress();
+}
+
+function selectOption(questionIndex,optionIndex){
+
+    const options=
+        document.querySelectorAll(
+            "#options-current .option"
+        );
+
+    const correct=
+        quizData[questionIndex].correct;
+
+    options.forEach(opt=>{
+        opt.classList.add("disabled");
+        opt.onclick=null;
+    });
+
+    options[optionIndex]
+        .classList.add("selected");
+
+    options[optionIndex]
+        .classList.add(
+            optionIndex===correct
+            ? "correct"
+            : "incorrect"
+        );
+
+    options[correct]
+        .classList.add("correct");
+
+    const feedback=
+        document.getElementById(
+            "feedback-current"
+        );
+
+    feedback.classList.add("show");
+
+    if(optionIndex===correct){
+
+        answeredCorrectly.add(questionIndex);
+        wrongSet.delete(questionIndex);
+
+        feedback.classList.add("correct");
+
+        feedback
+            .querySelector(".feedback-title")
+            .textContent="✓ Richtig!";
+
+    }else{
+
+        wrongSet.add(questionIndex);
+        answeredCorrectly.delete(questionIndex);
+
+        feedback.classList.add("incorrect");
+
+        feedback
+            .querySelector(".feedback-title")
+            .textContent=
+            "✗ Noch nicht – die Frage kommt später wieder!";
+
+        const insertPos=
+            Math.min(
+                currentIndex+5,
+                queue.length
+            );
+
+        queue.splice(
+            insertPos,
+            0,
+            questionIndex
+        );
+    }
+
+    feedback
+        .querySelector(".feedback-text")
+        .innerHTML=
+        quizData[questionIndex].explanation;
+
+    totalAnswered++;
+
+    document
+        .getElementById("nextBtn")
+        .disabled=false;
+
+    updateProgress();
+}
+
+function nextQuestion(){
+
+    currentIndex++;
+
+    if(currentIndex>=queue.length){
+        showResults();
+    }else{
+        renderCurrentQuestion();
+    }
+}
+
+function updateProgress(){
+
+    const progress=
+        (
+            answeredCorrectly.size
+            /
+            quizData.length
+        )*100;
+
+    document
+        .getElementById("progressFill")
+        .style.width=
+        progress+"%";
+}
+
+function showResults(){
+
+    document
+        .getElementById("questionsContainer")
+        .innerHTML="";
+
+    const results=
+        document.getElementById(
+            "resultsContainer"
+        );
+
+    results.classList.add("show");
+
+    const repeats=
+        Math.max(
+            0,
+            totalAnswered-quizData.length
+        );
+
+    const percentage=
+        Math.round(
+            (
+                quizData.length
+                /
+                Math.max(
+                    totalAnswered,
+                    quizData.length
+                )
+            )*100
+        );
+
+    document
+        .getElementById("scoreNumber")
+        .textContent=
+        Math.min(percentage,100)+"%";
+
+    document
+        .getElementById("correctCount")
+        .textContent=
+        quizData.length;
+
+    document
+        .getElementById("incorrectCount")
+        .textContent=
+        repeats;
+
+    document
+        .getElementById("totalCount")
+        .textContent=
+        totalAnswered;
+
+    let message="";
+
+    if(repeats===0){
+        message=
+            "Perfekt! Alles auf Anhieb richtig!";
+    }
+    else if(repeats<=4){
+        message=
+            "Sehr gut! Nur wenige Wiederholungen.";
+    }
+    else if(repeats<=9){
+        message=
+            "Gut gemacht! Die Wiederholungen haben geholfen.";
+    }
+    else{
+        message=
+            "Geschafft! Wiederhole Block 5 noch einmal zur Sicherheit.";
+    }
+
+    document
+        .getElementById("resultMessage")
+        .textContent=
+        message;
+}
+
+function restartQuiz(){
+    initQuiz();
+}
+
+window.onload=initQuiz;
+
+</script>
+
+</body>
+</html>
