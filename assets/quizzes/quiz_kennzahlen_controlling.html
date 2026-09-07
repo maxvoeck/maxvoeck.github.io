@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Kennzahlen und Controlling – BWL Block 6</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:600;color:#1f2937;
+    margin-bottom:1.5rem;line-height:1.5
+}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{
+    background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;
+    padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f0f1f3;border-color:#667eea;transform:translateX(5px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0
+}
+.option.selected{background:#e8eaf6;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{
+    margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45
+}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{
+    margin-top:2rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:all .25s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{
+    width:200px;height:200px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+.score-number{font-size:3rem;font-weight:700}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+.small-note{font-size:.9rem;color:#6b7280;margin-top:.8rem;line-height:1.4}
+.formula{font-family:Georgia,"Times New Roman",serif;white-space:nowrap}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header h1{font-size:1.4rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>📊 Kennzahlen und Controlling</h1>
+        <p>Produktivität · Wirtschaftlichkeit · Rentabilität · ROI · BWL · W-Kurs · Block 6</p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-content">
+        <div id="questionsContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Erreicht</div>
+            </div>
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="correctCount">0</div>
+                    <div class="result-stat-label">Gemeistert</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="incorrectCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const quizData = [
+{
+    question:"Welche Aussage beschreibt Controlling am besten?",
+    options:[
+        "Controlling prüft nur am Jahresende die Buchhaltung.",
+        "Controlling unterstützt beim Planen, Steuern und Kontrollieren.",
+        "Controlling entscheidet allein über alle Preise.",
+        "Controlling bedeutet nur, Fehler von Mitarbeitern zu suchen."
+    ],
+    correct:1,
+    explanation:"Controlling ist mehr als Kontrolle. Es unterstützt die Unternehmensleitung beim Planen, Steuern und Kontrollieren."
+},
+{
+    question:"Welche zwei Hauptfunktionen haben Kennzahlen in diesem Block?",
+    options:[
+        "Werbung und Finanzierung",
+        "Produktion und Verkauf",
+        "Planung und Buchführung",
+        "Information und Steuerung"
+    ],
+    correct:3,
+    explanation:"Kennzahlen informieren und helfen bei der Steuerung, zum Beispiel als Zielvorgabe für eine Abteilung."
+},
+{
+    question:"Was bedeutet „Ausbringungsmenge“?",
+    options:[
+        "produzierte Menge bzw. Output",
+        "eingesetzte Arbeitszeit",
+        "gesamter Aufwand in Euro",
+        "eingesetztes Kapital"
+    ],
+    correct:0,
+    explanation:"Ausbringungsmenge bedeutet produzierte Menge. Sie ist der Output."
+},
+{
+    question:"Welche Aussage zur Produktivität ist richtig?",
+    options:[
+        "Sie misst immer Gewinn in Prozent.",
+        "Sie vergleicht Ertrag und Aufwand.",
+        "Sie ist eine mengenmäßige Kennzahl.",
+        "Sie kann nur in Euro angegeben werden."
+    ],
+    correct:2,
+    explanation:"Produktivität ist mengenmäßig. Typische Größen sind Stück, Stunden oder Kilogramm."
+},
+{
+    question:"Ein Betrieb produziert 900 Stück in 45 Arbeitsstunden. Wie hoch ist die Arbeitsproduktivität?",
+    options:[
+        "45 Stück pro Arbeitsstunde",
+        "20 Stück pro Arbeitsstunde",
+        "855 Stück pro Arbeitsstunde",
+        "0,05 Stück pro Arbeitsstunde"
+    ],
+    correct:1,
+    explanation:"900 ÷ 45 = 20. Die Arbeitsproduktivität beträgt 20 Stück pro Arbeitsstunde."
+},
+{
+    question:"Ein Betrieb produziert 600 Stück in 30 Arbeitsstunden. Zusätzlich ist der Verkaufspreis von 50 € pro Stück gegeben. Welche Information brauchen Sie für die Arbeitsproduktivität nicht?",
+    options:[
+        "den Verkaufspreis",
+        "die produzierte Menge",
+        "die Arbeitsstunden",
+        "Output und Input"
+    ],
+    correct:0,
+    explanation:"Für die Arbeitsproduktivität werden nur produzierte Menge und Arbeitsstunden benötigt. Der Verkaufspreis ist unwichtig."
+},
+{
+    question:"Welche Formel gehört zur Wirtschaftlichkeit?",
+    options:[
+        "Gewinn ÷ Eigenkapital × 100",
+        "Output ÷ Input",
+        "Umsatz ÷ Kapital",
+        "Ertrag ÷ Aufwand"
+    ],
+    correct:3,
+    explanation:"Wirtschaftlichkeit = Ertrag ÷ Aufwand. Sie ist eine wertmäßige Kennzahl."
+},
+{
+    question:"Die Wirtschaftlichkeit beträgt 1,25. Welche Interpretation ist richtig?",
+    options:[
+        "Das Unternehmen macht sicher 25.000 € Gewinn.",
+        "Jedem Euro Aufwand steht ein Ertrag von 1,25 € gegenüber.",
+        "Die Produktivität beträgt 1,25 Stück pro Stunde.",
+        "Das Eigenkapital verzinst sich mit 1,25 %."
+    ],
+    correct:1,
+    explanation:"Bei einer Wirtschaftlichkeit von 1,25 steht jedem Euro Aufwand ein Ertrag von 1,25 € gegenüber."
+},
+{
+    question:"Eine neue Maschine produziert mehr Stück pro Stunde. Gleichzeitig steigen Strom- und Wartungskosten stark. Welche Aussage kann richtig sein?",
+    options:[
+        "Produktivität und Wirtschaftlichkeit müssen beide steigen.",
+        "Die Produktivität muss sinken, weil die Kosten steigen.",
+        "Die Produktivität steigt, während die Wirtschaftlichkeit sinken kann.",
+        "Wirtschaftlichkeit und Produktivität sind dieselbe Kennzahl."
+    ],
+    correct:2,
+    explanation:"Mehr Stück pro Stunde erhöht die Produktivität. Wenn die Kosten stärker steigen als der Ertrag, kann die Wirtschaftlichkeit trotzdem sinken."
+},
+{
+    question:"Welche Formel gehört zur Eigenkapitalrentabilität?",
+    options:[
+        "Gewinn ÷ Eigenkapital × 100",
+        "Ertrag ÷ Aufwand",
+        "Gewinn ÷ Umsatz × 100",
+        "Umsatz ÷ investiertes Kapital"
+    ],
+    correct:0,
+    explanation:"Die Eigenkapitalrentabilität misst die Verzinsung des Eigenkapitals: Gewinn ÷ Eigenkapital × 100."
+},
+{
+    question:"Ein Unternehmen erzielt 24.000 € Gewinn bei 120.000 € Eigenkapital. Wie hoch ist die Eigenkapitalrentabilität?",
+    options:[
+        "5 %",
+        "12 %",
+        "20 %",
+        "50 %"
+    ],
+    correct:2,
+    explanation:"24.000 ÷ 120.000 × 100 = 20 %. Das Eigenkapital verzinst sich mit 20 %."
+},
+{
+    question:"Was bedeutet eine Umsatzrentabilität von 6 %?",
+    options:[
+        "Der Umsatz steigt jedes Jahr um 6 %.",
+        "Das Kapital wird sechsmal umgeschlagen.",
+        "Von jedem Euro Aufwand bleiben 6 Cent Gewinn.",
+        "Von jedem Euro Umsatz bleiben 6 Cent Gewinn."
+    ],
+    correct:3,
+    explanation:"Die Umsatzrentabilität zeigt, wie viel Gewinn vom Umsatz bleibt. Bei 6 % sind es 6 Cent je Euro Umsatz."
+},
+{
+    question:"Warum werden bei der Gesamtkapitalrentabilität die Fremdkapitalzinsen zum Gewinn addiert?",
+    options:[
+        "Weil auch das Fremdkapital eine Verzinsung erhält.",
+        "Weil Zinsen immer zum Umsatz gehören.",
+        "Weil Fremdkapital kein Teil des Gesamtkapitals ist.",
+        "Damit die Wirtschaftlichkeit größer als 1 wird."
+    ],
+    correct:0,
+    explanation:"Die Gesamtkapitalrentabilität betrachtet das gesamte Kapital. Deshalb wird auch die Vergütung des Fremdkapitals berücksichtigt."
+},
+{
+    question:"Gewinn: 30.000 €, Fremdkapitalzinsen: 10.000 €, Eigenkapital: 80.000 €, Fremdkapital: 120.000 €. Wie hoch ist die Gesamtkapitalrentabilität?",
+    options:[
+        "10 %",
+        "15 %",
+        "25 %",
+        "20 %"
+    ],
+    correct:3,
+    explanation:"(30.000 + 10.000) ÷ (80.000 + 120.000) × 100 = 20 %."
+},
+{
+    question:"Welche Formel zeigt den ROI im DuPont-System?",
+    options:[
+        "Produktivität × Wirtschaftlichkeit",
+        "Eigenkapitalrentabilität × Umsatz",
+        "Umsatzrentabilität × Kapitalumschlag",
+        "Gewinn × Fremdkapitalzinsen"
+    ],
+    correct:2,
+    explanation:"Im DuPont-System gilt: ROI = Umsatzrentabilität × Kapitalumschlag."
+},
+{
+    question:"Ein Unternehmen erzielt 900.000 € Umsatz mit 300.000 € investiertem Kapital. Wie hoch ist der Kapitalumschlag?",
+    options:[
+        "0,33",
+        "3",
+        "30 %",
+        "600.000"
+    ],
+    correct:1,
+    explanation:"900.000 ÷ 300.000 = 3. Das Kapital wird rechnerisch dreimal umgesetzt."
+},
+{
+    question:"Die Umsatzrentabilität beträgt 4 %, der Kapitalumschlag 5. Wie hoch ist der ROI?",
+    options:[
+        "20 %",
+        "9 %",
+        "1,25 %",
+        "80 %"
+    ],
+    correct:0,
+    explanation:"ROI = 4 % × 5 = 20 %."
+},
+{
+    question:"Die Eigentümer möchten wissen, wie gut sich ihr eigenes eingesetztes Kapital verzinst hat. Welche Kennzahl passt?",
+    options:[
+        "Wirtschaftlichkeit",
+        "Eigenkapitalrentabilität",
+        "Kapitalumschlag",
+        "Arbeitsproduktivität"
+    ],
+    correct:1,
+    explanation:"Gefragt ist die Verzinsung des Kapitals der Eigentümer. Deshalb passt die Eigenkapitalrentabilität."
+},
+{
+    question:"Unternehmen A: Umsatzrentabilität 10 %, Kapitalumschlag 1,2, ROI 12 %. Unternehmen B: Umsatzrentabilität 5 %, Kapitalumschlag 3, ROI 15 %. Welche Beurteilung ist richtig?",
+    options:[
+        "A nutzt das Kapital besser, weil die Umsatzrentabilität höher ist.",
+        "Beide nutzen das Kapital gleich gut, weil beide Gewinn machen.",
+        "A ist besser, weil der Kapitalumschlag kleiner ist.",
+        "B nutzt das Kapital besser, weil der ROI höher ist."
+    ],
+    correct:3,
+    explanation:"Für die gesamte Kapitalnutzung ist hier der ROI entscheidend. B erreicht mit 15 % den höheren ROI."
+},
+{
+    question:"Welche Aussage beschreibt eine Grenze von Kennzahlen richtig?",
+    options:[
+        "Eine einzelne Kennzahl erklärt immer vollständig die Situation eines Unternehmens.",
+        "Unternehmen aus allen Branchen können ohne Einschränkung verglichen werden.",
+        "Kennzahlen werden aussagekräftiger, wenn man zum Beispiel mehrere Jahre oder passende Unternehmen vergleicht.",
+        "Ein Zeitvergleich ist unnötig, wenn eine Kennzahl größer als 1 ist."
+    ],
+    correct:2,
+    explanation:"Kennzahlen müssen eingeordnet werden. Zeitvergleiche und passende Branchenvergleiche helfen bei einer sinnvollen Beurteilung."
+}
+];
+
+let queue=[];
+let currentIndex=0;
+let totalAnswered=0;
+let wrongSet=new Set();
+let answeredCorrectly=new Set();
+
+function initQuiz(){
+    queue=quizData.map((_,i)=>i);
+    currentIndex=0;
+    totalAnswered=0;
+    wrongSet=new Set();
+    answeredCorrectly=new Set();
+    document.getElementById("resultsContainer").classList.remove("show");
+    renderCurrentQuestion();
+}
+
+function renderCurrentQuestion(){
+    if(currentIndex>=queue.length){
+        showResults();
+        return;
+    }
+
+    const qIdx=queue[currentIndex];
+    const q=quizData[qIdx];
+    const isRetry=wrongSet.has(qIdx);
+    const container=document.getElementById("questionsContainer");
+
+    container.innerHTML=`
+    <div class="question-container active">
+        <div class="question-number">
+            ${isRetry ? "🔁 Wiederholung · " : ""}Frage ${totalAnswered+1} ·
+            ${answeredCorrectly.size} von ${quizData.length} gemeistert
+        </div>
+        <div class="question-text">${q.question}</div>
+        <div class="options" id="options-current">
+            ${q.options.map((opt,i)=>`
+                <div class="option" onclick="selectOption(${qIdx},${i})">
+                    <div class="option-letter">${String.fromCharCode(65+i)}</div>
+                    <div class="option-text">${opt}</div>
+                </div>
+            `).join("")}
+        </div>
+
+        <div class="feedback" id="feedback-current">
+            <div class="feedback-title"></div>
+            <div class="feedback-text"></div>
+        </div>
+
+        <div class="controls">
+            <div></div>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                Weiter →
+            </button>
+        </div>
+    </div>`;
+
+    updateProgress();
+}
+
+function selectOption(questionIndex,optionIndex){
+    const options=document.querySelectorAll("#options-current .option");
+    const correct=quizData[questionIndex].correct;
+
+    options.forEach(opt=>{
+        opt.classList.add("disabled");
+        opt.onclick=null;
+    });
+
+    options[optionIndex].classList.add("selected");
+    options[optionIndex].classList.add(optionIndex===correct ? "correct" : "incorrect");
+    options[correct].classList.add("correct");
+
+    const feedback=document.getElementById("feedback-current");
+    feedback.classList.add("show");
+
+    if(optionIndex===correct){
+        answeredCorrectly.add(questionIndex);
+        wrongSet.delete(questionIndex);
+        feedback.classList.add("correct");
+        feedback.querySelector(".feedback-title").textContent="✓ Richtig!";
+    }else{
+        wrongSet.add(questionIndex);
+        answeredCorrectly.delete(questionIndex);
+        feedback.classList.add("incorrect");
+        feedback.querySelector(".feedback-title").textContent="✗ Noch nicht – die Frage kommt später wieder!";
+        const insertPos=Math.min(currentIndex+5,queue.length);
+        queue.splice(insertPos,0,questionIndex);
+    }
+
+    feedback.querySelector(".feedback-text").innerHTML=quizData[questionIndex].explanation;
+    totalAnswered++;
+    document.getElementById("nextBtn").disabled=false;
+    updateProgress();
+}
+
+function nextQuestion(){
+    currentIndex++;
+    if(currentIndex>=queue.length) showResults();
+    else renderCurrentQuestion();
+}
+
+function updateProgress(){
+    const progress=(answeredCorrectly.size/quizData.length)*100;
+    document.getElementById("progressFill").style.width=progress+"%";
+}
+
+function showResults(){
+    document.getElementById("questionsContainer").innerHTML="";
+    const results=document.getElementById("resultsContainer");
+    results.classList.add("show");
+
+    const repeats=Math.max(0,totalAnswered-quizData.length);
+    const percentage=Math.round((quizData.length/Math.max(totalAnswered,quizData.length))*100);
+
+    document.getElementById("scoreNumber").textContent=Math.min(percentage,100)+"%";
+    document.getElementById("correctCount").textContent=quizData.length;
+    document.getElementById("incorrectCount").textContent=repeats;
+    document.getElementById("totalCount").textContent=totalAnswered;
+
+    let message="";
+    if(repeats===0) message="Perfekt! Alles auf Anhieb richtig!";
+    else if(repeats<=3) message="Sehr gut! Nur wenige Wiederholungen.";
+    else if(repeats<=7) message="Gut gemacht! Die Wiederholungen haben geholfen.";
+    else message="Geschafft! Wiederhole Block 6 noch einmal zur Sicherheit.";
+
+    document.getElementById("resultMessage").textContent=message;
+}
+
+function restartQuiz(){ initQuiz(); }
+
+window.onload=initQuiz;
+</script>
+</body>
+</html>

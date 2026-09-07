@@ -52,6 +52,15 @@ kapitel:
         pdf: /assets/pdfs/BWL_W_5.pdf
         quiz: /assets/quizzes/quiz_unternehmensziele.html
         text: /assets/texte/bwl-w-5.pdf
+      - id: b6
+        nr: "06"
+        titel: Kennzahlen und Controlling
+        desc: >-
+          Controlling als Planen, Steuern und Kontrollieren — Produktivität,
+          Wirtschaftlichkeit, Rentabilitäten und der ROI im DuPont-Schema
+        pdf: /assets/pdfs/BWL_W_6.pdf
+        quiz: /assets/quizzes/quiz_kennzahlen_controlling.html
+        text: /assets/texte/bwl-w-6.pdf
 
   - numeral: II
     titel: Buchführung
