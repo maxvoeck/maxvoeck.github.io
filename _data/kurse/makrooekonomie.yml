@@ -25,6 +25,7 @@ kapitel:
         titel: "Konjunktur & Konjunkturzyklen"
         pdf: /assets/pdfs/VWL_11_Konjunktur.pdf
         quiz: /assets/quizzes/quiz_konjunktur.html
+        text: /assets/texte/konjunktur.pdf
       - id: m12
         nr: "12"
         titel: Antizyklische Konjunkturpolitik

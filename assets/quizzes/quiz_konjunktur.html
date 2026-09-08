@@ -3,728 +3,557 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz: Konjunktur & Konjunkturzyklen</title>
+<title>Quiz: Konjunktur</title>
 <style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-        }
-body {
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-min-height: 100vh;
-padding: 20px;
-display: flex;
-justify-content: center;
-align-items: center;
-        }
-.quiz-container {
-background: white;
-border-radius: 16px;
-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-max-width: 800px;
-width: 100%;
-overflow: hidden;
-        }
-.quiz-header {
-background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
-color: white;
-padding: 2rem;
-text-align: center;
-        }
-.quiz-header h1 {
-font-size: 1.8rem;
-margin-bottom: 0.5rem;
-        }
-.quiz-header p {
-opacity: 0.9;
-font-size: 1rem;
-        }
-.progress-bar {
-background: #e0e0e0;
-height: 8px;
-position: relative;
-        }
-.progress-fill {
-background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-height: 100%;
-width: 0%;
-transition: width 0.3s ease;
-        }
-.quiz-content {
-padding: 2rem;
-        }
-.question-container {
-display: none;
-        }
-.question-container.active {
-display: block;
-animation: fadeIn 0.5s ease;
-        }
-@keyframes fadeIn {
-            from {
-opacity: 0;
-transform: translateY(20px);
-            }
-            to {
-opacity: 1;
-transform: translateY(0);
-            }
-        }
-.question-number {
-color: #667eea;
-font-weight: 600;
-font-size: 0.9rem;
-margin-bottom: 0.5rem;
-        }
-.question-text {
-font-size: 1.3rem;
-font-weight: 600;
-color: #1f2937;
-margin-bottom: 1.5rem;
-line-height: 1.5;
-        }
-.options {
-display: flex;
-flex-direction: column;
-gap: 1rem;
-        }
-.option {
-background: #f8f9fa;
-border: 2px solid #e0e0e0;
-border-radius: 12px;
-padding: 1rem 1.5rem;
-cursor: pointer;
-transition: all 0.3s ease;
-display: flex;
-align-items: center;
-gap: 1rem;
-        }
-.option:hover {
-background: #f0f1f3;
-border-color: #667eea;
-transform: translateX(5px);
-        }
-.option-letter {
-background: #667eea;
-color: white;
-width: 32px;
-height: 32px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-weight: 600;
-flex-shrink: 0;
-        }
-.option.selected {
-background: #e8eaf6;
-border-color: #667eea;
-        }
-.option.correct {
-background: #d4edda;
-border-color: #28a745;
-        }
-.option.correct .option-letter {
-background: #28a745;
-        }
-.option.incorrect {
-background: #f8d7da;
-border-color: #dc3545;
-        }
-.option.incorrect .option-letter {
-background: #dc3545;
-        }
-.option.disabled {
-cursor: not-allowed;
-opacity: 0.7;
-        }
-.feedback {
-margin-top: 1.5rem;
-padding: 1rem;
-border-radius: 8px;
-display: none;
-        }
-.feedback.show {
-display: block;
-animation: fadeIn 0.5s ease;
-        }
-.feedback.correct {
-background: #d4edda;
-border-left: 4px solid #28a745;
-color: #155724;
-        }
-.feedback.incorrect {
-background: #f8d7da;
-border-left: 4px solid #dc3545;
-color: #721c24;
-        }
-.feedback-title {
-font-weight: 600;
-margin-bottom: 0.5rem;
-        }
-.controls {
-margin-top: 2rem;
-display: flex;
-justify-content: space-between;
-gap: 1rem;
-        }
-.btn {
-padding: 0.8rem 2rem;
-border: none;
-border-radius: 8px;
-font-size: 1rem;
-font-weight: 600;
-cursor: pointer;
-transition: all 0.3s ease;
-        }
-.btn-primary {
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-color: white;
-        }
-.btn-primary:hover:not(:disabled) {
-transform: translateY(-2px);
-box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-.btn-secondary {
-background: #f8f9fa;
-color: #374151;
-border: 2px solid #e0e0e0;
-        }
-.btn-secondary:hover:not(:disabled) {
-background: #e9ecef;
-        }
-.btn:disabled {
-opacity: 0.5;
-cursor: not-allowed;
-        }
-.results-container {
-display: none;
-text-align: center;
-padding: 2rem;
-        }
-.results-container.show {
-display: block;
-animation: fadeIn 0.5s ease;
-        }
-.score-circle {
-width: 200px;
-height: 200px;
-border-radius: 50%;
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-margin: 2rem auto;
-color: white;
-box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-        }
-.score-number {
-font-size: 3rem;
-font-weight: 700;
-        }
-.score-label {
-font-size: 1rem;
-opacity: 0.9;
-        }
-.result-message {
-font-size: 1.5rem;
-font-weight: 600;
-color: #1f2937;
-margin-bottom: 1rem;
-        }
-.result-details {
-background: #f8f9fa;
-border-radius: 12px;
-padding: 1.5rem;
-margin: 2rem 0;
-display: flex;
-justify-content: space-around;
-flex-wrap: wrap;
-gap: 1rem;
-        }
-.result-stat {
-text-align: center;
-        }
-.result-stat-number {
-font-size: 2rem;
-font-weight: 700;
-color: #667eea;
-        }
-.result-stat-label {
-font-size: 0.9rem;
-color: #666;
-margin-top: 0.3rem;
-        }
-@media (max-width: 768px) {
-body {
-padding: 10px;
-            }
-.quiz-header h1 {
-font-size: 1.4rem;
-            }
-.question-text {
-font-size: 1.1rem;
-            }
-.controls {
-flex-direction: column;
-            }
-.btn {
-width: 100%;
-            }
-        }
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:860px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem;line-height:1.4}
+.progress-bar{background:#e5e7eb;height:8px}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .35s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(12px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:700;font-size:.9rem;margin-bottom:.6rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:650;color:#1f2937;
+    margin-bottom:1.35rem;line-height:1.45
+}
+.options{display:flex;flex-direction:column;gap:.9rem}
+.option{
+    background:#f8f9fa;border:2px solid #e5e7eb;border-radius:12px;
+    padding:1rem 1.25rem;cursor:pointer;transition:all .22s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f3f4f6;border-color:#667eea;transform:translateX(4px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;flex-shrink:0
+}
+.option-text{line-height:1.4;color:#263142}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.82}
+.feedback{
+    margin-top:1.35rem;padding:1rem 1.1rem;border-radius:9px;
+    display:none;line-height:1.48
+}
+.feedback.show{display:block}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:750;margin-bottom:.4rem}
+.controls{
+    margin-top:1.6rem;display:flex;justify-content:flex-end
+}
+.btn{
+    padding:.82rem 1.8rem;border:none;border-radius:8px;
+    font-size:1rem;font-weight:700;cursor:pointer
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .4s ease}
+.score-circle{
+    width:180px;height:180px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:1.7rem auto;color:#fff
+}
+.score-number{font-size:2.8rem;font-weight:800}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.42rem;font-weight:700;color:#1f2937;margin-bottom:.75rem}
+.result-sub{font-size:.96rem;color:#6b7280;line-height:1.45}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.4rem;margin:1.7rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:800;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.25rem}
+.small-note{font-size:.9rem;color:#6b7280;margin-top:.75rem}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header{padding:1.5rem}
+    .quiz-header h1{font-size:1.4rem}
+    .quiz-content{padding:1.25rem}
+    .question-text{font-size:1.1rem}
+    .btn{width:100%}
+}
 </style>
 </head>
 <body>
 <div class="quiz-container">
-<div class="quiz-header">
-<h1>📈 Konjunktur & Konjunkturzyklen</h1>
-<p>Analyse, Phasen & Indikatoren</p>
+
+    <div class="quiz-header">
+        <h1>📈 Konjunktur</h1>
+        <p>Konjunkturphasen · Rezession · Indikatoren · Wachstumsrate<br>
+        VWL · W-Kurs · Studienkolleg</p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-content">
+        <div id="questionsContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="result-sub" id="resultSub"></div>
+
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Lernquote</div>
+            </div>
+
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="masteredCount">0</div>
+                    <div class="result-stat-label">Fragen gemeistert</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="repeatCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+
+            <div class="small-note">
+                Ziel: Die Grundbegriffe sicher erkennen, zuordnen und in einfachen Klausuraufgaben anwenden.
+            </div>
+        </div>
+    </div>
 </div>
-<div class="progress-bar">
-<div class="progress-fill" id="progressFill"></div>
-</div>
-<div class="quiz-content">
-<div id="questionsContainer"></div>
-<div class="results-container" id="resultsContainer">
-<div class="result-message" id="resultMessage"></div>
-<div class="score-circle">
-<div class="score-number" id="scoreNumber">0%</div>
-<div class="score-label">Erreicht</div>
-</div>
-<div class="result-details">
-<div class="result-stat">
-<div class="result-stat-number" id="correctCount">0</div>
-<div class="result-stat-label">Richtig</div>
-</div>
-<div class="result-stat">
-<div class="result-stat-number" id="incorrectCount">0</div>
-<div class="result-stat-label">Falsch</div>
-</div>
-<div class="result-stat">
-<div class="result-stat-number" id="totalCount">0</div>
-<div class="result-stat-label">Gesamt</div>
-</div>
-</div>
-<button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
-</div>
-</div>
-</div>
+
 <script>
 const quizData = [
-            {
-question: "Was beschreibt die Konjunktur?",
-options: [
-"Die langfristige wirtschaftliche Entwicklung über 50 Jahre",
-"Die kurz- bis mittelfristige gesamtwirtschaftliche Entwicklung",
-"Nur die Entwicklung der Aktienmärkte",
-"Die Entwicklung einzelner Unternehmen"
-                ],
-correct: 1,
-explanation: "Die Konjunktur beschreibt die kurz- bis mittelfristige gesamtwirtschaftliche Entwicklung, die in Zyklen von ca. 4-11 Jahren schwankt und Produktion, Beschäftigung und Einkommen betrifft."
-            },
-            {
-question: "Wie lange dauert ein typischer Konjunkturzyklus?",
-options: [
-"1-2 Jahre",
-"4-11 Jahre",
-"20-30 Jahre",
-"Genau 5 Jahre"
-                ],
-correct: 1,
-explanation: "Ein typischer Konjunkturzyklus dauert ca. 4-11 Jahre. Die genaue Dauer variiert je nach wirtschaftlichen Rahmenbedingungen."
-            },
-            {
-question: "Welche Phasen gehören zum Konjunkturzyklus?",
-options: [
-"Nur Aufschwung und Abschwung",
-"Aufschwung, Boom, Abschwung, Depression",
-"Wachstum und Stagnation",
-"Inflation und Deflation"
-                ],
-correct: 1,
-explanation: "Der vollständige Konjunkturzyklus besteht aus vier Phasen: Aufschwung (Expansion), Boom (Hochkonjunktur), Abschwung (Rezession) und Depression (Tief)."
-            },
-            {
-question: "Was ist das BIP?",
-options: [
-"Brutto-Industrie-Produktion",
-"Bruttoinlandsprodukt - Wert aller produzierten Güter & Dienstleistungen",
-"Bundesinstitut für Preisentwicklung",
-"Brutto-Import-Produkt"
-                ],
-correct: 1,
-explanation: "Das BIP (Bruttoinlandsprodukt) ist der Wert aller produzierten Güter und Dienstleistungen in einem Land während eines Jahres. Es ist der Hauptindikator zur Messung der Konjunktur."
-            },
-            {
-question: "Wie berechnet sich das BIP?",
-options: [
-"BIP = Konsum + Investitionen",
-"BIP = Exporte - Importe",
-"BIP = Konsum + Investitionen + Staatsausgaben + Exporte - Importe",
-"BIP = Alle Unternehmensgewinne"
-                ],
-correct: 2,
-explanation: "Das BIP wird berechnet als: BIP = Konsum + Investitionen + Staatsausgaben + Exporte - Importe. Diese Formel erfasst alle Komponenten der gesamtwirtschaftlichen Nachfrage."
-            },
-            {
-question: "Was kennzeichnet die Aufschwungphase?",
-options: [
-"Nachfrage sinkt, Arbeitslosigkeit steigt",
-"Nachfrage steigt, Produktion wird ausgeweitet, Arbeitslosigkeit sinkt",
-"Vollbeschäftigung und Überhitzungsgefahr",
-"Hohe Arbeitslosigkeit und Pessimismus"
-                ],
-correct: 1,
-explanation: "Im Aufschwung steigt die Nachfrage kontinuierlich, die Produktion wird ausgeweitet, die Arbeitslosigkeit sinkt und das BIP steigt wieder. Die Stimmung ist optimistisch."
-            },
-            {
-question: "Was charakterisiert den Boom (Hochkonjunktur)?",
-options: [
-"Geringe wirtschaftliche Aktivität",
-"Höchste wirtschaftliche Aktivität, Kapazitäten voll ausgelastet, nahezu Vollbeschäftigung",
-"Steigende Arbeitslosigkeit",
-"Sinkende Produktion"
-                ],
-correct: 1,
-explanation: "Der Boom ist durch höchste wirtschaftliche Aktivität gekennzeichnet: Kapazitäten sind voll ausgelastet, es herrscht nahezu Vollbeschäftigung und das BIP ist auf dem Höchststand."
-            },
-            {
-question: "Welche Gefahren bestehen im Boom?",
-options: [
-"Deflation und Massenarbeitslosigkeit",
-"Inflation, Fehlinvestitionen, Engpässe, Blasenbildung",
-"Rezession und Depression",
-"Sinkende Nachfrage"
-                ],
-correct: 1,
-explanation: "Im Boom droht eine Überhitzung: Inflation (zu starke Preissteigerungen), Fehlinvestitionen (überschätzte Nachfrage), Engpässe (Fachkräftemangel, Materialknappheit) und Blasenbildung (überbewertete Vermögenswerte)."
-            },
-            {
-question: "Was passierte bei der Dotcom-Blase um das Jahr 2000?",
-options: [
-"Stabile wirtschaftliche Entwicklung",
-"Internet-Firmen boomten, Aktienkurse explodierten, dann platzte die Blase 2001",
-"Einführung des Euro",
-"Ölkrise"
-                ],
-correct: 1,
-explanation: "Ende der 90er boomten Internet-Firmen, Aktienkurse explodierten und Investitionen in Technologie waren extrem hoch. 2001 platzte die Blase mit Abschwung, Firmenpleiten und massiven Verlusten."
-            },
-            {
-question: "Was kennzeichnet den Abschwung (Rezession)?",
-options: [
-"Steigende Nachfrage und sinkende Arbeitslosigkeit",
-"Nachfrage sinkt, Produktion wird gedrosselt, Arbeitslosigkeit steigt, BIP sinkt",
-"Vollbeschäftigung",
-"Höchste wirtschaftliche Aktivität"
-                ],
-correct: 1,
-explanation: "Im Abschwung sinkt die Nachfrage merklich, die Produktion wird gedrosselt, die Arbeitslosigkeit steigt und das BIP sinkt."
-            },
-            {
-question: "Wann liegt eine technische Rezession vor?",
-options: [
-"Wenn das BIP ein Quartal sinkt",
-"Wenn das BIP zwei Quartale hintereinander sinkt",
-"Wenn die Arbeitslosigkeit steigt",
-"Wenn die Inflation hoch ist"
-                ],
-correct: 1,
-explanation: "Eine technische Rezession liegt vor, wenn das BIP in zwei aufeinanderfolgenden Quartalen negativ wächst (z.B. Q1 und Q2 oder Q2 und Q3)."
-            },
-            {
-question: "Was war besonders an der Corona-Rezession 2020?",
-options: [
-"Es gab keinen BIP-Rückgang",
-"Q2 2020: BIP -9,7%, aber schnelle V-förmige Erholung in Q3 (+8,5%)",
-"Sie dauerte 10 Jahre",
-"Es gab keine Erholung"
-                ],
-correct: 1,
-explanation: "Im Q2 2020 sank das deutsche BIP um -9,7% (größter Rückgang seit Finanzkrise), aber Q3 brachte +8,5%. Die schnelle V-förmige Erholung unterschied sich von klassischen Rezessionen."
-            },
-            {
-question: "Was charakterisiert die Depression (Tiefphase)?",
-options: [
-"Höchste wirtschaftliche Aktivität",
-"Niedrigste wirtschaftliche Aktivität, hohe Arbeitslosigkeit, lange anhaltend",
-"Nur kurzer Rückgang",
-"Schnelle Erholung"
-                ],
-correct: 1,
-explanation: "Die Depression ist die niedrigste wirtschaftliche Aktivität mit hoher Arbeitslosigkeit, geringen Investitionen, Pessimismus und stark negativem BIP über lange Zeit."
-            },
-            {
-question: "Was unterscheidet eine Rezession von einer Depression?",
-options: [
-"Es gibt keinen Unterschied",
-"Rezession: Monate, -2% bis -5% BIP; Depression: Jahre, >-10% BIP, massive Arbeitslosigkeit",
-"Nur die Dauer",
-"Nur die Arbeitslosigkeit"
-                ],
-correct: 1,
-explanation: "Rezession: Dauer in Monaten, BIP-Rückgang -2% bis -5%, erhöhte Arbeitslosigkeit, schnelle Erholung. Depression: Jahre, BIP-Rückgang >-10%, massive Arbeitslosigkeit, langsame Erholung. Beispiel: Weltwirtschaftskrise 1929-1939."
-            },
-            {
-question: "Was sind Frühindikatoren?",
-options: [
-"Arbeitslosenquote und Insolvenzen",
-"Auftragseingänge, Geschäftsklima (ifo-Index), Baugenehmigungen, Aktienkurse",
-"Nur historische Daten",
-"Verbraucherpreise"
-                ],
-correct: 1,
-explanation: "Frühindikatoren zeigen zukünftige Entwicklungen an: Auftragseingänge, Geschäftsklima (ifo-Index ist der wichtigste für Deutschland), Baugenehmigungen und Aktienkurse."
-            },
-            {
-question: "Was sind Spätindikatoren?",
-options: [
-"Auftragseingänge und Aktienkurse",
-"Arbeitslosenquote, Insolvenzen, Verbraucherpreise",
-"Baugenehmigungen",
-"Geschäftsklima"
-                ],
-correct: 1,
-explanation: "Spätindikatoren bestätigen bereits eingetretene Entwicklungen: Arbeitslosenquote, Insolvenzen und Verbraucherpreise reagieren zeitverzögert auf konjunkturelle Veränderungen."
-            },
-            {
-question: "Welche Maßnahmen ergreift die Politik im Abschwung/Tief?",
-options: [
-"Zinsen erhöhen, Schulden abbauen",
-"Niedrige Zinsen, Staatsausgaben erhöhen, Steuern senken, Konjunkturpakete",
-"Inflation bekämpfen",
-"Staatsausgaben senken"
-                ],
-correct: 1,
-explanation: "Im Abschwung/Tief: niedrige Zinsen (Geldpolitik der EZB), Staatsausgaben erhöhen, Steuern senken und Konjunkturpakete schnüren, um die Wirtschaft anzukurbeln."
-            },
-            {
-question: "Welche Maßnahmen ergreift die Politik im Boom?",
-options: [
-"Zinsen senken und mehr ausgeben",
-"Zinsen erhöhen, Schulden abbauen, Inflation bekämpfen, Überhitzung verhindern",
-"Steuern senken",
-"Konjunkturpakete"
-                ],
-correct: 1,
-explanation: "Im Boom: Zinsen erhöhen (um Inflation zu bekämpfen), Schulden abbauen, Überhitzung verhindern und wirtschaftliche Stabilität sichern."
-            },
-            {
-question: "Wie berechnet man die Wachstumsrate?",
-options: [
-"g = BIPt / BIPt-1",
-"g = (BIPt - BIPt-1) / BIPt-1 × 100%",
-"g = BIPt + BIPt-1",
-"g = BIPt × 100%"
-                ],
-correct: 1,
-explanation: "Die Wachstumsrate berechnet sich: g = (BIPt - BIPt-1) / BIPt-1 × 100%. Dabei ist BIPt das aktuelle BIP und BIPt-1 das BIP der Vorperiode."
-            },
-            {
-question: "BIP Q1: 980 Mrd. €, BIP Q2: 995 Mrd. €. Wie hoch ist die Wachstumsrate?",
-options: [
-"1,53%",
-"15%",
-"0,15%",
-"-1,53%"
-                ],
-correct: 0,
-explanation: "g = (995 - 980) / 980 × 100% = 15 / 980 × 100% = 0,0153 × 100% = 1,53%. Die Wirtschaft wuchs im Q2 um 1,53%."
-            },
-            {
-question: "Welche Wachstumsrate deutet auf einen Boom hin?",
-options: [
-"g ≈ 0%",
-"g > +3%",
-"-2% < g < 0%",
-"g ≤ -2%"
-                ],
-correct: 1,
-explanation: "Ein Boom liegt typischerweise vor bei g > +3%. Aufschwung: 0% < g ≤ +3%, Stagnation: g ≈ 0%, leichter Abschwung: -2% < g < 0%, Rezession/Depression: g ≤ -2%."
-            },
-            {
-question: "BIP Q3: 925 Mrd. €, Q4: 950 Mrd. €. In welcher Phase befindet sich die Wirtschaft?",
-options: [
-"Rezession",
-"Aufschwung (Wachstumsrate: 2,7%)",
-"Depression",
-"Boom"
-                ],
-correct: 1,
-explanation: "g = (950 - 925) / 925 × 100% = 25 / 925 × 100% = 2,7%. Dies entspricht einem Aufschwung (0% < g ≤ +3%)."
-            },
-            {
-question: "BIP Q1: 1000, Q2: 996, Q3: 992, Q4: 998 Mrd. €. Liegt eine Rezession vor?",
-options: [
-"Nein, nur ein Quartal war negativ",
-"Ja, Q2 und Q3 beide negativ (-0,4% jeweils)",
-"Nein, Q4 war positiv",
-"Ja, alle Quartale waren negativ"
-                ],
-correct: 1,
-explanation: "gQ2 = -0,4%, gQ3 = -0,4%, gQ4 = +0,6%. Ja, es liegt eine technische Rezession vor, da Q2 und Q3 beide negativ waren. Q4 zeigt den Beginn der Erholung."
-            },
-            {
-question: "Was ist der ifo-Geschäftsklimaindex?",
-options: [
-"Ein Spätindikator für Verbraucherpreise",
-"Der wichtigste Frühindikator für Deutschland",
-"Ein Index für Arbeitslosigkeit",
-"Ein Inflationsmaß"
-                ],
-correct: 1,
-explanation: "Der ifo-Geschäftsklimaindex ist der wichtigste Frühindikator für Deutschland. Er misst die Stimmung der Unternehmen und gibt Hinweise auf die zukünftige wirtschaftliche Entwicklung."
-            },
-            {
-question: "Was war die Weltwirtschaftskrise 1929-1939?",
-options: [
-"Eine kurze Rezession",
-"Eine Depression mit massiver Arbeitslosigkeit über 10 Jahre",
-"Ein normaler Konjunkturzyklus",
-"Nur eine Bankenkrise"
-                ],
-correct: 1,
-explanation: "Die Weltwirtschaftskrise 1929-1939 war eine lange Depression mit BIP-Rückgang >-10%, massiver Arbeitslosigkeit (in USA bis 25%) und langsamer Erholung über etwa 10 Jahre."
-            }
-        ];
+{
+    question:"Was beschreibt der Begriff Konjunktur?",
+    options:[
+        "Nur die Entwicklung der Preise",
+        "Das Auf und Ab der wirtschaftlichen Aktivität",
+        "Nur die Entwicklung der Arbeitslosigkeit",
+        "Die langfristige Bevölkerungsentwicklung"
+    ],
+    correct:1,
+    explanation:"Konjunktur beschreibt Schwankungen der wirtschaftlichen Aktivität, zum Beispiel bei Produktion, Nachfrage und Beschäftigung."
+},
+{
+    question:"Welche vier Phasen gehören zum vereinfachten Konjunkturzyklus?",
+    options:[
+        "Aufschwung, Boom, Abschwung, Talsohle",
+        "Inflation, Deflation, Wachstum, Krise",
+        "Nachfrage, Angebot, Preis, Menge",
+        "Konsum, Investition, Staat, Außenhandel"
+    ],
+    correct:0,
+    explanation:"Die vier Grundphasen sind Aufschwung, Boom, Abschwung und Talsohle."
+},
+{
+    question:"Was ist typisch für einen Aufschwung?",
+    options:[
+        "Produktion sinkt und Arbeitslosigkeit steigt",
+        "Produktion bleibt immer gleich",
+        "Produktion und Beschäftigung steigen",
+        "Die Nachfrage fällt stark"
+    ],
+    correct:2,
+    explanation:"Im Aufschwung steigen typischerweise Nachfrage, Produktion und Beschäftigung."
+},
+{
+    question:"Was passiert mit der Arbeitslosigkeit im Aufschwung meistens?",
+    options:[
+        "Sie steigt stark",
+        "Sie bleibt immer unverändert",
+        "Sie sinkt",
+        "Sie verdoppelt sich automatisch"
+    ],
+    correct:2,
+    explanation:"Wenn Unternehmen mehr produzieren, benötigen sie oft mehr Arbeitskräfte. Deshalb sinkt die Arbeitslosigkeit häufig."
+},
+{
+    question:"Was kennzeichnet einen Boom?",
+    options:[
+        "Sehr niedrige Produktion",
+        "Sehr hohe wirtschaftliche Aktivität",
+        "Zwei negative Quartale",
+        "Nur steigende Arbeitslosigkeit"
+    ],
+    correct:1,
+    explanation:"Im Boom sind Produktion, Beschäftigung und Nachfrage sehr hoch."
+},
+{
+    question:"Warum können die Preise im Boom stärker steigen?",
+    options:[
+        "Weil die Unternehmen kaum noch zusätzliche Kapazitäten haben",
+        "Weil die Nachfrage immer sinkt",
+        "Weil die Produktion auf null fällt",
+        "Weil alle Unternehmen schließen"
+    ],
+    correct:0,
+    explanation:"Bei hoher Auslastung kann zusätzliche Nachfrage nicht schnell durch mehr Produktion beantwortet werden. Preise können steigen."
+},
+{
+    question:"Was ist typisch für einen Abschwung?",
+    options:[
+        "Produktion und Nachfrage steigen",
+        "Produktion und Nachfrage sinken",
+        "Arbeitslosigkeit sinkt immer",
+        "Die Wirtschaft läuft auf Höchstniveau"
+    ],
+    correct:1,
+    explanation:"Im Abschwung nehmen Nachfrage und Produktion ab."
+},
+{
+    question:"Was ist die Talsohle?",
+    options:[
+        "Der höchste Punkt des Konjunkturzyklus",
+        "Der Beginn des Booms",
+        "Der Tiefpunkt des Konjunkturzyklus",
+        "Ein Frühindikator"
+    ],
+    correct:2,
+    explanation:"Die Talsohle ist die Phase mit sehr niedriger wirtschaftlicher Aktivität."
+},
+{
+    question:"Wann liegt nach der technischen Definition eine Rezession vor?",
+    options:[
+        "Wenn das reale BIP ein Quartal sinkt",
+        "Wenn die Preise zwei Monate sinken",
+        "Wenn das reale BIP zwei Quartale hintereinander sinkt",
+        "Wenn die Arbeitslosigkeit einmal steigt"
+    ],
+    correct:2,
+    explanation:"Für eine technische Rezession müssen zwei negative Quartale des realen BIP direkt aufeinanderfolgen."
+},
+{
+    question:"Q1: +0,4 %, Q2: -0,5 %, Q3: +0,2 %, Q4: -0,3 %. Liegt eine technische Rezession vor?",
+    options:[
+        "Ja, weil Q2 negativ ist",
+        "Ja, weil Q4 negativ ist",
+        "Nein, weil keine zwei negativen Quartale direkt hintereinander liegen",
+        "Nein, weil das BIP nie sinkt"
+    ],
+    correct:2,
+    explanation:"Q2 und Q4 sind negativ, aber nicht direkt hintereinander. Deshalb liegt keine technische Rezession vor."
+},
+{
+    question:"Was ist ein Frühindikator?",
+    options:[
+        "Eine Größe, die Hinweise auf die zukünftige Entwicklung gibt",
+        "Eine Größe, die nur die Vergangenheit beschreibt",
+        "Eine Größe, die immer gleichzeitig mit dem BIP steigt",
+        "Eine Größe, die nur die Preise misst"
+    ],
+    correct:0,
+    explanation:"Frühindikatoren geben Hinweise darauf, wie sich die Wirtschaft in Zukunft entwickeln könnte."
+},
+{
+    question:"Welches Beispiel ist ein Frühindikator?",
+    options:[
+        "Arbeitslosenquote",
+        "Auftragseingänge",
+        "Aktuelle Produktion",
+        "Lohnabrechnung"
+    ],
+    correct:1,
+    explanation:"Auftragseingänge zeigen, wie viele Aufträge Unternehmen für die kommende Produktion erhalten."
+},
+{
+    question:"Was ist ein Präsenzindikator?",
+    options:[
+        "Er zeigt die aktuelle wirtschaftliche Lage",
+        "Er zeigt nur die Zukunft",
+        "Er reagiert immer viele Jahre später",
+        "Er misst nur die Bevölkerung"
+    ],
+    correct:0,
+    explanation:"Präsenzindikatoren zeigen die aktuelle wirtschaftliche Lage."
+},
+{
+    question:"Welches Beispiel ist ein Präsenzindikator?",
+    options:[
+        "Auftragseingänge",
+        "Arbeitslosenquote",
+        "Aktuelle Produktion",
+        "Erwartungen der Unternehmen"
+    ],
+    correct:2,
+    explanation:"Die aktuelle Produktion zeigt direkt, wie stark die Wirtschaft momentan produziert."
+},
+{
+    question:"Warum gilt die Arbeitslosenquote häufig als Spätindikator?",
+    options:[
+        "Weil Unternehmen auf wirtschaftliche Veränderungen oft verzögert mit Einstellungen oder Entlassungen reagieren",
+        "Weil Arbeitslosigkeit immer vor der Produktion fällt",
+        "Weil sie nur einmal im Jahr gemessen wird",
+        "Weil sie keine Verbindung zur Konjunktur hat"
+    ],
+    correct:0,
+    explanation:"Unternehmen verändern ihre Beschäftigung häufig erst mit Verzögerung. Deshalb reagiert die Arbeitslosenquote später."
+},
+{
+    question:"Wie lautet die Formel für die Wachstumsrate des realen BIP?",
+    options:[
+        "(altes BIP - neues BIP) / neues BIP × 100",
+        "(neues BIP - altes BIP) / altes BIP × 100",
+        "neues BIP + altes BIP × 100",
+        "neues BIP / 100"
+    ],
+    correct:1,
+    explanation:"Die Wachstumsrate berechnet sich als Veränderung gegenüber dem alten Wert, geteilt durch den alten Wert."
+},
+{
+    question:"Das reale BIP steigt von 100 auf 102 Mrd. €. Wie hoch ist die Wachstumsrate?",
+    options:[
+        "1 %",
+        "2 %",
+        "10 %",
+        "20 %"
+    ],
+    correct:1,
+    explanation:"(102 - 100) / 100 × 100 = 2 %."
+},
+{
+    question:"Das reale BIP sinkt von 200 auf 196 Mrd. €. Wie hoch ist die Wachstumsrate?",
+    options:[
+        "+2 %",
+        "-2 %",
+        "-4 %",
+        "+4 %"
+    ],
+    correct:1,
+    explanation:"(196 - 200) / 200 × 100 = -2 %."
+},
+{
+    question:"Welche Grundidee passt zum Abschwung?",
+    options:[
+        "Nachfrage weiter bremsen",
+        "Nachfrage unterstützen",
+        "Produktion verbieten",
+        "Arbeitslosigkeit erhöhen"
+    ],
+    correct:1,
+    explanation:"Im Abschwung kann Wirtschaftspolitik versuchen, Nachfrage und Produktion zu stabilisieren."
+},
+{
+    question:"Welche Maßnahme passt eher zu einem Boom mit hoher Inflation?",
+    options:[
+        "Zinsen erhöhen",
+        "Zinsen stark senken",
+        "Staatsausgaben immer unbegrenzt erhöhen",
+        "Produktion vollständig stoppen"
+    ],
+    correct:0,
+    explanation:"Höhere Zinsen können die Nachfrage bremsen und damit den Preisdruck reduzieren."
+}
+];
+
 let queue = [];
-        let currentIndex = 0;
-        let score = 0;
-        let totalAnswered = 0;
-        let wrongSet = new Set();
-        let answeredCorrectly = new Set();
+let currentIndex = 0;
+let totalAnswered = 0;
+let wrongSet = new Set();
+let mastered = new Set();
 
-        function initQuiz() {
-            queue = quizData.map((_, i) => i);
-            currentIndex = 0;
-            score = 0;
-            totalAnswered = 0;
-            wrongSet = new Set();
-            answeredCorrectly = new Set();
-            renderCurrentQuestion();
-        }
+function initQuiz(){
+    queue = quizData.map((_,i)=>i);
+    currentIndex = 0;
+    totalAnswered = 0;
+    wrongSet = new Set();
+    mastered = new Set();
 
-        function renderCurrentQuestion() {
-            if (currentIndex >= queue.length) {
-                showResults();
-                return;
-            }
+    document.getElementById("resultsContainer").classList.remove("show");
+    renderCurrentQuestion();
+}
 
-            const qIdx = queue[currentIndex];
-            const q = quizData[qIdx];
-            const container = document.getElementById('questionsContainer');
-            const isRetry = wrongSet.has(qIdx);
+function renderCurrentQuestion(){
+    if(currentIndex >= queue.length){
+        showResults();
+        return;
+    }
 
-            container.innerHTML = `
-                <div class="question-container active">
-                    <div class="question-number">${isRetry ? '🔁 Wiederholung – ' : ''}Frage ${totalAnswered + 1} · ${answeredCorrectly.size} von ${quizData.length} gemeistert</div>
-                    <div class="question-text">${q.question}</div>
-                    <div class="options" id="options-current">
-                        ${q.options.map((opt, i) => `
-                            <div class="option" onclick="selectOption(${qIdx}, ${i})">
-                                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
-                                <div class="option-text">${opt}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                    <div class="feedback" id="feedback-current">
-                        <div class="feedback-title"></div>
-                        <div class="feedback-text"></div>
-                    </div>
-                    <div class="controls">
-                        <div></div>
-                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
-                            Weiter →
-                        </button>
-                    </div>
+    const qIdx = queue[currentIndex];
+    const q = quizData[qIdx];
+    const isRetry = wrongSet.has(qIdx);
+    const container = document.getElementById("questionsContainer");
+
+    container.innerHTML = `
+    <div class="question-container active">
+        <div class="question-number">
+            ${isRetry ? "🔁 Wiederholung · " : ""}
+            Frage ${totalAnswered + 1} · ${mastered.size} von ${quizData.length} gemeistert
+        </div>
+
+        <div class="question-text">${q.question}</div>
+
+        <div class="options" id="options-current">
+            ${q.options.map((opt,i)=>`
+                <div class="option" onclick="selectOption(${qIdx},${i})">
+                    <div class="option-letter">${String.fromCharCode(65+i)}</div>
+                    <div class="option-text">${opt}</div>
                 </div>
-            `;
+            `).join("")}
+        </div>
 
-            updateProgress();
-        }
+        <div class="feedback" id="feedback-current">
+            <div class="feedback-title"></div>
+            <div class="feedback-text"></div>
+        </div>
 
-        function selectOption(questionIndex, optionIndex) {
-            const optionsContainer = document.getElementById('options-current');
-            const options = optionsContainer.querySelectorAll('.option');
-            const correct = quizData[questionIndex].correct;
+        <div class="controls">
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                Weiter →
+            </button>
+        </div>
+    </div>`;
 
-            options.forEach(opt => opt.classList.add('disabled'));
-            options[optionIndex].classList.add('selected');
-            options[optionIndex].classList.add(optionIndex === correct ? 'correct' : 'incorrect');
-            options[correct].classList.add('correct');
+    updateProgress();
+}
 
-            const feedback = document.getElementById('feedback-current');
-            feedback.classList.add('show');
+function selectOption(questionIndex, optionIndex){
+    const options = document.querySelectorAll("#options-current .option");
+    const correct = quizData[questionIndex].correct;
 
-            if (optionIndex === correct) {
-                score++;
-                answeredCorrectly.add(questionIndex);
-                wrongSet.delete(questionIndex);
-                feedback.classList.add('correct');
-                feedback.querySelector('.feedback-title').textContent = '✓ Richtig!';
-            } else {
-                wrongSet.add(questionIndex);
-                answeredCorrectly.delete(questionIndex);
-                feedback.classList.add('incorrect');
-                feedback.querySelector('.feedback-title').textContent = '✗ Falsch – kommt in 4 Fragen wieder!';
-                // Insert this question again 4 positions later
-                const insertPos = Math.min(currentIndex + 5, queue.length);
-                queue.splice(insertPos, 0, questionIndex);
-            }
+    options.forEach(opt=>{
+        opt.classList.add("disabled");
+        opt.onclick = null;
+    });
 
-            feedback.querySelector('.feedback-text').innerHTML = quizData[questionIndex].explanation;
-            totalAnswered++;
-            document.getElementById('nextBtn').disabled = false;
-        }
+    const feedback = document.getElementById("feedback-current");
+    feedback.classList.add("show");
 
-        function nextQuestion() {
-            currentIndex++;
-            if (currentIndex >= queue.length) {
-                showResults();
-            } else {
-                renderCurrentQuestion();
-            }
-        }
+    if(optionIndex === correct){
+        options[optionIndex].classList.add("correct");
+        mastered.add(questionIndex);
+        wrongSet.delete(questionIndex);
 
-        function updateProgress() {
-            const progress = (answeredCorrectly.size / quizData.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
+        feedback.classList.add("correct");
+        feedback.querySelector(".feedback-title").textContent = "✓ Richtig!";
+    }else{
+        options[optionIndex].classList.add("incorrect");
+        options[correct].classList.add("correct");
 
-        function showResults() {
-            document.getElementById('questionsContainer').innerHTML = '';
-            const resultsContainer = document.getElementById('resultsContainer');
-            resultsContainer.classList.add('show');
+        wrongSet.add(questionIndex);
+        mastered.delete(questionIndex);
 
-            const percentage = Math.round((quizData.length / totalAnswered) * 100);
-            document.getElementById('scoreNumber').textContent = Math.min(percentage, 100) + '%';
-            document.getElementById('correctCount').textContent = quizData.length;
-            document.getElementById('incorrectCount').textContent = totalAnswered - quizData.length;
-            document.getElementById('totalCount').textContent = totalAnswered;
+        feedback.classList.add("incorrect");
+        feedback.querySelector(".feedback-title").textContent =
+            "✗ Noch nicht – diese Frage kommt später wieder.";
 
-            let message = '';
-            if (totalAnswered === quizData.length) {
-                message = 'Perfekt! Alles auf Anhieb richtig!';
-            } else if (totalAnswered <= quizData.length + 3) {
-                message = 'Sehr gut! Fast alles beim ersten Versuch!';
-            } else if (totalAnswered <= quizData.length + 6) {
-                message = 'Gut gemacht! Die Wiederholungen haben geholfen!';
-            } else {
-                message = 'Geschafft! Wiederhole das Thema nochmal zur Sicherheit!';
-            }
+        const insertPos = Math.min(currentIndex + 5, queue.length);
+        queue.splice(insertPos, 0, questionIndex);
+    }
 
-            document.getElementById('resultMessage').textContent = message;
-        }
+    feedback.querySelector(".feedback-text").textContent =
+        quizData[questionIndex].explanation;
 
-        function restartQuiz() {
-            document.getElementById('resultsContainer').classList.remove('show');
-            initQuiz();
-        }
+    totalAnswered++;
+    document.getElementById("nextBtn").disabled = false;
+    updateProgress();
+}
 
-        window.onload = initQuiz;
+function nextQuestion(){
+    currentIndex++;
+
+    if(currentIndex >= queue.length){
+        showResults();
+    }else{
+        renderCurrentQuestion();
+    }
+}
+
+function updateProgress(){
+    const progress = (mastered.size / quizData.length) * 100;
+    document.getElementById("progressFill").style.width = progress + "%";
+}
+
+function showResults(){
+    document.getElementById("questionsContainer").innerHTML = "";
+
+    const results = document.getElementById("resultsContainer");
+    results.classList.add("show");
+
+    const repeats = Math.max(0, totalAnswered - quizData.length);
+    const efficiency = Math.round(
+        (quizData.length / Math.max(totalAnswered, quizData.length)) * 100
+    );
+
+    document.getElementById("scoreNumber").textContent =
+        Math.min(efficiency,100) + "%";
+
+    document.getElementById("masteredCount").textContent = quizData.length;
+    document.getElementById("repeatCount").textContent = repeats;
+    document.getElementById("totalCount").textContent = totalAnswered;
+
+    let message = "";
+    let sub = "";
+
+    if(repeats === 0){
+        message = "Sehr sicher!";
+        sub = "Alle 20 Fragen wurden beim ersten Versuch richtig beantwortet.";
+    }else if(repeats <= 4){
+        message = "Sehr gut!";
+        sub = "Nur wenige Inhalte mussten wiederholt werden.";
+    }else if(repeats <= 8){
+        message = "Gut gelernt!";
+        sub = "Die wichtigsten Grundlagen sitzen schon recht sicher.";
+    }else{
+        message = "Geschafft!";
+        sub = "Wiederholen Sie besonders Konjunkturphasen, Rezession und Indikatoren.";
+    }
+
+    document.getElementById("resultMessage").textContent = message;
+    document.getElementById("resultSub").textContent = sub;
+}
+
+function restartQuiz(){
+    initQuiz();
+}
+
+window.onload = initQuiz;
 </script>
 </body>
 </html>
