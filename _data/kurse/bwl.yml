@@ -61,6 +61,15 @@ kapitel:
         pdf: /assets/pdfs/BWL_W_6.pdf
         quiz: /assets/quizzes/quiz_kennzahlen_controlling.html
         text: /assets/texte/bwl-w-6.pdf
+      - id: b7
+        nr: "07"
+        titel: Produktionsfaktoren und Grundfunktionen
+        desc: >-
+          Produktionsfaktoren nach Gutenberg — Elementarfaktoren, dispositiver Faktor
+          sowie Roh-, Hilfs- und Betriebsstoffe, dazu Beschaffung, Produktion und Absatz
+        pdf: /assets/pdfs/BWL_W_7.pdf
+        quiz: /assets/quizzes/quiz_produktionsfaktoren.html
+        text: /assets/texte/bwl-w-7.pdf
 
   - numeral: II
     titel: Buchführung

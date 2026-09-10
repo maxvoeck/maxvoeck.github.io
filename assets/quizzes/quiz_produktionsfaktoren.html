@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Produktionsfaktoren und Grundfunktionen – BWL Block 7</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:600;color:#1f2937;
+    margin-bottom:1.5rem;line-height:1.5
+}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{
+    background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;
+    padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f0f1f3;border-color:#667eea;transform:translateX(5px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0
+}
+.option.selected{background:#e8eaf6;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{
+    margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45
+}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{
+    margin-top:2rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:all .25s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{
+    width:200px;height:200px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+.score-number{font-size:3rem;font-weight:700}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header h1{font-size:1.4rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>🏭 Produktionsfaktoren und Grundfunktionen</h1>
+        <p>Gutenberg · Beschaffung · Produktion · Absatz · BWL · W-Kurs · Block 7</p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-content">
+        <div id="questionsContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Erreicht</div>
+            </div>
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="correctCount">0</div>
+                    <div class="result-stat-label">Gemeistert</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="incorrectCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const quizData = [
+{
+    question:"Was sind Produktionsfaktoren?",
+    options:[
+        "Nur Maschinen, die in der Produktion eingesetzt werden",
+        "Alle Mittel und Leistungen, die ein Betrieb für seine Leistungserstellung benötigt",
+        "Nur Rohstoffe und menschliche Arbeit",
+        "Alle Produkte, die ein Unternehmen verkauft"
+    ],
+    correct:1,
+    explanation:"Produktionsfaktoren sind alle Mittel und Leistungen, die ein Betrieb zur Herstellung von Gütern oder Dienstleistungen benötigt."
+},
+{
+    question:"Welche Produktionsfaktoren unterscheidet die VWL traditionell?",
+    options:[
+        "Boden, Arbeit und Kapital",
+        "Arbeit, Werkstoffe und Absatz",
+        "Beschaffung, Produktion und Absatz",
+        "Betriebsmittel, Rohstoffe und Hilfsstoffe"
+    ],
+    correct:0,
+    explanation:"Die traditionelle VWL-Einteilung lautet Boden, Arbeit und Kapital."
+},
+{
+    question:"Warum verwendet die BWL eine genauere Einteilung der Produktionsfaktoren?",
+    options:[
+        "Weil die BWL nur Maschinen untersucht",
+        "Weil Boden in Betrieben keine Rolle spielt",
+        "Weil ein einzelner Betrieb seine eingesetzten Faktoren genauer unterscheiden und steuern muss",
+        "Weil die VWL keine menschliche Arbeit berücksichtigt"
+    ],
+    correct:2,
+    explanation:"Die BWL betrachtet den einzelnen Betrieb. Deshalb muss sie genauer unterscheiden, welche Faktoren dort eingesetzt und gesteuert werden."
+},
+{
+    question:"Welche drei Elementarfaktoren unterscheidet Gutenberg?",
+    options:[
+        "Boden, Arbeit und Kapital",
+        "Beschaffung, Produktion und Absatz",
+        "Planung, Organisation und Kontrolle",
+        "Objektbezogene Arbeit, Betriebsmittel und Werkstoffe"
+    ],
+    correct:3,
+    explanation:"Die Elementarfaktoren sind objektbezogene Arbeit, Betriebsmittel und Werkstoffe."
+},
+{
+    question:"Ein Schreiner sägt Holzplatten mit einer Maschine. Wie wird seine Tätigkeit eingeordnet?",
+    options:[
+        "Objektbezogene Arbeit",
+        "Dispositiver Faktor",
+        "Betriebsmittel",
+        "Betriebsstoff"
+    ],
+    correct:0,
+    explanation:"Das Sägen ist eine ausführende menschliche Tätigkeit und damit objektbezogene Arbeit."
+},
+{
+    question:"Welche Aussage beschreibt ein Betriebsmittel am besten?",
+    options:[
+        "Es wird immer Teil des fertigen Produkts.",
+        "Es wird im Produktionsprozess vollständig verbraucht.",
+        "Es wird länger genutzt und bleibt grundsätzlich erhalten.",
+        "Es besteht immer aus Metall."
+    ],
+    correct:2,
+    explanation:"Betriebsmittel werden gebraucht, aber nicht bei jeder Produktion verbraucht. Beispiele sind Maschinen oder Gebäude."
+},
+{
+    question:"Welches Beispiel ist in einer Bäckerei ein Betriebsmittel?",
+    options:[
+        "Mehl",
+        "Backofen",
+        "Strom",
+        "Hefe"
+    ],
+    correct:1,
+    explanation:"Der Backofen wird immer wieder genutzt und bleibt erhalten. Deshalb ist er ein Betriebsmittel."
+},
+{
+    question:"Was ist ein Rohstoff?",
+    options:[
+        "Ein Stoff, der nur Maschinen antreibt",
+        "Ein Nebenbestandteil des Produkts",
+        "Ein Gegenstand, der mehrfach benutzt wird",
+        "Ein Hauptbestandteil des Produkts"
+    ],
+    correct:3,
+    explanation:"Ein Rohstoff bildet den Hauptbestandteil eines Produkts, zum Beispiel Holz bei einem Schrank."
+},
+{
+    question:"Holzleim wird bei der Herstellung eines Schranks verwendet. Wie wird er eingeordnet?",
+    options:[
+        "Hilfsstoff",
+        "Rohstoff",
+        "Betriebsmittel",
+        "Dispositiver Faktor"
+    ],
+    correct:0,
+    explanation:"Leim wird Teil des Schranks, ist aber nur ein Nebenbestandteil. Deshalb ist er ein Hilfsstoff."
+},
+{
+    question:"Warum ist Strom für eine Maschine ein Betriebsstoff?",
+    options:[
+        "Weil Strom der Hauptbestandteil des Produkts ist",
+        "Weil Strom dauerhaft im Betrieb bleibt",
+        "Weil Strom für den Betrieb der Maschine benötigt und dabei verbraucht wird",
+        "Weil Strom eine Form menschlicher Arbeit ist"
+    ],
+    correct:2,
+    explanation:"Betriebsstoffe werden benötigt, damit Betriebsmittel funktionieren, und werden dabei verbraucht."
+},
+{
+    question:"Welche Prüffrage hilft besonders bei der Unterscheidung von Betriebsmitteln und Werkstoffen?",
+    options:[
+        "Wie teuer ist der Gegenstand?",
+        "Bleibt der Gegenstand erhalten oder wird er verbraucht?",
+        "Wer hat den Gegenstand gekauft?",
+        "Wie groß ist der Gegenstand?"
+    ],
+    correct:1,
+    explanation:"Betriebsmittel werden gebraucht und bleiben erhalten. Werkstoffe werden verarbeitet oder verbraucht."
+},
+{
+    question:"In einer Druckerei wird Papier für gedruckte Broschüren verwendet. Was ist das Papier?",
+    options:[
+        "Betriebsstoff",
+        "Hilfsstoff",
+        "Betriebsmittel",
+        "Rohstoff"
+    ],
+    correct:3,
+    explanation:"Papier ist der Hauptbestandteil der gedruckten Broschüre und damit ein Rohstoff."
+},
+{
+    question:"Holz wird in einer Möbelfabrik zu einem Tisch verarbeitet. Welche Funktion hat das Holz dort?",
+    options:[
+        "Rohstoff",
+        "Betriebsstoff",
+        "Betriebsmittel",
+        "Dispositiver Faktor"
+    ],
+    correct:0,
+    explanation:"Das Holz wird Hauptbestandteil des Tisches und ist deshalb ein Rohstoff."
+},
+{
+    question:"Holz wird in einem Heizkraftwerk verbrannt, um Energie zu erzeugen. Welche Funktion hat es dort?",
+    options:[
+        "Hilfsstoff",
+        "Betriebsmittel",
+        "Betriebsstoff",
+        "Objektbezogene Arbeit"
+    ],
+    correct:2,
+    explanation:"Das Holz wird zur Energieerzeugung verbraucht und dient dem Betrieb. In diesem Fall ist es ein Betriebsstoff."
+},
+{
+    question:"Was zeigt das Beispiel mit Holz in Möbelfabrik und Heizkraftwerk?",
+    options:[
+        "Jeder Gegenstand gehört immer zum gleichen Produktionsfaktor.",
+        "Die Zuordnung hängt von der Funktion des Gegenstands im jeweiligen Betrieb ab.",
+        "Rohstoffe gibt es nur in Industriebetrieben.",
+        "Betriebsstoffe können niemals feste Stoffe sein."
+    ],
+    correct:1,
+    explanation:"Nicht der Gegenstand allein entscheidet, sondern seine konkrete Funktion im jeweiligen Betrieb."
+},
+{
+    question:"Welche Tätigkeit gehört zum dispositiven Faktor?",
+    options:[
+        "Teig kneten",
+        "Holz sägen",
+        "Kunden bedienen",
+        "Den Personaleinsatz für die nächste Woche planen"
+    ],
+    correct:3,
+    explanation:"Planung und Steuerung gehören zum dispositiven Faktor."
+},
+{
+    question:"Was bedeutet Faktorkombination?",
+    options:[
+        "Die sinnvolle Verbindung und Steuerung verschiedener Produktionsfaktoren",
+        "Der Verkauf mehrerer Produkte als Paket",
+        "Die Berechnung der Produktionskosten",
+        "Der Austausch von Rohstoffen gegen Betriebsmittel"
+    ],
+    correct:0,
+    explanation:"Faktorkombination bedeutet, dass Produktionsfaktoren sinnvoll miteinander verbunden und eingesetzt werden."
+},
+{
+    question:"Welche Reihenfolge der betrieblichen Grundfunktionen ist richtig?",
+    options:[
+        "Produktion → Absatz → Beschaffung",
+        "Absatz → Beschaffung → Produktion",
+        "Beschaffung → Produktion → Absatz",
+        "Beschaffung → Absatz → Produktion"
+    ],
+    correct:2,
+    explanation:"Zuerst werden Faktoren beschafft, dann wird die Leistung erstellt und anschließend verkauft."
+},
+{
+    question:"Eine Bäckerei bestellt Mehl bei einem Lieferanten. Zu welcher Grundfunktion gehört dieser Vorgang?",
+    options:[
+        "Produktion",
+        "Beschaffung",
+        "Absatz",
+        "Kontrolle"
+    ],
+    correct:1,
+    explanation:"Das Bereitstellen bzw. Einkaufen benötigter Produktionsfaktoren gehört zur Beschaffung."
+},
+{
+    question:"Ein Möbelunternehmen baut Tische und verkauft sie anschließend über seinen Online-Shop. Welche Zuordnung ist richtig?",
+    options:[
+        "Tische bauen = Produktion; Tische verkaufen = Absatz",
+        "Tische bauen = Beschaffung; Tische verkaufen = Produktion",
+        "Tische bauen = Absatz; Tische verkaufen = Beschaffung",
+        "Beide Tätigkeiten gehören zur Beschaffung"
+    ],
+    correct:0,
+    explanation:"Das Herstellen der Tische ist Produktion bzw. Leistungserstellung. Der Verkauf gehört zum Absatz bzw. zur Leistungsverwertung."
+}
+];
+
+let queue=[];
+let currentIndex=0;
+let totalAnswered=0;
+let wrongSet=new Set();
+let answeredCorrectly=new Set();
+
+function initQuiz(){
+    queue=quizData.map((_,i)=>i);
+    currentIndex=0;
+    totalAnswered=0;
+    wrongSet=new Set();
+    answeredCorrectly=new Set();
+    document.getElementById("resultsContainer").classList.remove("show");
+    renderCurrentQuestion();
+}
+
+function renderCurrentQuestion(){
+    if(currentIndex>=queue.length){
+        showResults();
+        return;
+    }
+
+    const qIdx=queue[currentIndex];
+    const q=quizData[qIdx];
+    const isRetry=wrongSet.has(qIdx);
+    const container=document.getElementById("questionsContainer");
+
+    container.innerHTML=`
+    <div class="question-container active">
+        <div class="question-number">
+            ${isRetry ? "🔁 Wiederholung · " : ""}Frage ${totalAnswered+1} ·
+            ${answeredCorrectly.size} von ${quizData.length} gemeistert
+        </div>
+        <div class="question-text">${q.question}</div>
+
+        <div class="options" id="options-current">
+            ${q.options.map((opt,i)=>`
+                <div class="option" onclick="selectOption(${qIdx},${i})">
+                    <div class="option-letter">${String.fromCharCode(65+i)}</div>
+                    <div class="option-text">${opt}</div>
+                </div>
+            `).join("")}
+        </div>
+
+        <div class="feedback" id="feedback-current">
+            <div class="feedback-title"></div>
+            <div class="feedback-text"></div>
+        </div>
+
+        <div class="controls">
+            <div></div>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                Weiter →
+            </button>
+        </div>
+    </div>`;
+
+    updateProgress();
+}
+
+function selectOption(questionIndex,optionIndex){
+    const options=document.querySelectorAll("#options-current .option");
+    const correct=quizData[questionIndex].correct;
+
+    options.forEach(opt=>{
+        opt.classList.add("disabled");
+        opt.onclick=null;
+    });
+
+    options[optionIndex].classList.add("selected");
+    options[optionIndex].classList.add(optionIndex===correct ? "correct" : "incorrect");
+    options[correct].classList.add("correct");
+
+    const feedback=document.getElementById("feedback-current");
+    feedback.classList.add("show");
+
+    if(optionIndex===correct){
+        answeredCorrectly.add(questionIndex);
+        wrongSet.delete(questionIndex);
+        feedback.classList.add("correct");
+        feedback.querySelector(".feedback-title").textContent="✓ Richtig!";
+    }else{
+        wrongSet.add(questionIndex);
+        answeredCorrectly.delete(questionIndex);
+        feedback.classList.add("incorrect");
+        feedback.querySelector(".feedback-title").textContent=
+            "✗ Noch nicht – die Frage kommt später wieder!";
+
+        const insertPos=Math.min(currentIndex+5,queue.length);
+        queue.splice(insertPos,0,questionIndex);
+    }
+
+    feedback.querySelector(".feedback-text").textContent=
+        quizData[questionIndex].explanation;
+
+    totalAnswered++;
+    document.getElementById("nextBtn").disabled=false;
+    updateProgress();
+}
+
+function nextQuestion(){
+    currentIndex++;
+    if(currentIndex>=queue.length) showResults();
+    else renderCurrentQuestion();
+}
+
+function updateProgress(){
+    const progress=(answeredCorrectly.size/quizData.length)*100;
+    document.getElementById("progressFill").style.width=progress+"%";
+}
+
+function showResults(){
+    document.getElementById("questionsContainer").innerHTML="";
+    const results=document.getElementById("resultsContainer");
+    results.classList.add("show");
+
+    const repeats=Math.max(0,totalAnswered-quizData.length);
+    const percentage=Math.round(
+        (quizData.length/Math.max(totalAnswered,quizData.length))*100
+    );
+
+    document.getElementById("scoreNumber").textContent=
+        Math.min(percentage,100)+"%";
+    document.getElementById("correctCount").textContent=quizData.length;
+    document.getElementById("incorrectCount").textContent=repeats;
+    document.getElementById("totalCount").textContent=totalAnswered;
+
+    let message="";
+    if(repeats===0){
+        message="Perfekt! Alle Fragen auf Anhieb richtig.";
+    }else if(repeats<=3){
+        message="Sehr gut! Nur wenige Wiederholungen.";
+    }else if(repeats<=7){
+        message="Gut gemacht! Die Wiederholungen haben geholfen.";
+    }else{
+        message="Geschafft! Wiederhole Block 7 noch einmal zur Sicherheit.";
+    }
+
+    document.getElementById("resultMessage").textContent=message;
+}
+
+function restartQuiz(){
+    initQuiz();
+}
+
+window.onload=initQuiz;
+</script>
+</body>
+</html>
