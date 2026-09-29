@@ -73,8 +73,17 @@ kapitel:
 
   - numeral: II
     titel: Buchführung
-    meta: folgt
-    module: []
+    module:
+      - id: r1
+        nr: "01"
+        titel: Grundlagen der Buchführung
+        desc: >-
+          Internes und externes Rechnungswesen unterscheiden, Geschäftsvorfälle mit
+          Belegen nachweisen — dazu die Buchführungspflicht nach §§ 238 und 241a HGB
+          sowie die Grundsätze ordnungsmäßiger Buchführung
+        pdf: /assets/pdfs/BWL_W_8.pdf
+        quiz: /assets/quizzes/quiz_buchfuehrung_grundlagen.html
+        text: /assets/texte/bwl-w-8.pdf
 
   - numeral: III
     titel: Erfolg, Steuern, Abschreibungen
