@@ -41,6 +41,7 @@ kapitel:
         titel: "Inflation & Preisniveaustabilität"
         pdf: /assets/pdfs/VWL_14_Preisniveau.pdf
         quiz: /assets/quizzes/quiz_preisniveau.html
+        text: /assets/texte/preisniveau.pdf
       - id: m15
         nr: "15"
         titel: Magisches Viereck
