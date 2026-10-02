@@ -84,6 +84,15 @@ kapitel:
         pdf: /assets/pdfs/BWL_W_8.pdf
         quiz: /assets/quizzes/quiz_buchfuehrung_grundlagen.html
         text: /assets/texte/bwl-w-8.pdf
+      - id: r2
+        nr: "02"
+        titel: Inventur und Inventar
+        desc: >-
+          Bestände prüfen und Vermögen ermitteln — körperliche und buchmäßige Inventur,
+          Stichtags-, permanente und verlegte Inventur, das Inventar in Staffelform
+          sowie Eigenkapital und Inventurdifferenzen
+        pdf: /assets/pdfs/BWL_W_9.pdf
+        text: /assets/texte/bwl-w-9.pdf
 
   - numeral: III
     titel: Erfolg, Steuern, Abschreibungen
