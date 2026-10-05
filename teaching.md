@@ -193,13 +193,14 @@ body, html, .page-content, .wrapper, main {
   {%- assign makro_module = site.data.kurse.makrooekonomie.kapitel[0].module.size -%}
   {%- assign bwl_module = 0 -%}
   {%- for k in site.data.kurse.bwl.kapitel -%}{%- assign bwl_module = bwl_module | plus: k.module.size -%}{%- endfor -%}
+  {%- assign info_w_module = site.data.kurse["informatik-w"].kapitel[0].module.size -%}
 
   <!-- 1. Semester -->
   <section class="mw-kapitel">
     <div class="mw-kapitel-kopf">
       <span class="mw-numeral">I</span>
       <h2>1. Semester</h2>
-      <span class="mw-meta">2 Fächer</span>
+      <span class="mw-meta">3 F&auml;cher</span>
     </div>
     <div class="mw-liste">
       <a href="/teaching/mathematik/" class="mw-fach">
@@ -215,6 +216,14 @@ body, html, .page-content, .wrapper, main {
         <div>
           <h2>Volkswirtschaftslehre &middot; Mikro&ouml;konomie</h2>
           <div class="mw-fach-meta">{{ mikro_module }} Module · Nachfrage, Angebot, Marktgleichgewicht, Marktformen</div>
+        </div>
+        <span class="mw-fach-pfeil">&rarr;</span>
+      </a>
+      <a href="/teaching/informatik-w/" class="mw-fach">
+        <span class="mw-fach-nr">03</span>
+        <div>
+          <h2>Informatik (W-Kurs)</h2>
+          <div class="mw-fach-meta">{{ info_w_module }} {% if info_w_module == 1 %}Modul{% else %}Module{% endif %} · Daten, Information, Hardware &amp; Software</div>
         </div>
         <span class="mw-fach-pfeil">&rarr;</span>
       </a>

@@ -1,0 +1,21 @@
+# Moduldaten Informatik W-Kurs (1. Semester).
+# Neue Module hier eintragen — Modulzahlen werden automatisch berechnet.
+# Optionale Felder je Modul: desc, quiz, podcast, text
+
+fortschritt_key: info-w-progress
+
+kapitel:
+  - numeral: I
+    titel: Informatik
+    ueberschrift: false
+    module:
+      - id: w1
+        nr: "01"
+        titel: "Was braucht eine Kasse? – Daten, Information, Hardware und Software"
+        desc: >-
+          Am Beispiel einer Café-Kasse: Daten als dargestellte Angaben, Information aus Daten im
+          Zusammenhang, Hardware und Software unterscheiden und begründen, welche Daten für eine
+          bestimmte Frage gebraucht werden
+        pdf: /assets/pdfs/Info_W_1.pdf
+        quiz: /assets/quizzes/quiz_informatik_w_block1.html
+        text: /assets/texte/info-w-1.pdf

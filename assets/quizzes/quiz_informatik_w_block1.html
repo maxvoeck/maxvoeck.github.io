@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Daten, Information, Hardware und Software</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+        }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+        }
+.quiz-container {
+background: white;
+border-radius: 16px;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+max-width: 800px;
+width: 100%;
+overflow: hidden;
+        }
+.quiz-header {
+background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+color: white;
+padding: 2rem;
+text-align: center;
+        }
+.quiz-header h1 {
+font-size: 1.8rem;
+margin-bottom: 0.5rem;
+        }
+.quiz-header p {
+opacity: 0.9;
+font-size: 1rem;
+        }
+.progress-bar {
+background: #e0e0e0;
+height: 8px;
+position: relative;
+        }
+.progress-fill {
+background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+height: 100%;
+width: 0%;
+transition: width 0.3s ease;
+        }
+.quiz-content {
+padding: 2rem;
+        }
+.question-container {
+display: none;
+        }
+.question-container.active {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+@keyframes fadeIn {
+            from {
+opacity: 0;
+transform: translateY(20px);
+            }
+            to {
+opacity: 1;
+transform: translateY(0);
+            }
+        }
+.question-number {
+color: #667eea;
+font-weight: 600;
+font-size: 0.9rem;
+margin-bottom: 0.5rem;
+        }
+.question-text {
+font-size: 1.3rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1.5rem;
+line-height: 1.5;
+        }
+.options {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+        }
+.option {
+background: #f8f9fa;
+border: 2px solid #e0e0e0;
+border-radius: 12px;
+padding: 1rem 1.5rem;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 1rem;
+        }
+.option:hover {
+background: #f0f1f3;
+border-color: #667eea;
+transform: translateX(5px);
+        }
+.option-letter {
+background: #667eea;
+color: white;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+flex-shrink: 0;
+        }
+.option.selected {
+background: #e8eaf6;
+border-color: #667eea;
+        }
+.option.correct {
+background: #d4edda;
+border-color: #28a745;
+        }
+.option.correct .option-letter {
+background: #28a745;
+        }
+.option.incorrect {
+background: #f8d7da;
+border-color: #dc3545;
+        }
+.option.incorrect .option-letter {
+background: #dc3545;
+        }
+.option.disabled {
+cursor: not-allowed;
+opacity: 0.7;
+        }
+.feedback {
+margin-top: 1.5rem;
+padding: 1rem;
+border-radius: 8px;
+display: none;
+        }
+.feedback.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.feedback.correct {
+background: #d4edda;
+border-left: 4px solid #28a745;
+color: #155724;
+        }
+.feedback.incorrect {
+background: #f8d7da;
+border-left: 4px solid #dc3545;
+color: #721c24;
+        }
+.feedback-title {
+font-weight: 600;
+margin-bottom: 0.5rem;
+        }
+.controls {
+margin-top: 2rem;
+display: flex;
+justify-content: space-between;
+gap: 1rem;
+        }
+.btn {
+padding: 0.8rem 2rem;
+border: none;
+border-radius: 8px;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+        }
+.btn-primary {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+        }
+.btn-primary:hover:not(:disabled) {
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+.btn-secondary {
+background: #f8f9fa;
+color: #374151;
+border: 2px solid #e0e0e0;
+        }
+.btn-secondary:hover:not(:disabled) {
+background: #e9ecef;
+        }
+.btn:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+        }
+.results-container {
+display: none;
+text-align: center;
+padding: 2rem;
+        }
+.results-container.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.score-circle {
+width: 200px;
+height: 200px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 2rem auto;
+color: white;
+box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+.score-number {
+font-size: 3rem;
+font-weight: 700;
+        }
+.score-label {
+font-size: 1rem;
+opacity: 0.9;
+        }
+.result-message {
+font-size: 1.5rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1rem;
+        }
+.result-details {
+background: #f8f9fa;
+border-radius: 12px;
+padding: 1.5rem;
+margin: 2rem 0;
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+gap: 1rem;
+        }
+.result-stat {
+text-align: center;
+        }
+.result-stat-number {
+font-size: 2rem;
+font-weight: 700;
+color: #667eea;
+        }
+.result-stat-label {
+font-size: 0.9rem;
+color: #666;
+margin-top: 0.3rem;
+        }
+@media (max-width: 768px) {
+body {
+padding: 10px;
+            }
+.quiz-header h1 {
+font-size: 1.4rem;
+            }
+.question-text {
+font-size: 1.1rem;
+            }
+.controls {
+flex-direction: column;
+            }
+.btn {
+width: 100%;
+            }
+        }
+
+button.option { width:100%; text-align:left; font:inherit; color:#1f2937; }
+.option:focus-visible,.btn:focus-visible { outline:3px solid #374151; outline-offset:3px; }
+.option:disabled { cursor:default; opacity:1; transform:none; }
+.option:disabled:hover { transform:none; }
+.option-text { line-height:1.5; }
+@media (max-width:480px) { .quiz-content,.quiz-header {padding:1.25rem;} .option {padding:0.9rem;} }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important;} }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+<div class="quiz-header">
+<h1>💻 Was braucht eine Kasse?</h1>
+<p>Informatik · Block 1 · 20 Fragen · Eine Antwort ist jeweils richtig</p>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="quiz-content">
+<div id="questionsContainer"></div>
+<div class="results-container" id="resultsContainer">
+<div class="result-message" id="resultMessage"></div>
+<div class="score-circle">
+<div class="score-number" id="scoreNumber">0%</div>
+<div class="score-label">Beim ersten Versuch</div>
+</div>
+<div class="result-details">
+<div class="result-stat">
+<div class="result-stat-number" id="correctCount">0</div>
+<div class="result-stat-label">Beim ersten Versuch richtig</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="incorrectCount">0</div>
+<div class="result-stat-label">Fehlversuche</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="totalCount">0</div>
+<div class="result-stat-label">Antwortversuche</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+</div>
+</div>
+</div>
+<script>
+const quizData = [
+  {
+    "question": "Was sind Daten?",
+    "options": [
+      "Angaben, die als Zahlen, Texte oder Zeichen dargestellt sind.",
+      "Nur Zahlen, mit denen ein Computer rechnen kann.",
+      "Nur Aussagen, deren Bedeutung bereits eindeutig ist.",
+      "Geräte, die Angaben auf einem Bildschirm anzeigen."
+    ],
+    "correct": 0,
+    "explanation": "Daten können Zahlen, Texte oder Zeichen sein. Auch ein Artikelname oder ein Datum gehört zu den Daten."
+  },
+  {
+    "question": "Welche Gruppe enthält ausschließlich Daten, die auf einem Kassenbon stehen können?",
+    "options": [
+      "Tablet, Tastatur und Bildschirm",
+      "Browser, Betriebssystem und Kassenprogramm",
+      "Cappuccino, Menge 2 und Datum 05.10.2026",
+      "Bondrucker, Papierrolle und Stromkabel"
+    ],
+    "correct": 2,
+    "explanation": "Artikelname, Menge und Datum sind dargestellte Angaben. Geräte gehören zur Hardware, Programme zur Software."
+  },
+  {
+    "question": "Auf einem Zettel steht nur „8,00“. Was können Sie sicher sagen?",
+    "options": [
+      "Ein Gast muss genau 8,00 Euro bezahlen.",
+      "Die Angabe ist eine Zahl; ihre Bedeutung ist noch nicht eindeutig.",
+      "Im Café wurden genau acht Getränke verkauft.",
+      "Die Angabe ist eine Uhrzeit am Morgen."
+    ],
+    "correct": 1,
+    "explanation": "Die Zahl ist ein Datum. Ohne Beschriftung oder weiteren Zusammenhang können wir nicht sicher erkennen, worauf sie sich bezieht."
+  },
+  {
+    "question": "Auf dem Bon steht „Summe: 8,00 Euro“. Welche Information erhalten wir?",
+    "options": [
+      "Der Gast hat acht Getränke bestellt.",
+      "Jedes Getränk kostet 8,00 Euro.",
+      "Es wurden acht Cappuccinos verkauft.",
+      "Der Gast muss insgesamt 8,00 Euro bezahlen."
+    ],
+    "correct": 3,
+    "explanation": "Die Beschriftung „Summe“ und die Einheit Euro zeigen: 8,00 Euro ist der Gesamtbetrag der Bestellung."
+  },
+  {
+    "question": "Auf einem Zettel steht „40“. Welche Ergänzung macht die gemeinte Warenmenge eindeutig?",
+    "options": [
+      "40 Packungen Arabica im Lager",
+      "40 – wichtig",
+      "40 – bitte prüfen",
+      "40 – Elster GmbH"
+    ],
+    "correct": 0,
+    "explanation": "Die Angabe nennt die Einheit Packungen, die Ware Arabica und den Zusammenhang Lagerbestand. „Wichtig“ oder ein Firmenname erklärt die Menge nicht."
+  },
+  {
+    "question": "Welche Aussage über Daten und Information ist richtig?",
+    "options": [
+      "Verständliche Angaben sind keine Daten mehr.",
+      "Daten und Information sind immer dasselbe.",
+      "Wir gewinnen Information, wenn wir Daten im Zusammenhang verstehen.",
+      "Daten haben in jedem Zusammenhang dieselbe Bedeutung."
+    ],
+    "correct": 2,
+    "explanation": "Auch ein beschrifteter Bon enthält Daten. Beim Verstehen dieser Angaben gewinnen wir Information."
+  },
+  {
+    "question": "Welche Angabe hilft am besten, die Zahl „40“ als Gewicht zu verstehen?",
+    "options": [
+      "Die Angabe wurde mit einem Tablet erfasst.",
+      "Neben der Zahl steht „Gewicht in Kilogramm“.",
+      "Die Zahl ist in großer Schrift gedruckt.",
+      "Die Angabe steht auf einem weißen Zettel."
+    ],
+    "correct": 1,
+    "explanation": "Eine Beschriftung mit Größe und Einheit erklärt, worauf sich die Zahl bezieht. Schriftgröße und Papierfarbe machen diese Bedeutung nicht eindeutig."
+  },
+  {
+    "question": "Auf einem Zettel steht „40 · 06.10. · Arabica“. Welche Aussage verwendet alle drei Angaben in einem möglichen Zusammenhang?",
+    "options": [
+      "Arabica ist eine Kaffeesorte.",
+      "Eine Packung Arabica kostet 40 Euro.",
+      "Am 6. Oktober öffnet das Café.",
+      "Am 6. Oktober wurden 40 Packungen Arabica geliefert."
+    ],
+    "correct": 3,
+    "explanation": "Der Satz verbindet Datum, Menge und Ware zu einer möglichen Information. Dass genau diese Deutung gemeint ist, müsste eine Beschriftung bestätigen."
+  },
+  {
+    "question": "Was ist Hardware?",
+    "options": [
+      "Programme, die einen Computer steuern.",
+      "Informationen über verkaufte Artikel.",
+      "Körperliche Geräte und Bauteile eines Computersystems.",
+      "Anweisungen, mit denen ein Preis berechnet wird."
+    ],
+    "correct": 2,
+    "explanation": "Hardware sind körperliche Geräte und Bauteile. Dazu gehören zum Beispiel Tablet, Bildschirm, Prozessor und Drucker."
+  },
+  {
+    "question": "Welche Gruppe besteht ausschließlich aus Hardware?",
+    "options": [
+      "Tablet, Tastatur und Bondrucker",
+      "Tablet, Browser und Bondrucker",
+      "Betriebssystem, Tastatur und Browser",
+      "Kassenprogramm, Bildschirm und Tablet"
+    ],
+    "correct": 0,
+    "explanation": "Tablet, Tastatur und Bondrucker sind Geräte. Browser, Betriebssystem und Kassenprogramm sind Programme und damit Software."
+  },
+  {
+    "question": "Warum ist der Bondrucker Hardware?",
+    "options": [
+      "Weil er den Preis eines Getränks kennt.",
+      "Weil er ein körperliches Gerät ist.",
+      "Weil er zur Ausstattung des Cafés gehört.",
+      "Weil er den Text auf dem Bon versteht."
+    ],
+    "correct": 1,
+    "explanation": "Das entscheidende Merkmal ist: Der Bondrucker ist ein körperliches Gerät. Zur Kasse gehören auch Software und Daten; die Zugehörigkeit allein reicht nicht als Begründung."
+  },
+  {
+    "question": "Ein Prozessor befindet sich im Inneren des Tablets. Welche Zuordnung ist richtig?",
+    "options": [
+      "Software, weil man ihn im Betrieb nicht sieht.",
+      "Daten, weil er Zahlen verarbeitet.",
+      "Information, weil er Ergebnisse liefert.",
+      "Hardware, weil er ein körperliches Bauteil ist."
+    ],
+    "correct": 3,
+    "explanation": "Auch Bauteile im Inneren eines Geräts sind Hardware. Sichtbarkeit und die Verarbeitung von Daten ändern diese Zuordnung nicht."
+  },
+  {
+    "question": "Was ist Software?",
+    "options": [
+      "Alle Geräte, die an die Kasse angeschlossen sind.",
+      "Alle Artikel und Preise, die auf einem Bon stehen.",
+      "Programme mit Anweisungen, die festlegen, was der Computer tut.",
+      "Alle Ergebnisse, die eine Person aus einem Bon versteht."
+    ],
+    "correct": 2,
+    "explanation": "Software umfasst Programme. Ihre Anweisungen legen fest, wie ein Computer arbeitet und Daten verarbeitet."
+  },
+  {
+    "question": "Welche Gruppe besteht ausschließlich aus Software?",
+    "options": [
+      "Kassenprogramm, Betriebssystem und Browser",
+      "Kassenprogramm, Bildschirm und Browser",
+      "Betriebssystem, Tablet und Tastatur",
+      "Browser, Bondrucker und Kassenprogramm"
+    ],
+    "correct": 0,
+    "explanation": "Kassenprogramm, Betriebssystem und Browser sind Programme. Bildschirm, Tablet, Tastatur und Drucker sind Hardware."
+  },
+  {
+    "question": "Welche Aufgabe hat das Betriebssystem?",
+    "options": [
+      "Es legt als Gerät Papier in den Drucker ein.",
+      "Es verwaltet grundlegende Gerätefunktionen und ermöglicht die Ausführung von Programmen.",
+      "Es gibt als Datenliste alle Getränkepreise vor.",
+      "Es ersetzt die körperlichen Bauteile des Tablets."
+    ],
+    "correct": 1,
+    "explanation": "Das Betriebssystem ist Software. Es verwaltet grundlegende Funktionen des Geräts und ermöglicht, dass Programme ausgeführt werden."
+  },
+  {
+    "question": "Eine Mitarbeiterin berührt das Symbol des Kassenprogramms auf dem Bildschirm. Welche Aussage stimmt?",
+    "options": [
+      "Bildschirm und Kassenprogramm sind beide Hardware.",
+      "Bildschirm und Kassenprogramm sind beide Software.",
+      "Das Programm wird durch die Berührung zu Hardware.",
+      "Der Bildschirm ist Hardware; das Kassenprogramm bleibt Software."
+    ],
+    "correct": 3,
+    "explanation": "Die Berührung erfolgt auf dem körperlichen Bildschirm. Das angezeigte Programm besteht weiterhin aus Anweisungen und ist Software."
+  },
+  {
+    "question": "Die Kasse berechnet den Preis und druckt den Bon. Wie arbeiten Hardware und Software zusammen?",
+    "options": [
+      "Die Hardware legt alle Rechenschritte fest; Software ist nur Papier.",
+      "Software und Hardware erledigen ihre Aufgaben unabhängig voneinander.",
+      "Das Programm gibt Anweisungen; die Hardware führt sie aus und gibt den Bon aus.",
+      "Software ersetzt das Tablet und den Bondrucker vollständig."
+    ],
+    "correct": 2,
+    "explanation": "Das Kassenprogramm gibt die Verarbeitung vor. Die Hardware führt die Anweisungen aus; der Drucker gibt den Bon auf Papier aus."
+  },
+  {
+    "question": "Welche beiden getrennten Bestellungen kosten jeweils 6,00 Euro? Ein Cappuccino kostet 3,00 Euro, ein Espresso 2,00 Euro.",
+    "options": [
+      "Bestellung 1: zwei Cappuccinos. Bestellung 2: drei Espressos.",
+      "Bestellung 1: ein Cappuccino. Bestellung 2: zwei Espressos.",
+      "Bestellung 1: drei Cappuccinos. Bestellung 2: zwei Espressos.",
+      "Bestellung 1: zwei Cappuccinos. Bestellung 2: zwei Espressos."
+    ],
+    "correct": 0,
+    "explanation": "Zwei Cappuccinos kosten 2 × 3,00 = 6,00 Euro. Drei Espressos kosten 3 × 2,00 = 6,00 Euro. Ein gleicher Gesamtbetrag kann zu unterschiedlichen Artikeln und Mengen gehören."
+  },
+  {
+    "question": "Die Kasse speichert pro Verkauf nur Datum und Gesamtbetrag. Kann die Chefin damit sicher das heute am häufigsten verkaufte Getränk bestimmen?",
+    "options": [
+      "Ja, der größte Gesamtbetrag zeigt das häufigste Getränk.",
+      "Nein, es fehlen die verkauften Artikel und ihre Mengen.",
+      "Ja, das Datum zeigt, welches Getränk verkauft wurde.",
+      "Nein, es fehlt nur die Nummer des Bondruckers."
+    ],
+    "correct": 1,
+    "explanation": "Datum und Gesamtbetrag verraten nicht eindeutig, welche Getränke in welchen Mengen verkauft wurden. Unterschiedliche Bestellungen können denselben Gesamtbetrag haben."
+  },
+  {
+    "question": "Welche Daten und welche Verarbeitung helfen, das heute am häufigsten verkaufte Getränk zu finden?",
+    "options": [
+      "Preise und Datum speichern; den höchsten Preis auswählen.",
+      "Artikelnamen und Preise speichern; die Preise zusammenzählen.",
+      "Gesamtbetrag und Kassennummer speichern; die Beträge vergleichen.",
+      "Artikel, Menge und Datum speichern; die heutigen Mengen je Getränk zusammenzählen."
+    ],
+    "correct": 3,
+    "explanation": "Das Datum grenzt den Tag ein. Artikel und Menge ermöglichen, die heutigen Verkaufsmengen je Getränk zu addieren und anschließend zu vergleichen."
+  }
+];
+
+let queue, currentIndex, totalAnswered, firstCorrect, mastered, attempted;
+let displayedOptions = [], locked = false;
+function shuffle(values) {
+  const a = [...values];
+  for (let i=a.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+// Fünf richtige Antworten pro Position im ersten Durchlauf,
+// zufällig angeordnet, ohne Dreierfolge oder wiederholten Viererblock.
+function makePositions() {
+  let p;
+  do {
+    p=shuffle(Array.from({length:20},(_,i)=>i%4));
+  } while (p.some((v,i)=>i>1&&v===p[i-1]&&v===p[i-2]) ||
+    p.some((_,i)=>i>=4&&i<=16&&p.slice(i,i+4).every((v,j)=>v===p[i-4+j])));
+  return p;
+}
+let positions;
+function initQuiz() {
+  queue=quizData.map((_,i)=>i); currentIndex=0; totalAnswered=0; firstCorrect=0;
+  mastered=new Set(); attempted=new Set(); positions=makePositions();
+  document.getElementById('resultsContainer').classList.remove('show');
+  renderCurrentQuestion();
+}
+function renderCurrentQuestion() {
+  if(currentIndex>=queue.length) { showResults(); return; }
+  const id=queue[currentIndex], q=quizData[id], retry=attempted.has(id);
+  const correctOption={text:q.options[q.correct],correct:true};
+  displayedOptions=shuffle(q.options.map((text,i)=>({text,correct:i===q.correct})).filter(o=>!o.correct));
+  displayedOptions.splice(retry?Math.floor(Math.random()*4):positions[id],0,correctOption);
+  locked=false;
+  const container=document.getElementById('questionsContainer');
+  container.innerHTML=`<div class="question-container active">
+    <div class="question-number">${retry?'🔁 Wiederholung · ':''}Frage ${id+1} von ${quizData.length} · ${mastered.size} gemeistert</div>
+    <h2 class="question-text" tabindex="-1">${q.question}</h2>
+    <div class="options" id="options-current" role="group" aria-label="Antwortmöglichkeiten"></div>
+    <div class="feedback" id="feedback-current" role="status" aria-live="polite">
+      <div class="feedback-title"></div><div class="feedback-text"></div>
+    </div>
+    <div class="controls"><div></div><button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Weiter →</button></div>
+  </div>`;
+  const options=document.getElementById('options-current');
+  displayedOptions.forEach((o,i)=>{
+    const button=document.createElement('button');
+    button.type='button';button.className='option';
+    const letter=document.createElement('span');letter.className='option-letter';letter.textContent=String.fromCharCode(65+i);
+    const label=document.createElement('span');label.className='option-text';label.textContent=o.text;
+    button.append(letter,label);button.addEventListener('click',()=>selectOption(i));options.append(button);
+  });
+  updateProgress();
+  if(totalAnswered>0) container.querySelector('h2').focus();
+}
+function selectOption(index) {
+  if(locked) return;
+  locked=true;
+  const id=queue[currentIndex], q=quizData[id], right=displayedOptions[index].correct;
+  const buttons=document.querySelectorAll('#options-current .option');
+  buttons.forEach((b,i)=>{b.disabled=true;if(displayedOptions[i].correct)b.classList.add('correct');});
+  buttons[index].classList.add('selected',right?'correct':'incorrect');
+  const feedback=document.getElementById('feedback-current');
+  feedback.classList.add('show',right?'correct':'incorrect');
+  if(right) {
+    if(!attempted.has(id))firstCorrect++;
+    mastered.add(id);
+    feedback.querySelector('.feedback-title').textContent='✓ Richtig!';
+  } else {
+    queue.splice(Math.min(currentIndex+5,queue.length),0,id);
+    feedback.querySelector('.feedback-title').textContent='✗ Noch nicht richtig – die Frage kommt später erneut.';
+  }
+  attempted.add(id);totalAnswered++;
+  feedback.querySelector('.feedback-text').textContent=q.explanation;
+  document.getElementById('nextBtn').disabled=false;
+  updateProgress();
+}
+function nextQuestion() {
+  if(!locked)return;
+  currentIndex++;renderCurrentQuestion();
+}
+function updateProgress() {
+  document.getElementById('progressFill').style.width=(mastered.size/quizData.length*100)+'%';
+}
+function showResults() {
+  document.getElementById('questionsContainer').innerHTML='';
+  document.getElementById('resultsContainer').classList.add('show');
+  document.getElementById('scoreNumber').textContent=Math.round(firstCorrect/quizData.length*100)+'%';
+  document.getElementById('correctCount').textContent=firstCorrect+' / '+quizData.length;
+  document.getElementById('incorrectCount').textContent=totalAnswered-quizData.length;
+  document.getElementById('totalCount').textContent=totalAnswered;
+  document.getElementById('resultMessage').textContent=firstCorrect===20?'Alles auf Anhieb richtig!':`Geschafft! Alle 20 Fragen gemeistert. ${firstCorrect} beim ersten Versuch richtig.`;
+  updateProgress();
+}
+function restartQuiz(){initQuiz();}
+window.onload=initQuiz;
+
+</script>
+</body>
+</html>
