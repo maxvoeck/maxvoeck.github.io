@@ -92,7 +92,18 @@ kapitel:
           Stichtags-, permanente und verlegte Inventur, das Inventar in Staffelform
           sowie Eigenkapital und Inventurdifferenzen
         pdf: /assets/pdfs/BWL_W_9.pdf
+        quiz: /assets/quizzes/quiz_inventur_inventar.html
         text: /assets/texte/bwl-w-9.pdf
+      - id: r3
+        nr: "03"
+        titel: Die Bilanz
+        desc: >-
+          Vom Inventar zur Übersicht — Inventar und Bilanz unterscheiden, Posten den Aktiva
+          (Anlage- und Umlaufvermögen) und Passiva (Eigen- und Fremdkapital) zuordnen,
+          Eigenkapital und Bilanzsumme berechnen und eine einfache Bilanz erstellen
+        pdf: /assets/pdfs/BWL_W_10.pdf
+        quiz: /assets/quizzes/quiz_bilanz.html
+        text: /assets/texte/bwl-w-10.pdf
 
   - numeral: III
     titel: Erfolg, Steuern, Abschreibungen

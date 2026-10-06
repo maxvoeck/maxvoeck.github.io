@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Inventur und Inventar – BWL Block 11</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:600;color:#1f2937;
+    margin-bottom:1.5rem;line-height:1.5
+}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{
+    background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;
+    padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f0f1f3;border-color:#667eea;transform:translateX(5px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0
+}
+.option.selected{background:#e8eaf6;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{
+    margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45
+}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{
+    margin-top:2rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:all .25s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{
+    width:200px;height:200px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+.score-number{font-size:3rem;font-weight:700}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+.small-note{font-size:.9rem;color:#6b7280;margin-top:.8rem;line-height:1.4}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header h1{font-size:1.4rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+.option{width:100%;text-align:left;font:inherit;color:#1f2937}
+.option:focus-visible,.btn:focus-visible{outline:3px solid #1f2937;outline-offset:4px}
+.option:disabled{cursor:default}
+.option.disabled{opacity:1}
+.question-text:focus{outline:none}
+.feedback:focus{outline:2px solid #667eea;outline-offset:4px}
+.quiz-header .small-note{color:#e5e7eb;margin-top:.65rem}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>Inventur und Inventar</h1>
+        <p>Bestände prüfen, Inventar ordnen, Eigenkapital berechnen · BWL · W-Kurs · Block 11</p>
+        <p class="small-note">20 Fragen · eine richtige Antwort je Frage · Erklärungen und Wiederholungen</p>
+    </div>
+
+    <div class="progress-bar" role="progressbar" aria-label="Gemeisterte Fragen" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-content">
+        <div id="questionsContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+            <h2 class="result-message" id="resultMessage" tabindex="-1"></h2>
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Im ersten Versuch</div>
+            </div>
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="correctCount">0</div>
+                    <div class="result-stat-label">Gemeistert</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="incorrectCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
+            <p class="small-note">Die Prozentzahl zeigt, wie viele Fragen Sie beim ersten Versuch richtig beantwortet haben. Falsche Antworten werden später wiederholt.</p><button class="btn btn-primary" id="restartBtn">Quiz wiederholen</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const quizData = [
+  {
+    "question": "Was bedeutet Inventur?",
+    "options": [
+      "Die Bestandsaufnahme von Vermögen und Schulden",
+      "Das fertige Verzeichnis der Bestände",
+      "Die Berechnung des Jahresgewinns",
+      "Die laufende Erfassung aller Verkäufe"
+    ],
+    "correct": 0,
+    "explanation": "Bei der Inventur stellt das Unternehmen seine Bestände zu einem bestimmten Stichtag fest. Die Inventur ist die Tätigkeit."
+  },
+  {
+    "question": "Welche Beschreibung passt zum Inventar?",
+    "options": [
+      "Eine Liste nur der Schulden",
+      "Ein Verzeichnis der Bestände nach Art, Menge und Wert",
+      "Ein Kontoauszug der Bank",
+      "Eine Aufstellung nur der Verkäufe"
+    ],
+    "correct": 1,
+    "explanation": "Das Inventar ist das ausführliche Ergebnis der Inventur. Es enthält Vermögen und Schulden sowie die Ermittlung des Reinvermögens."
+  },
+  {
+    "question": "Im Inventar stehen 97 T-Shirts zu je 10 €. Wie hoch ist ihr Gesamtwert?",
+    "options": [
+      "107 €",
+      "9.700 €",
+      "970 €",
+      "97 €"
+    ],
+    "correct": 2,
+    "explanation": "Gesamtwert = Menge × Einzelwert. 97 × 10 € = 970 €. Die Art des Bestands sind die T-Shirts."
+  },
+  {
+    "question": "Welche Zuordnung ist richtig?",
+    "options": [
+      "Bankguthaben: zählen; Waren: Kontoauszug prüfen",
+      "Bankguthaben und Waren: immer körperlich zählen",
+      "Bankguthaben und Waren: nur Unterlagen prüfen",
+      "Bankguthaben: Kontoauszug prüfen; Waren: zählen"
+    ],
+    "correct": 3,
+    "explanation": "Bankguthaben wird buchmäßig anhand von Kontoauszügen geprüft. Waren werden körperlich aufgenommen, zum Beispiel durch Zählen."
+  },
+  {
+    "question": "Wie prüft man 300 € Bargeld in der Kasse?",
+    "options": [
+      "Durch körperliche Inventur: das Bargeld zählen",
+      "Durch Prüfung eines Bankkontoauszugs",
+      "Durch Berechnung des Eigenkapitals",
+      "Durch Addition der Lieferantenschulden"
+    ],
+    "correct": 0,
+    "explanation": "Bargeld ist körperlich vorhanden. Es wird gezählt. Das unterscheidet den Kassenbestand vom Bankguthaben."
+  },
+  {
+    "question": "In welcher Reihenfolge stehen die Abschnitte eines Inventars in Staffelform?",
+    "options": [
+      "Eigenkapital, Schulden, Vermögen",
+      "Vermögen, Schulden, Reinvermögen",
+      "Umsatz, Kosten, Gewinn",
+      "Bank, Kasse, Waren"
+    ],
+    "correct": 1,
+    "explanation": "Die Abschnitte stehen untereinander: A. Vermögen, B. Schulden, C. Reinvermögen (Eigenkapital). Das ist die Staffelform."
+  },
+  {
+    "question": "Ein Betrieb erfasst alle Lagerbewegungen laufend. Jede Warengruppe wird mindestens einmal jährlich körperlich geprüft, zu verschiedenen Terminen. Welches Verfahren liegt vor?",
+    "options": [
+      "Verlegte Inventur",
+      "Nur eine buchmäßige Inventur ohne Kontrolle",
+      "Permanente Inventur",
+      "Stichtagsinventur am 31. Dezember"
+    ],
+    "correct": 2,
+    "explanation": "Laufende Erfassung und jährliche körperliche Prüfung der Bestände kennzeichnen die permanente Inventur."
+  },
+  {
+    "question": "Richtig oder falsch? Ein Lagerprogramm allein genügt für eine permanente Inventur.",
+    "options": [
+      "Richtig",
+      "Falsch"
+    ],
+    "correct": 1,
+    "explanation": "Falsch. Zusätzlich muss jeder Lagerbestand mindestens einmal im Geschäftsjahr körperlich geprüft werden. So prüft der Betrieb den Computerbestand."
+  },
+  {
+    "question": "Bilanzstichtag: 31. Dezember. Ein Betrieb zählt am 30. November und schreibt den Bestandswert auf den 31. Dezember fort. Welches Verfahren ist das?",
+    "options": [
+      "Stichtagsinventur am 31. Dezember",
+      "Permanente Inventur",
+      "Buchmäßige Inventur ohne körperliche Aufnahme",
+      "Verlegte Inventur"
+    ],
+    "correct": 3,
+    "explanation": "Der 30. November liegt innerhalb der drei Monate vor dem Bilanzstichtag. Bei verlegter Inventur muss der Wert auf den Bilanzstichtag umgerechnet werden."
+  },
+  {
+    "question": "Ein Betrieb zählt seine Waren am 5. Januar. Der Bilanzstichtag war der 31. Dezember. Was muss er berücksichtigen?",
+    "options": [
+      "Die Zu- und Abgänge zwischen dem 31. Dezember und dem 5. Januar",
+      "Nur die Verkäufe aus dem nächsten Geschäftsjahr",
+      "Er darf den Bestand vom 5. Januar unverändert übernehmen",
+      "Er muss alle Schulden vom Warenbestand abziehen"
+    ],
+    "correct": 0,
+    "explanation": "Die Aufnahme erfolgt zeitnah zum Bilanzstichtag. Veränderungen zwischen den beiden Tagen müssen berücksichtigt werden, damit der Bestand zum 31. Dezember stimmt."
+  },
+  {
+    "question": "Ein Händler nutzt einen Lieferwagen dauerhaft für eigene Lieferungen. Wohin gehört dieser Wagen?",
+    "options": [
+      "Zu den kurzfristigen Schulden",
+      "Zum Anlagevermögen",
+      "Zum Umlaufvermögen, weil er beweglich ist",
+      "Zum Eigenkapital als einzelner Gegenstand"
+    ],
+    "correct": 1,
+    "explanation": "Anlagevermögen dient dem Betrieb dauerhaft. Entscheidend ist die Nutzung. Dass ein Wagen beweglich ist, macht ihn nicht zum Umlaufvermögen."
+  },
+  {
+    "question": "Ein Kunde hat eine Rechnung noch nicht bezahlt. Was ist das aus Sicht des Unternehmens?",
+    "options": [
+      "Eine kurzfristige Schuld",
+      "Eine Verbindlichkeit gegenüber dem Kunden",
+      "Eine Forderung im Umlaufvermögen",
+      "Eine Maschine im Anlagevermögen"
+    ],
+    "correct": 2,
+    "explanation": "Der Kunde muss dem Unternehmen Geld zahlen. Das ist eine Forderung und damit Vermögen."
+  },
+  {
+    "question": "Das Unternehmen muss eine Lieferantenrechnung in 30 Tagen bezahlen. Welche Zuordnung ist richtig?",
+    "options": [
+      "Langfristiges Anlagevermögen",
+      "Forderung an einen Kunden",
+      "Bankguthaben",
+      "Kurzfristige Schulden"
+    ],
+    "correct": 3,
+    "explanation": "Das Unternehmen schuldet dem Lieferanten Geld. Die Rechnung ist eine Verbindlichkeit. Sie ist bald fällig und gehört zu den kurzfristigen Schulden."
+  },
+  {
+    "question": "Welche Reihenfolge passt beim Umlaufvermögen zur steigenden Liquidität?",
+    "options": [
+      "Waren, Forderungen, Bankguthaben, Kasse",
+      "Kasse, Bankguthaben, Forderungen, Waren",
+      "Forderungen, Waren, Kasse, Bankguthaben",
+      "Bankguthaben, Kasse, Waren, Forderungen"
+    ],
+    "correct": 0,
+    "explanation": "Steigende Liquidität bedeutet: zunehmend leichter in Geld umwandelbar. Waren stehen vor Forderungen, danach folgen Bankguthaben und Kasse."
+  },
+  {
+    "question": "Welche Reihenfolge ist richtig, wenn langfristige Schulden zuerst stehen?",
+    "options": [
+      "Lieferantenrechnung in 30 Tagen, Kredit in 3 Monaten, Darlehen in 5 Jahren",
+      "Darlehen in 5 Jahren, Kredit in 3 Monaten, Lieferantenrechnung in 30 Tagen",
+      "Kredit in 3 Monaten, Darlehen in 5 Jahren, Lieferantenrechnung in 30 Tagen",
+      "Alle Schulden alphabetisch ordnen"
+    ],
+    "correct": 1,
+    "explanation": "Im Inventar stehen langfristige Schulden zuerst. Hier folgen auf das Darlehen in fünf Jahren der Kredit in drei Monaten und die Rechnung in 30 Tagen."
+  },
+  {
+    "question": "Das Gesamtvermögen beträgt 80.000 €, die Schulden betragen 30.000 €. Wie hoch ist das Eigenkapital?",
+    "options": [
+      "110.000 €",
+      "30.000 €",
+      "50.000 €",
+      "80.000 €"
+    ],
+    "correct": 2,
+    "explanation": "Eigenkapital = Gesamtvermögen − Schulden. 80.000 € − 30.000 € = 50.000 €. Das Vermögen übersteigt die Schulden um 50.000 €."
+  },
+  {
+    "question": "Richtig oder falsch? Bei 35.000 € Eigenkapital müssen genau 35.000 € auf dem Bankkonto liegen.",
+    "options": [
+      "Richtig",
+      "Falsch"
+    ],
+    "correct": 1,
+    "explanation": "Falsch. Zum Vermögen gehören auch Gegenstände wie Maschinen und Waren. Eigenkapital ist Vermögen minus Schulden, kein Bankguthaben."
+  },
+  {
+    "question": "Buchbestand: 150 Artikel. Gezählt: 146 Artikel. Wert je Artikel: 15 €. Welcher Fehlbestand liegt vor?",
+    "options": [
+      "4 Stück im Wert von 60 €",
+      "4 Stück im Wert von 15 €",
+      "146 Stück im Wert von 2.190 €",
+      "4 Stück im Wert von 2.250 €"
+    ],
+    "correct": 0,
+    "explanation": "Es fehlen 150 − 146 = 4 Stück. Ihr Wert ist 4 × 15 € = 60 €. Der Fehlbestand allein beweist keinen Diebstahl."
+  },
+  {
+    "question": "Buchbestand: 80 Artikel. Gezählt und bestätigt: 82 Artikel. Was ist richtig?",
+    "options": [
+      "Fehlbestand von 2 Stück; auf 78 korrigieren",
+      "Mehrbestand von 82 Stück; auf 80 korrigieren",
+      "Keine Abweichung; Bestand unverändert lassen",
+      "Mehrbestand von 2 Stück; nach Prüfung auf 82 korrigieren"
+    ],
+    "correct": 3,
+    "explanation": "Der Ist-Bestand ist größer als der Soll-Bestand. Es gibt einen Mehrbestand von 2 Stück. Nach Prüfung wird der Buchbestand auf den bestätigten Ist-Bestand angepasst."
+  },
+  {
+    "question": "Bei der Rechnung zum Inventar wurden 5.000 € Forderungen vergessen. Das Eigenkapital wurde mit 30.000 € berechnet. Alle anderen Werte stimmen. Wie lautet das korrigierte Eigenkapital?",
+    "options": [
+      "25.000 €",
+      "35.000 €",
+      "30.000 €",
+      "5.000 €"
+    ],
+    "correct": 1,
+    "explanation": "Forderungen gehören zum Vermögen. Die fehlenden 5.000 € erhöhen das Gesamtvermögen und damit das Eigenkapital: 30.000 € + 5.000 € = 35.000 €. Jeder Posten muss genau einmal enthalten sein."
+  }
+];
+
+// Fragen behalten ihre didaktische Reihenfolge. Antwortoptionen werden bei
+// jeder Anzeige neu gemischt, auch bei späteren Wiederholungen.
+let queue, currentIndex, totalAnswered, answeredCorrectly, firstAttempts;
+let displayedOptions = [], locked = false;
+function shuffle(items){
+    const copy=[...items];
+    for(let i=copy.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [copy[i],copy[j]]=[copy[j],copy[i]];
+    }
+    return copy;
+}
+function initQuiz(){
+    queue=quizData.map((_,i)=>i); currentIndex=0; totalAnswered=0;
+    answeredCorrectly=new Set(); firstAttempts=new Map();
+    document.getElementById('resultsContainer').classList.remove('show');
+    renderCurrentQuestion(false);
+}
+function renderCurrentQuestion(moveFocus=true){
+    if(currentIndex>=queue.length){showResults();return;}
+    locked=false;
+    const qIdx=queue[currentIndex], q=quizData[qIdx];
+    displayedOptions=shuffle(q.options.map((text,index)=>({text,index})));
+    const container=document.getElementById('questionsContainer');
+    container.innerHTML=`<section class="question-container active" aria-labelledby="questionText">
+      <div class="question-number">${firstAttempts.has(qIdx)?'Wiederholung · ':''}Frage ${qIdx+1} von ${quizData.length} · ${answeredCorrectly.size} gemeistert</div>
+      <h2 class="question-text" id="questionText" tabindex="-1"></h2>
+      <div class="options" id="options-current"></div>
+      <div class="feedback" id="feedback-current" role="status" tabindex="-1"><div class="feedback-title"></div><div class="feedback-text"></div></div>
+      <div class="controls"><div></div><button class="btn btn-primary" id="nextBtn" disabled>Weiter</button></div>
+    </section>`;
+    document.getElementById('questionText').textContent=q.question;
+    const list=document.getElementById('options-current');
+    displayedOptions.forEach((opt,i)=>{
+        const button=document.createElement('button');
+        button.type='button';button.className='option';
+        const letter=document.createElement('span');letter.className='option-letter';letter.textContent=String.fromCharCode(65+i);letter.setAttribute('aria-hidden','true');
+        const label=document.createElement('span');label.className='option-text';label.textContent=opt.text;
+        button.append(letter,label);button.addEventListener('click',()=>selectOption(i));list.append(button);
+    });
+    document.getElementById('nextBtn').addEventListener('click',nextQuestion);
+    updateProgress();
+    if(moveFocus)document.getElementById('questionText').focus();
+}
+function selectOption(optionIndex){
+    if(locked)return;locked=true;
+    const qIdx=queue[currentIndex],q=quizData[qIdx];
+    const correctDisplay=displayedOptions.findIndex(o=>o.index===q.correct);
+    const isCorrect=displayedOptions[optionIndex].index===q.correct;
+    if(!firstAttempts.has(qIdx))firstAttempts.set(qIdx,isCorrect);
+    const options=[...document.querySelectorAll('#options-current .option')];
+    options.forEach((button,i)=>{
+        button.disabled=true;button.classList.add('disabled');
+        if(i===correctDisplay){button.classList.add('correct');button.setAttribute('aria-label',button.textContent+' – richtige Antwort');}
+    });
+    options[optionIndex].classList.add('selected',isCorrect?'correct':'incorrect');
+    if(!isCorrect)options[optionIndex].setAttribute('aria-label',options[optionIndex].textContent+' – falsche Antwort');
+    const feedback=document.getElementById('feedback-current');
+    feedback.classList.add('show',isCorrect?'correct':'incorrect');
+    feedback.querySelector('.feedback-title').textContent=isCorrect?'✓ Richtig!':'✗ Noch nicht richtig. Diese Frage kommt später wieder.';
+    feedback.querySelector('.feedback-text').textContent=q.explanation;
+    if(isCorrect)answeredCorrectly.add(qIdx);
+    else queue.splice(Math.min(currentIndex+5,queue.length),0,qIdx);
+    totalAnswered++;
+    document.getElementById('nextBtn').disabled=false;
+    updateProgress();feedback.focus();
+}
+function nextQuestion(){if(!locked)return;currentIndex++;renderCurrentQuestion();}
+function updateProgress(){
+    document.getElementById('progressFill').style.width=(answeredCorrectly.size/quizData.length*100)+'%';
+    document.querySelector('.progress-bar').setAttribute('aria-valuenow',answeredCorrectly.size);
+}
+function showResults(){
+    document.getElementById('questionsContainer').innerHTML='';
+    document.getElementById('resultsContainer').classList.add('show');
+    const firstCorrect=[...firstAttempts.values()].filter(Boolean).length;
+    document.getElementById('scoreNumber').textContent=Math.round(firstCorrect/quizData.length*100)+'%';
+    document.getElementById('correctCount').textContent=answeredCorrectly.size;
+    document.getElementById('incorrectCount').textContent=totalAnswered-quizData.length;
+    document.getElementById('totalCount').textContent=totalAnswered;
+    document.getElementById('resultMessage').textContent=firstCorrect===quizData.length?'Alles beim ersten Versuch richtig!':'Geschafft! Sie haben alle 20 Fragen gemeistert.';
+    document.getElementById('resultMessage').focus();
+}
+document.getElementById('restartBtn').addEventListener('click',()=>{initQuiz();document.getElementById('questionText').focus();});
+initQuiz();
+</script>
+</body>
+</html>
