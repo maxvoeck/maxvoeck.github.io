@@ -104,6 +104,16 @@ kapitel:
         pdf: /assets/pdfs/BWL_W_10.pdf
         quiz: /assets/quizzes/quiz_bilanz.html
         text: /assets/texte/bwl-w-10.pdf
+      - id: r4
+        nr: "04"
+        titel: Bilanzveränderungen und Bestandskonten
+        desc: >-
+          Was ein Geschäftsvorfall in der Bilanz verändert — Aktivtausch, Passivtausch,
+          Aktiv-Passiv-Mehrung und -Minderung, dazu Aktiv- und Passivkonten führen,
+          Endbestände berechnen und Konten in die Schlussbilanz abschließen
+        pdf: /assets/pdfs/BWL_W_11.pdf
+        quiz: /assets/quizzes/quiz_bilanz_bestandskonten.html
+        text: /assets/texte/bwl-w-11.pdf
 
   - numeral: III
     titel: Erfolg, Steuern, Abschreibungen

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Bilanzveränderungen und Bestandskonten – Block 13</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:600;color:#1f2937;
+    margin-bottom:1.5rem;line-height:1.5
+}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{
+    background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;
+    padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f0f1f3;border-color:#667eea;transform:translateX(5px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0
+}
+.option.selected{background:#e8eaf6;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{
+    margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45
+}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{
+    margin-top:2rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:all .25s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{
+    width:200px;height:200px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+.score-number{font-size:3rem;font-weight:700}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+.small-note{font-size:.9rem;color:#6b7280;margin-top:.8rem;line-height:1.4}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header h1{font-size:1.4rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+button.option{font:inherit;text-align:left;color:#1f2937;width:100%}
+.option:focus-visible,.btn:focus-visible{outline:3px solid #2563eb;outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>Bilanzveränderungen und Bestandskonten</h1>
+        <p>BWL · W-Kurs · Block 13 · 20 Fragen</p>
+    </div>
+
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-content">
+        <div id="questionsContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="result-message" id="resultMessage"></div>
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Trefferquote</div>
+            </div>
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="correctCount">0</div>
+                    <div class="result-stat-label">Gemeistert</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="incorrectCount">0</div>
+                    <div class="result-stat-label">Wiederholungen</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const quizData = [
+  {
+    "question": "Die GmbH hebt 500 € vom Bankkonto ab und legt das Geld in die Kasse. Welche Bilanzveränderung liegt vor?",
+    "options": [
+      "Aktivtausch",
+      "Passivtausch",
+      "Aktiv-Passiv-Mehrung",
+      "Aktiv-Passiv-Minderung"
+    ],
+    "correct": 0,
+    "explanation": "Kasse steigt und Bank sinkt um jeweils 500 €. Beide Positionen sind aktiv. Die Bilanzsumme bleibt gleich."
+  },
+  {
+    "question": "Eine Maschine für 2.000 € wird auf Ziel gekauft. Was verändert sich?",
+    "options": [
+      "Maschinen und Bank steigen.",
+      "Maschinen und Lieferantenschulden steigen.",
+      "Maschinen steigen, Lieferantenschulden sinken.",
+      "Maschinen und Eigenkapital sinken."
+    ],
+    "correct": 1,
+    "explanation": "Auf Ziel bedeutet Zahlung zu einem späteren Zeitpunkt. Maschinen und Lieferantenschulden steigen um 2.000 €."
+  },
+  {
+    "question": "Eine offene Lieferantenrechnung wird per Bank bezahlt. Welche Art liegt vor?",
+    "options": [
+      "Aktivtausch",
+      "Passivtausch",
+      "Aktiv-Passiv-Mehrung",
+      "Aktiv-Passiv-Minderung"
+    ],
+    "correct": 3,
+    "explanation": "Bankguthaben und Lieferantenschulden sinken. Eine Aktivposition und eine Passivposition nehmen ab."
+  },
+  {
+    "question": "Eine Bank bezahlt direkt 800 € an einen Lieferanten. Dafür entsteht ein zusätzliches Darlehen. Welche Art liegt vor?",
+    "options": [
+      "Aktiv-Passiv-Mehrung",
+      "Aktivtausch",
+      "Passivtausch",
+      "Aktiv-Passiv-Minderung"
+    ],
+    "correct": 2,
+    "explanation": "Lieferantenschulden sinken und Darlehensschulden steigen. Das Bankguthaben der GmbH bleibt unverändert."
+  },
+  {
+    "question": "Die Bilanzsumme beträgt 16.000 €. Rohstoffe für 1.000 € werden auf Ziel gekauft und eingelagert. Wie hoch ist die neue Bilanzsumme?",
+    "options": [
+      "17.000 €",
+      "18.000 €",
+      "16.000 €",
+      "15.000 €"
+    ],
+    "correct": 0,
+    "explanation": "Jede Bilanzseite steigt um 1.000 €. Die Bilanzsumme ist die Summe einer Seite: 16.000 + 1.000 = 17.000 €."
+  },
+  {
+    "question": "Die Bank sinkt um 500 €, die Kasse steigt um 500 €. Welche Aussage stimmt?",
+    "options": [
+      "Das Eigenkapital steigt um 500 €.",
+      "Die Bilanzsumme sinkt um 500 €.",
+      "Die Bilanzsumme steigt um 500 €.",
+      "Die Bilanzsumme bleibt gleich."
+    ],
+    "correct": 3,
+    "explanation": "Beim Aktivtausch ändern sich zwei Aktivpositionen in entgegengesetzter Richtung um denselben Betrag."
+  },
+  {
+    "question": "Was bedeutet „auf Ziel kaufen“?",
+    "options": [
+      "Sofort bar bezahlen.",
+      "Die Ware erst nach der Zahlung erhalten.",
+      "Die Zahlung erfolgt später.",
+      "Mit Geld aus der Kasse bezahlen."
+    ],
+    "correct": 2,
+    "explanation": "Beim Kauf auf Ziel wird nicht sofort bezahlt. Es entstehen Lieferantenschulden."
+  },
+  {
+    "question": "Rohstoffe werden auf Ziel gekauft. Später wird die Rechnung per Bank bezahlt. Welche Reihenfolge passt?",
+    "options": [
+      "Aktivtausch, dann Passivtausch",
+      "Aktiv-Passiv-Mehrung, dann Aktiv-Passiv-Minderung",
+      "Aktiv-Passiv-Minderung, dann Aktivtausch",
+      "Passivtausch, dann Aktiv-Passiv-Mehrung"
+    ],
+    "correct": 1,
+    "explanation": "Beim Kauf steigen Vorräte und Schulden. Bei der späteren Zahlung sinken Bankguthaben und Schulden."
+  },
+  {
+    "question": "Wozu dient ein Bestandskonto?",
+    "options": [
+      "Es erfasst Bestand und Veränderungen einer einzelnen Bilanzposition.",
+      "Es erfasst ausschließlich den Gewinn eines Unternehmens.",
+      "Es ersetzt alle Bilanzpositionen durch eine einzige Zahl.",
+      "Es erfasst nur die Zahlungen in bar."
+    ],
+    "correct": 0,
+    "explanation": "Bestandskonten erfassen zum Beispiel Bankguthaben, Kasse oder Darlehensschulden und deren Veränderungen."
+  },
+  {
+    "question": "Welche Zuordnung der Kontoseiten ist richtig?",
+    "options": [
+      "Soll = rechts; Haben = links",
+      "Soll = Zunahme; Haben = Abnahme",
+      "Soll = Vermögen; Haben = Schulden",
+      "Soll = links; Haben = rechts"
+    ],
+    "correct": 3,
+    "explanation": "Soll und Haben sind Seitenbezeichnungen. Ob eine Zunahme links oder rechts steht, hängt von der Kontoart ab."
+  },
+  {
+    "question": "Welches Konto ist ein Passivkonto?",
+    "options": [
+      "Rohstoffe",
+      "Darlehen",
+      "Kasse",
+      "Maschinen"
+    ],
+    "correct": 1,
+    "explanation": "Darlehen erfassen Schulden und gehören zu den Passivkonten. Die anderen Konten erfassen Vermögen."
+  },
+  {
+    "question": "Wo stehen Anfangsbestand und Zugänge auf einem Aktivkonto?",
+    "options": [
+      "Beide im Haben.",
+      "Anfangsbestand im Haben, Zugänge im Soll.",
+      "Beide im Soll.",
+      "Anfangsbestand im Soll, Zugänge im Haben."
+    ],
+    "correct": 2,
+    "explanation": "Bei Aktivkonten stehen Anfangsbestand und Zugänge im Soll. Abgänge stehen im Haben."
+  },
+  {
+    "question": "Ein zusätzliches Darlehen wird aufgenommen. Wo steht der Zugang im Darlehenskonto?",
+    "options": [
+      "Im Haben, weil die Schulden steigen.",
+      "Im Soll, weil die Schulden steigen.",
+      "Im Soll, weil es ein Aktivkonto ist.",
+      "Im Haben, weil die Schulden sinken."
+    ],
+    "correct": 0,
+    "explanation": "Darlehen ist ein Passivkonto. Zugänge auf Passivkonten stehen im Haben."
+  },
+  {
+    "question": "Die GmbH zahlt 1.500 € eines Darlehens per Bank zurück. Welche Kontoseiten passen?",
+    "options": [
+      "Bank Soll; Darlehen Haben",
+      "Bank Haben; Darlehen Soll",
+      "Beide im Soll",
+      "Beide im Haben"
+    ],
+    "correct": 1,
+    "explanation": "Bank ist ein Aktivkonto: Abgang im Haben. Darlehen ist ein Passivkonto: Abgang im Soll."
+  },
+  {
+    "question": "Kasse: Anfangsbestand 900 €, Zugang 500 €, Abgang 300 €. Wie hoch ist der Endbestand?",
+    "options": [
+      "1.700 €",
+      "700 €",
+      "1.400 €",
+      "1.100 €"
+    ],
+    "correct": 3,
+    "explanation": "Endbestand = Anfangsbestand + Zugänge − Abgänge: 900 + 500 − 300 = 1.100 €."
+  },
+  {
+    "question": "Lieferantenschulden: Anfangsbestand 3.500 €, Zugang 1.500 €, Abgang 2.000 €. Wie hoch ist der Endbestand?",
+    "options": [
+      "7.000 €",
+      "4.000 €",
+      "3.000 €",
+      "2.000 €"
+    ],
+    "correct": 2,
+    "explanation": "3.500 + 1.500 − 2.000 = 3.000 €. Es bleiben Lieferantenschulden in dieser Höhe."
+  },
+  {
+    "question": "Bankkonto: Sollsumme 5.000 €, bisherige Habensumme 1.500 €. Welcher Eintrag gleicht das Konto aus?",
+    "options": [
+      "3.500 € Endbestand im Haben",
+      "3.500 € Endbestand im Soll",
+      "6.500 € Endbestand im Haben",
+      "1.500 € Endbestand im Soll"
+    ],
+    "correct": 0,
+    "explanation": "Der Unterschied ist 5.000 − 1.500 = 3.500 €. Er kommt auf die kleinere Seite, hier ins Haben."
+  },
+  {
+    "question": "Warum steht der Endbestand eines Aktivkontos beim Abschluss im Haben?",
+    "options": [
+      "Weil dieser Betrag ausgezahlt wurde.",
+      "Weil das Konto jetzt ein Passivkonto ist.",
+      "Weil der Anfangsbestand immer im Haben steht.",
+      "Weil der Saldo die kleinere Kontoseite ausgleicht."
+    ],
+    "correct": 3,
+    "explanation": "Der Endbestand im Haben ist ein Ausgleichseintrag. Er zeigt den übrigen Bestand und ist keine Auszahlung."
+  },
+  {
+    "question": "Wo erscheint der Endbestand des Bankguthabens in der Schlussbilanz?",
+    "options": [
+      "Auf der Passivseite als Schuld",
+      "Auf der Aktivseite als Vermögen",
+      "Auf beiden Seiten als Bankguthaben",
+      "Nur im Konto, nicht in der Schlussbilanz"
+    ],
+    "correct": 1,
+    "explanation": "Bankguthaben ist Vermögen. Der Ausgleichseintrag im Haben des Kontos ändert diese Zuordnung nicht."
+  },
+  {
+    "question": "Anfangs- und Schlussbilanz haben dieselbe Bilanzsumme. Was folgt daraus sicher?",
+    "options": [
+      "Alle einzelnen Positionen sind unverändert.",
+      "Es gab keine Geschäftsvorfälle.",
+      "Die Gesamtwerte sind gleich; einzelne Positionen können verändert sein.",
+      "Alle Bestandskonten haben denselben Endbestand."
+    ],
+    "correct": 2,
+    "explanation": "Zum Beispiel verändert ein Aktivtausch einzelne Positionen, ohne die Bilanzsumme zu verändern."
+  }
+];
+
+let queue=[];
+let currentIndex=0;
+let totalAnswered=0;
+let wrongSet=new Set();
+let answeredCorrectly=new Set();
+
+function shuffleOptions(q){
+    const entries=q.options.map((label,i)=>({label,right:i===q.correct}));
+    for(let i=entries.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [entries[i],entries[j]]=[entries[j],entries[i]];
+    }
+    q.options=entries.map(x=>x.label);
+    q.correct=entries.findIndex(x=>x.right);
+}
+function initQuiz(){
+    quizData.forEach(shuffleOptions);
+    queue=quizData.map((_,i)=>i);
+    currentIndex=0;
+    totalAnswered=0;
+    wrongSet=new Set();
+    answeredCorrectly=new Set();
+    document.getElementById("resultsContainer").classList.remove("show");
+    renderCurrentQuestion();
+}
+
+function renderCurrentQuestion(){
+    if(currentIndex>=queue.length){
+        showResults();
+        return;
+    }
+
+    const qIdx=queue[currentIndex];
+    const q=quizData[qIdx];
+    const isRetry=wrongSet.has(qIdx);
+    const container=document.getElementById("questionsContainer");
+
+    container.innerHTML=`
+    <div class="question-container active">
+        <div class="question-number">
+            ${isRetry ? "🔁 Wiederholung · " : ""}Frage ${totalAnswered+1} ·
+            ${answeredCorrectly.size} von ${quizData.length} gemeistert
+        </div>
+        <div class="question-text">${q.question}</div>
+        <div class="options" id="options-current">
+            ${q.options.map((opt,i)=>`
+                <button type="button" class="option" onclick="selectOption(${qIdx},${i})">
+                    <span class="option-letter">${String.fromCharCode(65+i)}</span>
+                    <span class="option-text">${opt}</span>
+                </button>
+            `).join("")}
+        </div>
+
+        <div class="feedback" id="feedback-current" role="status" aria-live="polite">
+            <div class="feedback-title"></div>
+            <div class="feedback-text"></div>
+        </div>
+
+        <div class="controls">
+            <div></div>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                Weiter →
+            </button>
+        </div>
+    </div>`;
+
+    updateProgress();
+}
+
+function selectOption(questionIndex,optionIndex){
+    const options=document.querySelectorAll("#options-current .option");
+    const correct=quizData[questionIndex].correct;
+
+    options.forEach(opt=>{
+        opt.classList.add("disabled");
+        opt.onclick=null;
+        opt.disabled=true;
+    });
+
+    options[optionIndex].classList.add("selected");
+    options[optionIndex].classList.add(optionIndex===correct ? "correct" : "incorrect");
+    options[correct].classList.add("correct");
+
+    const feedback=document.getElementById("feedback-current");
+    feedback.classList.add("show");
+
+    if(optionIndex===correct){
+        answeredCorrectly.add(questionIndex);
+        wrongSet.delete(questionIndex);
+        feedback.classList.add("correct");
+        feedback.querySelector(".feedback-title").textContent="✓ Richtig!";
+    }else{
+        wrongSet.add(questionIndex);
+        answeredCorrectly.delete(questionIndex);
+        feedback.classList.add("incorrect");
+        feedback.querySelector(".feedback-title").textContent="✗ Noch nicht – die Frage kommt später wieder!";
+        const insertPos=Math.min(currentIndex+5,queue.length);
+        queue.splice(insertPos,0,questionIndex);
+    }
+
+    feedback.querySelector(".feedback-text").innerHTML=quizData[questionIndex].explanation;
+    totalAnswered++;
+    document.getElementById("nextBtn").disabled=false;
+    updateProgress();
+}
+
+function nextQuestion(){
+    currentIndex++;
+    if(currentIndex>=queue.length) showResults();
+    else renderCurrentQuestion();
+}
+
+function updateProgress(){
+    const progress=(answeredCorrectly.size/quizData.length)*100;
+    document.getElementById("progressFill").style.width=progress+"%";
+}
+
+function showResults(){
+    document.getElementById("questionsContainer").innerHTML="";
+    const results=document.getElementById("resultsContainer");
+    results.classList.add("show");
+
+    const repeats=Math.max(0,totalAnswered-quizData.length);
+    const percentage=Math.round((quizData.length/Math.max(totalAnswered,quizData.length))*100);
+
+    document.getElementById("scoreNumber").textContent=Math.min(percentage,100)+"%";
+    document.getElementById("correctCount").textContent=quizData.length;
+    document.getElementById("incorrectCount").textContent=repeats;
+    document.getElementById("totalCount").textContent=totalAnswered;
+
+    let message="";
+    if(repeats===0) message="Perfekt! Alles auf Anhieb richtig!";
+    else if(repeats<=3) message="Sehr gut! Nur wenige Wiederholungen.";
+    else if(repeats<=7) message="Gut gemacht! Die Wiederholungen haben geholfen.";
+    else message="Geschafft! Lies die schwierigen Abschnitte von Block 13 noch einmal.";
+
+    document.getElementById("resultMessage").textContent=message;
+}
+
+function restartQuiz(){ initQuiz(); }
+
+window.onload=initQuiz;
+</script>
+</body>
+</html>
