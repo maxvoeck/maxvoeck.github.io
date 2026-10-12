@@ -20,7 +20,7 @@ kapitel:
         quiz: /assets/quizzes/quiz_informatik_w_block1.html
         text: /assets/texte/info-w-1.pdf
       - id: w1-2
-        nr: "1.2"
+        nr: "02"
         titel: "Wie viel Platz braucht das? – Speicherung, Bit und Byte"
         desc: >-
           Am Verkaufsarchiv der Elster-Kasse: warum Computer mit zwei Zuständen arbeiten, Bits zu
@@ -28,7 +28,7 @@ kapitel:
           und den Speicherbedarf für Verkäufe und Kopien berechnen
         pdf: /assets/pdfs/Info_W_1_2.pdf
       - id: w2-1
-        nr: "2.1"
+        nr: "03"
         titel: "Wie schreibt ein Computer Zahlen? – Das Binärsystem"
         desc: >-
           An Elsters Lagerbeständen: Binärzahlen mit Stellenwerten in Dezimalzahlen umrechnen,
