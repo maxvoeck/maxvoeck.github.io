@@ -114,6 +114,16 @@ kapitel:
         pdf: /assets/pdfs/BWL_W_11.pdf
         quiz: /assets/quizzes/quiz_bilanz_bestandskonten.html
         text: /assets/texte/bwl-w-11.pdf
+      - id: r5
+        nr: "05"
+        titel: Buchungssätze
+        desc: >-
+          Geschäftsfälle mit der Vier-Fragen-Routine in Buchungssätze übersetzen — Konten,
+          Kontenart, Zugang oder Abgang und Soll oder Haben bestimmen, zusammengesetzte
+          Buchungssätze bilden sowie Grundbuch und Hauptbuch unterscheiden
+        pdf: /assets/pdfs/BWL_W_12.pdf
+        quiz: /assets/quizzes/quiz_buchungssatz.html
+        text: /assets/texte/bwl-w-12.pdf
 
   - numeral: III
     titel: Erfolg, Steuern, Abschreibungen

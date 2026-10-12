@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Buchungssätze – BWL Block 14</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:600;color:#1f2937;
+    margin-bottom:1.5rem;line-height:1.5
+}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{
+    background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;
+    padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f0f1f3;border-color:#667eea;transform:translateX(5px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0
+}
+.option.selected{background:#e8eaf6;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{
+    margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45
+}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{
+    margin-top:2rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:all .25s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{
+    width:200px;height:200px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+.score-number{font-size:3rem;font-weight:700}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+.small-note{font-size:.9rem;color:#6b7280;margin-top:.8rem;line-height:1.4}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header h1{font-size:1.4rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+.intro-note{padding:1rem 2rem;line-height:1.5;color:#4b5563;font-size:.93rem;background:#f8f9fa}
+.option{width:100%;font:inherit;color:#1f2937;text-align:left;line-height:1.45}
+.option:focus-visible,.btn:focus-visible{outline:3px solid #1f2937;outline-offset:3px}
+.option:disabled{cursor:default}
+.option:disabled:hover{transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h1>💼 Buchungssätze</h1>
+        <p>Vier-Fragen-Routine und doppelte Buchführung · BWL · W-Kurs · Block 14</p>
+    </div>
+
+    <p class="intro-note">20 Fragen · jeweils eine richtige Antwort · ohne Umsatzsteuer und Zinsen. Bank = positives Guthaben. „Forderungen“ und „Verbindlichkeiten“ beziehen sich auf Lieferungen und Leistungen. Falsche Antworten werden später erneut geübt.</p>
+    <div class="progress-bar" role="progressbar" aria-label="Gemeisterte Fragen" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="quiz-content">
+        <div id="questionsContainer"></div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="result-message" id="resultMessage" role="status"></div>
+            <div class="score-circle">
+                <div class="score-number" id="scoreNumber">0%</div>
+                <div class="score-label">Beim ersten Versuch</div>
+            </div>
+            <div class="result-details">
+                <div class="result-stat">
+                    <div class="result-stat-number" id="correctCount">0</div>
+                    <div class="result-stat-label">Beim ersten Versuch richtig</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="incorrectCount">0</div>
+                    <div class="result-stat-label">Falsche Versuche</div>
+                </div>
+                <div class="result-stat">
+                    <div class="result-stat-number" id="totalCount">0</div>
+                    <div class="result-stat-label">Antworten gesamt</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const quizData = [
+  {
+    "question": "Was legt ein Buchungssatz fest?",
+    "options": [
+      "Nur den Betrag einer Zahlung",
+      "Nur die Reihenfolge der Belege",
+      "Konten, Kontenseiten und Beträge",
+      "Kontenart und Bilanzsumme, aber keine Kontenseiten"
+    ],
+    "correct": 2,
+    "explanation": "Ein Buchungssatz ist eine Anweisung. Er nennt die betroffenen Konten, ihre Soll- oder Habenseiten und die Beträge."
+  },
+  {
+    "question": "Welche Reihenfolge gehört zur Vier-Fragen-Routine?",
+    "options": [
+      "Konten → Kontenart → Zugang/Abgang → Soll/Haben",
+      "Soll/Haben → Konten → Kontenart → Zugang/Abgang",
+      "Konten → Soll/Haben → Zugang/Abgang → Kontenart",
+      "Zugang/Abgang → Soll/Haben → Konten → Kontenart"
+    ],
+    "correct": 0,
+    "explanation": "Bestimmen Sie erst die Konten und ihre Art. Prüfen Sie danach Zugang oder Abgang. Erst dann folgt die Kontenseite."
+  },
+  {
+    "question": "Welche Aussage zu Soll und Haben ist richtig?",
+    "options": [
+      "Soll bedeutet immer Zugang, Haben immer Abgang.",
+      "Soll bedeutet Schulden, Haben bedeutet Vermögen.",
+      "Soll ist die rechte, Haben die linke Kontenseite.",
+      "Soll ist die linke, Haben die rechte Kontenseite."
+    ],
+    "correct": 3,
+    "explanation": "Soll und Haben bezeichnen Kontenseiten. Wo ein Zugang steht, hängt von der Kontenart ab."
+  },
+  {
+    "question": "Wo wird der Zugang auf einem Passivkonto gebucht?",
+    "options": [
+      "Im Soll",
+      "Im Haben",
+      "Auf beiden Seiten mit demselben Betrag",
+      "Nur im Journal, nicht auf dem Konto"
+    ],
+    "correct": 1,
+    "explanation": "Passivkonten erfassen Eigenkapital und Schulden. Zugänge stehen im Haben, Abgänge im Soll."
+  },
+  {
+    "question": "Ein Kunde schuldet der Elster GmbH noch 700 €. Wie wird dieser Anspruch eingeordnet?",
+    "options": [
+      "Verbindlichkeit: Passivkonto",
+      "Forderung: Aktivkonto",
+      "Forderung: Passivkonto",
+      "Verbindlichkeit: Aktivkonto"
+    ],
+    "correct": 1,
+    "explanation": "Der Kunde schuldet uns Geld. Unser Anspruch ist eine Forderung und gehört zum Vermögen."
+  },
+  {
+    "question": "Die Elster GmbH zahlt 1.000 € aus ihrer Kasse auf ihr Bankkonto ein. Welcher Buchungssatz passt?",
+    "options": [
+      "Kasse an Bank 1.000 €",
+      "Bank an Verbindlichkeiten 1.000 €",
+      "Forderungen an Kasse 1.000 €",
+      "Bank an Kasse 1.000 €"
+    ],
+    "correct": 3,
+    "explanation": "Bank und Kasse sind Aktivkonten. Bank steigt: Soll. Kasse sinkt: Haben. Deshalb Bank an Kasse."
+  },
+  {
+    "question": "Die Elster GmbH hebt 600 € vom Bankkonto ab und legt sie in die Geschäftskasse. Welcher Buchungssatz passt?",
+    "options": [
+      "Kasse an Bank 600 €",
+      "Bank an Kasse 600 €",
+      "Kasse an Darlehen 600 €",
+      "Verbindlichkeiten an Bank 600 €"
+    ],
+    "correct": 0,
+    "explanation": "Die Kasse steigt und wird im Soll gebucht. Die Bank sinkt und wird im Haben gebucht."
+  },
+  {
+    "question": "Ein Kunde bezahlt eine offene Rechnung von 1.500 € per Überweisung. Welche Veränderungen sind richtig?",
+    "options": [
+      "Bank steigt im Haben; Forderungen sinken im Soll.",
+      "Bank steigt im Soll; Verbindlichkeiten sinken im Soll.",
+      "Bank steigt im Soll; Forderungen sinken im Haben.",
+      "Bank sinkt im Haben; Forderungen steigen im Soll."
+    ],
+    "correct": 2,
+    "explanation": "Bank und Forderungen sind Aktivkonten. Der Zugang auf Bank steht im Soll. Der Abgang auf Forderungen steht im Haben."
+  },
+  {
+    "question": "Die Elster GmbH kauft Rohstoffe für 3.000 € auf Ziel. Was bedeutet „auf Ziel“?",
+    "options": [
+      "Die Rohstoffe werden sofort bar bezahlt.",
+      "Eine bereits bestehende Schuld wird bezahlt.",
+      "Ein Kunde bezahlt eine offene Rechnung.",
+      "Die Rohstoffe kommen jetzt, die Zahlung erfolgt später."
+    ],
+    "correct": 3,
+    "explanation": "Beim Zielkauf erhält das Unternehmen die Rohstoffe und schuldet dem Lieferanten zunächst den Kaufpreis."
+  },
+  {
+    "question": "Rohstoffe für 2.500 € werden auf Ziel gekauft. Der Vorschlag lautet „Rohstoffe an Forderungen 2.500 €“. Welche Korrektur ist nötig?",
+    "options": [
+      "Forderungen durch Verbindlichkeiten ersetzen.",
+      "Rohstoffe durch Bank ersetzen.",
+      "Den Betrag auf 5.000 € erhöhen.",
+      "Soll- und Habenkonto vertauschen."
+    ],
+    "correct": 0,
+    "explanation": "Wir schulden dem Lieferanten Geld. Deshalb entsteht eine Verbindlichkeit: Rohstoffe an Verbindlichkeiten 2.500 €."
+  },
+  {
+    "question": "Beleg B17 vom 14.10.: Banküberweisung über 2.000 € an einen Lieferanten. Verwendungszweck: Zahlung der offenen Rechnung R42. Welcher Buchungssatz passt?",
+    "options": [
+      "Rohstoffe an Bank 2.000 €",
+      "Bank an Verbindlichkeiten 2.000 €",
+      "Verbindlichkeiten an Bank 2.000 €",
+      "Forderungen an Bank 2.000 €"
+    ],
+    "correct": 2,
+    "explanation": "Die Rechnung war bereits offen. Jetzt sinken die bestehende Verbindlichkeit und das Bankguthaben. Die Rohstoffe werden nicht noch einmal als Zugang gebucht."
+  },
+  {
+    "question": "Warum steht die Verbindlichkeit bei der Zahlung einer Lieferantenrechnung im Soll?",
+    "options": [
+      "Sie ist ein Aktivkonto und nimmt durch die Zahlung zu.",
+      "Sie ist ein Passivkonto und nimmt durch die Zahlung ab.",
+      "Jeder Betrag steht bei einer Zahlung im Soll.",
+      "Die Verbindlichkeit nimmt durch die Zahlung zu."
+    ],
+    "correct": 1,
+    "explanation": "Regel: Passivabgänge stehen im Soll. Fall: Die Zahlung vermindert die Verbindlichkeit. Schluss: Die Verbindlichkeit wird im Soll gebucht."
+  },
+  {
+    "question": "Eine Lieferantenverbindlichkeit von 5.000 € wird durch Vereinbarung in ein langfristiges Darlehen umgewandelt. Es fließt kein Geld. Welche Kombination passt?",
+    "options": [
+      "Verbindlichkeiten an Darlehen 5.000 € · Passivtausch",
+      "Darlehen an Verbindlichkeiten 5.000 € · Passivtausch",
+      "Bank an Darlehen 5.000 € · Aktiv-Passiv-Mehrung",
+      "Verbindlichkeiten an Bank 5.000 € · Aktiv-Passiv-Minderung"
+    ],
+    "correct": 0,
+    "explanation": "Die Lieferantenverbindlichkeit sinkt im Soll. Das Darlehen steigt im Haben. Beide sind Passivkonten. Die Schuldensumme bleibt gleich."
+  },
+  {
+    "question": "Ein Darlehen von 4.000 € wird auf das Bankkonto ausgezahlt. Welche Kombination passt?",
+    "options": [
+      "Darlehen an Bank 4.000 € · Aktiv-Passiv-Minderung",
+      "Bank an Darlehen 4.000 € · Aktivtausch",
+      "Darlehen an Bank 4.000 € · Passivtausch",
+      "Bank an Darlehen 4.000 € · Aktiv-Passiv-Mehrung"
+    ],
+    "correct": 3,
+    "explanation": "Bankguthaben und Darlehensschuld steigen. Der Aktivzugang steht im Soll, der Passivzugang im Haben. Die Bilanzsumme steigt."
+  },
+  {
+    "question": "Die Elster GmbH zahlt 1.000 € eines Darlehens per Bank zurück. Zinsen fallen nicht an. Welche Bilanzveränderung liegt vor?",
+    "options": [
+      "Aktiv-Passiv-Mehrung",
+      "Aktiv-Passiv-Minderung",
+      "Aktivtausch",
+      "Passivtausch"
+    ],
+    "correct": 1,
+    "explanation": "Darlehen und Bankguthaben sinken. Beide Bilanzseiten werden kleiner. Der Buchungssatz lautet Darlehen an Bank 1.000 €."
+  },
+  {
+    "question": "Welche Zuordnung ist vollständig richtig?",
+    "options": [
+      "Bankeinzahlung aus der Kasse: Passivtausch; Umwandlung einer Lieferantenschuld in ein Darlehen: Aktivtausch.",
+      "Bankeinzahlung aus der Kasse: Aktiv-Passiv-Mehrung; Umwandlung einer Lieferantenschuld in ein Darlehen: Passivtausch.",
+      "Bankeinzahlung aus der Kasse: Aktivtausch; Umwandlung einer Lieferantenschuld in ein Darlehen: Passivtausch.",
+      "Bankeinzahlung aus der Kasse: Aktivtausch; Umwandlung einer Lieferantenschuld in ein Darlehen: Aktiv-Passiv-Minderung."
+    ],
+    "correct": 2,
+    "explanation": "Bei der Bankeinzahlung verändern sich zwei Aktivposten. Bei der Schuldumwandlung verändern sich zwei Passivposten. In beiden Fällen bleibt die Bilanzsumme gleich."
+  },
+  {
+    "question": "Eine Maschine kostet 10.000 €. Die Elster GmbH bezahlt 8.000 € per Bank und 2.000 € bar. Welcher Buchungssatz passt?",
+    "options": [
+      "Bank 8.000 € und Kasse 2.000 € an Maschinen 10.000 €",
+      "Maschinen 10.000 € an Bank 10.000 € und Kasse 2.000 €",
+      "Maschinen 10.000 € an Bank 8.000 € und Kasse 2.000 €",
+      "Maschinen 10.000 € an Bank 8.000 € und Verbindlichkeiten 2.000 €"
+    ],
+    "correct": 2,
+    "explanation": "Maschinen steigen im Soll. Bank und Kasse sinken im Haben. Kontrolle: 10.000 € = 8.000 € + 2.000 €. Drei Konten bedeuten einen zusammengesetzten Buchungssatz."
+  },
+  {
+    "question": "Eine Maschine kostet 12.000 €. 5.000 € werden sofort per Bank bezahlt, der Rest später. Welcher Buchungssatz passt?",
+    "options": [
+      "Maschinen 12.000 € an Bank 5.000 € und Verbindlichkeiten 7.000 €",
+      "Maschinen 12.000 € an Bank 5.000 € und Verbindlichkeiten 12.000 €",
+      "Maschinen 12.000 € an Bank 5.000 € und Forderungen 7.000 €",
+      "Maschinen 7.000 € an Bank 5.000 € und Verbindlichkeiten 2.000 €"
+    ],
+    "correct": 0,
+    "explanation": "Restschuld: 12.000 € − 5.000 € = 7.000 €. Die Maschine wird mit dem vollen Kaufpreis erfasst. Soll 12.000 € = Haben 5.000 € + 7.000 €."
+  },
+  {
+    "question": "Ein Buchungssatz hat gleiche Soll- und Habensummen. Was lässt sich daraus sicher schließen?",
+    "options": [
+      "Alle Konten sind automatisch richtig gewählt.",
+      "Die Beträge sind ausgeglichen; Konten und Seiten müssen noch geprüft werden.",
+      "Der Geschäftsfall ist immer ein Aktivtausch.",
+      "Ein Beleg ist für diesen Geschäftsfall nicht mehr nötig."
+    ],
+    "correct": 1,
+    "explanation": "Die Summenkontrolle prüft nur die Betragsgleichheit. Falsche Konten oder vertauschte Seiten können trotzdem zu gleichen Summen führen."
+  },
+  {
+    "question": "Welche Zuordnung von Grundbuch und Hauptbuch ist richtig?",
+    "options": [
+      "Grundbuch: nach Konten; Hauptbuch: nach Datum.",
+      "Grundbuch: nur Sollbuchungen; Hauptbuch: nur Habenbuchungen.",
+      "Grundbuch: nur Zahlungen; Hauptbuch: nur Käufe auf Ziel.",
+      "Grundbuch: nach Datum; Hauptbuch: nach Konten."
+    ],
+    "correct": 3,
+    "explanation": "Das Grundbuch heißt auch Journal und ordnet Geschäftsfälle zeitlich. Das Hauptbuch ordnet dieselben Geschäftsfälle sachlich nach Konten."
+  }
+];
+let queue=[], currentIndex=0, totalAnswered=0, incorrectAttempts=0;
+let wrongSet=new Set(), mastered=new Set(), firstAttempt=new Map();
+let optionOrder=[], locked=false;
+
+function shuffled(values){
+    const result=[...values];
+    for(let i=result.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [result[i],result[j]]=[result[j],result[i]];
+    }
+    return result;
+}
+function initQuiz(){
+    queue=quizData.map((_,i)=>i);
+    currentIndex=0; totalAnswered=0; incorrectAttempts=0;
+    wrongSet=new Set(); mastered=new Set(); firstAttempt=new Map();
+    document.getElementById('resultsContainer').classList.remove('show');
+    renderCurrentQuestion();
+}
+function renderCurrentQuestion(){
+    if(currentIndex>=queue.length){showResults();return;}
+    locked=false;
+    const index=queue[currentIndex], q=quizData[index];
+    optionOrder=shuffled(q.options.map((_,i)=>i));
+    const container=document.getElementById('questionsContainer');
+    container.innerHTML=`<div class="question-container active">
+        <div class="question-number">${wrongSet.has(index)?'🔁 Wiederholung · ':''}Frage ${index+1} von ${quizData.length} · ${mastered.size} gemeistert</div>
+        <h2 class="question-text" id="questionText" tabindex="-1"></h2>
+        <div class="options" id="options-current"></div>
+        <div class="feedback" id="feedback-current" role="status" aria-live="polite">
+            <div class="feedback-title"></div><div class="feedback-text"></div>
+        </div>
+        <div class="controls"><div></div><button class="btn btn-primary" id="nextBtn" disabled>Weiter →</button></div>
+    </div>`;
+    document.getElementById('questionText').textContent=q.question;
+    const options=document.getElementById('options-current');
+    optionOrder.forEach((originalIndex,displayIndex)=>{
+        const button=document.createElement('button');
+        button.type='button';button.className='option';
+        const letter=document.createElement('span');letter.className='option-letter';
+        letter.textContent=String.fromCharCode(65+displayIndex);
+        const label=document.createElement('span');label.className='option-text';
+        label.textContent=q.options[originalIndex];
+        button.append(letter,label);
+        button.addEventListener('click',()=>selectOption(index,displayIndex));
+        options.appendChild(button);
+    });
+    document.getElementById('nextBtn').addEventListener('click',nextQuestion);
+    updateProgress();
+    document.getElementById('questionText').focus({preventScroll:true});
+}
+function selectOption(index,displayIndex){
+    if(locked||queue[currentIndex]!==index)return;
+    locked=true;
+    const q=quizData[index], correct=optionOrder[displayIndex]===q.correct;
+    if(!firstAttempt.has(index))firstAttempt.set(index,correct);
+    const options=document.querySelectorAll('#options-current .option');
+    options.forEach(button=>{button.disabled=true;button.classList.add('disabled');});
+    options[displayIndex].classList.add('selected',correct?'correct':'incorrect');
+    options[optionOrder.indexOf(q.correct)].classList.add('correct');
+    const feedback=document.getElementById('feedback-current');
+    feedback.classList.add('show',correct?'correct':'incorrect');
+    if(correct){
+        mastered.add(index);wrongSet.delete(index);
+        feedback.querySelector('.feedback-title').textContent='✓ Richtig!';
+    }else{
+        incorrectAttempts++;wrongSet.add(index);
+        feedback.querySelector('.feedback-title').textContent='✗ Noch nicht – die Frage kommt später wieder!';
+        queue.splice(Math.min(currentIndex+5,queue.length),0,index);
+    }
+    feedback.querySelector('.feedback-text').textContent=q.explanation;
+    totalAnswered++;
+    document.getElementById('nextBtn').disabled=false;
+    updateProgress();
+}
+function nextQuestion(){
+    if(!locked)return;
+    currentIndex++;
+    if(currentIndex>=queue.length)showResults();else renderCurrentQuestion();
+}
+function updateProgress(){
+    document.getElementById('progressFill').style.width=(mastered.size/quizData.length*100)+'%';
+    document.querySelector('.progress-bar').setAttribute('aria-valuenow',mastered.size);
+}
+function showResults(){
+    document.getElementById('questionsContainer').innerHTML='';
+    document.getElementById('resultsContainer').classList.add('show');
+    const firstCorrect=[...firstAttempt.values()].filter(Boolean).length;
+    const percentage=Math.round(firstCorrect/quizData.length*100);
+    document.getElementById('scoreNumber').textContent=percentage+'%';
+    document.getElementById('correctCount').textContent=firstCorrect+' / '+quizData.length;
+    document.getElementById('incorrectCount').textContent=incorrectAttempts;
+    document.getElementById('totalCount').textContent=totalAnswered;
+    let message=percentage===100?'Alles auf Anhieb richtig!':percentage>=80?'Gut gemacht! Alle Fragen sind jetzt gemeistert.':'Alle Fragen sind jetzt gemeistert. Wiederhole die schwierigen Stellen im Lerntext.';
+    document.getElementById('resultMessage').textContent=message;
+    document.querySelector('.score-label').textContent='Beim ersten Versuch';
+}
+function restartQuiz(){initQuiz();}
+window.addEventListener('DOMContentLoaded',initQuiz);
+</script>
+</body>
+</html>
