@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz: Binärsystem · Informatik Block 2.1</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+        }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+        }
+.quiz-container {
+background: white;
+border-radius: 16px;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+max-width: 800px;
+width: 100%;
+overflow: hidden;
+        }
+.quiz-header {
+background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+color: white;
+padding: 2rem;
+text-align: center;
+        }
+.quiz-header h1 {
+font-size: 1.8rem;
+margin-bottom: 0.5rem;
+        }
+.quiz-header p {
+opacity: 0.9;
+font-size: 1rem;
+        }
+.progress-bar {
+background: #e0e0e0;
+height: 8px;
+position: relative;
+        }
+.progress-fill {
+background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+height: 100%;
+width: 0%;
+transition: width 0.3s ease;
+        }
+.quiz-content {
+padding: 2rem;
+        }
+.question-container {
+display: none;
+        }
+.question-container.active {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+@keyframes fadeIn {
+            from {
+opacity: 0;
+transform: translateY(20px);
+            }
+            to {
+opacity: 1;
+transform: translateY(0);
+            }
+        }
+.question-number {
+color: #667eea;
+font-weight: 600;
+font-size: 0.9rem;
+margin-bottom: 0.5rem;
+        }
+.question-text {
+font-size: 1.3rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1.5rem;
+line-height: 1.5;
+        }
+.options {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+        }
+.option {
+background: #f8f9fa;
+border: 2px solid #e0e0e0;
+border-radius: 12px;
+padding: 1rem 1.5rem;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 1rem;
+        }
+.option:hover {
+background: #f0f1f3;
+border-color: #667eea;
+transform: translateX(5px);
+        }
+.option-letter {
+background: #667eea;
+color: white;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+flex-shrink: 0;
+        }
+.option.selected {
+background: #e8eaf6;
+border-color: #667eea;
+        }
+.option.correct {
+background: #d4edda;
+border-color: #28a745;
+        }
+.option.correct .option-letter {
+background: #28a745;
+        }
+.option.incorrect {
+background: #f8d7da;
+border-color: #dc3545;
+        }
+.option.incorrect .option-letter {
+background: #dc3545;
+        }
+.option.disabled {
+cursor: not-allowed;
+opacity: 0.7;
+        }
+.feedback {
+margin-top: 1.5rem;
+padding: 1rem;
+border-radius: 8px;
+display: none;
+        }
+.feedback.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.feedback.correct {
+background: #d4edda;
+border-left: 4px solid #28a745;
+color: #155724;
+        }
+.feedback.incorrect {
+background: #f8d7da;
+border-left: 4px solid #dc3545;
+color: #721c24;
+        }
+.feedback-title {
+font-weight: 600;
+margin-bottom: 0.5rem;
+        }
+.controls {
+margin-top: 2rem;
+display: flex;
+justify-content: space-between;
+gap: 1rem;
+        }
+.btn {
+padding: 0.8rem 2rem;
+border: none;
+border-radius: 8px;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+        }
+.btn-primary {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+        }
+.btn-primary:hover:not(:disabled) {
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+.btn-secondary {
+background: #f8f9fa;
+color: #374151;
+border: 2px solid #e0e0e0;
+        }
+.btn-secondary:hover:not(:disabled) {
+background: #e9ecef;
+        }
+.btn:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+        }
+.results-container {
+display: none;
+text-align: center;
+padding: 2rem;
+        }
+.results-container.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.score-circle {
+width: 200px;
+height: 200px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 2rem auto;
+color: white;
+box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+.score-number {
+font-size: 3rem;
+font-weight: 700;
+        }
+.score-label {
+font-size: 1rem;
+opacity: 0.9;
+        }
+.result-message {
+font-size: 1.5rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1rem;
+        }
+.result-details {
+background: #f8f9fa;
+border-radius: 12px;
+padding: 1.5rem;
+margin: 2rem 0;
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+gap: 1rem;
+        }
+.result-stat {
+text-align: center;
+        }
+.result-stat-number {
+font-size: 2rem;
+font-weight: 700;
+color: #667eea;
+        }
+.result-stat-label {
+font-size: 0.9rem;
+color: #666;
+margin-top: 0.3rem;
+        }
+@media (max-width: 768px) {
+body {
+padding: 10px;
+            }
+.quiz-header h1 {
+font-size: 1.4rem;
+            }
+.question-text {
+font-size: 1.1rem;
+            }
+.controls {
+flex-direction: column;
+            }
+.btn {
+width: 100%;
+            }
+        }
+
+button.option { width:100%; text-align:left; font:inherit; color:#1f2937; }
+.option:focus-visible,.btn:focus-visible { outline:3px solid #374151; outline-offset:3px; }
+.option:disabled { cursor:default; opacity:1; transform:none; }
+.option:disabled:hover { transform:none; }
+.option-text { line-height:1.5; }
+@media (max-width:480px) { .quiz-content,.quiz-header {padding:1.25rem;} .option {padding:0.9rem;} }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important;} }
+.hint {margin:0 0 1rem;color:#4b5563;line-height:1.5;} .hint summary {cursor:pointer;font-weight:600;} .hint p {padding:.6rem 0;}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+<div class="quiz-header">
+<h1>💻 Wie schreibt ein Computer Zahlen?</h1>
+<p>Informatik · Block 2.1 · 20 Fragen · Jeweils eine richtige Antwort<br><small>Ganze Lagerbestände ab 0, ohne Vorzeichen. Notieren Sie Rechenwege auf Papier.</small></p>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="quiz-content">
+<div id="questionsContainer"></div>
+<div class="results-container" id="resultsContainer">
+<div class="result-message" id="resultMessage"></div>
+<div class="score-circle">
+<div class="score-number" id="scoreNumber">0%</div>
+<div class="score-label">Beim ersten Versuch</div>
+</div>
+<div class="result-details">
+<div class="result-stat">
+<div class="result-stat-number" id="correctCount">0</div>
+<div class="result-stat-label">Beim ersten Versuch richtig</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="incorrectCount">0</div>
+<div class="result-stat-label">Fehlversuche</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="totalCount">0</div>
+<div class="result-stat-label">Antwortversuche</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+</div>
+</div>
+</div>
+<script>
+const quizData = [
+  {
+    "question": "Elster schreibt Lagerbestände als Binärzahlen. Welche Ziffern darf das System dafür verwenden?",
+    "options": [
+      "Nur 0 und 1.",
+      "Nur 1 und 2.",
+      "Alle Ziffern von 0 bis 9.",
+      "Nur 0, 1 und 2."
+    ],
+    "correct": 0,
+    "explanation": "Das Binärsystem hat die Basis 2. Es verwendet die beiden Ziffern 0 und 1.",
+    "hint": "Denken Sie an die beiden möglichen Werte eines Bits.",
+    "feedback": [
+      "Das Binärsystem hat die Basis 2. Es verwendet die beiden Ziffern 0 und 1.",
+      "Das Binärsystem hat die Basis 2. Es verwendet die beiden Ziffern 0 und 1.",
+      "Das Binärsystem hat die Basis 2. Es verwendet die beiden Ziffern 0 und 1.",
+      "Das Binärsystem hat die Basis 2. Es verwendet die beiden Ziffern 0 und 1."
+    ]
+  },
+  {
+    "question": "Im Elster-Lager steht der Bestand 1000₂. Wie viele Packungen sind das?",
+    "options": [
+      "8 Packungen",
+      "1 Packung",
+      "4 Packungen",
+      "10 Packungen"
+    ],
+    "correct": 0,
+    "explanation": "Die Stellenwerte von links sind 8, 4, 2, 1. Nur die Achterstelle ist 1. Deshalb ist 1000₂ = 8₁₀.",
+    "hint": "Beginnen Sie ganz rechts mit dem Stellenwert 1.",
+    "feedback": [
+      "Die Stellenwerte von links sind 8, 4, 2, 1. Nur die Achterstelle ist 1. Deshalb ist 1000₂ = 8₁₀.",
+      "Die Stellenwerte von links sind 8, 4, 2, 1. Nur die Achterstelle ist 1. Deshalb ist 1000₂ = 8₁₀.",
+      "Die Stellenwerte von links sind 8, 4, 2, 1. Nur die Achterstelle ist 1. Deshalb ist 1000₂ = 8₁₀.",
+      "Die Stellenwerte von links sind 8, 4, 2, 1. Nur die Achterstelle ist 1. Deshalb ist 1000₂ = 8₁₀."
+    ]
+  },
+  {
+    "question": "Elster speichert den Bestand 11010₂. Bestimmen Sie den Dezimalwert.",
+    "options": [
+      "26",
+      "22",
+      "13",
+      "28"
+    ],
+    "correct": 0,
+    "explanation": "11010₂ = 16 + 8 + 2 = 26₁₀. Die Vierer- und Einerstelle tragen nichts zur Summe bei.",
+    "hint": "Schreiben Sie die fünf Stellenwerte über die Ziffern.",
+    "feedback": [
+      "11010₂ = 16 + 8 + 2 = 26₁₀. Die Vierer- und Einerstelle tragen nichts zur Summe bei.",
+      "11010₂ = 16 + 8 + 2 = 26₁₀. Die Vierer- und Einerstelle tragen nichts zur Summe bei.",
+      "11010₂ = 16 + 8 + 2 = 26₁₀. Die Vierer- und Einerstelle tragen nichts zur Summe bei.",
+      "11010₂ = 16 + 8 + 2 = 26₁₀. Die Vierer- und Einerstelle tragen nichts zur Summe bei."
+    ]
+  },
+  {
+    "question": "Eine Elster-Liste zeigt 01001₂. Wie viele Packungen sind vorhanden?",
+    "options": [
+      "9 Packungen",
+      "17 Packungen",
+      "5 Packungen",
+      "10 Packungen"
+    ],
+    "correct": 0,
+    "explanation": "Die Einsen stehen an der Achter- und Einerstelle. 01001₂ = 8 + 1 = 9₁₀.",
+    "hint": "Zählen Sie die Stellen von rechts. Auch Stellen mit einer 0 behalten ihren Platz.",
+    "feedback": [
+      "Die Einsen stehen an der Achter- und Einerstelle. 01001₂ = 8 + 1 = 9₁₀.",
+      "Die Einsen stehen an der Achter- und Einerstelle. 01001₂ = 8 + 1 = 9₁₀.",
+      "Die Einsen stehen an der Achter- und Einerstelle. 01001₂ = 8 + 1 = 9₁₀.",
+      "Die Einsen stehen an der Achter- und Einerstelle. 01001₂ = 8 + 1 = 9₁₀."
+    ]
+  },
+  {
+    "question": "Elster hat 6 Packungen. Welche Binärzahl stellt diesen Bestand dar?",
+    "options": [
+      "110₂",
+      "101₂",
+      "111₂",
+      "100₂"
+    ],
+    "correct": 0,
+    "explanation": "6 = 4 + 2. Deshalb sind Vierer- und Zweierstelle 1, die Einerstelle ist 0: 110₂.",
+    "hint": "Bestimmen Sie, welche der Stellenwerte 4, 2 und 1 zur Summe gehören.",
+    "feedback": [
+      "6 = 4 + 2. Deshalb sind Vierer- und Zweierstelle 1, die Einerstelle ist 0: 110₂.",
+      "6 = 4 + 2. Deshalb sind Vierer- und Zweierstelle 1, die Einerstelle ist 0: 110₂.",
+      "6 = 4 + 2. Deshalb sind Vierer- und Zweierstelle 1, die Einerstelle ist 0: 110₂.",
+      "6 = 4 + 2. Deshalb sind Vierer- und Zweierstelle 1, die Einerstelle ist 0: 110₂."
+    ]
+  },
+  {
+    "question": "Ein anderes Elster-Lager hat 17 Packungen. Welche Binärzahl passt?",
+    "options": [
+      "10001₂",
+      "10010₂",
+      "10000₂",
+      "01001₂"
+    ],
+    "correct": 0,
+    "explanation": "17 = 16 + 1. Deshalb gilt 17₁₀ = 10001₂.",
+    "hint": "Beginnen Sie mit dem größten Stellenwert, der nicht größer als der Bestand ist.",
+    "feedback": [
+      "17 = 16 + 1. Deshalb gilt 17₁₀ = 10001₂.",
+      "17 = 16 + 1. Deshalb gilt 17₁₀ = 10001₂.",
+      "17 = 16 + 1. Deshalb gilt 17₁₀ = 10001₂.",
+      "17 = 16 + 1. Deshalb gilt 17₁₀ = 10001₂."
+    ]
+  },
+  {
+    "question": "Elster rechnet den Bestand 3 mit dem Divisionsverfahren um. Was ergibt die erste Division 3 : 2?",
+    "options": [
+      "Ganzzahliges Ergebnis 1, Rest 1.",
+      "Ganzzahliges Ergebnis 1, Rest 0.",
+      "Ganzzahliges Ergebnis 0, Rest 1.",
+      "Ganzzahliges Ergebnis 2, Rest 1."
+    ],
+    "correct": 0,
+    "explanation": "3 = 1 × 2 + 1. Die 2 passt einmal vollständig in die 3. Danach bleibt 1 übrig.",
+    "hint": "Prüfen Sie: Ausgangszahl = Ergebnis × 2 + Rest.",
+    "feedback": [
+      "3 = 1 × 2 + 1. Die 2 passt einmal vollständig in die 3. Danach bleibt 1 übrig.",
+      "3 = 1 × 2 + 1. Die 2 passt einmal vollständig in die 3. Danach bleibt 1 übrig.",
+      "3 = 1 × 2 + 1. Die 2 passt einmal vollständig in die 3. Danach bleibt 1 übrig.",
+      "3 = 1 × 2 + 1. Die 2 passt einmal vollständig in die 3. Danach bleibt 1 übrig."
+    ]
+  },
+  {
+    "question": "Bei Elsters Umrechnung von 3 ist das neue Ergebnis 1. Was ergibt die nächste Division 1 : 2?",
+    "options": [
+      "Ganzzahliges Ergebnis 0, Rest 1.",
+      "Ganzzahliges Ergebnis 1, Rest 0.",
+      "Ganzzahliges Ergebnis 0, Rest 0.",
+      "Ganzzahliges Ergebnis 1, Rest 1."
+    ],
+    "correct": 0,
+    "explanation": "1 = 0 × 2 + 1. Die 2 passt keinmal vollständig in die 1. Deshalb ist das Ergebnis 0 und der Rest 1.",
+    "hint": "Bestimmen Sie, wie oft die 2 vollständig in die 1 passt.",
+    "feedback": [
+      "1 = 0 × 2 + 1. Die 2 passt keinmal vollständig in die 1. Deshalb ist das Ergebnis 0 und der Rest 1.",
+      "1 = 0 × 2 + 1. Die 2 passt keinmal vollständig in die 1. Deshalb ist das Ergebnis 0 und der Rest 1.",
+      "1 = 0 × 2 + 1. Die 2 passt keinmal vollständig in die 1. Deshalb ist das Ergebnis 0 und der Rest 1.",
+      "1 = 0 × 2 + 1. Die 2 passt keinmal vollständig in die 1. Deshalb ist das Ergebnis 0 und der Rest 1."
+    ]
+  },
+  {
+    "question": "Elster rechnet einen Bestand mit dem Divisionsverfahren um. Wohin gehört der Rest der ersten Division?",
+    "options": [
+      "An die Einerstelle ganz rechts.",
+      "An die höchste Stelle ganz links.",
+      "An die Zweierstelle neben der Einerstelle.",
+      "An eine beliebige Stelle im Bitmuster."
+    ],
+    "correct": 0,
+    "explanation": "Der erste Rest zeigt, ob nach dem Teilen durch 2 eine einzelne Einheit übrig bleibt. Er gehört zur Einerstelle rechts.",
+    "hint": "Überlegen Sie, was beim ersten Teilen nach dem Bilden von Zweiermengen übrig bleibt.",
+    "feedback": [
+      "Der erste Rest zeigt, ob nach dem Teilen durch 2 eine einzelne Einheit übrig bleibt. Er gehört zur Einerstelle rechts.",
+      "Der erste Rest zeigt, ob nach dem Teilen durch 2 eine einzelne Einheit übrig bleibt. Er gehört zur Einerstelle rechts.",
+      "Der erste Rest zeigt, ob nach dem Teilen durch 2 eine einzelne Einheit übrig bleibt. Er gehört zur Einerstelle rechts.",
+      "Der erste Rest zeigt, ob nach dem Teilen durch 2 eine einzelne Einheit übrig bleibt. Er gehört zur Einerstelle rechts."
+    ]
+  },
+  {
+    "question": "Beim Umrechnen von 14 entstehen die Reste 0, 1, 1, 1 von oben nach unten. Welche Binärzahl muss Elster notieren?",
+    "options": [
+      "1110₂",
+      "0111₂",
+      "1101₂",
+      "1011₂"
+    ],
+    "correct": 0,
+    "explanation": "Die Reste werden von unten nach oben gelesen: 1110₂. Die Prüfung ergibt 8 + 4 + 2 = 14.",
+    "hint": "Der zuerst berechnete Rest gehört zur Stelle ganz rechts.",
+    "feedback": [
+      "Die Reste werden von unten nach oben gelesen: 1110₂. Die Prüfung ergibt 8 + 4 + 2 = 14.",
+      "Die Reste werden von unten nach oben gelesen: 1110₂. Die Prüfung ergibt 8 + 4 + 2 = 14.",
+      "Die Reste werden von unten nach oben gelesen: 1110₂. Die Prüfung ergibt 8 + 4 + 2 = 14.",
+      "Die Reste werden von unten nach oben gelesen: 1110₂. Die Prüfung ergibt 8 + 4 + 2 = 14."
+    ]
+  },
+  {
+    "question": "Ein Elster-Mitarbeiter notiert 12₁₀ = 0011₂. Die Reste waren 0, 0, 1, 1 in Rechenreihenfolge. Welche Korrektur stimmt?",
+    "options": [
+      "Die Reste von unten lesen: 1100₂ = 12₁₀.",
+      "Eine Null links ergänzen: 00011₂ = 12₁₀.",
+      "Die Einsen zählen: Zwei Einsen bedeuten 12.",
+      "Die Zahl lassen: 0011₂ hat bereits den Wert 12."
+    ],
+    "correct": 0,
+    "explanation": "Die Reste wurden in der falschen Richtung gelesen. 1100₂ = 8 + 4 = 12. Dagegen ist 0011₂ = 2 + 1 = 3.",
+    "hint": "Prüfen Sie zuerst den Wert von 0011₂ mit Stellenwerten.",
+    "feedback": [
+      "Die Reste wurden in der falschen Richtung gelesen. 1100₂ = 8 + 4 = 12. Dagegen ist 0011₂ = 2 + 1 = 3.",
+      "Die Reste wurden in der falschen Richtung gelesen. 1100₂ = 8 + 4 = 12. Dagegen ist 0011₂ = 2 + 1 = 3.",
+      "Die Reste wurden in der falschen Richtung gelesen. 1100₂ = 8 + 4 = 12. Dagegen ist 0011₂ = 2 + 1 = 3.",
+      "Die Reste wurden in der falschen Richtung gelesen. 1100₂ = 8 + 4 = 12. Dagegen ist 0011₂ = 2 + 1 = 3."
+    ]
+  },
+  {
+    "question": "Elster rechnet 18 durch wiederholtes Teilen durch 2 um. Wann endet das Verfahren?",
+    "options": [
+      "Wenn das ganzzahlige Ergebnis 0 ist.",
+      "Wenn ein Rest zum ersten Mal 0 ist.",
+      "Wenn ein Rest zum ersten Mal 1 ist.",
+      "Wenn genau vier Divisionen notiert sind."
+    ],
+    "correct": 0,
+    "explanation": "Wir teilen das ganzzahlige Ergebnis weiter, bis es 0 ist. Ein Rest von 0 oder 1 ist während des Verfahrens normal.",
+    "hint": "Unterscheiden Sie das ganzzahlige Ergebnis vom Rest.",
+    "feedback": [
+      "Wir teilen das ganzzahlige Ergebnis weiter, bis es 0 ist. Ein Rest von 0 oder 1 ist während des Verfahrens normal.",
+      "Wir teilen das ganzzahlige Ergebnis weiter, bis es 0 ist. Ein Rest von 0 oder 1 ist während des Verfahrens normal.",
+      "Wir teilen das ganzzahlige Ergebnis weiter, bis es 0 ist. Ein Rest von 0 oder 1 ist während des Verfahrens normal.",
+      "Wir teilen das ganzzahlige Ergebnis weiter, bis es 0 ist. Ein Rest von 0 oder 1 ist während des Verfahrens normal."
+    ]
+  },
+  {
+    "question": "Elster verwendet vier Bits für ganze Lagerbestände ab 0. Welcher Bestand ist der größte?",
+    "options": [
+      "15 Packungen",
+      "16 Packungen",
+      "8 Packungen",
+      "14 Packungen"
+    ],
+    "correct": 0,
+    "explanation": "Der größte Wert entsteht bei 1111₂: 8 + 4 + 2 + 1 = 15. Für 16 ist eine fünfte Stelle nötig.",
+    "hint": "Setzen Sie an allen vier Stellen eine 1 und addieren Sie die Stellenwerte.",
+    "feedback": [
+      "Der größte Wert entsteht bei 1111₂: 8 + 4 + 2 + 1 = 15. Für 16 ist eine fünfte Stelle nötig.",
+      "Der größte Wert entsteht bei 1111₂: 8 + 4 + 2 + 1 = 15. Für 16 ist eine fünfte Stelle nötig.",
+      "Der größte Wert entsteht bei 1111₂: 8 + 4 + 2 + 1 = 15. Für 16 ist eine fünfte Stelle nötig.",
+      "Der größte Wert entsteht bei 1111₂: 8 + 4 + 2 + 1 = 15. Für 16 ist eine fünfte Stelle nötig."
+    ]
+  },
+  {
+    "question": "Vier Bits ermöglichen 16 Muster. Welche ganzen Bestände kann Elster damit darstellen, wenn der kleinste Bestand 0 ist?",
+    "options": [
+      "0 bis 15 einschließlich.",
+      "1 bis 16 einschließlich.",
+      "0 bis 16 einschließlich.",
+      "0 bis 14 einschließlich."
+    ],
+    "correct": 0,
+    "explanation": "Von 0 bis 15 gibt es 16 ganze Zahlen. Auch die 0 benötigt ein Muster. 0 bis 16 wären bereits 17 Zahlen.",
+    "hint": "Zählen Sie die 0 als einen darstellbaren Bestand mit.",
+    "feedback": [
+      "Von 0 bis 15 gibt es 16 ganze Zahlen. Auch die 0 benötigt ein Muster. 0 bis 16 wären bereits 17 Zahlen.",
+      "Von 0 bis 15 gibt es 16 ganze Zahlen. Auch die 0 benötigt ein Muster. 0 bis 16 wären bereits 17 Zahlen.",
+      "Von 0 bis 15 gibt es 16 ganze Zahlen. Auch die 0 benötigt ein Muster. 0 bis 16 wären bereits 17 Zahlen.",
+      "Von 0 bis 15 gibt es 16 ganze Zahlen. Auch die 0 benötigt ein Muster. 0 bis 16 wären bereits 17 Zahlen."
+    ]
+  },
+  {
+    "question": "Elster speichert 23 Packungen mit fünf Bits. Eine Lieferung bringt 9 Packungen. Wie viele Bits sind für den neuen Bestand mindestens nötig?",
+    "options": [
+      "6 Bits",
+      "5 Bits",
+      "4 Bits",
+      "8 Bits"
+    ],
+    "correct": 0,
+    "explanation": "23 + 9 = 32. Fünf Bits reichen nur bis 16 + 8 + 4 + 2 + 1 = 31. Sechs Bits können 32 als 100000₂ darstellen.",
+    "hint": "Berechnen Sie zuerst den neuen Bestand. Vergleichen Sie ihn mit der Summe der fünf Stellenwerte.",
+    "feedback": [
+      "23 + 9 = 32. Fünf Bits reichen nur bis 16 + 8 + 4 + 2 + 1 = 31. Sechs Bits können 32 als 100000₂ darstellen.",
+      "23 + 9 = 32. Fünf Bits reichen nur bis 16 + 8 + 4 + 2 + 1 = 31. Sechs Bits können 32 als 100000₂ darstellen.",
+      "23 + 9 = 32. Fünf Bits reichen nur bis 16 + 8 + 4 + 2 + 1 = 31. Sechs Bits können 32 als 100000₂ darstellen.",
+      "23 + 9 = 32. Fünf Bits reichen nur bis 16 + 8 + 4 + 2 + 1 = 31. Sechs Bits können 32 als 100000₂ darstellen."
+    ]
+  },
+  {
+    "question": "Ein Elster-Ausdruck zeigt 1□01₂. Die fehlende Ziffer kann 0 oder 1 sein. Welche beiden Bestände sind möglich?",
+    "options": [
+      "9 und 13 Packungen.",
+      "9 und 11 Packungen.",
+      "8 und 12 Packungen.",
+      "11 und 13 Packungen."
+    ],
+    "correct": 0,
+    "explanation": "Mit 0 entsteht 1001₂ = 8 + 1 = 9. Mit 1 entsteht 1101₂ = 8 + 4 + 1 = 13. Die fehlende Stelle hat den Wert 4.",
+    "hint": "Rechnen Sie einmal mit 0 und einmal mit 1 im leeren Feld.",
+    "feedback": [
+      "Mit 0 entsteht 1001₂ = 8 + 1 = 9. Mit 1 entsteht 1101₂ = 8 + 4 + 1 = 13. Die fehlende Stelle hat den Wert 4.",
+      "Mit 0 entsteht 1001₂ = 8 + 1 = 9. Mit 1 entsteht 1101₂ = 8 + 4 + 1 = 13. Die fehlende Stelle hat den Wert 4.",
+      "Mit 0 entsteht 1001₂ = 8 + 1 = 9. Mit 1 entsteht 1101₂ = 8 + 4 + 1 = 13. Die fehlende Stelle hat den Wert 4.",
+      "Mit 0 entsteht 1001₂ = 8 + 1 = 9. Mit 1 entsteht 1101₂ = 8 + 4 + 1 = 13. Die fehlende Stelle hat den Wert 4."
+    ]
+  },
+  {
+    "question": "Zwei Elster-Listen zeigen 00101₂ und 101₂ für denselben Lagerplatz. Welche Aussage stimmt?",
+    "options": [
+      "Beide zeigen 5 Packungen. Führende Nullen ändern den Wert nicht.",
+      "Die erste zeigt 20, die zweite 5 Packungen.",
+      "Die erste zeigt 5, die zweite 3 Packungen.",
+      "Beide zeigen 3 Packungen, weil sie drei Stellen verwenden."
+    ],
+    "correct": 0,
+    "explanation": "Die Stellen werden von rechts gezählt. In beiden Zahlen stehen die Einsen an der Vierer- und Einerstelle: 4 + 1 = 5.",
+    "hint": "Tragen Sie die Stellenwerte jeweils von rechts ein.",
+    "feedback": [
+      "Die Stellen werden von rechts gezählt. In beiden Zahlen stehen die Einsen an der Vierer- und Einerstelle: 4 + 1 = 5.",
+      "Die Stellen werden von rechts gezählt. In beiden Zahlen stehen die Einsen an der Vierer- und Einerstelle: 4 + 1 = 5.",
+      "Die Stellen werden von rechts gezählt. In beiden Zahlen stehen die Einsen an der Vierer- und Einerstelle: 4 + 1 = 5.",
+      "Die Stellen werden von rechts gezählt. In beiden Zahlen stehen die Einsen an der Vierer- und Einerstelle: 4 + 1 = 5."
+    ]
+  },
+  {
+    "question": "Elster vergleicht die Zahlen 101₂ und 1010₂. Was bewirkt die zusätzliche Null rechts?",
+    "options": [
+      "Der Wert verdoppelt sich von 5 auf 10.",
+      "Der Wert bleibt unverändert bei 5.",
+      "Der Wert steigt von 5 auf 6.",
+      "Der Wert halbiert sich von 10 auf 5."
+    ],
+    "correct": 0,
+    "explanation": "101₂ = 4 + 1 = 5. Bei 1010₂ stehen die bisherigen Ziffern eine Stelle weiter links: 8 + 2 = 10. Ihre Stellenwerte verdoppeln sich.",
+    "hint": "Vergleichen Sie die Stellenwerte der Einsen in beiden Zahlen.",
+    "feedback": [
+      "101₂ = 4 + 1 = 5. Bei 1010₂ stehen die bisherigen Ziffern eine Stelle weiter links: 8 + 2 = 10. Ihre Stellenwerte verdoppeln sich.",
+      "101₂ = 4 + 1 = 5. Bei 1010₂ stehen die bisherigen Ziffern eine Stelle weiter links: 8 + 2 = 10. Ihre Stellenwerte verdoppeln sich.",
+      "101₂ = 4 + 1 = 5. Bei 1010₂ stehen die bisherigen Ziffern eine Stelle weiter links: 8 + 2 = 10. Ihre Stellenwerte verdoppeln sich.",
+      "101₂ = 4 + 1 = 5. Bei 1010₂ stehen die bisherigen Ziffern eine Stelle weiter links: 8 + 2 = 10. Ihre Stellenwerte verdoppeln sich."
+    ]
+  },
+  {
+    "question": "Ein Elster-Ausdruck zeigt 1□□0₂. Der Bestand ist größer als 10 und kleiner als 14. Welches Muster passt?",
+    "options": [
+      "1100₂",
+      "1010₂",
+      "1110₂",
+      "1000₂"
+    ],
+    "correct": 0,
+    "explanation": "Möglich sind 8, 10, 12 und 14. Nur 12 ist größer als 10 und kleiner als 14. Dafür steht 1100₂. Die Grenzen 10 und 14 sind ausgeschlossen.",
+    "hint": "Prüfen Sie die möglichen Werte und beachten Sie beide strengen Grenzen.",
+    "feedback": [
+      "Möglich sind 8, 10, 12 und 14. Nur 12 ist größer als 10 und kleiner als 14. Dafür steht 1100₂. Die Grenzen 10 und 14 sind ausgeschlossen.",
+      "Möglich sind 8, 10, 12 und 14. Nur 12 ist größer als 10 und kleiner als 14. Dafür steht 1100₂. Die Grenzen 10 und 14 sind ausgeschlossen.",
+      "Möglich sind 8, 10, 12 und 14. Nur 12 ist größer als 10 und kleiner als 14. Dafür steht 1100₂. Die Grenzen 10 und 14 sind ausgeschlossen.",
+      "Möglich sind 8, 10, 12 und 14. Nur 12 ist größer als 10 und kleiner als 14. Dafür steht 1100₂. Die Grenzen 10 und 14 sind ausgeschlossen."
+    ]
+  },
+  {
+    "question": "Elsters System meldet 10110₂ Packungen. Die Mitarbeiterin zählt 22 Packungen. Welche Beurteilung stimmt?",
+    "options": [
+      "Die Angaben stimmen überein: 16 + 4 + 2 = 22.",
+      "Das System meldet 13 Packungen: 8 + 4 + 1 = 13.",
+      "Das System meldet 3 Packungen: Das Muster enthält drei Einsen.",
+      "Das System meldet 26 Packungen: 16 + 8 + 2 = 26."
+    ],
+    "correct": 0,
+    "explanation": "Bei 10110₂ stehen die Einsen an der 16er-, Vierer- und Zweierstelle. Ihre Summe ist 22. Systemangabe und Zählung stimmen überein.",
+    "hint": "Ordnen Sie jeder Ziffer den passenden Stellenwert zu, bevor Sie addieren.",
+    "feedback": [
+      "Bei 10110₂ stehen die Einsen an der 16er-, Vierer- und Zweierstelle. Ihre Summe ist 22. Systemangabe und Zählung stimmen überein.",
+      "Bei 10110₂ stehen die Einsen an der 16er-, Vierer- und Zweierstelle. Ihre Summe ist 22. Systemangabe und Zählung stimmen überein.",
+      "Bei 10110₂ stehen die Einsen an der 16er-, Vierer- und Zweierstelle. Ihre Summe ist 22. Systemangabe und Zählung stimmen überein.",
+      "Bei 10110₂ stehen die Einsen an der 16er-, Vierer- und Zweierstelle. Ihre Summe ist 22. Systemangabe und Zählung stimmen überein."
+    ]
+  }
+];
+
+let queue, currentIndex, totalAnswered, firstCorrect, mastered, attempted;
+let displayedOptions = [], locked = false;
+function shuffle(values) {
+  const a = [...values];
+  for (let i=a.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+// Fünf richtige Antworten pro Position im ersten Durchlauf,
+// zufällig angeordnet, ohne Dreierfolge oder wiederholten Viererblock.
+function makePositions() {
+  let p;
+  do {
+    p=shuffle(Array.from({length:20},(_,i)=>i%4));
+  } while (p.some((v,i)=>i>1&&v===p[i-1]&&v===p[i-2]) ||
+    p.some((_,i)=>i>=4&&i<=16&&p.slice(i,i+4).every((v,j)=>v===p[i-4+j])));
+  return p;
+}
+let positions;
+function initQuiz() {
+  queue=quizData.map((_,i)=>i); currentIndex=0; totalAnswered=0; firstCorrect=0;
+  mastered=new Set(); attempted=new Set(); positions=makePositions();
+  document.getElementById('resultsContainer').classList.remove('show');
+  renderCurrentQuestion();
+}
+function renderCurrentQuestion() {
+  if(currentIndex>=queue.length) { showResults(); return; }
+  const id=queue[currentIndex], q=quizData[id], retry=attempted.has(id);
+  const correctOption={text:q.options[q.correct],correct:true,feedback:q.feedback[q.correct]};
+  displayedOptions=shuffle(q.options.map((text,i)=>({text,correct:i===q.correct,feedback:q.feedback[i]})).filter(o=>!o.correct));
+  displayedOptions.splice(retry?Math.floor(Math.random()*4):positions[id],0,correctOption);
+  locked=false;
+  const container=document.getElementById('questionsContainer');
+  container.innerHTML=`<div class="question-container active">
+    <div class="question-number">${retry?'🔁 Wiederholung · ':''}Frage ${id+1} von ${quizData.length} · ${mastered.size} gemeistert</div>
+    <h2 class="question-text" tabindex="-1">${q.question}</h2>
+    <details class="hint"><summary>Hinweis anzeigen</summary><p>${q.hint}</p></details>
+    <div class="options" id="options-current" role="group" aria-label="Antwortmöglichkeiten"></div>
+    <div class="feedback" id="feedback-current" role="status" aria-live="polite">
+      <div class="feedback-title"></div><div class="feedback-text"></div>
+    </div>
+    <div class="controls"><div></div><button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Weiter →</button></div>
+  </div>`;
+  const options=document.getElementById('options-current');
+  displayedOptions.forEach((o,i)=>{
+    const button=document.createElement('button');
+    button.type='button';button.className='option';
+    const letter=document.createElement('span');letter.className='option-letter';letter.textContent=String.fromCharCode(65+i);
+    const label=document.createElement('span');label.className='option-text';label.textContent=o.text;
+    button.append(letter,label);button.addEventListener('click',()=>selectOption(i));options.append(button);
+  });
+  updateProgress();
+  if(totalAnswered>0) container.querySelector('h2').focus();
+}
+function selectOption(index) {
+  if(locked) return;
+  locked=true;
+  const id=queue[currentIndex], q=quizData[id], right=displayedOptions[index].correct;
+  const buttons=document.querySelectorAll('#options-current .option');
+  buttons.forEach((b,i)=>{b.disabled=true;if(displayedOptions[i].correct)b.classList.add('correct');});
+  buttons[index].classList.add('selected',right?'correct':'incorrect');
+  const feedback=document.getElementById('feedback-current');
+  feedback.classList.add('show',right?'correct':'incorrect');
+  if(right) {
+    if(!attempted.has(id))firstCorrect++;
+    mastered.add(id);
+    feedback.querySelector('.feedback-title').textContent='✓ Richtig!';
+  } else {
+    queue.splice(Math.min(currentIndex+5,queue.length),0,id);
+    feedback.querySelector('.feedback-title').textContent='✗ Noch nicht richtig – die Frage kommt später erneut.';
+  }
+  attempted.add(id);totalAnswered++;
+  feedback.querySelector('.feedback-text').textContent=displayedOptions[index].feedback;
+  document.getElementById('nextBtn').disabled=false;
+  updateProgress();
+}
+function nextQuestion() {
+  if(!locked)return;
+  currentIndex++;renderCurrentQuestion();
+}
+function updateProgress() {
+  document.getElementById('progressFill').style.width=(mastered.size/quizData.length*100)+'%';
+}
+function showResults() {
+  document.getElementById('questionsContainer').innerHTML='';
+  document.getElementById('resultsContainer').classList.add('show');
+  document.getElementById('scoreNumber').textContent=Math.round(firstCorrect/quizData.length*100)+'%';
+  document.getElementById('correctCount').textContent=firstCorrect+' / '+quizData.length;
+  document.getElementById('incorrectCount').textContent=totalAnswered-quizData.length;
+  document.getElementById('totalCount').textContent=totalAnswered;
+  document.getElementById('resultMessage').textContent=firstCorrect===20?'Alles auf Anhieb richtig!':`Geschafft! Alle 20 Fragen gemeistert. ${firstCorrect} beim ersten Versuch richtig.`;
+  updateProgress();
+}
+function restartQuiz(){initQuiz();}
+window.onload=initQuiz;
+
+</script>
+</body>
+</html>
