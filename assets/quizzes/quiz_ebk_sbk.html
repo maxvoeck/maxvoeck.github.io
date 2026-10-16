@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz · EBK, SBK und Kontenabschluss · Block 15</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center
+}
+.quiz-container{
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    max-width:820px;
+    width:100%;
+    overflow:hidden
+}
+.quiz-header{
+    background:linear-gradient(135deg,#374151 0%,#1f2937 100%);
+    color:#fff;
+    padding:2rem;
+    text-align:center
+}
+.quiz-header h1{font-size:1.8rem;margin-bottom:.5rem}
+.quiz-header p{opacity:.9;font-size:1rem}
+.progress-bar{background:#e0e0e0;height:8px;position:relative}
+.progress-fill{
+    background:linear-gradient(90deg,#667eea 0%,#764ba2 100%);
+    height:100%;width:0%;transition:width .3s ease
+}
+.quiz-content{padding:2rem}
+.question-container{display:none}
+.question-container.active{display:block;animation:fadeIn .45s ease}
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+    color:#667eea;font-weight:600;font-size:.9rem;margin-bottom:.5rem
+}
+.question-text{
+    font-size:1.28rem;font-weight:600;color:#1f2937;
+    margin-bottom:1.5rem;line-height:1.5
+}
+.options{display:flex;flex-direction:column;gap:1rem}
+.option{
+    background:#f8f9fa;border:2px solid #e0e0e0;border-radius:12px;
+    padding:1rem 1.5rem;cursor:pointer;transition:all .25s ease;
+    display:flex;align-items:center;gap:1rem
+}
+.option:hover{
+    background:#f0f1f3;border-color:#667eea;transform:translateX(5px)
+}
+.option-letter{
+    background:#667eea;color:#fff;width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:600;flex-shrink:0
+}
+.option.selected{background:#e8eaf6;border-color:#667eea}
+.option.correct{background:#d4edda;border-color:#28a745}
+.option.correct .option-letter{background:#28a745}
+.option.incorrect{background:#f8d7da;border-color:#dc3545}
+.option.incorrect .option-letter{background:#dc3545}
+.option.disabled{cursor:not-allowed;opacity:.74}
+.feedback{
+    margin-top:1.5rem;padding:1rem;border-radius:8px;display:none;line-height:1.45
+}
+.feedback.show{display:block;animation:fadeIn .4s ease}
+.feedback.correct{background:#d4edda;border-left:4px solid #28a745;color:#155724}
+.feedback.incorrect{background:#f8d7da;border-left:4px solid #dc3545;color:#721c24}
+.feedback-title{font-weight:700;margin-bottom:.45rem}
+.controls{
+    margin-top:2rem;display:flex;justify-content:space-between;gap:1rem
+}
+.btn{
+    padding:.8rem 2rem;border:none;border-radius:8px;font-size:1rem;
+    font-weight:600;cursor:pointer;transition:all .25s ease
+}
+.btn-primary{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff
+}
+.btn-primary:hover:not(:disabled){
+    transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)
+}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.results-container{display:none;text-align:center;padding:2rem}
+.results-container.show{display:block;animation:fadeIn .45s ease}
+.score-circle{
+    width:200px;height:200px;border-radius:50%;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    margin:2rem auto;color:#fff;box-shadow:0 10px 30px rgba(102,126,234,.4)
+}
+.score-number{font-size:3rem;font-weight:700}
+.score-label{font-size:1rem;opacity:.9}
+.result-message{font-size:1.45rem;font-weight:600;color:#1f2937;margin-bottom:1rem}
+.result-details{
+    background:#f8f9fa;border-radius:12px;padding:1.5rem;margin:2rem 0;
+    display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem
+}
+.result-stat{text-align:center}
+.result-stat-number{font-size:2rem;font-weight:700;color:#667eea}
+.result-stat-label{font-size:.9rem;color:#666;margin-top:.3rem}
+.small-note{font-size:.9rem;color:#6b7280;margin-top:.8rem;line-height:1.4}
+@media(max-width:768px){
+    body{padding:10px}
+    .quiz-header h1{font-size:1.4rem}
+    .question-text{font-size:1.1rem}
+    .controls{flex-direction:column}
+    .btn{width:100%}
+}
+
+.option{font:inherit;text-align:left;width:100%;color:#1f2937}
+.option:disabled{cursor:default}
+.option:disabled:hover{transform:none}
+.option:focus-visible,.btn:focus-visible{outline:3px solid #111827;outline-offset:4px}
+.option.disabled{opacity:1}
+.small-note{margin-top:1rem}
+.quiz-header .small-note{color:#e5e7eb}
+.feedback{scroll-margin-top:1rem}
+.score-label{font-size:.85rem}
+.result-message:focus,.question-text:focus{outline:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="quiz-container" aria-label="BWL-Quiz Block 15">
+ <header class="quiz-header">
+  <h1>EBK, SBK und Kontenabschluss</h1>
+  <p>BWL · W-Kurs · Block 15 · 20 Fragen</p>
+  <p class="small-note">Jeweils eine Antwort ist richtig. Falsche Antworten werden später erneut geübt.<br>Alle Fälle ohne Umsatzsteuer. Antwortmöglichkeiten werden bei jedem Aufruf neu gemischt.</p>
+ </header>
+ <div class="progress-bar" role="progressbar" aria-label="Gemeisterte Fragen" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+ <div class="quiz-content">
+  <div id="questionsContainer"></div>
+  <section class="results-container" id="resultsContainer" aria-label="Ergebnis">
+   <h2 class="result-message" id="resultMessage" tabindex="-1"></h2>
+   <div class="score-circle"><div class="score-number" id="scoreNumber">0%</div><div class="score-label">Beim ersten Versuch richtig</div></div>
+   <div class="result-details">
+    <div class="result-stat"><div class="result-stat-number" id="correctCount">0</div><div class="result-stat-label">Direkt richtig</div></div>
+    <div class="result-stat"><div class="result-stat-number" id="incorrectCount">0</div><div class="result-stat-label">Zusätzliche Versuche</div></div>
+    <div class="result-stat"><div class="result-stat-number" id="totalCount">0</div><div class="result-stat-label">Fragen gemeistert</div></div>
+   </div>
+   <p class="small-note" id="reviewNote"></p>
+   <div class="controls"><button type="button" class="btn btn-primary" id="restartBtn">Quiz neu starten</button></div>
+  </section>
+ </div>
+</main>
+<script>
+const quizData = [
+  {
+    "id": 1,
+    "question": "Warum brauchen wir beim Einbuchen der Anfangsbestände das EBK?",
+    "options": [
+      "Es erfasst alle Zahlungen während des Geschäftsjahres.",
+      "Es berechnet die Differenz zwischen Einnahmen und Ausgaben.",
+      "Es sammelt die Endbestände für die Schlussbilanz.",
+      "Es übernimmt die Gegenbuchung zum Eintrag auf dem Bestandskonto."
+    ],
+    "correct": 3,
+    "explanation": "Jeder Anfangsbestand braucht eine Soll- und eine Habenbuchung. Das EBK ist dabei das Gegenkonto. Das SBK übernimmt diese Funktion erst beim Abschluss."
+  },
+  {
+    "id": 2,
+    "question": "Was ergänzt Block 15 zu den laufenden Buchungen aus Block 14?",
+    "options": [
+      "Das Eröffnen am Jahresanfang und das Abschließen am Jahresende.",
+      "Das Ersetzen der Bestandskonten durch eine tägliche Bilanz.",
+      "Das Buchen aller Zugänge im Soll, unabhängig von der Kontenart.",
+      "Das Ersetzen der Gegenbuchung durch einen einfachen Anfangseintrag."
+    ],
+    "correct": 0,
+    "explanation": "Block 14 behandelt laufende Geschäftsfälle. EBK und SBK ergänzen die Eröffnung und den Abschluss der Bestandskonten."
+  },
+  {
+    "id": 3,
+    "question": "Am Jahresanfang sind bereits 12.000 € Bankguthaben vorhanden. Wie eröffnen Sie das Bankkonto?",
+    "options": [
+      "EBK an Bank 12.000 €",
+      "Bank an SBK 12.000 €",
+      "SBK an Bank 12.000 €",
+      "Bank an EBK 12.000 €"
+    ],
+    "correct": 3,
+    "explanation": "Bank ist ein Aktivkonto. Der Anfangsbestand muss im Soll der Bank stehen; die Gegenbuchung erfolgt im Haben des EBK."
+  },
+  {
+    "id": 4,
+    "question": "Lieferantenschulden betragen am Jahresanfang 8.000 €. Wie lautet die Eröffnungsbuchung?",
+    "options": [
+      "EBK an Verbindlichkeiten 8.000 €",
+      "SBK an Verbindlichkeiten 8.000 €",
+      "Verbindlichkeiten an EBK 8.000 €",
+      "Verbindlichkeiten an SBK 8.000 €"
+    ],
+    "correct": 0,
+    "explanation": "Verbindlichkeiten sind ein Passivkonto. Ihr Anfangsbestand steht im Haben. Deshalb wird das EBK im Soll gebucht."
+  },
+  {
+    "id": 5,
+    "question": "Welche Zuordnung im EBK ist richtig?",
+    "options": [
+      "Eigenkapital im Soll; Bank im Haben.",
+      "Eigenkapital und Bank im Soll.",
+      "Eigenkapital und Bank im Haben.",
+      "Eigenkapital im Haben; Bank im Soll."
+    ],
+    "correct": 0,
+    "explanation": "Das EBK enthält die Gegenbuchungen: Eigenkapital als Passivposten im Soll, Bank als Aktivposten im Haben. Deshalb ist es zur Eröffnungsbilanz seitenverkehrt."
+  },
+  {
+    "id": 6,
+    "question": "BGA 18.000 €, Waren 7.000 €, Bank 5.000 €; Eigenkapital 22.000 €, Lieferantenschulden 8.000 €. Wie hoch ist die Summe je Seite des vollständig gebuchten EBK?",
+    "options": [
+      "30.000 €",
+      "60.000 €",
+      "22.000 €",
+      "8.000 €"
+    ],
+    "correct": 0,
+    "explanation": "Aktivposten: 18.000 + 7.000 + 5.000 = 30.000 €. Passivposten: 22.000 + 8.000 = 30.000 €. Beide EBK-Seiten ergeben jeweils 30.000 €; sie werden nicht zu einer Kontensumme von 60.000 € zusammengezählt."
+  },
+  {
+    "id": 7,
+    "question": "Beurteilen Sie: „Bank an EBK 6.000 € bedeutet, dass heute 6.000 € auf die Bank eingezahlt werden.“",
+    "options": [
+      "Richtig: Jede Sollbuchung auf Bank ist eine neue Einzahlung.",
+      "Falsch: Die Buchung bezahlt eine Lieferantenschuld.",
+      "Richtig: Das EBK überweist den Betrag an die Bank.",
+      "Falsch: Ein bereits vorhandener Anfangsbestand wird eingebucht."
+    ],
+    "correct": 3,
+    "explanation": "Eine Eröffnungsbuchung überträgt einen bereits vorhandenen Bestand aus der Eröffnungsbilanz. Sie löst keine Zahlung aus."
+  },
+  {
+    "id": 8,
+    "question": "Büromöbel für 2.000 € werden während des Jahres per Bank bezahlt. Welche Buchung passt?",
+    "options": [
+      "BGA an EBK 2.000 €",
+      "BGA an Bank 2.000 €",
+      "SBK an Bank 2.000 €",
+      "Bank an BGA 2.000 €"
+    ],
+    "correct": 1,
+    "explanation": "BGA nimmt als Aktivkonto im Soll zu. Das Bankguthaben nimmt im Haben ab. EBK und SBK gehören zur Eröffnung beziehungsweise zum Abschluss, nicht zu diesem laufenden Kauf."
+  },
+  {
+    "id": 9,
+    "question": "Bankkonto vor dem Abschluss: Anfangsbestand 12.000 €, Einzahlungen 3.000 €, Auszahlungen 7.000 €. Wie hoch ist der Endbestand?",
+    "options": [
+      "8.000 €",
+      "15.000 €",
+      "4.000 €",
+      "22.000 €"
+    ],
+    "correct": 0,
+    "explanation": "Endbestand = Anfangsbestand + Zugänge − Abgänge = 12.000 + 3.000 − 7.000 = 8.000 €. Die Sollsumme vor dem Abschluss beträgt dagegen 15.000 €."
+  },
+  {
+    "id": 10,
+    "question": "Vor dem Abschluss stehen auf Bank 15.000 € im Soll und 7.000 € im Haben. Wo tragen Sie den Saldo zum Ausgleich ein?",
+    "options": [
+      "8.000 € im Soll des Bankkontos.",
+      "7.000 € im Soll des Bankkontos.",
+      "8.000 € im Haben des Bankkontos.",
+      "15.000 € im Haben des Bankkontos."
+    ],
+    "correct": 2,
+    "explanation": "Zum Ausgleich fehlen auf der kleineren Habenseite 15.000 − 7.000 = 8.000 €. Nach dem Eintrag ergeben beide Seiten 15.000 €."
+  },
+  {
+    "id": 11,
+    "question": "Ein Bankkonto wird mit einem Endbestand von 8.000 € abgeschlossen. Welche Buchung ist richtig?",
+    "options": [
+      "SBK an Bank 8.000 €",
+      "Bank an EBK 8.000 €",
+      "Bank an SBK 8.000 €",
+      "EBK an Bank 8.000 €"
+    ],
+    "correct": 0,
+    "explanation": "Der Saldo wird im Haben des Aktivkontos Bank gebucht. Die Gegenbuchung steht im Soll des SBK. Daher: SBK an Bank."
+  },
+  {
+    "id": 12,
+    "question": "Nach dem Abschluss ergeben beide Seiten des Bankkontos jeweils 15.000 €. Der übertragene Saldo beträgt 8.000 €. Welche Aussage stimmt?",
+    "options": [
+      "Das Guthaben beträgt 0 €, weil beide Seiten ausgeglichen sind.",
+      "Das Guthaben beträgt 23.000 €, weil Summe und Saldo addiert werden.",
+      "Das Guthaben beträgt 15.000 €; der Saldo ist nur eine Zahlung.",
+      "Das Guthaben beträgt 8.000 €; die Kontensumme je Seite beträgt 15.000 €."
+    ],
+    "correct": 3,
+    "explanation": "Der Saldo ist der Endbestand von 8.000 €. Er gleicht das Konto rechnerisch aus. Die Kontensumme von 15.000 € ist nicht der verbleibende Bestand."
+  },
+  {
+    "id": 13,
+    "question": "Lieferantenschulden: Anfangsbestand 9.000 €, neue Schulden 4.000 €, bezahlte Schulden 2.000 €. Wie hoch ist der Endbestand?",
+    "options": [
+      "13.000 €",
+      "15.000 €",
+      "11.000 €",
+      "7.000 €"
+    ],
+    "correct": 2,
+    "explanation": "Endbestand = 9.000 + 4.000 − 2.000 = 11.000 €. Neue Schulden erhöhen, bezahlte Schulden vermindern den Bestand."
+  },
+  {
+    "id": 14,
+    "question": "Das Konto Verbindlichkeiten hat einen Endbestand von 11.000 €. Welche Abschlussbuchung passt?",
+    "options": [
+      "Verbindlichkeiten an SBK 11.000 €",
+      "SBK an Verbindlichkeiten 11.000 €",
+      "Verbindlichkeiten an EBK 11.000 €",
+      "EBK an Verbindlichkeiten 11.000 €"
+    ],
+    "correct": 0,
+    "explanation": "Verbindlichkeiten sind ein Passivkonto. Der Saldo steht zum Ausgleich im Soll dieses Kontos. Das SBK wird als Gegenkonto im Haben gebucht."
+  },
+  {
+    "id": 15,
+    "question": "Das Eigenkapital beträgt das ganze Jahr unverändert 28.000 €. Wie schließen Sie dieses Konto ab?",
+    "options": [
+      "Eine Abschlussbuchung ist bei unverändertem Bestand unnötig.",
+      "EBK an Eigenkapital 28.000 €",
+      "Eigenkapital an SBK 28.000 €",
+      "SBK an Eigenkapital 28.000 €"
+    ],
+    "correct": 2,
+    "explanation": "Auch ein unveränderter Bestand wird abgeschlossen. Eigenkapital ist ein Passivkonto: Eigenkapital an SBK 28.000 €."
+  },
+  {
+    "id": 16,
+    "question": "Welche Beschreibung unterscheidet SBK und Schlussbilanz richtig?",
+    "options": [
+      "SBK: Aktiva/Passiva; Schlussbilanz: Soll/Haben.",
+      "SBK: nur Schulden; Schlussbilanz: nur Vermögen.",
+      "SBK: nur Anfangsbestände; Schlussbilanz: nur Zahlungen.",
+      "SBK: Soll/Haben; Schlussbilanz: Aktiva/Passiva."
+    ],
+    "correct": 3,
+    "explanation": "Das SBK ist ein Konto mit Soll und Haben. Die Schlussbilanz ist eine Übersicht mit Aktiva und Passiva. Sie zeigt die im SBK gesammelten Endbestände."
+  },
+  {
+    "id": 17,
+    "question": "Die Schlussbilanz zeigt 6.000 € Bankguthaben. Wie eröffnen Sie die Bank im nächsten Geschäftsjahr?",
+    "options": [
+      "EBK an Bank 6.000 €",
+      "SBK an Bank 6.000 €",
+      "Bank an EBK 6.000 €",
+      "Die Bank beginnt ohne Anfangsbestand bei 0 €."
+    ],
+    "correct": 2,
+    "explanation": "Der Endbestand des alten Jahres wird zum Anfangsbestand des neuen Jahres. Bank ist ein Aktivkonto und beginnt deshalb mit 6.000 € im Soll: Bank an EBK."
+  },
+  {
+    "id": 18,
+    "question": "Ein Betrieb hat 9.000 € Bankguthaben und 6.000 € Lieferantenschulden. Er bezahlt davon 2.000 € per Bank. Welche neuen Bestände ergeben sich?",
+    "options": [
+      "Bank 9.000 €; Lieferantenschulden 4.000 €.",
+      "Bank 11.000 €; Lieferantenschulden 8.000 €.",
+      "Bank 7.000 €; Lieferantenschulden 4.000 €.",
+      "Bank 7.000 €; Lieferantenschulden 6.000 €."
+    ],
+    "correct": 2,
+    "explanation": "Die Buchung lautet Verbindlichkeiten an Bank 2.000 €. Bank und Schulden sinken jeweils um 2.000 €. Das ist eine Aktiv-Passiv-Minderung."
+  },
+  {
+    "id": 19,
+    "question": "Ein Betrieb kauft Waren für 3.000 € auf Rechnung. Es gibt keine weiteren Geschäftsfälle und keine Umsatzsteuer. Die Bilanzsumme steigt um 3.000 €. Bedeutet das einen Gewinn von 3.000 €?",
+    "options": [
+      "Ja. Der Zugang an Waren erhöht das Eigenkapital um 3.000 €.",
+      "Nein. Der Bankbestand steigt um 3.000 €, ohne dass Waren hinzukommen.",
+      "Ja. Jede Erhöhung der Bilanzsumme ist ein Gewinn.",
+      "Nein. Warenbestand und Schulden steigen; das Eigenkapital bleibt unverändert."
+    ],
+    "correct": 3,
+    "explanation": "Im vereinfachten Bestandskontenmodell lautet die Buchung Waren an Verbindlichkeiten 3.000 €. Vermögen und Schulden steigen gleich stark. Das Eigenkapital steigt dadurch nicht: Die höhere Bilanzsumme ist hier kein Gewinn."
+  },
+  {
+    "id": 20,
+    "question": "Eine Studentin sagt: „Beim Abschluss steht der Banksaldo im Haben. Deshalb steht die Bank auch im SBK im Haben.“ Welche Korrektur ist richtig?",
+    "options": [
+      "Die Bank wird nicht ins SBK übertragen, weil ihr Konto ausgeglichen ist.",
+      "Die Bank steht im SBK im Haben, denn sie ist ein Passivkonto.",
+      "Die Bank steht im SBK im Soll, denn der Abschluss lautet SBK an Bank.",
+      "Die Bank steht im SBK auf beiden Seiten, damit sich das Guthaben verdoppelt."
+    ],
+    "correct": 2,
+    "explanation": "Die Abschlussbuchung berührt zwei Konten: Bank im Haben und SBK im Soll. Der zum Ausgleich im Haben des Bankkontos eingetragene Saldo erscheint deshalb im Soll des SBK."
+  }
+];
+let queue=[], currentIndex=0, totalAnswered=0, firstCorrect=0;
+let mastered=new Set(), attempts=new Map(), viewOptions=[], locked=false;
+function shuffled(array){
+ const copy=array.slice();
+ for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}
+ return copy;
+}
+function initQuiz(){
+ queue=quizData.map((_,i)=>i);currentIndex=0;totalAnswered=0;firstCorrect=0;
+ mastered=new Set();attempts=new Map();
+ document.getElementById('resultsContainer').classList.remove('show');
+ renderCurrentQuestion();
+}
+function renderCurrentQuestion(){
+ if(currentIndex>=queue.length){showResults();return;}
+ const qIdx=queue[currentIndex],q=quizData[qIdx];
+ locked=false;
+ viewOptions=shuffled(q.options.map((text,index)=>({text,correct:index===q.correct})));
+ const container=document.getElementById('questionsContainer');
+ container.innerHTML=`<section class="question-container active" aria-labelledby="questionTitle">
+ <div class="question-number">${attempts.has(qIdx)?'Wiederholung · ':''}Aufgabe ${totalAnswered+1} · ${mastered.size} von ${quizData.length} gemeistert</div>
+ <h2 class="question-text" id="questionTitle" tabindex="-1"></h2>
+ <div class="options" id="options-current" role="group" aria-label="Antwortmöglichkeiten"></div>
+ <div class="feedback" id="feedback-current" role="status" aria-live="polite"><div class="feedback-title"></div><div class="feedback-text"></div></div>
+ <div class="controls"><div class="small-note">Tastatur: A–D wählen · Enter für Weiter</div><button type="button" class="btn btn-primary" id="nextBtn" disabled>Weiter →</button></div>
+ </section>`;
+ document.getElementById('questionTitle').textContent=q.question;
+ const options=document.getElementById('options-current');
+ viewOptions.forEach((option,i)=>{
+  const button=document.createElement('button');button.type='button';button.className='option';
+  const letter=document.createElement('span');letter.className='option-letter';letter.textContent=String.fromCharCode(65+i);letter.setAttribute('aria-hidden','true');
+  const label=document.createElement('span');label.className='option-text';label.textContent=option.text;
+  button.setAttribute('aria-label',String.fromCharCode(65+i)+': '+option.text);
+  button.append(letter,label);button.addEventListener('click',()=>selectOption(i));options.append(button);
+ });
+ document.getElementById('nextBtn').addEventListener('click',nextQuestion);
+ updateProgress();document.getElementById('questionTitle').focus({preventScroll:true});
+}
+function selectOption(optionIndex){
+ if(locked||!viewOptions[optionIndex])return;
+ locked=true;
+ const qIdx=queue[currentIndex],q=quizData[qIdx],isCorrect=viewOptions[optionIndex].correct;
+ const seen=attempts.get(qIdx)||0;attempts.set(qIdx,seen+1);totalAnswered++;
+ if(isCorrect){mastered.add(qIdx);if(seen===0)firstCorrect++;}
+ else {queue.splice(Math.min(currentIndex+5,queue.length),0,qIdx);}
+ const buttons=[...document.querySelectorAll('#options-current .option')];
+ buttons.forEach((button,i)=>{button.disabled=true;button.classList.add('disabled');if(viewOptions[i].correct)button.classList.add('correct');});
+ buttons[optionIndex].classList.add('selected',isCorrect?'correct':'incorrect');
+ const feedback=document.getElementById('feedback-current');feedback.classList.add('show',isCorrect?'correct':'incorrect');
+ const correctIndex=viewOptions.findIndex(option=>option.correct);
+ feedback.querySelector('.feedback-title').textContent=isCorrect?'✓ Richtig!':'Noch nicht. Richtig ist '+String.fromCharCode(65+correctIndex)+'. Die Frage kommt erneut.';
+ feedback.querySelector('.feedback-text').textContent=q.explanation;
+ const next=document.getElementById('nextBtn');next.disabled=false;
+ next.textContent=currentIndex===queue.length-1?'Ergebnis ansehen →':'Weiter →';
+ updateProgress();next.focus({preventScroll:true});feedback.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+function nextQuestion(){if(!locked)return;currentIndex++;renderCurrentQuestion();}
+function updateProgress(){
+ document.getElementById('progressFill').style.width=(mastered.size/quizData.length*100)+'%';
+ document.getElementById('progressBar').setAttribute('aria-valuenow',mastered.size);
+}
+function showResults(){
+ document.getElementById('questionsContainer').innerHTML='';
+ document.getElementById('resultsContainer').classList.add('show');
+ document.getElementById('scoreNumber').textContent=Math.round(firstCorrect/quizData.length*100)+'%';
+ document.getElementById('correctCount').textContent=firstCorrect+' / '+quizData.length;
+ document.getElementById('incorrectCount').textContent=totalAnswered-quizData.length;
+ document.getElementById('totalCount').textContent=mastered.size+' / '+quizData.length;
+ document.getElementById('resultMessage').textContent=firstCorrect===quizData.length?'Alles auf Anhieb richtig!':'Geschafft – alle Fragen gemeistert!';
+ document.getElementById('reviewNote').textContent='Die Prozentzahl zählt nur den ersten Versuch pro Frage. Durch die Wiederholungen haben Sie anschließend alle Fragen richtig beantwortet.';
+ document.getElementById('resultMessage').focus();
+}
+document.getElementById('restartBtn').addEventListener('click',initQuiz);
+document.addEventListener('keydown',event=>{
+ if(event.altKey||event.ctrlKey||event.metaKey||event.repeat)return;
+ const letter=event.key.toLowerCase();
+ if(/^[a-d]$/.test(letter)&&document.getElementById('options-current')){event.preventDefault();selectOption(letter.charCodeAt(0)-97);}
+ else if(event.key==='Enter'&&locked&&document.getElementById('nextBtn')){event.preventDefault();nextQuestion();}
+});
+initQuiz();
+</script>
+</body>
+</html>

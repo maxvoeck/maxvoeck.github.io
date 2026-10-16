@@ -124,6 +124,16 @@ kapitel:
         pdf: /assets/pdfs/BWL_W_12.pdf
         quiz: /assets/quizzes/quiz_buchungssatz.html
         text: /assets/texte/bwl-w-12.pdf
+      - id: r6
+        nr: "06"
+        titel: Eröffnung und Abschluss der Bestandskonten
+        desc: >-
+          Bestandskonten über das Eröffnungsbilanzkonto (EBK) eröffnen und über das
+          Schlussbilanzkonto (SBK) abschließen — Anfangsbestände einbuchen, Salden ermitteln,
+          SBK und Schlussbilanz unterscheiden und Endbestände ins nächste Jahr übernehmen
+        pdf: /assets/pdfs/BWL_W_13.pdf
+        quiz: /assets/quizzes/quiz_ebk_sbk.html
+        text: /assets/texte/bwl-w-13.pdf
 
   - numeral: III
     titel: Erfolg, Steuern, Abschreibungen
