@@ -26,7 +26,7 @@ kapitel:
       - id: m4
         nr: "04"
         titel: Nachfrage und Nachfragekurve
-        pdf: /assets/pdfs/WS_VWL_4-2.pdf
+        pdf: /assets/pdfs/WS_VWL_4-3.pdf
         quiz: /assets/quizzes/quiz_nachfrage.html
       - id: m5
         nr: "05"

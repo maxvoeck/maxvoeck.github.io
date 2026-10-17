@@ -1215,7 +1215,7 @@ const TREE = {
       }
     ],
     tip: "Giffen-Gut: Ausnahme vom Gesetz der Nachfrage — Preis ↑ → Nachfrage ↑ (sehr seltenes Phänomen).",
-    pdf: "/assets/pdfs/WS_VWL_4-2.pdf", quiz: "/assets/quizzes/quiz_nachfrage.html"
+    pdf: "/assets/pdfs/WS_VWL_4-3.pdf", quiz: "/assets/quizzes/quiz_nachfrage.html"
   },
   leaf_m5: {
     leaf: true, title: "Marktgleichgewicht",
