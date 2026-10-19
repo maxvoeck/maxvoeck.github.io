@@ -17,7 +17,7 @@ permalink: /teaching/mikrooekonomie/
   <!-- Hero -->
   <header class="mw-hero">
     <div>
-      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung · 1. Semester</div>
+      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung · 1. Semester · W-Kurs</div>
       <h1>Mikroökonomie</h1>
       <p class="mw-hero-sub">Der erste Teil der Volkswirtschaftslehre — von Bedürfnis und Nachfrage über Angebot, Marktgleichgewicht und Marktformen bis zur Budgetgerade. Zu jedem Modul der Foliensatz, zu den meisten ein Quiz zum Üben.</p>
     </div>

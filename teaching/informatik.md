@@ -17,7 +17,7 @@ permalink: /teaching/informatik/
   <!-- Hero -->
   <header class="mw-hero">
     <div>
-      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung</div>
+      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung · 2. Semester · T-Kurs</div>
       <h1>Informatik</h1>
       <p class="mw-hero-sub">Python-Grundlagen, Datenstrukturen und angewandte Programmierung — zu jedem Modul der Foliensatz, zu den meisten ein Quiz zum Üben.</p>
     </div>

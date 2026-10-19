@@ -17,7 +17,7 @@ permalink: /teaching/makrooekonomie/
   <!-- Hero -->
   <header class="mw-hero">
     <div>
-      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung · 2. Semester</div>
+      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung · 2. Semester · W-Kurs</div>
       <h1>Makroökonomie</h1>
       <p class="mw-hero-sub">Der zweite Teil der Volkswirtschaftslehre — von der Volkswirtschaftlichen Gesamtrechnung über Konjunktur und Arbeitsmarkt bis zu Inflation und magischem Viereck. Zu jedem Modul der Foliensatz, zu den meisten ein Quiz zum Üben.</p>
     </div>

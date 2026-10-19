@@ -17,7 +17,7 @@ permalink: /teaching/mathematik/
   <!-- Hero -->
   <header class="mw-hero">
     <div>
-      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung · 1. Semester</div>
+      <div class="mw-eyebrow">Studienkolleg Leipzig · Feststellungsprüfung · 1. Semester · T-Kurs</div>
       <h1>Mathematik,<br><em>Satz für Satz.</em></h1>
       <p class="mw-hero-sub">26 Module in vier Kapiteln plus fünf interaktive Tools — zu jedem Modul der Foliensatz, zu den meisten ein Quiz zum Üben.</p>
     </div>

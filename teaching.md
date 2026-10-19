@@ -150,6 +150,25 @@ body, html, .page-content, .wrapper, main {
 }
 .mw-fach:hover .mw-fach-pfeil { color: var(--messing); transform: translateX(4px); }
 
+/* ─── Kurskennzeichen (W-Kurs / T-Kurs) ─── */
+.mw-kurs {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  white-space: nowrap;
+  position: relative;
+  top: -2px;
+}
+.mw-kurs--w { color: var(--messing2); background: rgba(194,161,92,0.14); border: 1px solid rgba(194,161,92,0.4); }
+.mw-kurs--t { color: #b9c8ae; background: rgba(143,162,132,0.14); border: 1px solid rgba(143,162,132,0.45); }
+
 /* ─── Leerer Zustand ─── */
 .mw-leer {
   padding: 28px 8px 40px;
@@ -209,7 +228,7 @@ body, html, .page-content, .wrapper, main {
       <a href="/teaching/mathematik/" class="mw-fach">
         <span class="mw-fach-nr">01</span>
         <div>
-          <h2>Mathematik</h2>
+          <h2>Mathematik <span class="mw-kurs mw-kurs--t">T-Kurs</span></h2>
           <div class="mw-fach-meta">{{ mathe_module }} Module &amp; 5 interaktive Tools · Algebra, Vektoren, Analysis, Integralrechnung</div>
         </div>
         <span class="mw-fach-pfeil">&rarr;</span>
@@ -217,7 +236,7 @@ body, html, .page-content, .wrapper, main {
       <a href="/teaching/mikrooekonomie/" class="mw-fach">
         <span class="mw-fach-nr">02</span>
         <div>
-          <h2>Volkswirtschaftslehre &middot; Mikro&ouml;konomie</h2>
+          <h2>Volkswirtschaftslehre &middot; Mikro&ouml;konomie <span class="mw-kurs mw-kurs--w">W-Kurs</span></h2>
           <div class="mw-fach-meta">{{ mikro_module }} Module · Nachfrage, Angebot, Marktgleichgewicht, Marktformen</div>
         </div>
         <span class="mw-fach-pfeil">&rarr;</span>
@@ -225,7 +244,7 @@ body, html, .page-content, .wrapper, main {
       <a href="/teaching/informatik-w/" class="mw-fach">
         <span class="mw-fach-nr">03</span>
         <div>
-          <h2>Informatik (W-Kurs)</h2>
+          <h2>Informatik <span class="mw-kurs mw-kurs--w">W-Kurs</span></h2>
           <div class="mw-fach-meta">{{ info_w_module }} {% if info_w_module == 1 %}Modul{% else %}Module{% endif %} · Daten, Binärsystem, ASCII, Logik</div>
         </div>
         <span class="mw-fach-pfeil">&rarr;</span>
@@ -238,37 +257,29 @@ body, html, .page-content, .wrapper, main {
     <div class="mw-kapitel-kopf">
       <span class="mw-numeral">II</span>
       <h2>2. Semester</h2>
-      <span class="mw-meta">4 F&auml;cher</span>
+      <span class="mw-meta">3 F&auml;cher</span>
     </div>
     <div class="mw-liste">
-      <a href="/teaching/mathematik-w/" class="mw-fach">
+      <a href="/teaching/makrooekonomie/" class="mw-fach">
         <span class="mw-fach-nr">01</span>
         <div>
-          <h2>Mathematik (W-Kurs)</h2>
-          <div class="mw-fach-meta">7 Module · Algebra, Finanzmathematik, Analysis, Integralrechnung</div>
-        </div>
-        <span class="mw-fach-pfeil">&rarr;</span>
-      </a>
-      <a href="/teaching/makrooekonomie/" class="mw-fach">
-        <span class="mw-fach-nr">02</span>
-        <div>
-          <h2>Volkswirtschaftslehre &middot; Makro&ouml;konomie</h2>
+          <h2>Volkswirtschaftslehre &middot; Makro&ouml;konomie <span class="mw-kurs mw-kurs--w">W-Kurs</span></h2>
           <div class="mw-fach-meta">{{ makro_module }} Module · VGR, Konjunktur, Arbeitsmarkt, Inflation</div>
         </div>
         <span class="mw-fach-pfeil">&rarr;</span>
       </a>
       <a href="/teaching/bwl/" class="mw-fach">
-        <span class="mw-fach-nr">03</span>
+        <span class="mw-fach-nr">02</span>
         <div>
-          <h2>Betriebswirtschaftslehre</h2>
+          <h2>Betriebswirtschaftslehre <span class="mw-kurs mw-kurs--w">W-Kurs</span></h2>
           <div class="mw-fach-meta">{{ bwl_module }} Module · Allgemeine BWL, Buchf&uuml;hrung, Erfolg &amp; Steuern</div>
         </div>
         <span class="mw-fach-pfeil">&rarr;</span>
       </a>
       <a href="/teaching/informatik/" class="mw-fach">
-        <span class="mw-fach-nr">04</span>
+        <span class="mw-fach-nr">03</span>
         <div>
-          <h2>Informatik</h2>
+          <h2>Informatik <span class="mw-kurs mw-kurs--t">T-Kurs</span></h2>
           <div class="mw-fach-meta">7 Module · Python</div>
         </div>
         <span class="mw-fach-pfeil">&rarr;</span>
