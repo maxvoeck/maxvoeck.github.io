@@ -129,7 +129,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <span class="tr-kurs">W-Kurs — Klausur 2 (gemeinsame Arbeit BWL &amp; VWL)</span>
         <span class="tr-themen">BWL: Inventur und Inventar &middot; Die Bilanz &middot; Bilanzveränderungen &middot; Der Buchungssatz &middot; Kontenabschluss &middot; Erfolgskonten — VWL: Arbeitslosigkeit und Arbeitsmarktpolitik &middot; Inflation und Preisniveaustabilität &middot; Magisches Viereck</span>
       </div>
-      <span class="tr-datum">20. Oktober 2026</span>
+      <span class="tr-datum">23. Oktober 2026</span>
     </div>
 
     <div class="tr-row">
