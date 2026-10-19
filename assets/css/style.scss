@@ -9,8 +9,13 @@
 
 @import "minima";
 
-/* ─── Nachtprogramm Palette (immutable base colors) ─── */
-:root {
+/* ─── Farben ───
+   Dunkel ist die Grundeinstellung. Hell gilt, wenn das Gerät hell eingestellt ist
+   (prefers-color-scheme) oder jemand oben rechts umschaltet (html[data-theme]).
+   Das Startskript in _layouts/default.html setzt data-theme vor dem ersten Zeichnen.
+   Alle Seiten — auch _includes/kurs/styles.html und teaching.md — nutzen nur diese Variablen. */
+
+@mixin farben-dunkel {
   --ink:      #101014;
   --graphit:  #17171d;
   --graphit2: #1e1e26;
@@ -21,11 +26,66 @@
   --messing:  #c2a15c;
   --messing2: #dfc48a;
   --gruen:    #8fa284;
+  --gruen-text: #b9c8ae;
 
+  --text-rgb: 236, 231, 220;
+  --bg-rgb: 16, 16, 20;
+  --messing-rgb: 194, 161, 92;
+  --gruen-rgb: 143, 162, 132;
+
+  --bg-card: rgba(30,30,38,0.92);
+  --bg-card-hover: rgba(42,42,52,0.9);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.35);
+  --shadow-lg: 0 20px 50px rgba(0,0,0,0.5);
+
+  color-scheme: dark;
+}
+
+/* Warmes Elfenbein statt Weiß; Gold und Grün dunkler, damit sie auf hellem Grund lesbar bleiben
+   (alle Textfarben mindestens 4.5:1). */
+@mixin farben-hell {
+  --ink:      #f7f3eb;
+  --graphit:  #efe9de;
+  --graphit2: #e7e0d2;
+  --graphit3: #ddd5c5;
+  --elfenbein:#1c1b20;
+  --nebel:    #4d4b54;
+  --nebel2:   #67656e;
+  --messing:  #7d5f1d;
+  --messing2: #6e5318;
+  --gruen:    #4a6741;
+  --gruen-text: #3e5736;
+
+  --text-rgb: 28, 27, 32;
+  --bg-rgb: 247, 243, 235;
+  --messing-rgb: 125, 95, 29;
+  --gruen-rgb: 74, 103, 65;
+
+  --bg-card: rgba(255,253,248,0.95);
+  --bg-card-hover: rgba(255,253,248,1);
+  --shadow-sm: 0 1px 3px rgba(60,50,30,0.12);
+  --shadow-md: 0 4px 16px rgba(60,50,30,0.14);
+  --shadow-lg: 0 16px 40px rgba(60,50,30,0.18);
+
+  color-scheme: light;
+}
+
+:root { @include farben-dunkel; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) { @include farben-hell; }
+}
+:root[data-theme="light"] { @include farben-hell; }
+:root[data-theme="dark"] { @include farben-dunkel; }
+
+:root {
   /* Fonts */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
+  --display: var(--font-display);
+  --body: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
 
   /* Spacing – 8pt grid */
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
@@ -40,6 +100,7 @@
   --t-fast: 200ms var(--ease-out);
   --t-base: 400ms var(--ease-out);
 
+  /* Abgeleitete Farben — folgen automatisch dem Modus */
   --bg-deep: var(--ink);
   --bg-primary: var(--graphit);
   --bg-secondary: var(--graphit2);
@@ -48,32 +109,23 @@
   --text-primary: var(--elfenbein);
   --text-secondary: var(--nebel);
   --text-tertiary: var(--nebel2);
-  --text-muted: rgba(236,231,220,0.35);
+  --text-muted: rgba(var(--text-rgb),0.5);
 
-  --text-rgb: 236, 231, 220;
-  --bg-rgb: 16, 16, 20;
+  --bg-elevated: rgba(var(--text-rgb),0.04);
 
-  --bg-elevated: rgba(236,231,220,0.04);
-  --bg-card: rgba(30,30,38,0.85);
-  --bg-card-hover: rgba(42,42,52,0.9);
-
-  --border: rgba(236,231,220,0.09);
-  --border-hover: rgba(236,231,220,0.13);
-  --border-strong: rgba(236,231,220,0.18);
-  --separator: rgba(236,231,220,0.09);
-  --separator-strong: rgba(236,231,220,0.18);
-
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.35);
-  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+  --linie:  rgba(var(--text-rgb),0.12);
+  --linie2: rgba(var(--text-rgb),0.2);
+  --border: rgba(var(--text-rgb),0.1);
+  --border-hover: rgba(var(--text-rgb),0.15);
+  --border-strong: rgba(var(--text-rgb),0.2);
+  --separator: rgba(var(--text-rgb),0.1);
+  --separator-strong: rgba(var(--text-rgb),0.2);
 
   --accent: var(--messing);
   --accent-hover: var(--messing2);
   --success: var(--gruen);
   --mikro: var(--messing);
   --makro: var(--gruen);
-
-  color-scheme: dark;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -228,6 +280,22 @@ th { background: var(--bg-elevated); color: var(--text-primary); font-weight: 50
 .main-nav a:hover::after { transform: translateX(-50%) scaleX(1); }
 .main-nav a:hover { background: rgba(var(--text-rgb),0.04); }
 
+/* Umschalter hell/dunkel */
+.theme-toggle {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; margin-left: var(--s2); padding: 0;
+  border: 1px solid var(--border); border-radius: 50%;
+  background: transparent; color: var(--text-secondary);
+  cursor: pointer; flex-shrink: 0;
+  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast);
+}
+.theme-toggle:hover { color: var(--text-primary); border-color: var(--border-strong); background: rgba(var(--text-rgb),0.04); }
+.theme-toggle:focus-visible, .main-nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.theme-toggle svg { width: 19px; height: 19px; }
+.theme-toggle .icon-mond { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-sonne { display: none; }
+:root[data-theme="light"] .theme-toggle .icon-mond { display: block; }
+
 .site-title { display: none; }
 .site-title, .site-title:visited { color: var(--text-primary); }
 
@@ -306,8 +374,8 @@ th { background: var(--bg-elevated); color: var(--text-primary); font-weight: 50
    SELECTION & SCROLLBAR
    ═══════════════════════════════════════════════════════════════ */
 
-::selection { background: rgba(194,161,92,0.3); color: var(--text-primary); }
-::-moz-selection { background: rgba(194,161,92,0.3); color: var(--text-primary); }
+::selection { background: rgba(var(--messing-rgb),0.3); color: var(--text-primary); }
+::-moz-selection { background: rgba(var(--messing-rgb),0.3); color: var(--text-primary); }
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--bg-deep); }
 ::-webkit-scrollbar-thumb { background: rgba(var(--text-rgb),0.1); border-radius: 100px; }
@@ -346,7 +414,8 @@ th { background: var(--bg-elevated); color: var(--text-primary); font-weight: 50
   .site-home { display: none; }
   .header-container { padding: 0.35rem 0.5rem; }
   .main-nav ul { justify-content: center; }
-  .main-nav a { padding: 0.75rem 0.9rem; font-size: 0.9rem; }
+  .main-nav a { padding: 0.75rem 0.7rem; font-size: 0.9rem; }
+  .theme-toggle { margin-left: 0; }
 }
 
 /* ═══════════════════════════════════════════════════════════════

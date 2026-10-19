@@ -3,25 +3,10 @@
    NACHTPROGRAMM — gemeinsame Gestaltung aller Fachseiten
    Konzertprogramm-Ästhetik: Tinte, Elfenbein, Messing
    ═══════════════════════════════════════════════════════ */
-:root {
-  --ink:      #101014;
-  --graphit:  #17171d;
-  --graphit2: #1e1e26;
-  --linie:    rgba(236, 231, 220, 0.09);
-  --linie2:   rgba(236, 231, 220, 0.18);
-  --elfenbein:#ece7dc;
-  --nebel:    #a9a8b1;
-  --messing:  #c2a15c;
-  --messing2: #dfc48a;
-  --gruen:    #8fa284;
-
-  --display: 'Fraunces', Georgia, serif;
-  --body:    'Inter', system-ui, sans-serif;
-  --mono:    'JetBrains Mono', monospace;
-}
+/* Farben und Schriften: assets/css/style.scss (heller und dunkler Modus). */
 
 body, html, .page-content, .wrapper, main {
-  background: #101014 !important;
+  background: var(--ink) !important;
 }
 .post-header, .page-heading, header.post-header {
   display: none !important;
@@ -245,7 +230,7 @@ body, html, .page-content, .wrapper, main {
   border-bottom: 1px solid var(--linie);
   transition: background 180ms ease, padding 180ms ease;
 }
-.mw-modul:hover { background: rgba(236,231,220,0.025); padding-left: 16px; }
+.mw-modul:hover { background: rgba(var(--text-rgb),0.035); padding-left: 16px; }
 .mw-nr {
   font-family: var(--mono);
   font-size: 13px;
@@ -337,7 +322,7 @@ body, html, .page-content, .wrapper, main {
   bottom: 20px;
   transform: translate(-50%, 140%);
   width: min(680px, calc(100% - 32px));
-  background: rgba(30, 30, 38, 0.92);
+  background: var(--bg-card);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--linie2);
@@ -346,7 +331,7 @@ body, html, .page-content, .wrapper, main {
   display: flex;
   align-items: center;
   gap: 16px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  box-shadow: var(--shadow-lg);
   transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 50;
 }

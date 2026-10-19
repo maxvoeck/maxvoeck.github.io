@@ -12,24 +12,10 @@ permalink: /teaching/
    NACHTPROGRAMM — Lehrmaterialien-Übersicht
    Konzertprogramm-Ästhetik: Tinte, Elfenbein, Messing
    ═══════════════════════════════════════════════════════ */
-:root {
-  --ink:      #101014;
-  --graphit:  #17171d;
-  --graphit2: #1e1e26;
-  --linie:    rgba(236, 231, 220, 0.09);
-  --linie2:   rgba(236, 231, 220, 0.18);
-  --elfenbein:#ece7dc;
-  --nebel:    #a9a8b1;
-  --messing:  #c2a15c;
-  --messing2: #dfc48a;
-
-  --display: 'Fraunces', Georgia, serif;
-  --body:    'Inter', system-ui, sans-serif;
-  --mono:    'JetBrains Mono', monospace;
-}
+/* Farben und Schriften: assets/css/style.scss (heller und dunkler Modus). */
 
 body, html, .page-content, .wrapper, main {
-  background: #101014 !important;
+  background: var(--ink) !important;
 }
 .post-header, .page-heading, header.post-header {
   display: none !important;
@@ -121,7 +107,7 @@ body, html, .page-content, .wrapper, main {
   color: inherit;
   transition: background 180ms ease, padding 180ms ease;
 }
-.mw-fach:hover { background: rgba(236,231,220,0.025); padding-left: 16px; }
+.mw-fach:hover { background: rgba(var(--text-rgb),0.035); padding-left: 16px; }
 .mw-fach-nr {
   font-family: var(--mono);
   font-size: 13px;
@@ -166,8 +152,8 @@ body, html, .page-content, .wrapper, main {
   position: relative;
   top: -2px;
 }
-.mw-kurs--w { color: var(--messing2); background: rgba(194,161,92,0.14); border: 1px solid rgba(194,161,92,0.4); }
-.mw-kurs--t { color: #b9c8ae; background: rgba(143,162,132,0.14); border: 1px solid rgba(143,162,132,0.45); }
+.mw-kurs--w { color: var(--messing2); background: rgba(var(--messing-rgb),0.12); border: 1px solid rgba(var(--messing-rgb),0.4); }
+.mw-kurs--t { color: var(--gruen-text); background: rgba(var(--gruen-rgb),0.12); border: 1px solid rgba(var(--gruen-rgb),0.45); }
 
 /* ─── Leerer Zustand ─── */
 .mw-leer {
