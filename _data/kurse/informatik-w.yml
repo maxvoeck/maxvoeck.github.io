@@ -37,3 +37,13 @@ kapitel:
         pdf: /assets/pdfs/Info_W_2_1.pdf
         quiz: /assets/quizzes/quiz_informatik_w_block2_1.html
         text: /assets/texte/info-w-2-1.pdf
+      - id: w3-1
+        nr: "04"
+        titel: "Wer zahlt den Versand? – Aussagen und Logik"
+        desc: >-
+          An Elsters Versandregel: Aussagen von Fragen und Aufforderungen unterscheiden, Aussagen mit
+          UND (∧), ODER (∨) und NICHT (¬) verknüpfen, Wahrheitstabellen vollständig ergänzen und
+          Ergebnisse wie Versandkosten mit Grenzfällen begründen
+        pdf: /assets/pdfs/Info_W_3_1.pdf
+        quiz: /assets/quizzes/quiz_informatik_w_block3_1.html
+        text: /assets/texte/info-w-3-1.pdf

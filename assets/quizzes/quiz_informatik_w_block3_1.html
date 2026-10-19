@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Block 3.1: Aussagen und Logik</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+        }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+        }
+.quiz-container {
+background: white;
+border-radius: 16px;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+max-width: 800px;
+width: 100%;
+overflow: hidden;
+        }
+.quiz-header {
+background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+color: white;
+padding: 2rem;
+text-align: center;
+        }
+.quiz-header h1 {
+font-size: 1.8rem;
+margin-bottom: 0.5rem;
+        }
+.quiz-header p {
+opacity: 0.9;
+font-size: 1rem;
+        }
+.progress-bar {
+background: #e0e0e0;
+height: 8px;
+position: relative;
+        }
+.progress-fill {
+background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+height: 100%;
+width: 0%;
+transition: width 0.3s ease;
+        }
+.quiz-content {
+padding: 2rem;
+        }
+.question-container {
+display: none;
+        }
+.question-container.active {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+@keyframes fadeIn {
+            from {
+opacity: 0;
+transform: translateY(20px);
+            }
+            to {
+opacity: 1;
+transform: translateY(0);
+            }
+        }
+.question-number {
+color: #667eea;
+font-weight: 600;
+font-size: 0.9rem;
+margin-bottom: 0.5rem;
+        }
+.question-text {
+font-size: 1.3rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1.5rem;
+line-height: 1.5;
+        }
+.options {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+        }
+.option {
+background: #f8f9fa;
+border: 2px solid #e0e0e0;
+border-radius: 12px;
+padding: 1rem 1.5rem;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 1rem;
+        }
+.option:hover {
+background: #f0f1f3;
+border-color: #667eea;
+transform: translateX(5px);
+        }
+.option-letter {
+background: #667eea;
+color: white;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+flex-shrink: 0;
+        }
+.option.selected {
+background: #e8eaf6;
+border-color: #667eea;
+        }
+.option.correct {
+background: #d4edda;
+border-color: #28a745;
+        }
+.option.correct .option-letter {
+background: #28a745;
+        }
+.option.incorrect {
+background: #f8d7da;
+border-color: #dc3545;
+        }
+.option.incorrect .option-letter {
+background: #dc3545;
+        }
+.option.disabled {
+cursor: not-allowed;
+opacity: 0.7;
+        }
+.feedback {
+margin-top: 1.5rem;
+padding: 1rem;
+border-radius: 8px;
+display: none;
+        }
+.feedback.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.feedback.correct {
+background: #d4edda;
+border-left: 4px solid #28a745;
+color: #155724;
+        }
+.feedback.incorrect {
+background: #f8d7da;
+border-left: 4px solid #dc3545;
+color: #721c24;
+        }
+.feedback-title {
+font-weight: 600;
+margin-bottom: 0.5rem;
+        }
+.controls {
+margin-top: 2rem;
+display: flex;
+justify-content: space-between;
+gap: 1rem;
+        }
+.btn {
+padding: 0.8rem 2rem;
+border: none;
+border-radius: 8px;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+        }
+.btn-primary {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+        }
+.btn-primary:hover:not(:disabled) {
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+.btn-secondary {
+background: #f8f9fa;
+color: #374151;
+border: 2px solid #e0e0e0;
+        }
+.btn-secondary:hover:not(:disabled) {
+background: #e9ecef;
+        }
+.btn:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+        }
+.results-container {
+display: none;
+text-align: center;
+padding: 2rem;
+        }
+.results-container.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.score-circle {
+width: 200px;
+height: 200px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 2rem auto;
+color: white;
+box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+.score-number {
+font-size: 3rem;
+font-weight: 700;
+        }
+.score-label {
+font-size: 1rem;
+opacity: 0.9;
+        }
+.result-message {
+font-size: 1.5rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1rem;
+        }
+.result-details {
+background: #f8f9fa;
+border-radius: 12px;
+padding: 1.5rem;
+margin: 2rem 0;
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+gap: 1rem;
+        }
+.result-stat {
+text-align: center;
+        }
+.result-stat-number {
+font-size: 2rem;
+font-weight: 700;
+color: #667eea;
+        }
+.result-stat-label {
+font-size: 0.9rem;
+color: #666;
+margin-top: 0.3rem;
+        }
+@media (max-width: 768px) {
+body {
+padding: 10px;
+            }
+.quiz-header h1 {
+font-size: 1.4rem;
+            }
+.question-text {
+font-size: 1.1rem;
+            }
+.controls {
+flex-direction: column;
+            }
+.btn {
+width: 100%;
+            }
+        }
+
+button.option { width:100%; text-align:left; font:inherit; color:#1f2937; }
+.option:focus-visible,.btn:focus-visible { outline:3px solid #374151; outline-offset:3px; }
+.option:disabled { cursor:default; opacity:1; transform:none; }
+.option:disabled:hover { transform:none; }
+.option-text { line-height:1.5; }
+@media (max-width:480px) { .quiz-content,.quiz-header {padding:1.25rem;} .option {padding:0.9rem;} }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important;} }
+details.hint {margin:0 0 1rem; color:#374151; line-height:1.6; background:#f3f4f6; padding:.75rem 1rem; border-radius:8px;}
+details.hint summary {cursor:pointer;font-weight:600;}
+details.hint p {margin-top:.5rem;}
+.question-text {white-space:pre-line;}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+<div class="quiz-header">
+<h1>Aussagen und Logik</h1>
+<p>Informatik · Block 3.1 · 20 Fragen · Jeweils eine Antwort ist richtig</p>
+</div>
+<div class="progress-bar">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="quiz-content">
+<div id="questionsContainer"></div>
+<div class="results-container" id="resultsContainer">
+<div class="result-message" id="resultMessage"></div>
+<div class="score-circle">
+<div class="score-number" id="scoreNumber">0%</div>
+<div class="score-label">Beim ersten Versuch</div>
+</div>
+<div class="result-details">
+<div class="result-stat">
+<div class="result-stat-number" id="correctCount">0</div>
+<div class="result-stat-label">Beim ersten Versuch richtig</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="incorrectCount">0</div>
+<div class="result-stat-label">Fehlversuche</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="totalCount">0</div>
+<div class="result-stat-label">Antwortversuche</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+</div>
+</div>
+</div>
+<script>
+const quizData = [
+  {
+    "question": "Was ist eine Aussage über eine Elster-Bestellung?",
+    "options": [
+      "Ein Satz mit eindeutig genau einem Wahrheitswert: wahr oder falsch.",
+      "Eine Aufforderung, die der Shop ausführen soll.",
+      "Eine Frage, die man mit Ja oder Nein beantworten kann.",
+      "Ein Satz, der immer wahr sein muss."
+    ],
+    "correct": 0,
+    "feedbacks": [
+      "Eine Aussage hat eindeutig genau einen Wahrheitswert. Auch eine falsche Aussage bleibt eine Aussage.",
+      "Eine Aufforderung ist selbst weder wahr noch falsch.",
+      "Die Antwort kann eine Aussage sein; die Frage selbst hat keinen Wahrheitswert.",
+      "Auch ein falscher Satz kann eine Aussage sein."
+    ],
+    "hint": "Unterscheiden Sie den Satz selbst von einer Frage über diesen Satz.",
+    "explanation": "Eine Aussage hat eindeutig genau einen Wahrheitswert. Auch eine falsche Aussage bleibt eine Aussage."
+  },
+  {
+    "question": "Bei Elster beträgt der Bestellwert 24 Euro. Welcher Satz ist eine falsche Aussage?",
+    "options": [
+      "„Bestellen Sie noch eine Packung!“",
+      "„Der Bestellwert beträgt mindestens 30 Euro.“",
+      "„Wie hoch ist der Bestellwert?“",
+      "„Der Bestellwert beträgt weniger als 30 Euro.“"
+    ],
+    "correct": 1,
+    "feedbacks": [
+      "Das ist eine Aufforderung. Sie ist weder wahr noch falsch.",
+      "24 Euro sind weniger als 30 Euro. Der Satz über mindestens 30 Euro ist deshalb eine Aussage mit dem Wahrheitswert falsch.",
+      "Das ist eine Frage. Sie ist weder wahr noch falsch.",
+      "24 Euro liegen unter 30 Euro. Dieser Satz ist wahr."
+    ],
+    "hint": "Eine falsche Aussage muss ein Satz mit einem Wahrheitswert sein.",
+    "explanation": "24 Euro sind weniger als 30 Euro. Der Satz über mindestens 30 Euro ist deshalb eine Aussage mit dem Wahrheitswert falsch."
+  },
+  {
+    "question": "A und B bezeichnen zwei Aussagen im Elster-Shop. Welche Zuordnung ist richtig?",
+    "options": [
+      "A ∨ B: Konjunktion, gelesen „A und B“.",
+      "A ∧ B: Negation, gelesen „nicht A“.",
+      "¬A: Disjunktion, gelesen „A oder B“.",
+      "A ∨ B: Disjunktion, gelesen „A oder B“."
+    ],
+    "correct": 3,
+    "feedbacks": [
+      "Konjunktion ist die UND-Verknüpfung. Ihr Zeichen ist ∧.",
+      "∧ verbindet zwei Aussagen mit UND. Eine Negation wird mit ¬ geschrieben.",
+      "¬A verneint genau die Aussage A und bedeutet „nicht A“.",
+      "∨ ist das Zeichen für ODER. Diese Verknüpfung heißt Disjunktion."
+    ],
+    "hint": "Achten Sie darauf, welches Zeichen zwischen zwei Aussagen steht.",
+    "explanation": "∨ ist das Zeichen für ODER. Diese Verknüpfung heißt Disjunktion."
+  },
+  {
+    "question": "B bedeutet bei Elster: „Die Person ist Stammkunde.“ Wie lesen Sie ¬B?",
+    "options": [
+      "„Die Person ist Stammkunde und bestellt viel.“",
+      "„Die Person ist kein Stammkunde.“",
+      "„Ob die Person Stammkunde ist, ist unbekannt.“",
+      "„Die Person ist Stammkunde oder bestellt viel.“"
+    ],
+    "correct": 1,
+    "feedbacks": [
+      "Das ergänzt eine weitere Bedingung. Es verneint B nicht.",
+      "¬ bedeutet NICHT. Die Negation von „ist Stammkunde“ lautet „ist kein Stammkunde“.",
+      "Unbekanntes Wissen ist nicht dasselbe wie die Negation einer Aussage.",
+      "Das verknüpft B mit einer zweiten Aussage. ¬B enthält keine ODER-Verknüpfung."
+    ],
+    "hint": "Das Zeichen vor B verändert den Wahrheitswert von B.",
+    "explanation": "¬ bedeutet NICHT. Die Negation von „ist Stammkunde“ lautet „ist kein Stammkunde“."
+  },
+  {
+    "question": "Bei Elster steht A für „bezahlt“ und B für „auf Lager“. Wann ist A ∧ B wahr?",
+    "options": [
+      "Immer dann, wenn mindestens eine der beiden Aussagen wahr ist.",
+      "Genau dann, wenn nur eine der beiden Aussagen wahr ist.",
+      "Genau dann, wenn A und B beide falsch sind.",
+      "Genau dann, wenn A und B beide wahr sind."
+    ],
+    "correct": 3,
+    "feedbacks": [
+      "Das beschreibt ODER. Bei UND müssen beide Aussagen wahr sein.",
+      "Eine einzelne wahre Aussage reicht für UND nicht aus.",
+      "Sind beide Aussagen falsch, ist auch die Konjunktion falsch.",
+      "Die Konjunktion ist genau dann wahr, wenn beide Aussagen wahr sind. Bezahlt allein oder auf Lager allein reicht nicht."
+    ],
+    "hint": "Ein Versand setzt hier die Erfüllung beider Bedingungen voraus.",
+    "explanation": "Die Konjunktion ist genau dann wahr, wenn beide Aussagen wahr sind. Bezahlt allein oder auf Lager allein reicht nicht."
+  },
+  {
+    "question": "Für eine Elster-Bestellung sind A und B beide wahr. Bestimmen Sie die Wahrheitswerte von A ∨ B und A ∧ B.",
+    "options": [
+      "A ∨ B ist falsch; A ∧ B ist falsch.",
+      "A ∨ B ist wahr; A ∧ B ist falsch.",
+      "A ∨ B ist wahr; A ∧ B ist wahr.",
+      "A ∨ B ist falsch; A ∧ B ist wahr."
+    ],
+    "correct": 2,
+    "feedbacks": [
+      "Beide Definitionen sind hier erfüllt: mindestens eine Aussage und auch beide Aussagen sind wahr.",
+      "Da beide Aussagen wahr sind, ist auch die UND-Verknüpfung wahr.",
+      "Sind beide Aussagen wahr, ist mindestens eine wahr und zugleich sind beide wahr. Deshalb ergeben ODER und UND hier jeweils wahr.",
+      "Das logische ODER erlaubt auch den Fall, dass beide Aussagen wahr sind."
+    ],
+    "hint": "Prüfen Sie beide Verknüpfungen einzeln mit ihrer Definition.",
+    "explanation": "Sind beide Aussagen wahr, ist mindestens eine wahr und zugleich sind beide wahr. Deshalb ergeben ODER und UND hier jeweils wahr."
+  },
+  {
+    "question": "Elster bietet entweder eine Kaffeepackung oder einen Gutschein als Geschenk an. Beide zusammen sind ausgeschlossen. Worin unterscheidet sich diese Auswahl vom logischen ODER?",
+    "options": [
+      "Beide Regeln schließen den Fall „beide wahr“ aus.",
+      "Bei der Auswahl gilt genau eines; beim logischen ODER sind auch beide erlaubt.",
+      "Beide Regeln verlangen den Fall „beide wahr“.",
+      "Bei der Auswahl sind beide erlaubt; beim logischen ODER gilt genau eines."
+    ],
+    "correct": 1,
+    "feedbacks": [
+      "Nur die beschriebene Entweder-oder-Auswahl schließt beide Geschenke aus.",
+      "„Entweder … oder“ meint in dieser Auswahl genau eines. Das logische ODER ist auch wahr, wenn beide Aussagen wahr sind.",
+      "Die Auswahl erlaubt nur ein Geschenk. Für ODER reicht mindestens eine wahre Aussage.",
+      "Hier ist ausdrücklich nur ein Geschenk erlaubt. Das logische ODER schließt dagegen beide wahren Aussagen ein."
+    ],
+    "hint": "Untersuchen Sie den Fall, dass beide Bedingungen erfüllt sind.",
+    "explanation": "„Entweder … oder“ meint in dieser Auswahl genau eines. Das logische ODER ist auch wahr, wenn beide Aussagen wahr sind."
+  },
+  {
+    "question": "Für eine Elster-Bestellung gilt: A ist falsch, B ist wahr. Welche Zeile ist richtig?",
+    "options": [
+      "A ∧ B: falsch; A ∨ B: wahr.",
+      "A ∧ B: falsch; A ∨ B: falsch.",
+      "A ∧ B: wahr; A ∨ B: wahr.",
+      "A ∧ B: wahr; A ∨ B: falsch."
+    ],
+    "correct": 0,
+    "feedbacks": [
+      "A ist falsch, daher ist A ∧ B falsch. B ist wahr, daher ist A ∨ B wahr.",
+      "UND ist falsch. ODER ist aber wahr, weil B wahr ist.",
+      "ODER ist wahr. UND ist jedoch falsch, weil A falsch ist.",
+      "Für UND fehlt eine zweite wahre Aussage. ODER ist durch das wahre B erfüllt."
+    ],
+    "hint": "Eine wahre Aussage reicht für genau eine der beiden Verknüpfungen aus.",
+    "explanation": "A ist falsch, daher ist A ∧ B falsch. B ist wahr, daher ist A ∨ B wahr."
+  },
+  {
+    "question": "Für eine Elster-Bestellung gilt: A ist wahr, B ist falsch. Bestimmen Sie ¬A und ¬B.",
+    "options": [
+      "¬A ist wahr; ¬B ist wahr.",
+      "¬A ist falsch; ¬B ist falsch.",
+      "¬A ist falsch; ¬B ist wahr.",
+      "¬A ist wahr; ¬B ist falsch."
+    ],
+    "correct": 2,
+    "feedbacks": [
+      "¬B ist wahr. Da A wahr ist, muss ¬A jedoch falsch sein.",
+      "¬A ist falsch. Da B falsch ist, muss ¬B jedoch wahr sein.",
+      "Die Negation kehrt jeden Wahrheitswert um: Aus A wahr wird ¬A falsch; aus B falsch wird ¬B wahr.",
+      "Diese Antwort übernimmt die ursprünglichen Wahrheitswerte, statt sie umzukehren."
+    ],
+    "hint": "Wenden Sie NICHT auf jede Aussage getrennt an.",
+    "explanation": "Die Negation kehrt jeden Wahrheitswert um: Aus A wahr wird ¬A falsch; aus B falsch wird ¬B wahr."
+  },
+  {
+    "question": "In einer Elster-Wahrheitstabelle stehen schon die Zeilen (A wahr, B wahr), (A falsch, B wahr) und (A wahr, B falsch). Welche Kombination fehlt?",
+    "options": [
+      "A falsch, B falsch.",
+      "A falsch, B wahr.",
+      "A wahr, B wahr.",
+      "A wahr, B falsch."
+    ],
+    "correct": 0,
+    "feedbacks": [
+      "Bei zwei Aussagen gibt es vier Kombinationen. Noch nicht enthalten ist die Kombination falsch/falsch.",
+      "Diese Kombination steht bereits in der Tabelle.",
+      "Diese Kombination steht bereits in der Tabelle.",
+      "Diese Kombination steht bereits in der Tabelle."
+    ],
+    "hint": "Schreiben Sie alle Möglichkeiten auf. Jede Aussage hat zwei Wahrheitswerte.",
+    "explanation": "Bei zwei Aussagen gibt es vier Kombinationen. Noch nicht enthalten ist die Kombination falsch/falsch."
+  },
+  {
+    "question": "Eine Elster-Wahrheitstabelle beginnt mit wahr/wahr, eine andere mit falsch/falsch. Wann können beide Tabellen korrekt sein?",
+    "options": [
+      "Nur wenn beide Tabellen mit derselben Zeile anfangen.",
+      "Wenn die Ergebnis-Spalten von oben nach unten gleich aussehen.",
+      "Wenn beide alle vier Kombinationen mit jeweils passenden Ergebnissen enthalten.",
+      "Wenn beide Tabellen nur die Zeilen mit dem Ergebnis wahr enthalten."
+    ],
+    "correct": 2,
+    "feedbacks": [
+      "Die Reihenfolge der Zeilen ist frei. Die Kombinationen und Ergebnisse müssen stimmen.",
+      "Bei anderer Zeilenreihenfolge können sich auch die Reihenfolgen der Ergebnisse unterscheiden.",
+      "Für die Korrektheit zählt die Zuordnung des Ergebnisses zu den Wahrheitswerten in derselben Zeile. Die Zeilen dürfen anders angeordnet sein.",
+      "Eine vollständige Wahrheitstabelle enthält auch die Kombinationen mit dem Ergebnis falsch."
+    ],
+    "hint": "Ordnen Sie jedes Ergebnis seiner Kombination von A und B zu.",
+    "explanation": "Für die Korrektheit zählt die Zuordnung des Ergebnisses zu den Wahrheitswerten in derselben Zeile. Die Zeilen dürfen anders angeordnet sein."
+  },
+  {
+    "question": "A bedeutet bei Elster: „Der Bestellwert beträgt mindestens 30 Euro.“ Welche Aussage ist ¬A?",
+    "options": [
+      "„Der Bestellwert beträgt weniger als 30 Euro.“",
+      "„Der Bestellwert beträgt höchstens 30 Euro.“",
+      "„Der Bestellwert beträgt mehr als 30 Euro.“",
+      "„Der Bestellwert beträgt genau 30 Euro.“"
+    ],
+    "correct": 0,
+    "feedbacks": [
+      "„Mindestens 30 Euro“ umfasst 30 Euro und alle höheren Werte. Die Negation umfasst genau die Werte unter 30 Euro.",
+      "Bei genau 30 Euro wären „mindestens“ und „höchstens“ beide wahr. Das passt nicht zu einer Negation.",
+      "Mehr als 30 Euro erfüllt A weiterhin. Es ist nicht die Verneinung von A.",
+      "Genau 30 Euro erfüllt A. Die Negation muss diesen Grenzwert ausschließen."
+    ],
+    "hint": "Prüfen Sie besonders den genauen Grenzwert 30 Euro.",
+    "explanation": "„Mindestens 30 Euro“ umfasst 30 Euro und alle höheren Werte. Die Negation umfasst genau die Werte unter 30 Euro."
+  },
+  {
+    "question": "Elster liefert frei ab 30 Euro oder für Stammkunden. Eine Person bestellt fünf Packungen zu je 6 Euro und ist kein Stammkunde. Wie hoch sind die Versandkosten?",
+    "options": [
+      "0 Euro, weil genau 30 Euro die Bestellwert-Bedingung erfüllen.",
+      "6 Euro, weil jede Packung zusätzliche Versandkosten verursacht.",
+      "2 Euro, weil zusätzlich der Stammkundenstatus erforderlich ist.",
+      "2 Euro, weil nur Beträge über 30 Euro die Bedingung erfüllen."
+    ],
+    "correct": 0,
+    "feedbacks": [
+      "5 × 6 Euro = 30 Euro. Die erste Bedingung ist wahr. Bei ODER reicht sie aus, auch ohne Stammkundenstatus.",
+      "Die Regel sieht entweder 0 Euro oder 2 Euro Versand pro Bestellung vor, keine Versandkosten je Packung.",
+      "Die Regel verwendet ODER. Der erreichte Bestellwert reicht aus.",
+      "„Ab 30 Euro“ schließt genau 30 Euro ein."
+    ],
+    "hint": "Berechnen Sie zuerst den Warenwert und prüfen Sie dann „ab 30 Euro“.",
+    "explanation": "5 × 6 Euro = 30 Euro. Die erste Bedingung ist wahr. Bei ODER reicht sie aus, auch ohne Stammkundenstatus."
+  },
+  {
+    "question": "A bedeutet „Bestellwert mindestens 30 Euro“, B bedeutet „Stammkunde“. Für eine Elster-Bestellung ist A ∨ B falsch. Was folgt sicher?",
+    "options": [
+      "A ist wahr, B ist falsch.",
+      "A und B sind beide falsch.",
+      "A und B sind beide wahr.",
+      "A ist falsch, B ist wahr."
+    ],
+    "correct": 1,
+    "feedbacks": [
+      "Das wahre A würde bereits ausreichen, damit A ∨ B wahr ist.",
+      "Eine Disjunktion ist nur dann falsch, wenn beide Aussagen falsch sind. Hier liegt der Bestellwert unter 30 Euro und die Person ist kein Stammkunde.",
+      "Wären beide wahr, wäre auch A ∨ B wahr.",
+      "Das wahre B würde bereits ausreichen, damit A ∨ B wahr ist."
+    ],
+    "hint": "Fragen Sie, was mit ODER passiert, sobald eine einzelne Aussage wahr ist.",
+    "explanation": "Eine Disjunktion ist nur dann falsch, wenn beide Aussagen falsch sind. Hier liegt der Bestellwert unter 30 Euro und die Person ist kein Stammkunde."
+  },
+  {
+    "question": "A bedeutet „Bestellwert mindestens 30 Euro“, B bedeutet „Stammkunde“. Welche Bestellung widerlegt die Behauptung: „Ist A ∧ B falsch, sind beide Aussagen falsch“?",
+    "options": [
+      "24 Euro, kein Stammkunde.",
+      "24 Euro, Stammkunde.",
+      "30 Euro, Stammkunde.",
+      "36 Euro, Stammkunde."
+    ],
+    "correct": 1,
+    "feedbacks": [
+      "Hier sind tatsächlich beide Aussagen falsch. Das widerlegt die Behauptung nicht.",
+      "Bei 24 Euro und Stammkundenstatus ist A falsch und B wahr. A ∧ B ist falsch, obwohl nicht beide Aussagen falsch sind.",
+      "Bei genau 30 Euro sind A und B beide wahr. A ∧ B ist daher wahr.",
+      "Hier ist A ∧ B wahr. Der vorausgesetzte Fall der Behauptung liegt nicht vor."
+    ],
+    "hint": "Gesucht ist eine falsche Konjunktion, bei der trotzdem eine Aussage wahr ist.",
+    "explanation": "Bei 24 Euro und Stammkundenstatus ist A falsch und B wahr. A ∧ B ist falsch, obwohl nicht beide Aussagen falsch sind."
+  },
+  {
+    "question": "A bedeutet „Bestellwert mindestens 30 Euro“, B bedeutet „Stammkunde“. Welche Bestellung zeigt, dass aus A ∨ B wahr nicht folgt, dass beide Aussagen wahr sind?",
+    "options": [
+      "36 Euro, kein Stammkunde.",
+      "24 Euro, kein Stammkunde.",
+      "36 Euro, Stammkunde.",
+      "30 Euro, Stammkunde."
+    ],
+    "correct": 0,
+    "feedbacks": [
+      "Bei 36 Euro und ohne Stammkundenstatus ist A wahr, B falsch und A ∨ B wahr. Beide Aussagen müssen für ODER nicht wahr sein.",
+      "Hier ist A ∨ B falsch. Die geforderte wahre Disjunktion liegt nicht vor.",
+      "Hier sind beide Aussagen wahr. Das zeigt die behauptete Ausnahme nicht.",
+      "Genau 30 Euro erfüllt A. Zusammen mit B sind hier beide Aussagen wahr."
+    ],
+    "hint": "Gesucht ist eine wahre Disjunktion mit genau einer wahren Aussage.",
+    "explanation": "Bei 36 Euro und ohne Stammkundenstatus ist A wahr, B falsch und A ∨ B wahr. Beide Aussagen müssen für ODER nicht wahr sein."
+  },
+  {
+    "question": "Bei Elster steht A für „bezahlt“ und B für „auf Lager“. Es ist bekannt, dass A ∧ B wahr ist. Welche Aussage folgt sicher?",
+    "options": [
+      "Die Bestellung ist bezahlt und die Ware ist auf Lager.",
+      "Die Bestellung ist bezahlt; ob die Ware auf Lager ist, bleibt offen.",
+      "Mindestens eine der beiden Bedingungen ist nicht erfüllt.",
+      "Die Ware ist auf Lager; ob die Bestellung bezahlt ist, bleibt offen."
+    ],
+    "correct": 0,
+    "feedbacks": [
+      "Eine Konjunktion ist nur bei wahr/wahr wahr. Daher müssen sowohl die Zahlung als auch der Lagerbestand gegeben sein.",
+      "Eine wahre Konjunktion setzt auch voraus, dass B wahr ist.",
+      "Eine nicht erfüllte Bedingung würde die Konjunktion falsch machen.",
+      "Eine wahre Konjunktion setzt auch voraus, dass A wahr ist."
+    ],
+    "hint": "Prüfen Sie, unter welcher einzigen Kombination UND wahr ist.",
+    "explanation": "Eine Konjunktion ist nur bei wahr/wahr wahr. Daher müssen sowohl die Zahlung als auch der Lagerbestand gegeben sein."
+  },
+  {
+    "question": "Eine neue Kundin bestellt vier Kaffeepackungen zu je 6 Euro. Elster liefert frei ab 30 Euro oder für Stammkunden; sonst kostet der Versand 2 Euro. Berechnen Sie den Gesamtbetrag.",
+    "options": [
+      "24 Euro.",
+      "26 Euro.",
+      "32 Euro.",
+      "30 Euro."
+    ],
+    "correct": 1,
+    "feedbacks": [
+      "24 Euro sind nur der Warenwert. Beide Bedingungen für freien Versand sind falsch; deshalb kommen 2 Euro hinzu.",
+      "4 × 6 Euro = 24 Euro. Die Kundin ist kein Stammkunde und bleibt unter 30 Euro. Gesamtbetrag: 24 + 2 = 26 Euro.",
+      "Die Waren kosten 4 × 6 = 24 Euro. Dazu kommen 2 Euro Versand pro Bestellung, nicht pro Packung.",
+      "Der Grenzwert verändert den Warenwert nicht. Vier Packungen kosten 24 Euro; der Versand kostet 2 Euro."
+    ],
+    "hint": "Prüfen Sie Warenwert und Versandkosten getrennt.",
+    "explanation": "4 × 6 Euro = 24 Euro. Die Kundin ist kein Stammkunde und bleibt unter 30 Euro. Gesamtbetrag: 24 + 2 = 26 Euro."
+  },
+  {
+    "question": "A bedeutet „Bestellwert mindestens 30 Euro“, B bedeutet „Stammkunde“. Versand frei bei A ∨ B; Probierpaket bei A ∧ B. Was gilt für eine Stammkundin mit 36 Euro Bestellwert?",
+    "options": [
+      "Versand kostenpflichtig und kein Probierpaket.",
+      "Versand frei, aber kein Probierpaket.",
+      "Versand frei und Probierpaket.",
+      "Versand kostenpflichtig, aber Probierpaket."
+    ],
+    "correct": 2,
+    "feedbacks": [
+      "Beide Aussagen sind wahr. Daher sind sowohl ODER als auch UND wahr.",
+      "A und B sind beide wahr. Damit ist auch die UND-Bedingung für das Probierpaket erfüllt.",
+      "36 Euro erfüllt A und der Stammkundenstatus erfüllt B. A ∨ B und A ∧ B sind deshalb beide wahr.",
+      "Auch wenn beide Aussagen wahr sind, bleibt das logische ODER wahr. Der Versand ist frei."
+    ],
+    "hint": "Prüfen Sie zuerst die beiden einzelnen Aussagen.",
+    "explanation": "36 Euro erfüllt A und der Stammkundenstatus erfüllt B. A ∨ B und A ∧ B sind deshalb beide wahr."
+  },
+  {
+    "question": "Elster prüft A = „Bestellwert mindestens 30 Euro“ und B = „Stammkunde“. Eine Regel liefert: falsch/falsch → falsch; falsch/wahr → wahr; wahr/wahr → wahr. Welche der folgenden Regeln passt zu allen drei Fällen?",
+    "options": [
+      "A ∨ B.",
+      "¬A.",
+      "¬B.",
+      "A ∧ B."
+    ],
+    "correct": 0,
+    "feedbacks": [
+      "ODER liefert bei falsch/falsch das Ergebnis falsch und bei falsch/wahr sowie wahr/wahr jeweils wahr. Nur A ∨ B passt unter den vier angebotenen Regeln zu allen Fällen.",
+      "Bei falsch/falsch wäre ¬A wahr. Die vorgegebene Regel liefert dort falsch.",
+      "Bei falsch/falsch wäre ¬B wahr. Außerdem wäre bei falsch/wahr das Ergebnis falsch statt wahr.",
+      "Bei falsch/wahr wäre A ∧ B falsch. Die vorgegebene Regel liefert dort wahr."
+    ],
+    "hint": "Prüfen Sie jede vorgeschlagene Regel an allen drei vorgegebenen Fällen.",
+    "explanation": "ODER liefert bei falsch/falsch das Ergebnis falsch und bei falsch/wahr sowie wahr/wahr jeweils wahr. Nur A ∨ B passt unter den vier angebotenen Regeln zu allen Fällen."
+  }
+];
+
+let queue, currentIndex, totalAnswered, firstCorrect, mastered, attempted;
+let displayedOptions = [], locked = false;
+function shuffle(values) {
+  const a = [...values];
+  for (let i=a.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+// Fünf richtige Antworten pro Position im ersten Durchlauf,
+// zufällig angeordnet, ohne Dreierfolge oder wiederholten Viererblock.
+function makePositions() {
+  let p;
+  do {
+    p=shuffle(Array.from({length:20},(_,i)=>i%4));
+  } while (p.some((v,i)=>i>1&&v===p[i-1]&&v===p[i-2]) ||
+    p.some((_,i)=>i>=4&&i<=16&&p.slice(i,i+4).every((v,j)=>v===p[i-4+j])));
+  return p;
+}
+let positions;
+function initQuiz() {
+  queue=quizData.map((_,i)=>i); currentIndex=0; totalAnswered=0; firstCorrect=0;
+  mastered=new Set(); attempted=new Set(); positions=makePositions();
+  document.getElementById('resultsContainer').classList.remove('show');
+  renderCurrentQuestion();
+}
+function renderCurrentQuestion() {
+  if(currentIndex>=queue.length) { showResults(); return; }
+  const id=queue[currentIndex], q=quizData[id], retry=attempted.has(id);
+  const correctOption={text:q.options[q.correct],correct:true,feedback:q.feedbacks[q.correct]};
+  displayedOptions=shuffle(q.options.map((text,i)=>({text,correct:i===q.correct,feedback:q.feedbacks[i]})).filter(o=>!o.correct));
+  displayedOptions.splice(retry?Math.floor(Math.random()*4):positions[id],0,correctOption);
+  locked=false;
+  const container=document.getElementById('questionsContainer');
+  container.innerHTML=`<div class="question-container active">
+    <div class="question-number">${retry?'🔁 Wiederholung · ':''}Frage ${id+1} von ${quizData.length} · ${mastered.size} gemeistert</div>
+    <h2 class="question-text" tabindex="-1">${q.question}</h2>
+    <details class="hint"><summary>Hinweis anzeigen</summary><p>${q.hint}</p></details>
+    <div class="options" id="options-current" role="group" aria-label="Antwortmöglichkeiten"></div>
+    <div class="feedback" id="feedback-current" role="status" aria-live="polite">
+      <div class="feedback-title"></div><div class="feedback-text"></div>
+    </div>
+    <div class="controls"><div></div><button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Weiter →</button></div>
+  </div>`;
+  const options=document.getElementById('options-current');
+  displayedOptions.forEach((o,i)=>{
+    const button=document.createElement('button');
+    button.type='button';button.className='option';
+    const letter=document.createElement('span');letter.className='option-letter';letter.textContent=String.fromCharCode(65+i);
+    const label=document.createElement('span');label.className='option-text';label.textContent=o.text;
+    button.append(letter,label);button.addEventListener('click',()=>selectOption(i));options.append(button);
+  });
+  updateProgress();
+  if(totalAnswered>0) container.querySelector('h2').focus();
+}
+function selectOption(index) {
+  if(locked) return;
+  locked=true;
+  const id=queue[currentIndex], q=quizData[id], right=displayedOptions[index].correct;
+  const buttons=document.querySelectorAll('#options-current .option');
+  buttons.forEach((b,i)=>{b.disabled=true;if(displayedOptions[i].correct)b.classList.add('correct');});
+  buttons[index].classList.add('selected',right?'correct':'incorrect');
+  const feedback=document.getElementById('feedback-current');
+  feedback.classList.add('show',right?'correct':'incorrect');
+  if(right) {
+    if(!attempted.has(id))firstCorrect++;
+    mastered.add(id);
+    feedback.querySelector('.feedback-title').textContent='✓ Richtig!';
+  } else {
+    queue.splice(Math.min(currentIndex+5,queue.length),0,id);
+    feedback.querySelector('.feedback-title').textContent='✗ Noch nicht richtig – die Frage kommt später erneut.';
+  }
+  attempted.add(id);totalAnswered++;
+  feedback.querySelector('.feedback-text').textContent=displayedOptions[index].feedback+(right?'':' '+q.explanation);
+  document.getElementById('nextBtn').disabled=false;
+  updateProgress();
+}
+function nextQuestion() {
+  if(!locked)return;
+  currentIndex++;renderCurrentQuestion();
+}
+function updateProgress() {
+  document.getElementById('progressFill').style.width=(mastered.size/quizData.length*100)+'%';
+}
+function showResults() {
+  document.getElementById('questionsContainer').innerHTML='';
+  document.getElementById('resultsContainer').classList.add('show');
+  document.getElementById('scoreNumber').textContent=Math.round(firstCorrect/quizData.length*100)+'%';
+  document.getElementById('correctCount').textContent=firstCorrect+' / '+quizData.length;
+  document.getElementById('incorrectCount').textContent=totalAnswered-quizData.length;
+  document.getElementById('totalCount').textContent=totalAnswered;
+  document.getElementById('resultMessage').textContent=firstCorrect===20?'Alles auf Anhieb richtig!':`Geschafft! Alle 20 Fragen gemeistert. ${firstCorrect} beim ersten Versuch richtig.`;
+  updateProgress();
+}
+function restartQuiz(){initQuiz();}
+window.onload=initQuiz;
+
+</script>
+</body>
+</html>
