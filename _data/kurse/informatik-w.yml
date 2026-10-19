@@ -37,8 +37,18 @@ kapitel:
         pdf: /assets/pdfs/Info_W_2_1.pdf
         quiz: /assets/quizzes/quiz_informatik_w_block2_1.html
         text: /assets/texte/info-w-2-1.pdf
-      - id: w3-1
+      - id: w2-2
         nr: "04"
+        titel: "Wie rechnet und schreibt die Kasse? – Binäre Addition und ASCII"
+        desc: >-
+          An Elsters Lieferungen und Produktnamen: Binärzahlen schriftlich mit Übertrag addieren,
+          erkennen, wann ein Ergebnis mehr Bits braucht, und Zeichen mit der ASCII-Tabelle in Bytes
+          codieren und wieder decodieren
+        pdf: /assets/pdfs/Info_W_2_2.pdf
+        quiz: /assets/quizzes/quiz_informatik_w_block2_2.html
+        text: /assets/texte/info-w-2-2.pdf
+      - id: w3-1
+        nr: "05"
         titel: "Wer zahlt den Versand? – Aussagen und Logik"
         desc: >-
           An Elsters Versandregel: Aussagen von Fragen und Aufforderungen unterscheiden, Aussagen mit

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz · Block 2.2 · Binäre Addition und ASCII</title>
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+        }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+        }
+.quiz-container {
+background: white;
+border-radius: 16px;
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+max-width: 800px;
+width: 100%;
+overflow: hidden;
+        }
+.quiz-header {
+background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+color: white;
+padding: 2rem;
+text-align: center;
+        }
+.quiz-header h1 {
+font-size: 1.8rem;
+margin-bottom: 0.5rem;
+        }
+.quiz-header p {
+opacity: 0.9;
+font-size: 1rem;
+        }
+.progress-bar {
+background: #e0e0e0;
+height: 8px;
+position: relative;
+        }
+.progress-fill {
+background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+height: 100%;
+width: 0%;
+transition: width 0.3s ease;
+        }
+.quiz-content {
+padding: 2rem;
+        }
+.question-container {
+display: none;
+        }
+.question-container.active {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+@keyframes fadeIn {
+            from {
+opacity: 0;
+transform: translateY(20px);
+            }
+            to {
+opacity: 1;
+transform: translateY(0);
+            }
+        }
+.question-number {
+color: #667eea;
+font-weight: 600;
+font-size: 0.9rem;
+margin-bottom: 0.5rem;
+        }
+.question-text {
+font-size: 1.3rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1.5rem;
+line-height: 1.5;
+        }
+.options {
+display: flex;
+flex-direction: column;
+gap: 1rem;
+        }
+.option {
+background: #f8f9fa;
+border: 2px solid #e0e0e0;
+border-radius: 12px;
+padding: 1rem 1.5rem;
+cursor: pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 1rem;
+        }
+.option:hover {
+background: #f0f1f3;
+border-color: #667eea;
+transform: translateX(5px);
+        }
+.option-letter {
+background: #667eea;
+color: white;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+flex-shrink: 0;
+        }
+.option.selected {
+background: #e8eaf6;
+border-color: #667eea;
+        }
+.option.correct {
+background: #d4edda;
+border-color: #28a745;
+        }
+.option.correct .option-letter {
+background: #28a745;
+        }
+.option.incorrect {
+background: #f8d7da;
+border-color: #dc3545;
+        }
+.option.incorrect .option-letter {
+background: #dc3545;
+        }
+.option.disabled {
+cursor: not-allowed;
+opacity: 0.7;
+        }
+.feedback {
+margin-top: 1.5rem;
+padding: 1rem;
+border-radius: 8px;
+display: none;
+        }
+.feedback.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.feedback.correct {
+background: #d4edda;
+border-left: 4px solid #28a745;
+color: #155724;
+        }
+.feedback.incorrect {
+background: #f8d7da;
+border-left: 4px solid #dc3545;
+color: #721c24;
+        }
+.feedback-title {
+font-weight: 600;
+margin-bottom: 0.5rem;
+        }
+.controls {
+margin-top: 2rem;
+display: flex;
+justify-content: space-between;
+gap: 1rem;
+        }
+.btn {
+padding: 0.8rem 2rem;
+border: none;
+border-radius: 8px;
+font-size: 1rem;
+font-weight: 600;
+cursor: pointer;
+transition: all 0.3s ease;
+        }
+.btn-primary {
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: white;
+        }
+.btn-primary:hover:not(:disabled) {
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+.btn-secondary {
+background: #f8f9fa;
+color: #374151;
+border: 2px solid #e0e0e0;
+        }
+.btn-secondary:hover:not(:disabled) {
+background: #e9ecef;
+        }
+.btn:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+        }
+.results-container {
+display: none;
+text-align: center;
+padding: 2rem;
+        }
+.results-container.show {
+display: block;
+animation: fadeIn 0.5s ease;
+        }
+.score-circle {
+width: 200px;
+height: 200px;
+border-radius: 50%;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 2rem auto;
+color: white;
+box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+.score-number {
+font-size: 3rem;
+font-weight: 700;
+        }
+.score-label {
+font-size: 1rem;
+opacity: 0.9;
+        }
+.result-message {
+font-size: 1.5rem;
+font-weight: 600;
+color: #1f2937;
+margin-bottom: 1rem;
+        }
+.result-details {
+background: #f8f9fa;
+border-radius: 12px;
+padding: 1.5rem;
+margin: 2rem 0;
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+gap: 1rem;
+        }
+.result-stat {
+text-align: center;
+        }
+.result-stat-number {
+font-size: 2rem;
+font-weight: 700;
+color: #667eea;
+        }
+.result-stat-label {
+font-size: 0.9rem;
+color: #666;
+margin-top: 0.3rem;
+        }
+@media (max-width: 768px) {
+body {
+padding: 10px;
+            }
+.quiz-header h1 {
+font-size: 1.4rem;
+            }
+.question-text {
+font-size: 1.1rem;
+            }
+.controls {
+flex-direction: column;
+            }
+.btn {
+width: 100%;
+            }
+        }
+
+button.option { width:100%; text-align:left; font:inherit; color:#1f2937; }
+.option:focus-visible,.btn:focus-visible { outline:3px solid #374151; outline-offset:3px; }
+.option:disabled { cursor:default; opacity:1; transform:none; }
+.option:disabled:hover { transform:none; }
+.option-text { line-height:1.5; }
+@media (max-width:480px) { .quiz-content,.quiz-header {padding:1.25rem;} .option {padding:0.9rem;} }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important;} }
+.hint {margin:0 0 1.25rem;padding:0.75rem 1rem;background:#f3f4ff;border-radius:8px;}
+.hint summary {cursor:pointer;color:#414ba1;font-weight:600;}
+.hint p {margin-top:0.65rem;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="quiz-container">
+<div class="quiz-header">
+<h1>💻 Mit Bits rechnen und Text speichern</h1>
+<p>Informatik · Block 2.2 · 20 Fragen · Eine Antwort ist jeweils richtig</p>
+</div>
+<div class="progress-bar" role="progressbar" aria-label="Gemeisterte Fragen" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
+<div class="progress-fill" id="progressFill"></div>
+</div>
+<div class="quiz-content">
+<div id="questionsContainer"></div>
+<div class="results-container" id="resultsContainer">
+<div class="result-message" id="resultMessage"></div>
+<div class="score-circle">
+<div class="score-number" id="scoreNumber">0%</div>
+<div class="score-label">Beim ersten Versuch</div>
+</div>
+<div class="result-details">
+<div class="result-stat">
+<div class="result-stat-number" id="correctCount">0</div>
+<div class="result-stat-label">Beim ersten Versuch richtig</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="incorrectCount">0</div>
+<div class="result-stat-label">Fehlversuche</div>
+</div>
+<div class="result-stat">
+<div class="result-stat-number" id="totalCount">0</div>
+<div class="result-stat-label">Antwortversuche</div>
+</div>
+</div>
+<button class="btn btn-primary" onclick="restartQuiz()">🔄 Quiz wiederholen</button>
+</div>
+</div>
+</div>
+<script>
+const quizData = [
+  {
+    "question": "Bei der Elster-Kasse werden zwei Einsen addiert. Wie lautet 1₂ + 1₂?",
+    "options": [
+      "1₂",
+      "11₂",
+      "10₂",
+      "100₂"
+    ],
+    "correct": 2,
+    "explanation": "1 + 1 ergibt zwei. Im Binärsystem schreiben wir 10₂: 0 an der aktuellen Stelle und 1 als Übertrag.",
+    "hint": "An einer Binärstelle sind nur 0 und 1 erlaubt.",
+    "feedback": [
+      "1₂ entspricht eins; die Summe ist zwei.",
+      "11₂ entspricht drei; hier werden nur zwei Einsen addiert.",
+      "10₂ entspricht zwei. Die 1 wird eine Stelle nach links übertragen.",
+      "100₂ entspricht vier; die Summe ist zwei."
+    ]
+  },
+  {
+    "question": "An einer Stelle stehen zwei Einsen. Dazu kommt ein Übertrag von 1. Was schreiben Sie hin und was übertragen Sie?",
+    "options": [
+      "1 hinschreiben, 1 übertragen.",
+      "0 hinschreiben, 1 übertragen.",
+      "1 hinschreiben, 0 übertragen.",
+      "0 hinschreiben, 0 übertragen."
+    ],
+    "correct": 0,
+    "explanation": "1 + 1 + 1 = 11₂. Deshalb bleibt 1 an der aktuellen Stelle; 1 wird nach links übertragen.",
+    "hint": "Bestimmen Sie zuerst die Summe der drei Einsen.",
+    "feedback": [
+      "11₂ bedeutet: 1 an der aktuellen Stelle und 1 an der nächsten Stelle links.",
+      "Eine 0 mit Übertrag 1 entspricht zwei; hier ist die Summe drei.",
+      "Ohne Übertrag würde nur eins gespeichert; die Summe ist drei.",
+      "Ohne Ergebnisbit und Übertrag bliebe null statt drei."
+    ]
+  },
+  {
+    "question": "Elster möchte 1011₂ + 11₂ schriftlich addieren. Wie müssen die Summanden untereinanderstehen?",
+    "options": [
+      "1011₂ und 1100₂",
+      "1011₂ und 0110₂",
+      "1011₂ und 1111₂",
+      "1011₂ und 0011₂"
+    ],
+    "correct": 3,
+    "explanation": "Einer stehen unter Einern. Führende Nullen ändern den Wert nicht: 11₂ = 0011₂.",
+    "hint": "Richten Sie die rechte Stelle beider Zahlen aus.",
+    "feedback": [
+      "1100₂ ist zwölf; der zweite Summand soll drei bleiben.",
+      "0110₂ ist sechs; das Verschieben nach links ändert den Wert.",
+      "1111₂ ist fünfzehn; beim Ergänzen dürfen keine Einsen hinzukommen.",
+      "0011₂ hat denselben Wert wie 11₂. Beide Einerstellen sind rechts ausgerichtet."
+    ]
+  },
+  {
+    "question": "Im Elster-Lager liegen 110₂ Packungen. Geliefert werden 101₂ Packungen. Berechnen Sie den neuen Bestand.",
+    "options": [
+      "1010₂",
+      "1011₂",
+      "1110₂",
+      "1001₂"
+    ],
+    "correct": 1,
+    "explanation": "110₂ = 6 und 101₂ = 5. 6 + 5 = 11; binär lautet das Ergebnis 1011₂.",
+    "hint": "Rechnen Sie rechts beginnend. Sie können das Ergebnis dezimal kontrollieren.",
+    "feedback": [
+      "1010₂ ist zehn; 6 + 5 ergibt elf.",
+      "1011₂ ist elf und damit die Summe aus sechs und fünf.",
+      "1110₂ ist vierzehn; 6 + 5 ergibt elf.",
+      "1001₂ ist neun; die Summe ist elf."
+    ]
+  },
+  {
+    "question": "Ein anderer Elster-Artikel hat den Bestand 1001₂. Dazu kommen 111₂ Packungen. Welche Summe stimmt?",
+    "options": [
+      "10000₂",
+      "1110₂",
+      "1111₂",
+      "10010₂"
+    ],
+    "correct": 0,
+    "explanation": "1001₂ = 9 und 111₂ = 7. 9 + 7 = 16 = 10000₂. Der letzte Übertrag wird eine neue Stelle.",
+    "hint": "Ergänzen Sie den zweiten Summanden zu 0111₂.",
+    "feedback": [
+      "10000₂ ist sechzehn. Der Übertrag erzeugt links eine zusätzliche Stelle.",
+      "1110₂ ist vierzehn; die Summe ist sechzehn.",
+      "1111₂ ist fünfzehn; 9 + 7 ergibt sechzehn.",
+      "10010₂ ist achtzehn; 9 + 7 ergibt sechzehn."
+    ]
+  },
+  {
+    "question": "Elster erhält 101₂ Packungen zu einem Bestand von 10110₂. Berechnen Sie 10110₂ + 101₂.",
+    "options": [
+      "11001₂",
+      "11101₂",
+      "11111₂",
+      "11011₂"
+    ],
+    "correct": 3,
+    "explanation": "10110₂ = 22 und 101₂ = 5. 22 + 5 = 27 = 11011₂.",
+    "hint": "Schreiben Sie den zweiten Summanden als 00101₂.",
+    "feedback": [
+      "11001₂ ist fünfundzwanzig; die Summe ist siebenundzwanzig.",
+      "11101₂ ist neunundzwanzig; die Summe ist siebenundzwanzig.",
+      "11111₂ ist einunddreißig; 22 + 5 ergibt siebenundzwanzig.",
+      "11011₂ ist siebenundzwanzig und entspricht 22 + 5."
+    ]
+  },
+  {
+    "question": "Das Elster-System hat fünf Bits für den Bestand. Bisher steht dort 11111₂. Es kommt eine Packung hinzu. Welche Aussage stimmt?",
+    "options": [
+      "Das Ergebnis lautet 11111₂ und passt weiterhin.",
+      "Das Ergebnis lautet 100000₂ und benötigt sechs Bits.",
+      "Das Ergebnis lautet 00000₂ und benötigt fünf Bits.",
+      "Das Ergebnis lautet 11110₂ und benötigt fünf Bits."
+    ],
+    "correct": 1,
+    "explanation": "11111₂ = 31. Nach der Lieferung sind es 32 Packungen: 100000₂. Fünf Bits reichen für das richtige Ergebnis nicht aus.",
+    "hint": "Prüfen Sie, ob durch den letzten Übertrag eine neue Stelle entsteht.",
+    "feedback": [
+      "31 + 1 ist 32; der Bestand kann nicht bei 31 bleiben.",
+      "100000₂ ist 32. Die sechs Stellen zeigen den zusätzlichen Speicherbedarf.",
+      "00000₂ ist null. So würde der letzte Übertrag verloren gehen.",
+      "11110₂ ist 30; nach einer Lieferung steigt der Bestand."
+    ]
+  },
+  {
+    "question": "Eine Mitarbeiterin notiert 1011₂ + 1₂ = 1010₂. Wo liegt beim Rechnen von rechts der erste Fehler?",
+    "options": [
+      "Die führende 1 müsste gestrichen werden.",
+      "Die Einerstelle müsste eine 1 enthalten.",
+      "Der Übertrag zur Zweierstelle wurde nicht berücksichtigt.",
+      "Der zweite Summand müsste links ausgerichtet werden."
+    ],
+    "correct": 2,
+    "explanation": "An der Einerstelle entsteht 1 + 1 = 10₂. Die 0 rechts stimmt. Die übertragene 1 muss an der Zweierstelle mitgerechnet werden. Richtig ist 1100₂.",
+    "hint": "Prüfen Sie zuerst die rechte Stelle und danach den zugehörigen Übertrag.",
+    "feedback": [
+      "Die linke 1 wird nicht einfach gestrichen. Zuerst muss der Übertrag rechts geprüft werden.",
+      "1 + 1 ergibt an der Einerstelle eine 0 mit Übertrag. Die rechte 0 ist richtig.",
+      "Die Zweierstelle muss 1 + 0 + 1 rechnen. Der fehlende Übertrag verändert die weiteren Stellen.",
+      "Gleiche Stellen werden rechts ausgerichtet; linkes Ausrichten verändert den Stellenwert."
+    ]
+  },
+  {
+    "question": "Elster ergänzt einen Bestand von 101₂ zu 00101₂. Was ändert sich dadurch?",
+    "options": [
+      "Der Zahlenwert steigt um zwei.",
+      "Der Zahlenwert wird mit vier multipliziert.",
+      "Die Anzahl der Packungen wird null.",
+      "Die Stellenzahl steigt; der Zahlenwert bleibt gleich."
+    ],
+    "correct": 3,
+    "explanation": "Nullen vor der ersten 1 tragen nichts zum Zahlenwert bei. 101₂ und 00101₂ sind beide fünf.",
+    "hint": "Betrachten Sie die Stellen, an denen eine 1 steht.",
+    "feedback": [
+      "Zusätzliche Nullen vorne addieren keinen Wert.",
+      "Eine Multiplikation mit vier würde zwei Nullen rechts ergänzen.",
+      "Die vorhandenen Einsen bleiben erhalten; der Wert ist weiterhin fünf.",
+      "Die Darstellung hat mehr Stellen, aber die Einsen stehen bei denselben Stellenwerten."
+    ]
+  },
+  {
+    "question": "Ein Elster-Bestand wird mit vier Bits gespeichert. Bisher sind es 1011₂ Packungen. Geliefert werden 110₂. Welche Aussage zum richtigen neuen Bestand stimmt?",
+    "options": [
+      "10001₂; fünf Bits sind nötig.",
+      "1111₂; vier Bits sind nötig.",
+      "10000₂; fünf Bits sind nötig.",
+      "1101₂; vier Bits sind nötig."
+    ],
+    "correct": 0,
+    "explanation": "1011₂ = 11 und 110₂ = 6. Die Summe ist 17 = 10001₂. Vier Bits reichen höchstens bis 15.",
+    "hint": "Bestimmen Sie die Summe und zählen Sie anschließend ihre Binärstellen.",
+    "feedback": [
+      "10001₂ ist siebzehn. Für das Ergebnis sind fünf Stellen nötig.",
+      "1111₂ ist fünfzehn; 11 + 6 ergibt siebzehn.",
+      "10000₂ ist sechzehn; eine Packung fehlt im Ergebnis.",
+      "1101₂ ist dreizehn; die Summe ist siebzehn."
+    ]
+  },
+  {
+    "question": "Die Elster-Kasse speichert Produktnamen. Was ist ASCII?",
+    "options": [
+      "Ein Rechenverfahren für die Addition zweier Binärzahlen.",
+      "Eine festgelegte Zuordnung zwischen Zeichen und Zahlenwerten.",
+      "Ein Gerät, das einen Produktnamen auf Papier druckt.",
+      "Eine Einheit für den Speicherbedarf eines ganzen Computers."
+    ],
+    "correct": 1,
+    "explanation": "ASCII ist ein festgelegter Zeichencode. Er ordnet Zeichen Zahlenwerte zu, die binär dargestellt werden können.",
+    "hint": "Unterscheiden Sie Rechnen mit Zahlen und Zuordnen von Zeichen.",
+    "feedback": [
+      "Binäre Addition ist ein Rechenverfahren. ASCII legt dagegen Zeichencodes fest.",
+      "Ein Zeichencode legt fest, welcher Zahlenwert zu welchem Zeichen gehört.",
+      "Ein Drucker ist Hardware. ASCII ist eine Zuordnung von Zeichen und Zahlenwerten.",
+      "Speichereinheiten sind zum Beispiel Byte und KB. ASCII ist ein Zeichencode."
+    ]
+  },
+  {
+    "question": "Zum großen A gehört in ASCII der Dezimalcode 65. Woher kommt diese Zuordnung?",
+    "options": [
+      "Sie wird durch Addieren der Striche des Buchstabens berechnet.",
+      "Sie ergibt sich aus dem Preis des Elster-Artikels.",
+      "Sie wurde festgelegt und kann in der Tabelle nachgeschlagen werden.",
+      "Sie entsteht durch Umrechnen der Anzahl von Buchstaben im Wort."
+    ],
+    "correct": 2,
+    "explanation": "A → 65 ist eine vereinbarte Zuordnung. Erst 65 → Binärzahl ist eine Umrechnung.",
+    "hint": "Trennen Sie das Nachschlagen des Codes vom anschließenden Umrechnen.",
+    "feedback": [
+      "Die Form des Zeichens bestimmt nicht seinen ASCII-Wert.",
+      "Ein Preis hat keinen Einfluss auf den ASCII-Code des Buchstabens.",
+      "Die Zuordnung ist festgelegt. Die Umrechnung des Codes in Bits ist ein eigener Schritt.",
+      "Der ASCII-Wert eines Zeichens hängt nicht von der Länge des Wortes ab."
+    ]
+  },
+  {
+    "question": "ASCII hat Codes von 0 bis 127. Wie viele Bits sind mindestens nötig, um diese 128 Codes darzustellen?",
+    "options": [
+      "5 Bits",
+      "6 Bits",
+      "8 Bits",
+      "7 Bits"
+    ],
+    "correct": 3,
+    "explanation": "Mit sieben Bits gibt es 2⁷ = 128 mögliche Bitfolgen. Sie reichen für die Codes von 0 bis 127.",
+    "hint": "Vergleichen Sie 2⁶ und 2⁷ mit der Anzahl der Codes.",
+    "feedback": [
+      "Fünf Bits ergeben nur 32 mögliche Bitfolgen.",
+      "Sechs Bits ergeben nur 64 mögliche Bitfolgen.",
+      "Acht Bits ergeben 256 Möglichkeiten; gefragt ist die benötigte Mindestzahl.",
+      "Sieben Bits ergeben genau 128 Möglichkeiten."
+    ]
+  },
+  {
+    "question": "Ein Zeichen hat die sieben ASCII-Bits 1000101. Elster speichert es in einem Byte. Welche Darstellung ist richtig?",
+    "options": [
+      "01000101",
+      "10001010",
+      "10000101",
+      "00010001"
+    ],
+    "correct": 0,
+    "explanation": "Für ein Byte ergänzen wir links eine 0. Aus 1000101 wird 01000101; der Zahlenwert bleibt gleich.",
+    "hint": "Eine zusätzliche Stelle darf den Zahlenwert nicht verändern.",
+    "feedback": [
+      "Die führende 0 ergänzt die Darstellung auf acht Stellen, ohne den Wert zu ändern.",
+      "Eine 0 rechts verschiebt die Einsen nach links und verdoppelt den Wert.",
+      "10000101 hat einen anderen Zahlenwert und ist keine Ergänzung links.",
+      "00010001 verändert die Positionen der Einsen und damit den Wert."
+    ]
+  },
+  {
+    "question": "Das Zeichen M hat den ASCII-Dezimalcode 77. Bestimmen Sie das Byte durch Umrechnen.",
+    "options": [
+      "01001011",
+      "01001101",
+      "01001110",
+      "01010101"
+    ],
+    "correct": 1,
+    "explanation": "77 = 64 + 8 + 4 + 1. Das Byte lautet 01001101.",
+    "hint": "Nutzen Sie die Stellenwerte 128, 64, 32, 16, 8, 4, 2 und 1.",
+    "feedback": [
+      "01001011 entspricht 75; gesucht ist 77.",
+      "01001101 entspricht 64 + 8 + 4 + 1 = 77.",
+      "01001110 entspricht 78; gesucht ist 77.",
+      "01010101 entspricht 85; gesucht ist 77."
+    ]
+  },
+  {
+    "question": "Elster liest das Byte 01001001. Tabellenangaben: H → 72, I → 73, J → 74, L → 76. Welches Zeichen gehört zum Byte?",
+    "options": [
+      "J",
+      "H",
+      "I",
+      "L"
+    ],
+    "correct": 2,
+    "explanation": "01001001 entspricht 64 + 8 + 1 = 73. Laut der angegebenen Tabelle steht 73 für I.",
+    "hint": "Bestimmen Sie zuerst den Zahlenwert der Bitfolge.",
+    "feedback": [
+      "J hat Code 74. Das gespeicherte Byte hat den Wert 73.",
+      "H hat Code 72. Im gespeicherten Byte kommt noch die Einerstelle hinzu.",
+      "Der Zahlenwert ist 73; die Tabelle ordnet ihm I zu.",
+      "L hat Code 76. Die gespeicherten Einsen ergeben 73."
+    ]
+  },
+  {
+    "question": "In der großen ASCII-Tabelle steht ein Zeichen unter den Spaltenbits 100 und neben den Zeilenbits 1110. Welches Byte ergibt sich?",
+    "options": [
+      "01110100",
+      "11000111",
+      "00100111",
+      "01001110"
+    ],
+    "correct": 3,
+    "explanation": "Zuerst Spaltenbits, dann Zeilenbits: 100 | 1110 = 1001110. Links ergänzen wir für ein Byte 0: 01001110.",
+    "hint": "Setzen Sie erst die sieben Bits zusammen. Ergänzen Sie danach die achte Stelle links.",
+    "feedback": [
+      "01110100 entsteht nicht durch Spalte 100 vor Zeile 1110.",
+      "11000111 enthält die vorgegebenen Gruppen nicht in der vereinbarten Reihenfolge.",
+      "00100111 vertauscht die Stellen gegenüber 100 | 1110.",
+      "100 und 1110 ergeben 1001110; als Byte lautet es 01001110."
+    ]
+  },
+  {
+    "question": "Ein Byte lautet 01100001. Welche Spalte und Zeile müssen Sie in der siebenstelligen ASCII-Tabelle suchen?",
+    "options": [
+      "Spalte 110; Zeile 0001.",
+      "Spalte 011; Zeile 0001.",
+      "Spalte 000; Zeile 1101.",
+      "Spalte 001; Zeile 0110."
+    ],
+    "correct": 0,
+    "explanation": "Zuerst die zusätzliche linke 0 weglassen: 1100001. Danach in drei Spaltenbits und vier Zeilenbits teilen: 110 | 0001.",
+    "hint": "Die Tabelle enthält sieben ASCII-Bits; das Byte hat eine zusätzliche führende 0.",
+    "feedback": [
+      "Nach Entfernen der linken 0 ergeben die ersten drei Bits 110 und die letzten vier 0001.",
+      "011 wären die ersten drei Bits des gesamten Bytes. Die zusätzliche linke 0 gehört nicht zu den sieben Tabellenbits.",
+      "Die sieben Bits lauten 1100001 und beginnen nicht mit 000.",
+      "001 und 0110 ergeben 0010110; das ist eine andere Bitfolge."
+    ]
+  },
+  {
+    "question": "Elster speichert 01000101 01001001 01010011. Tabellenangaben: E → 01000101, I → 01001001, S → 01010011. Welcher Produktname ist gespeichert?",
+    "options": [
+      "SIE",
+      "IES",
+      "EIS",
+      "SEI"
+    ],
+    "correct": 2,
+    "explanation": "Lesen Sie die Bytes in ihrer Reihenfolge: E, dann I, dann S. Der Produktname lautet EIS.",
+    "hint": "Ordnen Sie jedem Byte genau ein Zeichen zu und behalten Sie die Reihenfolge bei.",
+    "feedback": [
+      "SIE vertauscht die Reihenfolge. Das erste gespeicherte Byte gehört zu E.",
+      "IES beginnt mit I; die gespeicherte Folge beginnt mit E.",
+      "Die drei Bytes gehören in derselben Reihenfolge zu E, I und S.",
+      "SEI beginnt mit S; gespeichert ist zuerst E."
+    ]
+  },
+  {
+    "question": "Elster speichert die Zahl 1 als nichtnegative ganze Zahl in einem Byte. Außerdem speichert Elster das ASCII-Zeichen „1“ mit Dezimalcode 49. Welche Zuordnung stimmt?",
+    "options": [
+      "Zahl 1 → 00110001; Zeichen „1“ → 00000001.",
+      "Zahl 1 → 00000001; Zeichen „1“ → 00110001.",
+      "Zahl 1 → 00000001; Zeichen „1“ → 00000001.",
+      "Zahl 1 → 00110001; Zeichen „1“ → 00110001."
+    ],
+    "correct": 1,
+    "explanation": "Die Zahl 1 hat den Zahlenwert 1. Das Schriftzeichen „1“ hat in ASCII den Code 49 = 32 + 16 + 1 und damit das Byte 00110001.",
+    "hint": "Der Zahlenwert einer Menge und der Code eines Schriftzeichens sind verschiedene Angaben.",
+    "feedback": [
+      "Die beiden Darstellungen sind vertauscht. Die Zahl hat den Wert 1, das Zeichen den Code 49.",
+      "00000001 stellt den Zahlenwert 1 dar. 00110001 stellt den ASCII-Code 49 dar.",
+      "Das Zeichen hat den vereinbarten Code 49 und deshalb ein anderes Byte.",
+      "Die Zahl 1 wird als 00000001 gespeichert. 00110001 hat den Zahlenwert 49."
+    ]
+  }
+];
+
+let queue, currentIndex, totalAnswered, firstCorrect, mastered, attempted;
+let displayedOptions = [], locked = false;
+function shuffle(values) {
+  const a = [...values];
+  for (let i=a.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+// Fünf richtige Antworten pro Position im ersten Durchlauf,
+// zufällig angeordnet, ohne Dreierfolge oder wiederholten Viererblock.
+function makePositions() {
+  let p;
+  do {
+    p=shuffle(Array.from({length:20},(_,i)=>i%4));
+  } while (p.some((v,i)=>i>1&&v===p[i-1]&&v===p[i-2]) ||
+    p.some((_,i)=>i>=4&&i<=16&&p.slice(i,i+4).every((v,j)=>v===p[i-4+j])));
+  return p;
+}
+let positions;
+function initQuiz() {
+  queue=quizData.map((_,i)=>i); currentIndex=0; totalAnswered=0; firstCorrect=0;
+  mastered=new Set(); attempted=new Set(); positions=makePositions();
+  document.getElementById('resultsContainer').classList.remove('show');
+  renderCurrentQuestion();
+}
+function renderCurrentQuestion() {
+  if(currentIndex>=queue.length) { showResults(); return; }
+  const id=queue[currentIndex], q=quizData[id], retry=attempted.has(id);
+  const correctOption={text:q.options[q.correct],correct:true,feedback:q.feedback[q.correct]};
+  displayedOptions=shuffle(q.options.map((text,i)=>({text,correct:i===q.correct,feedback:q.feedback[i]})).filter(o=>!o.correct));
+  displayedOptions.splice(retry?Math.floor(Math.random()*4):positions[id],0,correctOption);
+  locked=false;
+  const container=document.getElementById('questionsContainer');
+  container.innerHTML=`<div class="question-container active">
+    <div class="question-number">${retry?'🔁 Wiederholung · ':''}Frage ${id+1} von ${quizData.length} · ${mastered.size} gemeistert</div>
+    <h2 class="question-text" tabindex="-1">${q.question}</h2>
+    <details class="hint"><summary>Tipp anzeigen</summary><p>${q.hint}</p></details>
+    <div class="options" id="options-current" role="group" aria-label="Antwortmöglichkeiten"></div>
+    <div class="feedback" id="feedback-current" role="status" aria-live="polite">
+      <div class="feedback-title"></div><div class="feedback-text"></div>
+    </div>
+    <div class="controls"><div></div><button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Weiter →</button></div>
+  </div>`;
+  const options=document.getElementById('options-current');
+  displayedOptions.forEach((o,i)=>{
+    const button=document.createElement('button');
+    button.type='button';button.className='option';
+    const letter=document.createElement('span');letter.className='option-letter';letter.textContent=String.fromCharCode(65+i);
+    const label=document.createElement('span');label.className='option-text';label.textContent=o.text;
+    button.append(letter,label);button.addEventListener('click',()=>selectOption(i));options.append(button);
+  });
+  updateProgress();
+  if(totalAnswered>0) container.querySelector('h2').focus();
+}
+function selectOption(index) {
+  if(locked) return;
+  locked=true;
+  const id=queue[currentIndex], q=quizData[id], right=displayedOptions[index].correct;
+  const buttons=document.querySelectorAll('#options-current .option');
+  buttons.forEach((b,i)=>{b.disabled=true;if(displayedOptions[i].correct)b.classList.add('correct');});
+  buttons[index].classList.add('selected',right?'correct':'incorrect');
+  const feedback=document.getElementById('feedback-current');
+  feedback.classList.add('show',right?'correct':'incorrect');
+  if(right) {
+    if(!attempted.has(id))firstCorrect++;
+    mastered.add(id);
+    feedback.querySelector('.feedback-title').textContent='✓ Richtig!';
+  } else {
+    queue.splice(Math.min(currentIndex+5,queue.length),0,id);
+    feedback.querySelector('.feedback-title').textContent='✗ Noch nicht richtig – die Frage kommt später erneut.';
+  }
+  attempted.add(id);totalAnswered++;
+  feedback.querySelector('.feedback-text').textContent=displayedOptions[index].feedback + (right?'':' '+q.explanation);
+  document.getElementById('nextBtn').disabled=false;
+  updateProgress();
+}
+function nextQuestion() {
+  if(!locked)return;
+  currentIndex++;renderCurrentQuestion();
+}
+function updateProgress() {
+  document.getElementById('progressFill').style.width=(mastered.size/quizData.length*100)+'%';
+  document.querySelector('.progress-bar').setAttribute('aria-valuenow',mastered.size);
+}
+function showResults() {
+  document.getElementById('questionsContainer').innerHTML='';
+  document.getElementById('resultsContainer').classList.add('show');
+  document.getElementById('scoreNumber').textContent=Math.round(firstCorrect/quizData.length*100)+'%';
+  document.getElementById('correctCount').textContent=firstCorrect+' / '+quizData.length;
+  document.getElementById('incorrectCount').textContent=totalAnswered-quizData.length;
+  document.getElementById('totalCount').textContent=totalAnswered;
+  document.getElementById('resultMessage').textContent=firstCorrect===20?'Alles auf Anhieb richtig!':`Geschafft! Alle 20 Fragen gemeistert. ${firstCorrect} beim ersten Versuch richtig.`;
+  updateProgress();
+}
+function restartQuiz(){initQuiz();}
+window.onload=initQuiz;
+
+</script>
+</body>
+</html>
