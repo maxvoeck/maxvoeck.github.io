@@ -39,7 +39,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ab-lead {
   font-size: 15px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.8;
   max-width: 600px;
@@ -69,7 +69,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
 .ab-text {
   font-size: 15px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.8;
   margin-bottom: var(--s4);
@@ -165,7 +165,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 .ab-cta-text {
   font-size: 14px;
   color: var(--text-secondary);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
 }
 

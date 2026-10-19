@@ -19,7 +19,7 @@ permalink: /teaching/
   --linie:    rgba(236, 231, 220, 0.09);
   --linie2:   rgba(236, 231, 220, 0.18);
   --elfenbein:#ece7dc;
-  --nebel:    #8f8e97;
+  --nebel:    #a9a8b1;
   --messing:  #c2a15c;
   --messing2: #dfc48a;
 
@@ -56,8 +56,8 @@ body, html, .page-content, .wrapper, main {
 .mw-hero { padding: 96px 0 56px; }
 .mw-eyebrow {
   font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.28em;
+  font-size: 12px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--messing);
   margin-bottom: 20px;
@@ -100,7 +100,7 @@ body, html, .page-content, .wrapper, main {
 }
 .mw-kapitel-kopf .mw-meta {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--nebel);
@@ -139,7 +139,7 @@ body, html, .page-content, .wrapper, main {
 .mw-fach:hover h2 { color: var(--messing2); }
 .mw-fach-meta {
   color: var(--nebel);
-  font-size: 13.5px;
+  font-size: 15px;
   margin-top: 4px;
 }
 .mw-fach-pfeil {
@@ -161,9 +161,12 @@ body, html, .page-content, .wrapper, main {
 
 /* ─── Responsiv ─── */
 @media (max-width: 600px) {
-  .mw-hero { padding: 64px 0 40px; }
-  .mw-fach { grid-template-columns: 40px 1fr auto; gap: 14px; padding: 22px 4px; }
-  .mw-fach h2 { font-size: 20px; }
+  .mw-wrap { padding: 0 20px; }
+  .mw-hero { padding: 36px 0 20px; }
+  .mw-kapitel { padding: 32px 0 8px; }
+  .mw-fach { grid-template-columns: 28px 1fr auto; gap: 12px; padding: 20px 0; }
+  .mw-fach:hover { padding-left: 0; }
+  .mw-fach h2 { font-size: 21px; }
   .mw-kapitel-kopf .mw-meta { display: none; }
 }
 
@@ -223,7 +226,7 @@ body, html, .page-content, .wrapper, main {
         <span class="mw-fach-nr">03</span>
         <div>
           <h2>Informatik (W-Kurs)</h2>
-          <div class="mw-fach-meta">{{ info_w_module }} {% if info_w_module == 1 %}Modul{% else %}Module{% endif %} · Daten, Information, Hardware &amp; Software</div>
+          <div class="mw-fach-meta">{{ info_w_module }} {% if info_w_module == 1 %}Modul{% else %}Module{% endif %} · Daten, Binärsystem, ASCII, Logik</div>
         </div>
         <span class="mw-fach-pfeil">&rarr;</span>
       </a>

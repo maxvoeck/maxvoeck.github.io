@@ -16,15 +16,15 @@
   --graphit2: #1e1e26;
   --graphit3: #2a2a34;
   --elfenbein:#ece7dc;
-  --nebel:    #8f8e97;
-  --nebel2:   #6b6a72;
+  --nebel:    #a9a8b1;
+  --nebel2:   #8f8e97;
   --messing:  #c2a15c;
   --messing2: #dfc48a;
   --gruen:    #8fa284;
 
   /* Fonts */
   --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'Inter', 'Noto Sans Arabic', 'Noto Sans SC', 'Noto Sans KR', 'Noto Sans JP', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', SFMono-Regular, ui-monospace, Menlo, Monaco, monospace;
 
   /* Spacing – 8pt grid */
@@ -341,11 +341,12 @@ th { background: var(--bg-elevated); color: var(--text-primary); font-weight: 50
   .footer-bottom { padding: 1rem 1.5rem; }
 }
 
+/* Navigation auf dem Handy in einer Zeile statt untereinander — spart oben etwa 80px */
 @media (max-width: 480px) {
   .site-home { display: none; }
-  .main-nav ul { flex-direction: column; gap: 0; }
-  .main-nav a { padding: 0.7rem 1.5rem; text-align: center; border-bottom: 1px solid var(--border); }
-  .main-nav li:last-child a { border-bottom: none; }
+  .header-container { padding: 0.35rem 0.5rem; }
+  .main-nav ul { justify-content: center; }
+  .main-nav a { padding: 0.75rem 0.9rem; font-size: 0.9rem; }
 }
 
 /* ═══════════════════════════════════════════════════════════════

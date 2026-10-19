@@ -55,7 +55,7 @@ layout: default
 .home-nav-desc {
   display: block;
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text-tertiary);
   line-height: 1.6;
 }
@@ -154,7 +154,7 @@ layout: default
     </a>
     <a href="/teaching/">
       <span class="home-nav-label">Materialien</span>
-      <span class="home-nav-desc">Mathematik, Volkswirtschaftslehre und Informatik</span>
+      <span class="home-nav-desc">Mathematik, Volkswirtschaftslehre, Betriebswirtschaftslehre und Informatik</span>
     </a>
     <a href="/termine/">
       <span class="home-nav-label">Termine</span>

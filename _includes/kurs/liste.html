@@ -55,7 +55,7 @@
               {%- if m.text %}<a href="{{ m.text }}" class="mw-btn">{{ icon_text }} Text</a>{% endif -%}
               {%- comment -%} Kapitel mit fortschritt: false (z. B. Werkzeuge) bekommen kein Häkchen. {%- endcomment -%}
               {%- unless k.fortschritt == false -%}
-                <button class="mw-check" data-toggle="{{ m.id }}" aria-label="Modul „{{ m.titel | escape }}“ als erledigt markieren" aria-pressed="false">{{ icon_check }}</button>
+                <button class="mw-check" data-toggle="{{ m.id }}" aria-label="Modul „{{ m.titel | escape }}“ als erledigt markieren" aria-pressed="false"><span class="mw-check-kreis">{{ icon_check }}</span><span class="mw-check-text" aria-hidden="true">Erledigt</span></button>
               {%- endunless -%}
             </div>
           </div>
