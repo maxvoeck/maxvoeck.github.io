@@ -49,7 +49,7 @@ kapitel:
         nr: "07"
         titel: "Vektor- & Spatprodukt"
         desc: "Kreuzprodukt, Flächen, Spatprodukt und Volumen im Raum"
-        pdf: /assets/pdfs/Geo_2_2-2.pdf
+        pdf: /assets/pdfs/Geo_2_2-3.pdf
         quiz: /assets/quizzes/quiz_vektorprodukt.html
       - id: v3
         nr: "08"
