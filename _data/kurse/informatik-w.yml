@@ -57,3 +57,19 @@ kapitel:
         pdf: /assets/pdfs/Info_W_3_1.pdf
         quiz: /assets/quizzes/quiz_informatik_w_block3_1.html
         text: /assets/texte/info-w-3-1.pdf
+      - id: w3-2
+        nr: "06"
+        titel: "Was ergibt der Ausdruck? – Logische Ausdrücke auswerten"
+        desc: >-
+          Ausdrücke mit zwei und drei Variablen Schritt für Schritt auswerten, die Wirkung von
+          Klammern erkennen, Wahrheitstabellen ergänzen, passende Belegungen finden und prüfen,
+          ob zwei Ausdrücke gleichwertig sind
+        pdf: /assets/pdfs/Info_W_3_2.pdf
+      - id: w4-1
+        nr: "07"
+        titel: "Wie wird aus einer Idee ein Ablauf? – Algorithmen"
+        desc: >-
+          Am Kino-Ticketautomaten: was einen Algorithmus ausführbar macht, das EVA-Prinzip,
+          Variablen und Zuweisungen, Ein- und Ausgabe und die Reihenfolge der Anweisungen im
+          Struktogramm
+        pdf: /assets/pdfs/Info_W_4_1.pdf
