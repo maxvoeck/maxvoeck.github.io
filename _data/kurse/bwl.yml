@@ -137,5 +137,12 @@ kapitel:
 
   - numeral: III
     titel: Erfolg, Steuern, Abschreibungen
-    meta: folgt
-    module: []
+    module:
+      - id: e1
+        nr: "01"
+        titel: Erfolgskonten – Aufwand und Ertrag
+        desc: >-
+          Was den Gewinn verändert — Zahlung und Erfolg unterscheiden, erfolgsneutrale und
+          erfolgswirksame Geschäftsfälle erkennen, Aufwands- und Ertragskonten als Unterkonten
+          des Eigenkapitals buchen und das Monatsergebnis aus Erträgen und Aufwendungen bestimmen
+        pdf: /assets/pdfs/BWL_W_14.pdf
