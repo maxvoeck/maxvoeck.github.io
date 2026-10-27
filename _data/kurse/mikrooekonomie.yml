@@ -33,18 +33,22 @@ kapitel:
         titel: Marktgleichgewicht
         pdf: /assets/pdfs/WS_VWL_5-3.pdf
         quiz: /assets/quizzes/quiz_marktgleichgewicht.html
-      - id: m6
+      - id: m-markteingriffe
         nr: "06"
+        titel: Markteingriffe
+        pdf: /assets/pdfs/WS_VWL_Markteingriffe.pdf
+      - id: m6
+        nr: "07"
         titel: Konsumenten- und Produzentenrente
         pdf: /assets/pdfs/WS_VWL_6.pdf
         quiz: /assets/quizzes/quiz_renten.html
       - id: m7
-        nr: "07"
+        nr: "08"
         titel: Marktformen
         pdf: /assets/pdfs/WS_VWL_7.pdf
         quiz: /assets/quizzes/quiz_marktformen.html
       - id: m8
-        nr: "08"
+        nr: "09"
         titel: Budgetgerade
         pdf: /assets/pdfs/WS_VWL_8-3.pdf
         quiz: /assets/quizzes/quiz_budgetgerade.html
