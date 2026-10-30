@@ -146,3 +146,11 @@ kapitel:
           erfolgswirksame Geschäftsfälle erkennen, Aufwands- und Ertragskonten als Unterkonten
           des Eigenkapitals buchen und das Monatsergebnis aus Erträgen und Aufwendungen bestimmen
         pdf: /assets/pdfs/BWL_W_14.pdf
+      - id: e2
+        nr: "02"
+        titel: Abschluss der Konten – GuV und Privatkonto
+        desc: >-
+          Wie sich das Eigenkapital verändert — Erfolgskonten über das GuV-Konto abschließen,
+          Gewinn oder Verlust auf das Eigenkapital übertragen, Privatentnahmen und -einlagen
+          buchen und das Eigenkapital am Jahresende bestimmen
+        pdf: /assets/pdfs/BWL_W_15.pdf
