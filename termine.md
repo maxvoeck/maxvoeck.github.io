@@ -153,7 +153,7 @@ body, html, .page-content, .wrapper, main, .post-content {
 
     <div class="tr-row">
       <div class="tr-row-left">
-        <span class="tr-kurs">W-Kurs — Klausur 3 (gemeinsame Arbeit BWL &amp; VWL)</span>
+        <span class="tr-kurs">2. Semester, W-Kurs — Klausur 3 (gemeinsame Arbeit BWL &amp; VWL)</span>
         <span class="tr-themen">BWL: GuV-Konto und Privatkonto &middot; Umsatzsteuer &middot; USt-Buchungen und Zahllast &middot; Abschreibungen &middot; Buchung der Abschreibung &middot; Gesamtwiederholung — VWL: Wiederholung Semester 1</span>
       </div>
       <span class="tr-datum">19. November 2026</span>
