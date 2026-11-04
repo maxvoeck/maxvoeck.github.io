@@ -85,6 +85,14 @@ body, html, .page-content, .wrapper, main, .post-content {
   margin-top: 0.15rem;
 }
 
+.tr-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+  margin-top: 0.45rem;
+  font-size: 0.85rem;
+}
+
 .tr-datum {
   font-size: 0.9rem;
   color: var(--text-secondary);
@@ -114,22 +122,33 @@ body, html, .page-content, .wrapper, main, .post-content {
   <p class="tr-subtitle">Klausurtermine und organisatorische Hinweise für das laufende Semester.</p>
 
   <div class="tr-section">
+    <div class="tr-section-label">Mathematik</div>
+
+    <div class="tr-row">
+      <div class="tr-row-left">
+        <span class="tr-kurs">1. Semester, T1 &amp; T2 — Klausur Mathematik</span>
+        <span class="tr-themen">Matrizen &middot; Analytische Geometrie</span>
+        <span class="tr-links">
+          <a href="/assets/pdfs/Mathe_T_Probeklausur.pdf" target="_blank" rel="noopener">Probeklausur (PDF)</a>
+          <a href="/assets/pdfs/Mathe_T_Probeklausur_Loesung.pdf" target="_blank" rel="noopener">Lösung (PDF)</a>
+        </span>
+      </div>
+      <span class="tr-datum">10. November 2026</span>
+    </div>
+  </div>
+
+  <div class="tr-section">
     <div class="tr-section-label">Betriebswirtschaftslehre &amp; Volkswirtschaftslehre</div>
 
     <div class="tr-row">
       <div class="tr-row-left">
-        <span class="tr-kurs">W-Kurs — Klausur 1 (gemeinsame Arbeit BWL &amp; VWL)</span>
-        <span class="tr-themen">BWL: Wirtschaften &middot; Betrieb und Unternehmung &middot; Unternehmensformen I &amp; II &middot; Unternehmensziele &middot; Kennziffern und ROI &middot; Produktionsfaktoren &middot; Rechnungswesen — VWL: Volkswirtschaftliche Gesamtrechnung &middot; Nominales und reales BIP &middot; Konjunktur und Konjunkturzyklen &middot; Antizyklische Konjunkturpolitik</span>
+        <span class="tr-kurs">1. Semester, W-Kurs — Klausur VWL</span>
+        <span class="tr-themen">Güterarten &middot; Nachfrage und Angebot &middot; Marktgleichgewicht &middot; Konsumenten- und Produzentenrente &middot; Staatliche Eingriffe</span>
+        <span class="tr-links">
+          <a href="/assets/pdfs/VWL_W_Probeklausur.pdf" target="_blank" rel="noopener">Probeklausur (PDF)</a>
+        </span>
       </div>
-      <span class="tr-datum">22. September 2026</span>
-    </div>
-
-    <div class="tr-row">
-      <div class="tr-row-left">
-        <span class="tr-kurs">W-Kurs — Klausur 2 (gemeinsame Arbeit BWL &amp; VWL)</span>
-        <span class="tr-themen">BWL: Inventur und Inventar &middot; Die Bilanz &middot; Bilanzveränderungen &middot; Der Buchungssatz &middot; Kontenabschluss &middot; Erfolgskonten — VWL: Arbeitslosigkeit und Arbeitsmarktpolitik &middot; Inflation und Preisniveaustabilität &middot; Magisches Viereck</span>
-      </div>
-      <span class="tr-datum">23. Oktober 2026</span>
+      <span class="tr-datum">13. November 2026</span>
     </div>
 
     <div class="tr-row">
@@ -137,7 +156,7 @@ body, html, .page-content, .wrapper, main, .post-content {
         <span class="tr-kurs">W-Kurs — Klausur 3 (gemeinsame Arbeit BWL &amp; VWL)</span>
         <span class="tr-themen">BWL: GuV-Konto und Privatkonto &middot; Umsatzsteuer &middot; USt-Buchungen und Zahllast &middot; Abschreibungen &middot; Buchung der Abschreibung &middot; Gesamtwiederholung — VWL: Wiederholung Semester 1</span>
       </div>
-      <span class="tr-datum">17. November 2026</span>
+      <span class="tr-datum">19. November 2026</span>
     </div>
   </div>
 

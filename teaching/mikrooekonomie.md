@@ -29,7 +29,7 @@ permalink: /teaching/mikrooekonomie/
     <div class="mw-plan-kopf">
       <div>
         <h3>Wochenplan</h3>
-        <p>17.08.–27.11.2026 · 14 Unterrichtswochen · ein Termin VWL pro Woche · Klausuren gemeinsam mit BWL: 22.09. · 20.10. · 17.11.</p>
+        <p>17.08.–27.11.2026 · 14 Unterrichtswochen · ein Termin VWL pro Woche · Klausuren gemeinsam mit BWL: 22.09. · 23.10. · 19.11.</p>
       </div>
       <a href="/assets/pdfs/Wochenplan_BWL_VWL_W.pdf" class="mw-btn" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
