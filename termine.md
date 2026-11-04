@@ -127,7 +127,7 @@ body, html, .page-content, .wrapper, main, .post-content {
     <div class="tr-row">
       <div class="tr-row-left">
         <span class="tr-kurs">1. Semester, T1 &amp; T2 — Klausur Mathematik</span>
-        <span class="tr-themen">Matrizen &middot; Analytische Geometrie</span>
+        <span class="tr-themen">Matrizen &middot; Lineare Gleichungssysteme &middot; Analytische Geometrie</span>
         <span class="tr-links">
           <a href="/assets/pdfs/Mathe_T_Probeklausur.pdf" target="_blank" rel="noopener">Probeklausur (PDF)</a>
           <a href="/assets/pdfs/Mathe_T_Probeklausur_Loesung.pdf" target="_blank" rel="noopener">Lösung (PDF)</a>
