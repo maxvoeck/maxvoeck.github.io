@@ -73,8 +73,16 @@ kapitel:
           Variablen und Zuweisungen, Ein- und Ausgabe und die Reihenfolge der Anweisungen im
           Struktogramm
         pdf: /assets/pdfs/Info_W_4_1.pdf
-      - id: w5-1
+      - id: w4-2
         nr: "08"
+        titel: "Wer darf buchen? – Verzweigungen"
+        desc: >-
+          Am Kinoautomaten: Bedingungen mit Vergleichen formulieren, ein- und zweiseitige Verzweigungen
+          im Struktogramm darstellen, Grenzfälle prüfen, Vergleiche mit UND verbinden und mit
+          verschachtelten Verzweigungen und Entscheidungsbäumen mehr als zwei Fälle unterscheiden
+        pdf: /assets/pdfs/Info_W_4_2.pdf
+      - id: w5-1
+        nr: "09"
         titel: "Wie kann ein Algorithmus Arbeit wiederholen? – Wiederholungen"
         desc: >-
           Am Kredit für Elsters Röstmaschine: kopfgesteuerte Schleifen und Zählschleifen im Pseudocode
