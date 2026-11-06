@@ -73,3 +73,11 @@ kapitel:
           Variablen und Zuweisungen, Ein- und Ausgabe und die Reihenfolge der Anweisungen im
           Struktogramm
         pdf: /assets/pdfs/Info_W_4_1.pdf
+      - id: w5-1
+        nr: "08"
+        titel: "Wie kann ein Algorithmus Arbeit wiederholen? – Wiederholungen"
+        desc: >-
+          Am Kredit für Elsters Röstmaschine: kopfgesteuerte Schleifen und Zählschleifen im Pseudocode
+          und Struktogramm, die passende Schleifenart wählen, Variablen mit Trace-Tabellen verfolgen
+          und typische Fehler wie Endlosschleifen und falsche Grenzen finden
+        pdf: /assets/pdfs/Info_W_5_1.pdf
