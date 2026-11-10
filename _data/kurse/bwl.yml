@@ -1,6 +1,6 @@
 # Moduldaten der BWL-Seite.
 # Neue Module hier eintragen — Reihenfolge und Zählung ergeben sich automatisch.
-# Optionale Felder je Modul: desc, quiz, podcast, text
+# Optionale Felder je Modul: desc, loesung, quiz, podcast, text
 fortschritt_key: bwl-w-progress
 
 kapitel:
@@ -154,3 +154,12 @@ kapitel:
           Gewinn oder Verlust auf das Eigenkapital übertragen, Privatentnahmen und -einlagen
           buchen und das Eigenkapital am Jahresende bestimmen
         pdf: /assets/pdfs/BWL_W_15.pdf
+      - id: e3
+        nr: "03"
+        titel: Der vollständige Geschäftsgang
+        desc: >-
+          Wie aus Buchungen eine Schlussbilanz entsteht — Bestandskonten über das EBK eröffnen,
+          Geschäftsfälle auf Bestands-, Erfolgs- und Privatkonten buchen, T-Konten über GuV und
+          Eigenkapital abschließen und die Schlussbilanz aus dem SBK erstellen
+        pdf: /assets/pdfs/BWL_W_16.pdf
+        loesung: /assets/pdfs/BWL_W_16_Loesung.pdf

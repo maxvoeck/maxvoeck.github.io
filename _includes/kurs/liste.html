@@ -2,6 +2,7 @@
   Rendert die Kapitel- und Modulliste einer Fachseite serverseitig.
   Aufruf:  {% include kurs/liste.html kurs=site.data.kurse.bwl %}
   Die Moduldaten stehen in _data/kurse/<fach>.yml
+  Optionale Felder je Modul: desc, tool, pdf, loesung, quiz, podcast, text
 {%- endcomment -%}
 
 {%- assign kurs = include.kurs -%}
@@ -48,6 +49,7 @@
             <div class="mw-actions">
               {%- if m.tool %}<a href="{{ m.tool }}" class="mw-btn">{{ icon_tool }} Öffnen</a>{% endif -%}
               {%- if m.pdf %}<a href="{{ m.pdf }}" class="mw-btn">{{ icon_pdf }} Folien</a>{% endif -%}
+              {%- if m.loesung %}<a href="{{ m.loesung }}" class="mw-btn">{{ icon_pdf }} Lösung</a>{% endif -%}
               {%- if m.quiz %}<a href="{{ m.quiz }}" class="mw-btn">{{ icon_quiz }} Quiz</a>{% endif -%}
               {%- if m.podcast %}
                 <button class="mw-btn" data-podcast="{{ m.podcast }}" data-nr="{{ m.nr }}" data-titel="{{ m.titel | escape }}">{{ icon_pod }} Podcast</button>
