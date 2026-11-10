@@ -44,11 +44,15 @@ kapitel:
         quiz: /assets/quizzes/quiz_renten.html
       - id: m7
         nr: "08"
-        titel: Marktformen
-        pdf: /assets/pdfs/WS_VWL_7.pdf
+        titel: "Marktformen I: Monopol"
+        pdf: /assets/pdfs/WS_VWL_7-1.pdf
+      - id: m7-2
+        nr: "09"
+        titel: "Marktformen II: Oligopol und Polypol"
+        pdf: /assets/pdfs/WS_VWL_7-2.pdf
         quiz: /assets/quizzes/quiz_marktformen.html
       - id: m8
-        nr: "09"
+        nr: "10"
         titel: Budgetgerade
         pdf: /assets/pdfs/WS_VWL_8-3.pdf
         quiz: /assets/quizzes/quiz_budgetgerade.html
