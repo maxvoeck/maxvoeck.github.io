@@ -160,6 +160,21 @@ body, html, .page-content, .wrapper, main, .post-content {
     </div>
   </div>
 
+  <div class="tr-section">
+    <div class="tr-section-label">Informatik</div>
+
+    <div class="tr-row">
+      <div class="tr-row-left">
+        <span class="tr-kurs">1. Semester, W-Kurs — Klausur Informatik</span>
+        <span class="tr-themen">Daten, Information, Hard- und Software &middot; Speicherbedarf und Einheiten &middot; Binärsystem und binäre Addition &middot; ASCII &middot; Logik &middot; Algorithmen und Verzweigungen &middot; Wiederholungen</span>
+        <span class="tr-links">
+          <a href="/assets/pdfs/Info_W_Probeklausur.pdf" target="_blank" rel="noopener">Probeklausur (PDF)</a>
+        </span>
+      </div>
+      <span class="tr-datum">17. November 2026</span>
+    </div>
+  </div>
+
   <p class="tr-empty">Unterrichtsfrei: 14.–18. September sowie Mittwoch, 18. November (Buß- und Bettag).</p>
 
 </div>
